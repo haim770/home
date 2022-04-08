@@ -1,15 +1,18 @@
 <?php
  class ads{
-   private String $adId;
-   private String $create_time;
-   private String $user_id;
+   private string $adId;
+   private string $create_time;
+   private string $user_id;
   private bool $active;
   private int  $contact_counter;
   private int $views;
-  private String $close_reason;
-  private String $expire_date;
-  private String $approval_status;
-  private String $ad_link;
+  private string $close_reason;
+  private string $expire_date;
+  private string $approval_status;
+  private string $ad_link;
+  protected function getActive(){
+    return $this->active;
+  }
   protected function string getAdId(){
     return $this->adId;
   }
