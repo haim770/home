@@ -105,6 +105,7 @@ class dbClass
         return false;
     }
 
+
     /**
      * Method readDB
      * Read from db params are the query and array of params for query and obj to return.
@@ -131,4 +132,5 @@ class dbClass
         self::disconnect();
         return false;
     }
+
 }
