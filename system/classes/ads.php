@@ -1,5 +1,5 @@
 <?php
-public class ads{
+ class ads{
   private String $adId;
   private String $create_time;
   private String $user_id;
