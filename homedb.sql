@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 25, 2022 at 10:22 AM
+-- Generation Time: Apr 08, 2022 at 08:51 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.2
 
@@ -28,7 +28,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `ads` (
-  `adID` varchar(50) NOT NULL,
+  `adId` varchar(50) NOT NULL,
   `create_time` datetime NOT NULL DEFAULT current_timestamp(),
   `user_id` varchar(50) NOT NULL,
   `active` tinyint(1) NOT NULL DEFAULT 0,
@@ -247,6 +247,13 @@ CREATE TABLE `users` (
   `rule` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`uuid`, `first_name`, `last_name`, `phone`, `mail`, `create_time`, `password`, `last_seen`, `prompt`, `rule`) VALUES
+('1', 'haim', 'monhait', '0202020', 'ha@g.com', '2022-04-06 17:39:00', '1', '0000-00-00 00:00:00', 'q2', 'rule');
+
 -- --------------------------------------------------------
 
 --
@@ -273,7 +280,7 @@ CREATE TABLE `user_reports` (
 -- Indexes for table `ads`
 --
 ALTER TABLE `ads`
-  ADD PRIMARY KEY (`adID`),
+  ADD PRIMARY KEY (`adId`),
   ADD KEY `user_id` (`user_id`);
 
 --
