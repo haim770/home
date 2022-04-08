@@ -1,7 +1,7 @@
 <?php
  class ads{
    String $adId;
-  private String $create_time;
+   String $create_time;
   private String $user_id;
   private bool $active;
   private int  $contact_counter;
