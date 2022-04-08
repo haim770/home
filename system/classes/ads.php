@@ -1,9 +1,9 @@
 <?php
-public class ads{
-  private String $adId;
-  private String $create_time;
-  private String $user_id;
-  private bool $active;
+ class ads{
+   String $adId;
+   String $create_time;
+   String $user_id;
+   bool $active;
   private int  $contact_counter;
   private int $views;
   private String $close_reason;
