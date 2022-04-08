@@ -1,6 +1,6 @@
 <?php
  class ads{
-  private String $adId;
+   String $adId;
   private String $create_time;
   private String $user_id;
   private bool $active;
