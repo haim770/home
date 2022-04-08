@@ -1,5 +1,5 @@
 <?php
-public class users{
+class users{
   private String 	$uuid;
   private String $mail;
   private String 	$first_name;
