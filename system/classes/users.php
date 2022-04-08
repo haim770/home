@@ -1,8 +1,8 @@
 <?php
-public class ads{
-  private String $adId;
-  private String $create_time;
-  private String $user_id;
+public class users{
+  private String 	$uuid;
+  private String $mail;
+  private String 	$first_name;
   private bool $active;
   private int  $contact_counter;
   private int $views;
@@ -10,17 +10,17 @@ public class ads{
   private String $expire_date;
   private String $approval_status;
   private String $ad_link;
-  protected function String getAdId(){
-    return $this->adId;
+  protected function String getUuid(){
+    return $this->uuid;
   }
-   protected function String getCreate_time(){
+   protected function String getPhone(){
     return $this->create_time;
   }
-   protected function String getUser_id (){
-    return $this->User_id;
+   protected function String getMail (){
+    return $this->mail;
   }
-   protected function String getClose_reason(){
-    return $this->close_reason;
+   protected function String getFirst_name(){
+    return $this->first_name;
   }
    protected function String getExpire_date(){
     return $this->expire_date;
@@ -38,4 +38,5 @@ public class ads{
     return $this->contact_counter;
   }
 }
+
 ?>
