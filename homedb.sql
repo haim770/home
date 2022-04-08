@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 08, 2022 at 09:47 AM
+-- Generation Time: Apr 08, 2022 at 11:23 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.2
 
@@ -25,10 +25,88 @@ DELIMITER $$
 --
 -- Procedures
 --
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getAdContentTable` ()  READS SQL DATA
+    COMMENT 'Get all ad content from ad_content table'
+BEGIN
+	SELECT * from ad_content;
+END$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getAdsTable` ()  READS SQL DATA
     COMMENT 'Get all ads from ads Table'
 BEGIN
 	SELECT * from ads;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getBlogsTable` ()  READS SQL DATA
+    COMMENT 'Get all blogs from blogs table'
+BEGIN
+SELECT * from blogs;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getFavoritesTable` ()  READS SQL DATA
+    COMMENT 'Get all favorites from favorit table'
+BEGIN
+SELECT * from favorites;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getHistoryTable` ()  READS SQL DATA
+    COMMENT 'Get all history from history table'
+BEGIN
+SELECT * from history;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getLinksTable` ()  READS SQL DATA
+    COMMENT 'get all links from links table'
+BEGIN
+SELECT * from links;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getMessagesTable` ()  READS SQL DATA
+    COMMENT 'Get all messages from messages table'
+BEGIN
+SELECT * from messages;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getPackageTable` ()  READS SQL DATA
+    COMMENT 'Get all packages from package table'
+BEGIN
+SELECT * from package;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getPasswordRecoveryTable` ()  READS SQL DATA
+    COMMENT 'get all password recovery data from password_recovery table'
+BEGIN
+	SELECT * from password_recovery;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getPicturesTable` ()  READS SQL DATA
+    COMMENT 'get all prictures from prictures table'
+BEGIN
+	SELECT * from pictures;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getPurchaseHistoryTable` ()  READS SQL DATA
+    COMMENT 'get all purchase history table'
+BEGIN
+	SELECT * from purchase_history;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getReportReasonsTable` ()  READS SQL DATA
+    COMMENT 'Get all reports reasons table'
+BEGIN
+	SELECT * from report_reason;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getSystemMessagesTable` ()  READS SQL DATA
+    COMMENT 'get all system messages table'
+BEGIN
+	SELECT * from system_messages;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getUsersReportTable` ()  READS SQL DATA
+    COMMENT 'get all users reports table'
+BEGIN
+	SELECT * from user_reports;
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getUsersTable` ()  READS SQL DATA
