@@ -1,41 +1,47 @@
 <?php
 class users{
-  private String 	$uuid;
-  private String $mail;
-  private String 	$first_name;
-  private bool $active;
-  private int  $contact_counter;
-  private int $views;
-  private String $close_reason;
-  private String $expire_date;
-  private String $approval_status;
-  private String $ad_link;
-  protected function String getUuid(){
+  private string 	$uuid;
+  private string $mail;
+  private string 	$first_name;
+  private string $last_name;
+  private string  $create_time;
+  private string $last_seen;
+  private string $First_name;
+  private string $password;
+  private string $prompt;
+  private string $rule;
+  protected function string getUuid(){
+    return $this->prompt;
+  }
+    protected function string getRule(){
+    return $this->rule;
+  }
+   protected function string getPrompt(){
     return $this->uuid;
   }
-   protected function String getPhone(){
-    return $this->create_time;
+   protected function string getLast_name(){
+    return $this->last_name;
   }
-   protected function String getMail (){
+   protected function string getMail (){
     return $this->mail;
   }
-   protected function String getFirst_name(){
+   protected function string getFirst_name(){
     return $this->first_name;
   }
-   protected function String getExpire_date(){
-    return $this->expire_date;
+   protected function string getPhone(){
+    return $this->phone;
   }
-   protected function String getApproval_status(){
+   protected function string getCreate_time(){
     return $this->approval_status;
   }
-   protected function String getAd_link(){
-    return $this->ad_link;
+   protected function string getPassword(){
+    return $this->password;
   } 
-  protected function String getViews(){
+  protected function string getViews(){
     return $this->views;
   }
-  protected function String getContact_counter(){
-    return $this->contact_counter;
+  protected function string getLast_seen(){
+    return $this->last_seen;
   }
 }
 
