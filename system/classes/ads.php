@@ -2,7 +2,7 @@
  class ads{
    String $adId;
    String $create_time;
-  private String $user_id;
+   String $user_id;
   private bool $active;
   private int  $contact_counter;
   private int $views;
