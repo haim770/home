@@ -11,6 +11,7 @@ enum readQ: string{
 
 enum writeDB: string
 {
+    TEST
 }
 
 enum updateDB: string
