@@ -1,6 +1,6 @@
 <?php
 class pictures{
-  private int $pictureID ;
+  private int $pictureId ;
 private string $element_id;
 private string $serial_number;
 private string $picture_url;
@@ -9,7 +9,7 @@ private string $alt;
 protected function int getSerial_number(){
   return $this->id;
 }	
-protected function string getPictureID(){
+protected function string getPictureId(){
   return $this->pictureID;
 }	
 protected function string getElement_id(){

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 08, 2022 at 11:23 AM
+-- Generation Time: Apr 08, 2022 at 12:37 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.2
 
@@ -97,10 +97,22 @@ BEGIN
 	SELECT * from report_reason;
 END$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getSelectedUserByMail` (IN `mail` VARCHAR(255))  READS SQL DATA
+    COMMENT 'returns the requested user by mail'
+BEGIN
+SELECT * from users WHERE users.mail=mail;
+END$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getSystemMessagesTable` ()  READS SQL DATA
     COMMENT 'get all system messages table'
 BEGIN
 	SELECT * from system_messages;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getUserByRule` (IN `userRule` INT(255))  READS SQL DATA
+    COMMENT 'get all users who fit to passing rule'
+BEGIN		
+select * from users where users.rule= userRule;
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getUsersReportTable` ()  READS SQL DATA
@@ -222,7 +234,7 @@ CREATE TABLE `links` (
 --
 
 CREATE TABLE `messages` (
-  `msgid` varchar(255) NOT NULL,
+  `msgId` varchar(255) NOT NULL,
   `adId` varchar(50) NOT NULL,
   `sender` varchar(255) NOT NULL,
   `receiver` varchar(255) NOT NULL,
@@ -274,7 +286,7 @@ CREATE TABLE `password_recovery` (
 --
 
 CREATE TABLE `pictures` (
-  `pictureID` varchar(50) NOT NULL,
+  `pictureId` varchar(50) NOT NULL,
   `element_id` varchar(50) NOT NULL,
   `serial_number` int(11) UNSIGNED NOT NULL,
   `picture_url` varchar(255) NOT NULL,
@@ -327,24 +339,6 @@ CREATE TABLE `system_messages` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `testtable`
---
-
-CREATE TABLE `testtable` (
-  `name` varchar(255) NOT NULL,
-  `age` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `testtable`
---
-
-INSERT INTO `testtable` (`name`, `age`) VALUES
-('lidor', 30);
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `users`
 --
 
@@ -366,7 +360,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`uuid`, `first_name`, `last_name`, `phone`, `mail`, `create_time`, `password`, `last_seen`, `prompt`, `rule`) VALUES
-('123456', 'lidor', 'ben shimol', '0542155045', 'AAA', '2022-04-06 17:52:19', 'ASdasda', '0000-00-00 00:00:00', '', '');
+('123456', 'lidor', 'ben shimol', '0542155045', 'AAA', '2022-04-06 17:52:19', 'ASdasda', '0000-00-00 00:00:00', '', 'manager');
 
 -- --------------------------------------------------------
 
@@ -437,7 +431,7 @@ ALTER TABLE `links`
 -- Indexes for table `messages`
 --
 ALTER TABLE `messages`
-  ADD PRIMARY KEY (`msgid`),
+  ADD PRIMARY KEY (`msgId`),
   ADD KEY `sender` (`sender`),
   ADD KEY `receiver` (`receiver`),
   ADD KEY `adId` (`adId`);
@@ -458,7 +452,7 @@ ALTER TABLE `password_recovery`
 -- Indexes for table `pictures`
 --
 ALTER TABLE `pictures`
-  ADD PRIMARY KEY (`pictureID`);
+  ADD PRIMARY KEY (`pictureId`);
 
 --
 -- Indexes for table `purchase_history`
