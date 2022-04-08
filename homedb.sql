@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 08, 2022 at 08:51 AM
+-- Generation Time: Apr 08, 2022 at 09:47 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.2
 
@@ -21,6 +21,24 @@ SET time_zone = "+00:00";
 -- Database: `homedb`
 --
 
+DELIMITER $$
+--
+-- Procedures
+--
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getAdsTable` ()  READS SQL DATA
+    COMMENT 'Get all ads from ads Table'
+BEGIN
+	SELECT * from ads;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getUsersTable` ()  READS SQL DATA
+    COMMENT 'Get all users data from users table'
+BEGIN
+	SELECT * from users;
+END$$
+
+DELIMITER ;
+
 -- --------------------------------------------------------
 
 --
@@ -28,7 +46,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `ads` (
-  `adId` varchar(50) NOT NULL,
+  `adID` varchar(50) NOT NULL,
   `create_time` datetime NOT NULL DEFAULT current_timestamp(),
   `user_id` varchar(50) NOT NULL,
   `active` tinyint(1) NOT NULL DEFAULT 0,
@@ -231,6 +249,24 @@ CREATE TABLE `system_messages` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `testtable`
+--
+
+CREATE TABLE `testtable` (
+  `name` varchar(255) NOT NULL,
+  `age` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `testtable`
+--
+
+INSERT INTO `testtable` (`name`, `age`) VALUES
+('lidor', 30);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
@@ -252,7 +288,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`uuid`, `first_name`, `last_name`, `phone`, `mail`, `create_time`, `password`, `last_seen`, `prompt`, `rule`) VALUES
-('1', 'haim', 'monhait', '0202020', 'ha@g.com', '2022-04-06 17:39:00', '1', '0000-00-00 00:00:00', 'q2', 'rule');
+('123456', 'lidor', 'ben shimol', '0542155045', 'AAA', '2022-04-06 17:52:19', 'ASdasda', '0000-00-00 00:00:00', '', '');
 
 -- --------------------------------------------------------
 
@@ -280,7 +316,7 @@ CREATE TABLE `user_reports` (
 -- Indexes for table `ads`
 --
 ALTER TABLE `ads`
-  ADD PRIMARY KEY (`adId`),
+  ADD PRIMARY KEY (`adID`),
   ADD KEY `user_id` (`user_id`);
 
 --
