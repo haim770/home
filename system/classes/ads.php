@@ -3,7 +3,7 @@
    String $adId;
    String $create_time;
    String $user_id;
-  private bool $active;
+   bool $active;
   private int  $contact_counter;
   private int $views;
   private String $close_reason;
