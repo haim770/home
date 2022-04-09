@@ -1,8 +1,9 @@
 <?php
-class users{
-  private string 	$uuid;
+class users
+{
+  private string   $uuid;
   private string $mail;
-  private string 	$first_name;
+  private string   $first_name;
   private string $last_name;
   private string  $create_time;
   private string $last_seen;
@@ -10,39 +11,48 @@ class users{
   private string $password;
   private string $prompt;
   private string $rule;
-  protected function string getUuid(){
+  protected function getUuid()
+  {
     return $this->prompt;
   }
-    protected function string getRule(){
+  protected function getRule()
+  {
     return $this->rule;
   }
-   protected function string getPrompt(){
+  protected function getPrompt()
+  {
     return $this->uuid;
   }
-   protected function string getLast_name(){
+  protected function getLast_name()
+  {
     return $this->last_name;
   }
-   protected function string getMail (){
+  protected function getMail()
+  {
     return $this->mail;
   }
-   protected function string getFirst_name(){
+  protected function getFirst_name()
+  {
     return $this->first_name;
   }
-   protected function string getPhone(){
+  protected function getPhone()
+  {
     return $this->phone;
   }
-   protected function string getCreate_time(){
+  protected function getCreate_time()
+  {
     return $this->approval_status;
   }
-   protected function string getPassword(){
+  protected function getPassword()
+  {
     return $this->password;
-  } 
-  protected function string getViews(){
+  }
+  protected function getViews()
+  {
     return $this->views;
   }
-  protected function string getLast_seen(){
+  protected function getLast_seen()
+  {
     return $this->last_seen;
   }
 }
-
-?>

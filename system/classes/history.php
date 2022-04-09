@@ -1,22 +1,25 @@
 <?php
-class history{
+class history
+{
   private string $history_id;
-   private string $create_time;
-   private string $user_id;
+  private string $create_time;
+  private string $user_id;
   private string $AdId;
-  
-  
-  protected function string getHistory_id(){
+
+  protected function getHistory_id()
+  {
     return $this->history_id;
   }
-   protected function string getCreate_time(){
+  protected function getCreate_time()
+  {
     return $this->create_time;
   }
-   protected function string getUser_id (){
+  protected function getUser_id()
+  {
     return $this->User_id;
   }
-   protected function string getAdId(){
+  protected function getAdId()
+  {
     return $this->AdId;
   }
 }
-?>
