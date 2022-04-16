@@ -5,7 +5,7 @@ class package
   private string $create_time;
   private string $user_id;
   private bool $is_active;
-  private string  $title;
+  private string $title;
   private int $ad_value;
   private string $content;
   private string $life_cycle;

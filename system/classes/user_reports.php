@@ -6,7 +6,7 @@ class user_reports
   private string $create_time;
   private string $user_id;
   private bool $active;
-  private string  $report_id;
+  private string $report_id;
   private string $report_reason;
   private string $manage_feedback;
   private string $title;

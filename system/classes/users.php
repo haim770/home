@@ -1,11 +1,11 @@
 <?php
 class users
 {
-  private string   $uuid;
+  private string $uuid;
   private string $mail;
-  private string   $first_name;
+  private string $first_name;
   private string $last_name;
-  private string  $create_time;
+  private string $create_time;
   private string $last_seen;
   private string $First_name;
   private string $password;

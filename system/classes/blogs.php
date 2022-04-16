@@ -5,7 +5,7 @@ class blogs
   private string $create_time;
   private string $user_id;
   private string $status;
-  private string  $title;
+  private string $title;
   private int $views;
   private string $content;
   private string $update_time;

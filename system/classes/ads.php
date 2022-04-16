@@ -5,7 +5,7 @@ class ads
   private string $create_time;
   private string $user_id;
   private bool $active;
-  private int  $contact_counter;
+  private int $contact_counter;
   private int $views;
   private string $close_reason;
   private string $expire_date;
