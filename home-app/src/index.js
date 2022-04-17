@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Expenses from "./expenses";
 import Invoices from "./invoices";
 import Invoice from "./invoice";
+import TestAxios from "./testAxios";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -14,6 +15,7 @@ root.render(
       <Routes>
         <Route path="/" element={<App />}>
           <Route path="expenses" element={<Expenses />} />
+          <Route path="testAxios" element={<TestAxios />} />
           <Route path="invoices" element={<Invoices />}>
             <Route
               index
