@@ -22,24 +22,25 @@ function App() {
 
 export default App;
 
-
 //the app in my end so the components woukd work
 
 // import React, { useState } from "react";
 // import Nav from "./Components/Nav";
 // import ListAds from "./Components/ListAds";
+// import BlogList from "./Components/BlogList";
 // import "./App.css";
 // function App() {
 //   const [visibleListAds, setVisibleListAds] = useState("listAds");
-//   const changeListAdsVisibility=()=>{
+//   const changeListAdsVisibility = () => {
 //     setVisibleListAds("listNotVisible");
-//   }
+//   };
 //   return (
 //     <div className="App">
-//       <Nav
+//       {/* <Nav
 //         changeListAdsVisibility={changeListAdsVisibility}
 //         onClick={changeListAdsVisibility}
 //       />
+//       <BlogList className={visibleListAds} /> */}
 //       <ListAds
 //         className={visibleListAds}
 

@@ -1,6 +1,7 @@
 import React from "react";
 import Button from "./Button";
 import Address from "./Address";
+import Parameter from "./Parameter";
 import "./Ad.css";
 class Ad extends React.Component {
   constructor(props) {
@@ -10,17 +11,23 @@ class Ad extends React.Component {
   render() {
     return (
       <section className="ad" id={this.props.id}>
-        <h2>{this.props.id} {this.props.sellerName}</h2>
+        <h2>
+          {this.props.id} {this.props.sellerName}
+        </h2>
         <ul>
-          <li>price is {this.props.price}</li>
-          <li>create time is {this.props.createTime}</li>
-          <li>ad link is {this.props.adLink}</li>
+          <Parameter paramName="price" paramValue={this.props.price} />
+          <Parameter
+            paramName="create time"
+            paramValue={this.props.createTime}
+          />
+          <Parameter paramName="ad link" paramValue={this.props.adLink} />
+          <Parameter paramName="rooms" paramValue={this.props.rooms} />
+          <Parameter />
           <Address
             street={this.props.street}
             city={this.props.city}
             number={this.props.number}
           />
-          <li>rooms are {this.props.rooms}</li>
         </ul>
         <p>
           <Button content="contact seller" />
@@ -30,7 +37,7 @@ class Ad extends React.Component {
   }
 }
 Ad.defaultProps = {
-  sellerName:"seller",
+  sellerName: "seller",
   price: "0",
   createTime: "00/00/00",
   adLink: "null",

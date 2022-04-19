@@ -1,2 +1,2 @@
-.address{display: flex;flex-direction: row;}
+.address{display: flex;flex-direction: row;justify-content: flex-start;}
 span{margin:1rem;}

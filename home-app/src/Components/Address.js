@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import "./Address.css";
+import Parameter from "./Parameter.js";
 function Address(props) {
   return (
     <ul>
-      adress is <li>city is {props.city}</li>
-      <li>street is {props.street}</li>
-      <li>num is {props.number}</li>
+      <Parameter paramName="city" paramValue={props.city} />
+      <Parameter paramName="street" paramValue={props.street} />
+      <Parameter paramName="num" paramValue={props.number} />
     </ul>
   );
 }
