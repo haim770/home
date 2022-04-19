@@ -1,0 +1,2 @@
+.listAds{display: flex;flex-grow: 1;justify-content: center; color: green;flex-direction: column;}
+.listNotVisible{display: none;}

@@ -1,0 +1,7 @@
+.ad{
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+  margin: 2rem;
+}
+.adNotVisible{visibility: hidden;}

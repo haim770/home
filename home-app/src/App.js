@@ -21,3 +21,43 @@ function App() {
 }
 
 export default App;
+
+
+//the app in my end so the components woukd work
+
+// import React, { useState } from "react";
+// import Nav from "./Components/Nav";
+// import ListAds from "./Components/ListAds";
+// import "./App.css";
+// function App() {
+//   const [visibleListAds, setVisibleListAds] = useState("listAds");
+//   const changeListAdsVisibility=()=>{
+//     setVisibleListAds("listNotVisible");
+//   }
+//   return (
+//     <div className="App">
+//       <Nav
+//         changeListAdsVisibility={changeListAdsVisibility}
+//         onClick={changeListAdsVisibility}
+//       />
+//       <ListAds
+//         className={visibleListAds}
+
+//         // adsArr={[
+//         //   [1, "haifa", "hatichon", "1", 1000, "01/04/1111", "haim.co.il"],
+//         //   [
+//         //     2,
+//         //     "afula",
+//         //     "lidors street",
+//         //     "5",
+//         //     101200,
+//         //     "01/04/2001",
+//         //     "lidor.co.il",
+//         //   ],
+//         // ]}
+//       />
+//     </div>
+//   );
+// }
+
+// export default App;
