@@ -5,9 +5,14 @@ class Nav extends React.Component {
     super(props);
   }
   render() {
-    return <nav>
-      <Button content="go to all ads" onClick={this.props.changeListAdsVisibility}/>
-    </nav>;
+    return (
+      <nav>
+        <Button
+          content="go to all ads"
+          onClick={this.props.changeListAdsVisibility}
+        />
+      </nav>
+    );
   }
 }
 export default Nav;

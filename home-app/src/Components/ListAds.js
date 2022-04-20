@@ -6,8 +6,8 @@ class ListAds extends React.Component {
     super(props);
   }
   makeListOfAds = () => {
-    console.log(this.props.VisibleListAds);
     let code = "";
+    console.log(this.props.adsArr[1][0]);
     code = this.props.adsArr.map((item) => (
       <Ad
         key={item[0]}

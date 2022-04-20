@@ -28,35 +28,44 @@ export default App;
 // import Nav from "./Components/Nav";
 // import ListAds from "./Components/ListAds";
 // import BlogList from "./Components/BlogList";
+// import AddAdForm from "./Components/AddAdForm";
 // import "./App.css";
 // function App() {
-//   const [visibleListAds, setVisibleListAds] = useState("listAds");
-//   const changeListAdsVisibility = () => {
-//     setVisibleListAds("listNotVisible");
+//   const [classNameAds, setclassNameAds] = useState("listAds");
+//   const [classNameAddAdForm, setclassNameAddAdForm] = useState("formAddAd");
+//   const [listAds, setListAds] = useState([
+//     [1, "haifa", "hatichon", "1", 1000, "01/04/1111", "haim.co.il"],
+//     [2, "afula", "lidors street", "5", 101200, "01/04/2001", "lidor.co.il"],
+//   ]);
+//   const changeListAds = (newAdList) => {
+//     setListAds(newAdList);
+//   };
+//   const changeListAdsClassName = (classNameChange) => {
+//     setclassNameAds("listNotVisible");
+//   };
+//   const changeclassNameAddAdForm = (classNameChange) => {
+//     setclassNameAddAdForm("notVisible");
 //   };
 //   return (
 //     <div className="App">
-//       {/* <Nav
-//         changeListAdsVisibility={changeListAdsVisibility}
-//         onClick={changeListAdsVisibility}
+//       <AddAdForm
+//         listAds={listAds}
+//         setListAds={setListAds}
+//         changeListAds={changeListAds}
+//         legnthOfArr={listAds.length}
+//         className={classNameAddAdForm}
 //       />
-//       <BlogList className={visibleListAds} /> */}
-//       <ListAds
-//         className={visibleListAds}
-
-//         // adsArr={[
-//         //   [1, "haifa", "hatichon", "1", 1000, "01/04/1111", "haim.co.il"],
-//         //   [
-//         //     2,
-//         //     "afula",
-//         //     "lidors street",
-//         //     "5",
-//         //     101200,
-//         //     "01/04/2001",
-//         //     "lidor.co.il",
-//         //   ],
-//         // ]}
+//       <Nav
+//         changeListAdsVisibility={changeListAdsClassName}
+//         changeclassNameAddAdForm={changeclassNameAddAdForm}
 //       />
+//       <ListAds className={classNameAds} adsArr={listAds} />
+//       <p>
+//         <button
+//           style={{ color: "red" }}
+//           onClick={() => console.log(listAds)}
+//         ></button>
+//       </p>
 //     </div>
 //   );
 // }
