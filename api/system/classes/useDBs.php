@@ -110,11 +110,12 @@ class dbClass
      * Method readDB
      * Read from db params are the query and array of params for query and obj to return.
      * Will parse the data to object.
+     * we Call the procedure name we get as query
      */
     public function readDB($query, $data_array = [])
     {
         self::connect();
-        $statement = self::$connection->prepare($query);
+        $statement = self::$connection->prepare("CALL ".$query);
         $check = $statement->execute($data_array);
 
         if ($check) {
