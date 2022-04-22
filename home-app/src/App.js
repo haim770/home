@@ -1,6 +1,7 @@
 import { Outlet, Link } from "react-router-dom";
 import Register from './users/Register';
 import "./App.css";
+import ListAds from "./Components/ListAds.js";
 
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
         <Link to="/expenses">Expenses</Link> |{" "}
         <Link to="/testAxios">Test Axios</Link> |{" "}
       </nav>
+      <ListAds />
       <Outlet />
     </div>
   );
