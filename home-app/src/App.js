@@ -1,6 +1,21 @@
 import { Outlet, Link } from "react-router-dom";
+import Register from './users/Register';
 import "./App.css";
 
+
+function App() {
+  return (
+    <main className="App">
+      <Register />
+    </main>
+  );
+}
+
+export default App;
+
+
+
+/* This is a sample of new React routers 6
 function App() {
   return (
     <div>
@@ -19,8 +34,8 @@ function App() {
     </div>
   );
 }
+*/
 
-export default App;
 
 //the app in my end so the components woukd work
 
