@@ -1,4 +1,5 @@
 <?php
+require_once('ads.php');    
 class dbClass
 {
     private static $host;

@@ -17,7 +17,20 @@ $DATA_RAW = file_get_contents("php://input");
 $DATA_OBJ = json_decode($DATA_RAW);
 
 $error = "";
-echo $DATA_OBJ;
+$dataType = $_POST["data"];
+
+require_once('../api/system/classes/useDBs.php');
+$db = dbClass::GetInstance();
+
+$arr=[];
+if ($dataType == "ads")
+    getAllAds();
+function getAllAds(){
+    global $db;
+    global $arr;
+    var_dump( $db->readDB("getUsersTable",$arr));
+}
+
 // proccess the data
 if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "TEST") {
     echo "TEST WORKED";

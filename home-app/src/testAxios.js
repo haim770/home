@@ -4,16 +4,22 @@ import { useState } from "react";
 export default function TestAxios() {
         const [dataServer, setdataServer] = useState(0);
         const url = "http://localhost:80/home/home-app/api.php";
+        /*
         axios.get(url).then(response=>response.data)
         .then((data) => {
             console.log(data)
             setdataServer(data);
-        });
+        });*/
         
-        axios.post(url, {
-            firstName: "Finn",
-            lastName: "Williams",
-          })
+        let formData = new FormData();
+        formData.append('name',"asda")
+          formData.append("data", "ads");
+        axios({
+          method: 'post',
+          url: url,
+          data: formData,
+          config: { headers: {'Content-Type':'multipart/form-data'}}
+        })
           .then(
             (response) => {
               console.log(response.data);
