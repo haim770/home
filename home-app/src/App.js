@@ -1,23 +1,10 @@
 import { Outlet, Link } from "react-router-dom";
-import Register from './users/Register';
 import "./App.css";
 import ListAds from "./Components/ListAds.js";
 
 
-function App() {
-  return (
-    <main className="App">
-      <Register />
-    </main>
-  );
-}
-
-export default App;
-
-
-
-/* This is a sample of new React routers 6
-function App() {
+/* This is a sample of new React routers 6 */
+export default function App() {
   return (
     <div>
       <h1>Bookkeeper</h1>
@@ -30,13 +17,14 @@ function App() {
         <Link to="/invoices">Invoices</Link> |{" "}
         <Link to="/expenses">Expenses</Link> |{" "}
         <Link to="/testAxios">Test Axios</Link> |{" "}
+        <Link to="/register">Register</Link> |{" "}
       </nav>
       <ListAds />
       <Outlet />
     </div>
   );
 }
-*/
+
 
 
 //the app in my end so the components woukd work

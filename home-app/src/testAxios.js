@@ -10,6 +10,18 @@ export default function TestAxios() {
             setdataServer(data);
         });
         
+        axios.post(url, {
+            firstName: "Finn",
+            lastName: "Williams",
+          })
+          .then(
+            (response) => {
+              console.log(response.data);
+            },
+            (error) => {
+              console.log(error);
+            }
+          );
 
   return (
     <main style={{ padding: "1rem 0" }}>

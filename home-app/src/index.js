@@ -7,6 +7,7 @@ import Expenses from "./expenses";
 import Invoices from "./invoices";
 import Invoice from "./invoice";
 import TestAxios from "./testAxios";
+import Register from "./users/Register";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -16,6 +17,7 @@ root.render(
         <Route path="/" element={<App />}>
           <Route path="expenses" element={<Expenses />} />
           <Route path="testAxios" element={<TestAxios />} />
+          <Route path="Register" element={<Register />} />
           <Route path="invoices" element={<Invoices />}>
             <Route
               index
