@@ -28,7 +28,7 @@ if ($dataType == "ads")
 function getAllAds(){
     global $db;
     global $arr;
-    var_dump( $db->readDB("getUsersTable",$arr));
+    var_dump( $db->readDB("getAdsTable",$arr));
 }
 
 // proccess the data
