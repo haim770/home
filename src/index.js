@@ -6,8 +6,11 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Expenses from "./expenses";
 import Invoices from "./invoices";
 import Invoice from "./invoice";
+import Parameter from "./Components/Parameter";
 import TestAxios from "./testAxios";
 import Register from "./users/Register";
+import Nav from "./Components/Nav";
+import ListAds from "./Components/ListAds";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -15,31 +18,12 @@ root.render(
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<App />}>
-          <Route path="expenses" element={<Expenses />} />
+          <Route path="nav" element={<Nav />} />
+          <Route path="listAds" element={<ListAds />} />
           <Route path="testAxios" element={<TestAxios />} />
-          <Route path="Register" element={<Register />} />
-          <Route path="invoices" element={<Invoices />}>
-            <Route
-              index
-              element={
-                <main style={{ padding: "1rem" }}>
-                  <p>Select an invoice</p>
-                </main>
-              }
-            />
-            <Route path=":invoiceId" element={<Invoice />} />
-          </Route>
-          <Route
-            path="*"
-            element={
-              <main style={{ padding: "1rem" }}>
-                <p>There's nothing here!</p>
-              </main>
-            }
-          />
+          <Route path="parameter" element={<Parameter paramName={"3"}/>} />
         </Route>
       </Routes>
     </BrowserRouter>
-    ,
   </React.StrictMode>
 );

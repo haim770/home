@@ -1,0 +1,5 @@
+.upperNav{
+  display: grid;
+ grid-auto-flow: column;
+ border: 2px solid white;
+}

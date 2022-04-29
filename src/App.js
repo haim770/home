@@ -1,31 +1,19 @@
-import { Outlet, Link } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Link, Outlet } from "react-router-dom";
 import "./App.css";
 import ListAds from "./Components/ListAds.js";
-
+import Nav from "./Components/Nav";
+import { v4 as uuidv4 } from "uuid";
 
 /* This is a sample of new React routers 6 */
 export default function App() {
   return (
     <div>
       <h1>Bookkeeper</h1>
-      <nav
-        style={{
-          borderBottom: "solid 1px",
-          paddingBottom: "1rem",
-        }}
-      >
-        <Link to="/invoices">Invoices</Link> |{" "}
-        <Link to="/expenses">Expenses</Link> |{" "}
-        <Link to="/testAxios">Test Axios</Link> |{" "}
-        <Link to="/register">Register</Link> |{" "}
-      </nav>
-      <ListAds />
-      <Outlet />
+      <Nav />
+      
     </div>
   );
 }
-
-
 
 //the app in my end so the components woukd work
 
