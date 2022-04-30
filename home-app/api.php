@@ -23,7 +23,7 @@ require_once('../api/system/classes/useDBs.php');
 $db = dbClass::GetInstance();
 
 $arr=[];
-if ($dataType == "ads")
+if ($dataType == "ads") 
     getAllAds();
 function getAllAds(){
     global $db;
