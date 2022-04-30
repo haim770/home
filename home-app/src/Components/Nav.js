@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import NavPart from "./NavPart";
 import { Routes, Route, Link, Outlet } from "react-router-dom";
-import "./Nav.css";
+import "../styles/Nav.css";
 import "../styles/navStyle.css";
 import "../styles/siteStyle.css";
 function Nav(props) {

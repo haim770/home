@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import "./Address.css";
+import "../styles/Address.css";
 import Parameter from "./Parameter.js";
+
 function Address(props) {
   return (
     <ul>

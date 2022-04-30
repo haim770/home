@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Button from "./Button";
 import Address from "./Address";
 import Parameter from "./Parameter";
-import "./Ad.css";
+import "../styles/Ad.css";
 function Ad(props) {
   return (
     <section className={props.className} id={props.id}>

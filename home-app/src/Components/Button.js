@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import "./button.css";
+
+import "../styles/button.css";
 function Button(props) {
   const [nameClass, setClassName] = useState(props.nameClass); //class of btn hook
   const changeBtnClass = (classNa) => {

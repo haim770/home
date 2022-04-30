@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import Button from "./Button";
 import { Routes, Route, Link, Outlet } from "react-router-dom";
-import "./Nav.css";
+
+import "../styles/NavPart.css";
 function NavPart(props) {
   const returnWantedPart = () => {
     //return the wanted content for the component

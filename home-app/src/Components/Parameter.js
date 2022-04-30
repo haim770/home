@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./Parameter.css";
+import "../styles/Parameter.css";
 function Parameter(props) {
   return (
     <li><span>{props.paramName} :</span> {props.paramValue}</li>
