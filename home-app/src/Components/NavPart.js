@@ -8,14 +8,14 @@ function NavPart(props) {
     let code = "";
     if (props.part === "logo") {
       code = (
-        <nav>
+        <nav className={props.className}>
           <Link to={props.homeLink}>{props.homeLinkContent}</Link>
         </nav>
       );
     } else {
       if (props.part === "main") {
         code = (
-          <nav>
+          <nav className={props.className}>
             <Link to={props.listAdsLink}>{props.listAdsLinkContent}</Link>|
             {"  "}
             <Link to={props.TestAxiousLink}>{props.TestAxiousLinkContent}</Link>
@@ -34,7 +34,7 @@ function NavPart(props) {
 }
 NavPart.defaultProps = {
   homeLink: "/",
-  homeLinkContent: <img src={require("../pics/logoHome.jpg")} alt="logo" />,
+  homeLinkContent: <img src={require("../pics/logoHome.png")} alt="logo" />,
   listAdsLink: "/listAds",
   listAdsLinkContent: "list ads",
   parameterLink: "/parameter",
@@ -42,5 +42,6 @@ NavPart.defaultProps = {
   TestAxiousLink: "/testAxios",
   TestAxiousLinkContent: "test axious",
   part: "", //name of the part [logo,userPart,mainPart]
+  className:""
 };
 export default NavPart;

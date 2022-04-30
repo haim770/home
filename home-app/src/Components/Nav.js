@@ -7,29 +7,30 @@ import "../styles/siteStyle.css";
 function Nav(props) {
   const [navClass, setNavClass] = useState("navFlexStyle navBox");
   return (
-    <div className="mainFramStyle mainNavRoot navFlexStyle navBox hideAt960px">
+    <nav className="mainFramStyle mainNavRoot navFlexStyle navBox hideAt960px">
       <div className="innerNavPadding navFlexStyle MuiToolbar-regular toolBarRoot MuiToolbar-gutters">
-        
-          <div className="logoNav logoSizeReducer">
-          <nav>
-            <Link to="/">
-              <img src={require("../pics/logoHome.png")} alt="logo" />
-            </Link>
-            </nav>
-          </div>
-
-          <div className="navigationStyle">
-          <nav>
-            <Link to="/listAds">list ads</Link>|{"  "}
-            <Link to="/testAxios">Test Axios</Link> |{"  "}
-            <Link to="/parameter">parameter</Link> |
-            </nav>
-            <Outlet />
-          </div>    
-
-      </div>
-    </div>
+        <NavPart
+          className="logoNav logoSizeReducer"
+          part="logo" //name of the part of the navbar
+          image={<img src={require("../pics/logoHome.png")} alt="logo" />}
+        />
+        <NavPart
+          className="navigationStyle"
+          part="main"
+          listAdsLink="/listAds"
+          listAdsLinkContent="list ads"
+          parameterLink="/parameter"
+          parameterLinkContent="parameter"
+          TestAxiousLink="/testAxios"
+          TestAxiousLinkContent="test axious"
+        />
+          <Outlet />
+        </div>
+      </nav>
   );
 }
 Nav.defaultProps = {};
 export default Nav;
+
+
+
