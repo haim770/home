@@ -13,7 +13,7 @@ function Nav(props) {
           <div className="logoNav logoSizeReducer">
           <nav>
             <Link to="/">
-              <img src={require("../pics/logoHome.jpg")} alt="logo" />
+              <img src={require("../pics/logoHome.png")} alt="logo" />
             </Link>
             </nav>
           </div>
@@ -26,7 +26,7 @@ function Nav(props) {
             </nav>
             <Outlet />
           </div>    
-              
+
       </div>
     </div>
   );
