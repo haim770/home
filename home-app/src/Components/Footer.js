@@ -1,16 +1,11 @@
 import React from "react";
 import Button from "./Button";
-class Footer extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
+function Footer(props) {
     return (
       <footer>
-        <Button content="haim" />
+        <Button content="haim and lidor" />
       </footer>
     );
-  }
+  
 }
 export default Footer;
