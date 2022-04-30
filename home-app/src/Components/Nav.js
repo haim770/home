@@ -9,24 +9,26 @@ function Nav(props) {
   return (
     <div className="mainFramStyle mainNavRoot navFlexStyle navBox hideAt960px">
       <div className="innerNavPadding navFlexStyle MuiToolbar-regular toolBarRoot MuiToolbar-gutters">
-        
-          <div className="logoNav logoSizeReducer">
+        <div className="logoNav logoSizeReducer">
           <nav>
             <Link to="/">
-              <img src={require("../pics/logoHome.png")} alt="logo" />
+              <img
+                src={require("../pics/logoHome.png")}
+                alt="logo"
+                className="logoSize"
+              />
             </Link>
-            </nav>
-          </div>
+          </nav>
+        </div>
 
-          <div className="navigationStyle">
+        <div className="navigationStyle">
           <nav>
             <Link to="/listAds">list ads</Link>|{"  "}
             <Link to="/testAxios">Test Axios</Link> |{"  "}
             <Link to="/parameter">parameter</Link> |
-            </nav>
-            <Outlet />
-          </div>    
-
+          </nav>
+          <Outlet />
+        </div>
       </div>
     </div>
   );
