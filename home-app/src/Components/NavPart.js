@@ -9,23 +9,31 @@ function NavPart(props) {
     if (props.part === "logo") {
       code = (
         <nav className={props.className}>
-          <Link to={props.homeLink}>{props.homeLinkContent}</Link>
+          <Link className="link" to={props.homeLink}>
+            {props.homeLinkContent}
+          </Link>
         </nav>
       );
     } else {
       if (props.part === "main") {
         code = (
           <nav className={props.className}>
-            <Link to={props.listAdsLink}>{props.listAdsLinkContent}</Link>|
-            {"  "}
-            <Link to={props.parameterLink}>{props.parameterLinkContent}</Link>|
-            {"  "} ;
+            <Link className="link" to={props.listAdsLink}>
+              {props.listAdsLinkContent}
+            </Link>
+            |{"  "}
+            <Link className="link"  to={props.parameterLink}>
+              {props.parameterLinkContent}
+            </Link>
+            |{"  "} ;
           </nav>
         );
       } else {
         code = (
           <nav className={props.className}>
-            <Link to={props.TestAxiousLink}>{props.TestAxiousLinkContent}</Link>
+            <Link className="link" to={props.TestAxiousLink}>
+              {props.TestAxiousLinkContent}
+            </Link>
             |{"  "}
           </nav>
         );
