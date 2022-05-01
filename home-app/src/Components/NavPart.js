@@ -9,7 +9,7 @@ function NavPart(props) {
     if (props.part === "logo") {
       code = (
         <nav className={props.className}>
-          <Link className="link" to={props.homeLink}>
+          <Link className=" logo" to={props.homeLink}>
             {props.homeLinkContent}
           </Link>
         </nav>
@@ -22,7 +22,7 @@ function NavPart(props) {
               {props.listAdsLinkContent}
             </Link>
             |{"  "}
-            <Link className="link"  to={props.parameterLink}>
+            <Link className="link" to={props.parameterLink}>
               {props.parameterLinkContent}
             </Link>
             |{"  "} ;
@@ -46,7 +46,9 @@ function NavPart(props) {
 }
 NavPart.defaultProps = {
   homeLink: "/",
-  homeLinkContent: <img src={require("../pics/logoHome.png")} alt="logo" />,
+  homeLinkContent: (
+    <img className="logo" src={require("../pics/logoHome.png")} alt="logo" />
+  ),
   listAdsLink: "/listAds",
   listAdsLinkContent: "list ads",
   parameterLink: "/parameter",

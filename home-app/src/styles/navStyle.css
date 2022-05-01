@@ -1,18 +1,6 @@
 .navigationStyle {
   display: flex;
-  z-index: 1100;
-  box-sizing: border-box;
-  flex-shrink: 0;
-  flex-direction: column;
-  
-}
-
-.navBox {
-  top: 0;
-  right: auto;
-  left: 0;
-  position: sticky;
-  color: #ffffff;
+  flex-direction: row;
   box-shadow: 0px 2px 4px -1px rgb(0 0 0 / 20%),
     0px 4px 5px 0px rgb(0 0 0 / 14%),
     0px 1px 10px 0px rgb(0 0 0 / 12%);
@@ -20,97 +8,14 @@
   justify-content: space-between;
   margin: 1rem;
   align-items: center;
-  
- 
+  box-sizing: border-box;
+  max-height: 150px;
+
+
 }
 
-.navFlexStyle {
-  display: flex;
-  z-index: 1201;
-  background: #fff;
-  justify-content: space-between;
-  direction: rtl;
-}
-
-.logoNav {
-  display: flex;
-  z-index: 1;
-}
-
-@media (min-width: 960px) {
-  .logoSizeReducer {
-    width: 106px;
-    height: 54px;
-  }
-}
-
-@media (min-width: 1280px) {
-  .innerNavPadding {
-    padding-right: 140px;
-    padding-left: 140px;
-  }
-}
-
-@media (min-width: 960px) {
-  .innerNavPadding {
-    padding-right: 96px;
-    padding-left: 96px;
-  }
-}
-
-@media (max-width: 960px) {
-  .hideAt960px {
-    display: none !important;
-  }
-}
-
-@media (min-width: 0px) and (orientation: landscape) {
-  .MuiToolbar-regular {
-    min-height: 48px;
-  }
-}
-
-.MuiToolbar-regular {
-  min-height: 56px;
-}
-
-@media (min-width: 600px) {
-  .MuiToolbar-gutters {
-    padding-right: 24px;
-    padding-left: 24px;
-  }
-}
-
-.MuiToolbar-gutters {
-  padding-right: 16px;
-  padding-left: 16px;
-}
-
-@media (min-width: 600px) {
-  .MuiToolbar-regular {
-    min-height: 64px;
-  }
-}
-
-@media (min-width: 1280px) {
+@media (max-width: 600px) {
   .navigationStyle {
     flex-direction: column;
   }
-
-}
-
-.navigationStyle {
-  width: 68%;
-  margin: 0px 16px;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  width: 68%;
-  margin: 0px 16px;
-  padding-inline-start: 0;
-}
-
-.logoSize {
-    width: 150px;
-    margin-bottom: 10rem;
 }
