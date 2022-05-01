@@ -1,5 +1,6 @@
 import React from "react";
-import "./blogList.css";
+
+import "../styles/blogList.css";
 class BlogList extends React.Component {
   constructor(props) {
     super(props);

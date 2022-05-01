@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import "./index.css";
+import "./styles/index.css";
 import App from "./App";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Expenses from "./expenses";
@@ -21,7 +21,7 @@ root.render(
           <Route path="nav" element={<Nav />} />
           <Route path="listAds" element={<ListAds />} />
           <Route path="testAxios" element={<TestAxios />} />
-          <Route path="parameter" element={<Parameter paramName={"3"}/>} />
+          <Route path="parameter" element={<Parameter paramName={"3"} />} />
         </Route>
       </Routes>
     </BrowserRouter>

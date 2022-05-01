@@ -1,14 +1,15 @@
 import React, { useState } from "react";
-import Button from "./Button";
+import NavPart from "./NavPart";
 import { Routes, Route, Link, Outlet } from "react-router-dom";
-import "./Nav.css";
+import "../styles/Nav.css";
 import "../styles/navStyle.css";
 import "../styles/siteStyle.css";
 function Nav(props) {
   const [navClass, setNavClass] = useState("navFlexStyle navBox");
   return (
-    <div className="mainFramStyle mainNavRoot navFlexStyle navBox hideAt960px">
+    <nav className="mainFramStyle mainNavRoot navFlexStyle navBox hideAt960px">
       <div className="innerNavPadding navFlexStyle MuiToolbar-regular toolBarRoot MuiToolbar-gutters">
+<<<<<<< HEAD
         <div className="logoNav logoSizeReducer">
           <nav>
             <Link to="/">
@@ -31,7 +32,30 @@ function Nav(props) {
         </div>
       </div>
     </div>
+=======
+        <NavPart
+          className="logoNav logoSizeReducer"
+          part="logo" //name of the part of the navbar
+          image={<img src={require("../pics/logoHome.png")} alt="logo" />}
+        />
+        <NavPart
+          className="navigationStyle"
+          part="main"
+          listAdsLink="/listAds"
+          listAdsLinkContent="list ads"
+          parameterLink="/parameter"
+          parameterLinkContent="parameter"
+          TestAxiousLink="/testAxios"
+          TestAxiousLinkContent="test axious"
+        />
+          <Outlet />
+        </div>
+      </nav>
+>>>>>>> a29423afb9bca5cb1bbc42e7ad5a5f6936e106a1
   );
 }
 Nav.defaultProps = {};
 export default Nav;
+
+
+

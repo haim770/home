@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Button from "./Button";
 import Address from "./Address";
 import Parameter from "./Parameter";
-import "./AddAdForm.css";
+import "..styles/AddAdForm.css";
 import "./Ad.css";
 function AddAdForm(props) {
   const [price, setPrice] = useState(""); //hook for the price state

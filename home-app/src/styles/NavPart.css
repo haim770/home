@@ -5,7 +5,6 @@
   box-sizing: border-box;
   flex-shrink: 0;
   flex-direction: column;
-  
 }
 
 .navBox {
@@ -29,7 +28,6 @@
   z-index: 1201;
   background: #fff;
   justify-content: space-between;
-  direction: rtl;
 }
 
 .logoNav {
@@ -40,7 +38,7 @@
 @media (min-width: 960px) {
   .logoSizeReducer {
     width: 106px;
-    height: 54px;
+    height: 24px;
   }
 }
 
@@ -107,12 +105,4 @@
   width: 68%;
   margin: 0px 16px;
   padding-inline-start: 0;
-<<<<<<< HEAD
-}
-
-.logoSize {
-    width: 150px;
-    margin-bottom: 10rem;
-=======
->>>>>>> a29423afb9bca5cb1bbc42e7ad5a5f6936e106a1
 }

@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import Ad from "./Ad";
 import SearchComp from "./SearchComp";
-import "./ListAds.css";
+import "../styles/ListAds.css";
+
 function ListAds(props) {
   const [adClass, setAdClass] = useState("ad");
   const [searchAd, setSearchAd] = useState(""); //search ads by city
