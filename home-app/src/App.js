@@ -1,16 +1,18 @@
 import { BrowserRouter, Routes, Route, Link, Outlet } from "react-router-dom";
-import "./App.css";
+import "./styles/App.css";
 import ListAds from "./Components/ListAds.js";
+import Footer from "./Components/Footer.js";
 import Nav from "./Components/Nav";
 import { v4 as uuidv4 } from "uuid";
+import Main from "./Components/Main.js"
 
-/* This is a sample of new React routers 6 */
+//the outlet is in the middle part just after nav b4 footer
 export default function App() {
   return (
-    <div>
-      <h1>Bookkeeper</h1>
+    <div className="App">
       <Nav />
-      
+      <Main/>
+    <Footer/>
     </div>
   );
 }

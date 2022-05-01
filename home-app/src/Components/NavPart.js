@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import Button from "./Button";
 import { Routes, Route, Link, Outlet } from "react-router-dom";
-
 import "../styles/NavPart.css";
 function NavPart(props) {
   const returnWantedPart = () => {
@@ -19,13 +18,17 @@ function NavPart(props) {
           <nav className={props.className}>
             <Link to={props.listAdsLink}>{props.listAdsLinkContent}</Link>|
             {"  "}
-            <Link to={props.TestAxiousLink}>{props.TestAxiousLinkContent}</Link>
-            |{"  "}
             <Link to={props.parameterLink}>{props.parameterLinkContent}</Link>|
             {"  "} ;
           </nav>
         );
       } else {
+        code = (
+          <nav className={props.className}>
+            <Link to={props.TestAxiousLink}>{props.TestAxiousLinkContent}</Link>
+            |{"  "}
+          </nav>
+        );
       }
     }
 
@@ -43,6 +46,6 @@ NavPart.defaultProps = {
   TestAxiousLink: "/testAxios",
   TestAxiousLinkContent: "test axious",
   part: "", //name of the part [logo,userPart,mainPart]
-  className:""
+  className: "",
 };
 export default NavPart;

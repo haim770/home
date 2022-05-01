@@ -1,12 +1,10 @@
 import React, { useState } from "react";
 import NavPart from "./NavPart";
 import { Routes, Route, Link, Outlet } from "react-router-dom";
-import "../styles/Nav.css";
 import "../styles/navStyle.css";
-import "../styles/siteStyle.css";
 function Nav(props) {
-  const [navClass, setNavClass] = useState("navFlexStyle navBox");
   return (
+<<<<<<< HEAD
     <nav className="mainFramStyle mainNavRoot navFlexStyle navBox hideAt960px">
       <div className="innerNavPadding navFlexStyle MuiToolbar-regular toolBarRoot MuiToolbar-gutters">
 <<<<<<< HEAD
@@ -52,10 +50,36 @@ function Nav(props) {
         </div>
       </nav>
 >>>>>>> a29423afb9bca5cb1bbc42e7ad5a5f6936e106a1
+=======
+    <nav className="navigationStyle">
+      <NavPart
+        className="logo"
+        part="logo" //name of the part of the navbar
+        image={<img src={require("../pics/logoHome.png")} alt="logo" />}
+      />
+      <NavPart
+        className="mainPart"
+        part="main"
+        listAdsLink="/listAds"
+        listAdsLinkContent="list ads"
+        parameterLink="/parameter"
+        parameterLinkContent="parameter"
+        TestAxiousLink="/testAxios"
+        TestAxiousLinkContent="test axious"
+      />
+      <NavPart
+        className="userPart"
+        part="userPart"
+        listAdsLink="/listAds"
+        listAdsLinkContent="list ads"
+        parameterLink="/parameter"
+        parameterLinkContent="parameter"
+        TestAxiousLink="/testAxios"
+        TestAxiousLinkContent="test axious"
+      />
+    </nav>
+>>>>>>> 9bc284600f46476482bea5d5e654ab4121815605
   );
 }
 Nav.defaultProps = {};
 export default Nav;
-
-
-
