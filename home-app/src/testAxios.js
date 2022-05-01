@@ -12,7 +12,6 @@ export default function TestAxios() {
         });*/
 
   let formData = new FormData();
-  formData.append("name", "asda");
   formData.append("data", "ads");
   axios({
     method: "post",

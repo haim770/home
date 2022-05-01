@@ -1,17 +1,19 @@
 import React, { useState } from "react";
 import Ad from "./Ad";
+import Api from "../api/Api.js";
 import SearchComp from "./SearchComp";
 import "../styles/ListAds.css";
 
 function ListAds(props) {
   const [adClass, setAdClass] = useState("ad");
   const [searchAd, setSearchAd] = useState(""); //search ads by city
+  const[adsAll,setAdsAll]=useState(props.api.postToGetData("ads"));
+  console.log(adsAll);
   const changeSearchAd = (e) => {
     setSearchAd(e.target.value);
   };
-  const makeListOfAds = () => {
+    const makeListOfAds = () => {
     let code = "";
-    console.log(props.adsArr[1][0]);
     //filter the aray by the search and then map and create Ad comp
     code = props.adsArr
       .filter((ad) => ad[1].includes(searchAd))
@@ -33,6 +35,8 @@ function ListAds(props) {
   };
   return (
     <section>
+      <h1>{adsAll?adsAll:""}s</h1>
+      {console.log(adsAll)}
       <SearchComp searchValue={searchAd} searchChange={changeSearchAd} />
       <ul className={props.className}>{makeListOfAds()}</ul>
     </section>
