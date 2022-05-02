@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import NavPart from "./NavPart";
 import { Routes, Route, Link, Outlet } from "react-router-dom";
 import "../styles/navStyle.css";
+import "../styles/siteStyle.css";
+
 function Nav(props) {
   return (
 
@@ -46,7 +48,7 @@ function Nav(props) {
           TestAxiousLinkContent="test axious"
         />
           <Outlet />
-        </div>
+        
       </nav>
 
     <nav className="navigationStyle">
