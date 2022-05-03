@@ -16,6 +16,7 @@ const NavRoot = () => {
       path: "/testAxios",
       name: "בדיקת AXIOS",
     },
+
   ];
   return (
     <nav className="MuiPaper-root MuiAppBar-root jss4 MuiAppBar-positionSticky MuiAppBar-colorPrimary jss2 MuiPaper-elevation4">
@@ -37,13 +38,16 @@ const NavRoot = () => {
             {
               // This section build our navigation NavLinks, if we want to add new link we just need to add it to menuData element.
               menuData.map((item) => (
-                <div className="jss12">
+                <div className="jss12" key={item.name}>
                   <NavLink
                     to={item.path}
                     key={item.name}
                     className="MuiButtonBase-root MuiButton-root jss22 MuiButton-text"
                   >
-                    <div className="list_item MuiButton-label jss23">
+                    <div
+                      className="list_item MuiButton-label jss23"
+                      key={item.name}
+                    >
                       {item.name}
                     </div>
                   </NavLink>

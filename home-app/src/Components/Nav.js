@@ -14,6 +14,7 @@ const Nav = () => {
           <Route path="/" element={<Home />} />
           <Route path="/TestAxios" element={<TestAxios />} />
           <Route path="/Ads" element={<Ads />} />
+
         </Routes>
       </BrowserRouter>
     </div>
