@@ -22,7 +22,10 @@ function Ad(props) {
         />
       </ul>
       <p>
-        <Button content="contact seller" />
+        <Button
+          content="contact seller"
+          onclick={props.onclick}
+        />
       </p>
     </section>
   );

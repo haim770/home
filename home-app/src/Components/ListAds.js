@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from "react";
 import Ad from "./Ad";
-import Api from "../api/Api.js";
 import SearchComp from "./SearchComp";
 import "../styles/ListAds.css";
+import { useNavigate } from 'react-router-dom';
+
 
 function ListAds(props) {
   const [adClass, setAdClass] = useState("ad");
   const [searchAd, setSearchAd] = useState(""); //search ads by city
   const [adsAll, setAdsAll] = useState(props.api.postToGetData("ads"));
+const navigate = useNavigate();
+  
   console.log(adsAll);
   const changeSearchAd = (e) => {
     setSearchAd(e.target.value);
@@ -32,12 +35,13 @@ function ListAds(props) {
           price="didnt set up ad content yet"
           createTime={item["create_time"]}
           adLink={item["ad_link"]}
+          onclick={() => navigate('/ListAds/${item["adID"]}')}
         />
       ));
 
     return code;
   };
-  const changeObjToArray = (obj) => {};
+
   const renderEntireComp = () => {
     let code = "";
     if (adsAll) {
