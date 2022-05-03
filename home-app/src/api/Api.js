@@ -10,7 +10,7 @@ class Api {
     this.formData = new FormData();
   }
   postToGetData(type) {
-    this.formData.append("data", "ads");
+    this.formData.append("data", type);
     axios({
       method: "post",
       url: this.url,
@@ -18,13 +18,15 @@ class Api {
       config: { headers: { "Content-Type": "multipart/form-data" } },
     }).then(
       (response) => {
-        console.log(response.data);
-        this.resultFromServer = response.data;
+        console.log(typeof response.data);
+        this.resultFromServer = (response.data);
+        console.log(this.resultFromServer);
       },
       (error) => {
         console.log(error);
       }
     );
+    console.log(this.resultFromServer);
     return this.resultFromServer;
   }
 }

@@ -25,10 +25,25 @@ $db = dbClass::GetInstance();
 $arr=[];
 if ($dataType == "ads") 
     getAllAds();
+if($dataType=="getSelectedAdByIdAndCity"
+){
+getSelectedAdByIdAndCity();
+}
+
+// select city from ads where adID =:adIDd
+function getSelectedAdByIdAndCity(){
+    global $db;
+    global $arr;
+    $arr['id']=1;
+    $arr['city']="haifa";
+    $query = "getSelectedAdById(:id,:city)";
+    print_r(json_encode($db->readDB($query,$arr)));
+}
 function getAllAds(){
     global $db;
     global $arr;
-    var_dump( $db->readDB("getAdsTable",$arr));
+    $query = "getAdsTable";
+   print_r(json_encode($db->readDB($query,$arr)));
 }
 
 // proccess the data

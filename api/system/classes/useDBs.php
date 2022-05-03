@@ -116,8 +116,30 @@ class dbClass
     public function readDB($query, $data_array = [])
     {
         self::connect();
-        $statement = self::$connection->prepare("CALL ".$query);
+        $statement = self::$connection->prepare("call ".$query);
         $check = $statement->execute($data_array);
+
+        if ($check) {
+            /**
+             * PDO::FETCH_OBJ : returns an anonymous object with property names that correspond 
+             * to the column names returned in your result
+             */
+            $result = $statement->fetchAll(PDO::FETCH_OBJ);
+            self::disconnect();
+            if (is_array($result) && count($result) > 0) {
+                return $result;
+            }
+            return false;
+        }
+        self::disconnect();
+        return false;
+    }
+public function readDBNoStoredProcedure($query ,$arr=[])
+    {
+        //call the passed query and read not stored procedure
+        self::connect();
+        $statement = self::$connection->prepare($query);
+        $check = $statement->execute($arr);
 
         if ($check) {
             /**
