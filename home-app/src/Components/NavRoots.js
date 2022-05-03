@@ -31,7 +31,7 @@ const NavRoot = () => {
             />
           </NavLink>
         </label>
-
+        {/* Site Navigation */}
         <div className="menu jss14 jss8">
           <div className="jss13">
             {
@@ -51,6 +51,11 @@ const NavRoot = () => {
               ))
             }
           </div>
+        </div>
+
+        {/* Site User area */}
+        <div className="userArea">
+          <a>a</a>
         </div>
       </div>
     </nav>
