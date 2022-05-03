@@ -55,7 +55,7 @@ const NavRoot = () => {
 
         {/* Site User area */}
         <div className="userArea">
-          <a>a</a>
+          <p>a</p>
         </div>
       </div>
     </nav>
