@@ -3,8 +3,13 @@ import NavPart from "./NavPart";
 import { Routes, Route, Link, Outlet, BrowserRouter } from "react-router-dom";
 import NavRoots from "./NavRoots";
 import Home from "./pages/Home";
-import TestAxios from "./pages/TestAxios";
+//import TestAxios from "./pages/TestAxios";
 import Ads from "./pages/Ads";
+import ListAds from "./ListAds";
+
+import Api from "../api/Api";
+const api = new Api();
+
 const Nav = () => {
   return (
     <div>
@@ -12,8 +17,12 @@ const Nav = () => {
         <NavRoots />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/TestAxios" element={<TestAxios />} />
+          {/*<Route path="/TestAxios" element={<TestAxios />} />*/}
           <Route path="/Ads" element={<Ads />} />
+          <Route
+            path="/ListAds"
+            element={<ListAds api={api} allAds={api.postToGetData("ads")} />}
+          />
         </Routes>
       </BrowserRouter>
     </div>
