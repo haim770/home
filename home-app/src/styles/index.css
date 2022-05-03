@@ -1,9 +1,12 @@
 body {
-  overflow-y: scroll;
-  min-height: 100vh;
-  width: 100%;
-  margin: 0;
-  padding: 0;
+    color: #191F2E;
+    margin: 0;
+    font-size: 0.875rem;
+    font-family: 'Rubik', sans-serif;
+    font-weight: 300;
+    line-height: 1.43;
+    background-color: #FFFFFF;
+    min-height: 100vh;
 }
 
 body,
