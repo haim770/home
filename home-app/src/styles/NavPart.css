@@ -11,7 +11,7 @@
 /*end link class styles*/
 .logo {
   /*logo class style apply also to the logo img at the props of the componnent*/
-  max-width: 100px;
+  max-width: 200px;
   max-height: 100%;
   margin: 1rem;
 }

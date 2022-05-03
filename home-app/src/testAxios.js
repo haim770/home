@@ -31,7 +31,7 @@ export default function TestAxios() {
   return (
     <main style={{ padding: "1rem 0" }}>
       <h2>test Axios</h2>
-      <p>{dataServer}</p>
+      <p>{(dataServer)}</p>
     </main>
   );
 }

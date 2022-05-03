@@ -18,16 +18,26 @@ class Api {
       config: { headers: { "Content-Type": "multipart/form-data" } },
     }).then(
       (response) => {
-        console.log(typeof response.data);
-        this.resultFromServer = (response.data);
+        this.resultFromServer = response.data;
+        console.log(response.data);
         console.log(this.resultFromServer);
       },
       (error) => {
         console.log(error);
       }
     );
-    console.log(this.resultFromServer);
+    //this is a work around that will get us array of keys and one of values and will merge them 
+    //to get aray that represent the data we got
     return this.resultFromServer;
+  }
+   makeArrayOfObj(obj){
+     if(!obj){
+       return;
+     }
+    const keyArray=Object.keys(obj);
+    const valueObj=Object.values(obj);
+    const arrayKeyValue=[];
+
   }
 }
 export default Api;

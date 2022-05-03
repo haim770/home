@@ -22,7 +22,7 @@ root.render(
           <Route path="nav" element={<Nav />} />
           <Route
             path="listAds"
-            element={<ListAds api={api}/>}
+            element={<ListAds api={api} allAds={api.postToGetData("ads")}/>}
           />
           <Route path="testAxios" element={<TestAxios />} />
           <Route path="parameter" element={<Parameter paramName={"3"} />} />

@@ -4,6 +4,7 @@
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Headers: *");
 header("Access-Control-Allow-Methods: *");
+header('Content-Type: application/json');
 
 // use to capture the data we get from client side
 // we use this way and not with POST or GET becuse if we want to use it with POST or GET we need to 
@@ -23,8 +24,10 @@ require_once('../api/system/classes/useDBs.php');
 $db = dbClass::GetInstance();
 
 $arr=[];
+
 if ($dataType == "ads") 
-    getAllAds();
+getAllAds();
+    // getAllAds();
 if($dataType=="getSelectedAdByIdAndCity"
 ){
 getSelectedAdByIdAndCity();
@@ -34,16 +37,19 @@ getSelectedAdByIdAndCity();
 function getSelectedAdByIdAndCity(){
     global $db;
     global $arr;
+    $info = (object)[];
     $arr['id']=1;
     $arr['city']="haifa";
-    $query = "getSelectedAdById(:id,:city)";
-    print_r(json_encode($db->readDB($query,$arr)));
+    $query = "getSelectedAdByIdAndCity(:id,:city)";
+    $result=$db->readDB($query,$arr);
+    echo json_encode($result);
 }
 function getAllAds(){
     global $db;
     global $arr;
     $query = "getAdsTable";
-   print_r(json_encode($db->readDB($query,$arr)));
+    $arrayReturn= $db->readDB($query,$arr);
+    echo json_encode ($arrayReturn,JSON_FORCE_OBJECT);
 }
 
 // proccess the data
