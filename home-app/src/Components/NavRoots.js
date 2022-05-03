@@ -43,7 +43,9 @@ const NavRoot = () => {
                     key={item.name}
                     className="MuiButtonBase-root MuiButton-root jss22 MuiButton-text"
                   >
-                    <div className="list_item ">{item.name}</div>
+                    <div className="list_item MuiButton-label jss23">
+                      {item.name}
+                    </div>
                   </NavLink>
                 </div>
               ))
