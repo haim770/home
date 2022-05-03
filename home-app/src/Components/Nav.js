@@ -1,9 +1,25 @@
 import React, { useState } from "react";
 import NavPart from "./NavPart";
-import { Routes, Route, Link, Outlet } from "react-router-dom";
-import "../styles/navStyle.css";
-import "../styles/siteStyle.css";
-
+import { Routes, Route, Link, Outlet, BrowserRouter } from "react-router-dom";
+import NavRoots from "./NavRoots";
+import Home from "./pages/Home";
+import TestAxios from "./pages/TestAxios";
+import Ads from "./pages/Ads";
+const Nav = () => {
+  return (
+    <div>
+      <BrowserRouter>
+        <NavRoots />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/TestAxios" element={<TestAxios />} />
+          <Route path="/Ads" element={<Ads />} />
+        </Routes>
+      </BrowserRouter>
+    </div>
+  );
+};
+/* Old Haim code
 function Nav(props) {
   return (
     <nav className="navigationStyle">
@@ -35,5 +51,5 @@ function Nav(props) {
     </nav>
   );
 }
-Nav.defaultProps = {};
+Nav.defaultProps = {};*/
 export default Nav;
