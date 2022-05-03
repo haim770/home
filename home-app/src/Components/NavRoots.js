@@ -17,6 +17,10 @@ const NavRoot = () => {
       name: "בדיקת AXIOS",
     },
 
+    {
+      path: "/ListAds",
+      name: "ListAds",
+    },
   ];
   return (
     <nav className="MuiPaper-root MuiAppBar-root jss4 MuiAppBar-positionSticky MuiAppBar-colorPrimary jss2 MuiPaper-elevation4">
