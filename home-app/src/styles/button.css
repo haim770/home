@@ -1,0 +1,14 @@
+.b4 {
+  color: blue;
+  cursor: pointer;
+  background-color: green;
+  font-size: 1.3rem;
+  border-radius: 3px;
+  border: 1px solid black;
+  margin:1rem;
+  padding: 0.5 rem;
+}
+
+.after {
+  color: red;
+}
