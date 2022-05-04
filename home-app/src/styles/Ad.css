@@ -1,9 +1,0 @@
-.ad{
-  display: flex;
-  flex-direction: row;
-  flex-grow: 1;
-  margin: 2rem;
-  border: 2px green solid;
-}
-.adNotVisible{visibility: hidden;}
-li{list-style-type: none;margin: 1.5rem;}
