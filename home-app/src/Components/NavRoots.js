@@ -21,6 +21,10 @@ const NavRoot = () => {
       path: "/ListAds",
       name: "ListAds",
     },
+    {
+      path: "/AddAdForm",
+      name: "AddAdForm",
+    },
   ];
   return (
     <nav className="MuiPaper-root MuiAppBar-root jss4 MuiAppBar-positionSticky MuiAppBar-colorPrimary jss2 MuiPaper-elevation4">

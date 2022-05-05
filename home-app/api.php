@@ -16,23 +16,37 @@ $DATA_RAW = file_get_contents("php://input");
  * json_encode(value) => PHP = EQUAL => JSON.strinfigy() ==> Convert Object to Array
  */
 $DATA_OBJ = json_decode($DATA_RAW);
-
-$error = "";
-$dataType = $_POST["data"];
-
 require_once('../api/system/classes/useDBs.php');
 $db = dbClass::GetInstance();
-
 $arr=[];
-
+$error = "";
+if(isset($_POST['data'])){
+$dataType = $_POST['data'];
 if ($dataType == "ads") 
 getAllAds();
-    // getAllAds();
 if($dataType=="getSelectedAdByIdAndCity"
 ){
 getSelectedAdByIdAndCity();
 }
-
+if($dataType=='insertAd'){
+    insertAd();
+}
+}
+function insertAd(){
+    global $db;
+    global $arr;
+    $arr['adID']=$_POST['adID'];
+    $arr['city']=$_POST['city'];
+    $arr['street']=$_POST['street'];
+    $arr['building_number']=$_POST['building_number'];
+    $arr['entry']=$_POST['entry'];
+    $arr['user_id']=$_POST['user_id'];
+    $arr['apartment']=$_POST['apartment'];
+    $arr['rooms']=$_POST['rooms'];
+    $query = "insertAd(:adID,:city,:street,:building_number,:entry,:user_id,:apartment,:rooms)";
+    $result=$db->writeDB($query,$arr);
+	echo json_encode ($result);
+}
 // select city from ads where adID =:adIDd
 function getSelectedAdByIdAndCity(){
     global $db;

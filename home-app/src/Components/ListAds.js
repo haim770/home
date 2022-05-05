@@ -6,9 +6,10 @@ import "../styles/ListAds.css";
 
 
 function ListAds(props) {
+  let obj={};
   const [adClass, setAdClass] = useState("ad");
   const [searchAd, setSearchAd] = useState(""); //search ads by city
-  const [adsAll, setAdsAll] = useState(props.api.postToGetData("ads"));
+  const [adsAll, setAdsAll] = useState(props.api.postToGetData({'data':"ads"}));
 
   const changeSearchAd = (e) => {
     setSearchAd(e.target.value);
@@ -19,7 +20,7 @@ function ListAds(props) {
     const arr = Object.values(adsAll);
     console.log(arr.length);
     console.log(arr);
-
+    if(arr){
     code = arr
       .filter((ad) => ad["city"].includes(searchAd))
       .map((item) => (
@@ -35,7 +36,7 @@ function ListAds(props) {
           adLink={item["ad_link"]}
         />
       ));
-
+      }
     return code;
   };
 

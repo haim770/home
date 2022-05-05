@@ -6,7 +6,7 @@ import Home from "./pages/Home";
 //import TestAxios from "./pages/TestAxios";
 import Ads from "./pages/Ads";
 import ListAds from "./ListAds";
-
+import AddAdForm from "./AddAdForm";
 import Api from "../api/Api";
 const api = new Api();
 
@@ -22,6 +22,10 @@ const Nav = () => {
           <Route
             path="/ListAds"
             element={<ListAds api={api} allAds={api.postToGetData("ads")} />}
+          />
+          <Route
+            path="/AddAdForm"
+            element={<AddAdForm api={api} />}
           />
         </Routes>
       </BrowserRouter>

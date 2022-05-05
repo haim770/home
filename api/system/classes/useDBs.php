@@ -70,7 +70,7 @@ class dbClass
     public function writeDB($query, $query_data_array = [])
     {
         self::connect();
-        $statement = self::$connection->prepare($query);
+        $statement = self::$connection->prepare('CALL '.$query);
         $check = $statement->execute($query_data_array);
         self::disconnect();
         return $check;
