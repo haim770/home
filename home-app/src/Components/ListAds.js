@@ -3,16 +3,14 @@ import Ad from "./Ad";
 import SearchComp from "./SearchComp";
 import "../styles/ListAds.css";
 
-
-
 function ListAds(props) {
-  let obj={};
-  const [adClass, setAdClass] = useState("ad");//className of ads
+  let obj = {};
+  const [adClass, setAdClass] = useState("ad"); //className of ads
   const [searchAd, setSearchAd] = useState(""); //search ads by city
-  const [adsAll, setAdsAll] = useState(props.allAds);//the all ads that are visible now hook
- useLayoutEffect(() => {
-   setAdsAll(props.api.postToGetData({ data: "ads" }));
- }, [adsAll]);
+  const [adsAll, setAdsAll] = useState(props.allAds); //the all ads that are visible now hook
+  useLayoutEffect(() => {
+    setAdsAll(props.api.postToGetData({ data: "ads" }));
+  }, [adsAll]);
   const changeSearchAd = (e) => {
     //control the search input
     setSearchAd(e.target.value);
@@ -23,25 +21,26 @@ function ListAds(props) {
     let code = "";
     //filter the aray by the search and then map and create Ad comp
     const arr = Object.values(adsAll);
-    console.log(arr.length);
-    console.log(arr);
-    if(arr){
-    code = arr
-      .filter((ad) => ad["city"].includes(searchAd))
-      .map((item) => (
-        <Ad
-          className={adClass}
-          key={item["adID"]}
-          id={item["adID"]}
-          city={item["city"]}
-          street={item["street"]}
-          number={item["building_number"]}
-          price="didnt set up ad content yet"
-          createTime={item["create_time"]}
-          adLink={item["ad_link"]}
-        />
-      ));
-      }
+    if (arr) {
+      code = arr
+        .filter((ad) => ad["city"].includes(searchAd))
+        .map((item) => (
+          <Ad
+            className={adClass}
+            key={item["adID"]}
+            id={item["adID"]}
+            city={item["city"]}
+            street={item["street"]}
+            number={item["building_number"]}
+            price={item["price"]}
+            createTime={item["create_time"]}
+            adLink={item["ad_link"]}
+            air_conditioner={item["air_conditioner"]}
+            apartment={item["apartment"]}
+            entry={item["entry"]}
+          />
+        ));
+    }
     return code;
   };
 

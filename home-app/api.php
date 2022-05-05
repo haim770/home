@@ -65,6 +65,7 @@ function getAllAds()
 {
     global $db;
     global $arr;
+    $arr=[];
     $query = "getAdsTable";
     $arrayReturn = $db->readDB($query, $arr);
     echo json_encode($arrayReturn, JSON_FORCE_OBJECT);
