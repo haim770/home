@@ -7,14 +7,17 @@ import "../styles/ListAds.css";
 
 function ListAds(props) {
   let obj={};
-  const [adClass, setAdClass] = useState("ad");
+  const [adClass, setAdClass] = useState("ad");//className of ads
   const [searchAd, setSearchAd] = useState(""); //search ads by city
-  const [adsAll, setAdsAll] = useState(props.api.postToGetData({'data':"ads"}));
+  const [adsAll, setAdsAll] = useState(props.api.postToGetData({'data':"ads"}));//the all ads that are visible now hook
 
   const changeSearchAd = (e) => {
+    //control the search input
     setSearchAd(e.target.value);
   };
   const makeListOfAds = () => {
+    //make array from object we got from server and then iterating on it
+    //to get Ad component for each one and display only ads that are applicable to the search
     let code = "";
     //filter the aray by the search and then map and create Ad comp
     const arr = Object.values(adsAll);
@@ -41,6 +44,7 @@ function ListAds(props) {
   };
 
   const renderEntireComp = () => {
+    //just becuse we want a clean return of comp func
     let code = "";
     if (adsAll) {
       code = (

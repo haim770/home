@@ -4,10 +4,9 @@ import { useState } from "react";
 class Api {
   //class to get the results from the server and send to it
   constructor() {
-    this.url = "http://localhost:80/home/home-app/api.php";
-    this.formData = new FormData();
-    this.resultFromServer = "";
-    this.formData = new FormData();
+    this.url = "http://localhost:80/home/home-app/api.php";//url of server
+    this.formData = new FormData();//formdata obj to get data for server side
+    this.resultFromServer = "";//result we save here from server
   }
   addParametersToFormData(params) {
     //bring the param object we got and iterate through him to insert it to formData object we can send
@@ -33,15 +32,16 @@ class Api {
         console.log(error);
       }
     );
-    //this is a work around that will get us array of keys and one of values and will merge them
-    //to get aray that represent the data we got
     this.cleanFormData();
     return this.resultFromServer;
   }
   cleanFormData(){
+    //func to clean the form data after each use
     this.formData=new FormData();
   }
   sendDataFromJsToPhp(parametersArray) {
+    //sends the array with the func we need to call at the php, func recieves jason obj with jeys and value and 
+    //returns the respond from server
     this.addParametersToFormData(parametersArray); //type to create new ad is insertAd
     axios({
       method: "post",
