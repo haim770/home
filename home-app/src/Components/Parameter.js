@@ -26,7 +26,12 @@ function Parameter(props) {
           <li>
             <span>{props.paramName}</span>
             <span>
-              <input type="checkbox" readOnly checked={props.paramValue} />
+              {console.log(props.paramValue)}
+              <input
+                type="checkbox"
+                readOnly
+                checked={props.paramValue === "1" ? true : false}
+              />
             </span>
           </li>
         );
