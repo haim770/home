@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useLayoutEffect } from "react";
 import Ad from "./Ad";
 import SearchComp from "./SearchComp";
 import "../styles/ListAds.css";
@@ -9,8 +9,10 @@ function ListAds(props) {
   let obj={};
   const [adClass, setAdClass] = useState("ad");//className of ads
   const [searchAd, setSearchAd] = useState(""); //search ads by city
-  const [adsAll, setAdsAll] = useState(props.api.postToGetData({'data':"ads"}));//the all ads that are visible now hook
-
+  const [adsAll, setAdsAll] = useState(props.allAds);//the all ads that are visible now hook
+ useLayoutEffect(() => {
+   setAdsAll(props.api.postToGetData({ data: "ads" }));
+ }, [adsAll]);
   const changeSearchAd = (e) => {
     //control the search input
     setSearchAd(e.target.value);

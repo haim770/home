@@ -13,11 +13,6 @@ const NavRoot = () => {
       name: "מודעות",
     },
     {
-      path: "/testAxios",
-      name: "בדיקת AXIOS",
-    },
-
-    {
       path: "/ListAds",
       name: "ListAds",
     },
