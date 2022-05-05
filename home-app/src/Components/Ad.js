@@ -14,18 +14,15 @@ function Ad(props) {
         <Parameter paramName="create time" paramValue={props.createTime} />
         <Parameter paramName="ad link" paramValue={props.adLink} />
         <Parameter paramName="rooms" paramValue={props.rooms} />
-        <Parameter />
-        <Address
-          street={props.street}
-          city={props.city}
-          number={props.number}
-        />
+        <Parameter paramName="apartment" paramValue={props.apartment} />
+        <Parameter paramName="street" paramValue={props.street} />
+        <Parameter paramName="city" paramValue={props.city} />
+        <Parameter paramName="number" paramValue={props.number} />
+        <Parameter paramName="entry" paramValue={props.entry} />
+        <Parameter paramName="air conditioner" paramValue={props.air_conditioner}/> 
       </ul>
       <p>
-        <Button
-          content="contact seller"
-          onclick={props.onclick}
-        />
+        <Button content="contact seller" onclick={props.onclick} />
       </p>
     </section>
   );

@@ -25,7 +25,6 @@ class Api {
       config: { headers: { "Content-Type": "multipart/form-data" } },
     }).then(
       (response) => {
-        console.log(response.data);
         this.resultFromServer = response.data;
       },
       (error) => {

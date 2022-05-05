@@ -1,12 +1,49 @@
 import React, { useState } from "react";
 import "../styles/Parameter.css";
+import { parameters } from "../configParameters.js"; //we import parameters config file
 function Parameter(props) {
-  return (
-    <li><span>{props.paramName} :</span> {props.paramValue}</li>
-  );
+  const getParamConfigFromFile = () => {
+    //returns the json that are relevant to our parameter
+    const element = parameters.filter(
+      (element) => element.paramName === props.paramName
+    );
+    return element;
+  };
+  const buildShowForParam = () => {
+    //build the list of parameters to show one by one we get a json obj and check his style
+    //then we style it accordingly
+    const paramConfig = getParamConfigFromFile();
+    if (paramConfig[0]["paramStyle"] === "input") {
+      return (
+        <li>
+          <span>{props.paramName}</span>
+          <span>{props.paramValue}</span>
+        </li>
+      );
+    } else {
+      if (paramConfig[0]["paramStyle"] === "checkBox") {
+        return (
+          <li>
+            <span>{props.paramName}</span>
+            <span>
+              <input type="checkbox" readOnly checked={props.paramValue} />
+            </span>
+          </li>
+        );
+      } else {
+        return (
+          <li>
+            <span>{props.paramName}</span>
+            <span>{props.paramValue}</span>
+          </li>
+        );
+      }
+    }
+  };
+  return buildShowForParam();
 }
 Parameter.defaultProps = {
-  paramName:"name",
-  paramValue:"value"
+  paramName: "name",
+  paramValue: "value",
 };
 export default Parameter;
