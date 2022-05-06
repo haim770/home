@@ -7,9 +7,10 @@ import Home from "./pages/Home";
 import Ads from "./pages/Ads";
 import ListAds from "./ListAds";
 import AddAdForm from "./AddAdForm";
+import AddParameterToAds from "./AddParameterToAds";
 import Api from "../api/Api";
 const api = new Api();
-let arr=[];
+let arr = [];
 arr = api.postToGetData({ data: "ads" });
 const Nav = () => {
   return (
@@ -21,12 +22,13 @@ const Nav = () => {
           <Route path="/Ads" element={<Ads />} />
           <Route
             path="/ListAds"
-            element={<ListAds api={api} allAds={arr} />}//we pass the initial ads that will be seen at the page 
+            element={<ListAds api={api} allAds={arr} />} //we pass the initial ads that will be seen at the page
             //so it will render for the first time
           />
+          <Route path="/AddAdForm" element={<AddAdForm api={api} />} />
           <Route
-            path="/AddAdForm"
-            element={<AddAdForm api={api} />}
+            path="/AddParameterToAds"
+            element={<AddParameterToAds api={api} />}
           />
         </Routes>
       </BrowserRouter>

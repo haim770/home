@@ -31,6 +31,24 @@ getSelectedAdByIdAndCity();
 if($dataType=='insertAd'){
     insertAd();
 }
+if($dataType=='addParameterAds'){
+    addParameterAds();
+}
+}
+function addParameterAds(){
+    global $db;
+    global $arr;
+    $arr['paramName']=$_POST['paramName'];
+    $arr['paramType']=$_POST['paramType'];
+    if($arr['paramType']=="VARCHAR")
+    $query="ALTER TABLE ads ADD `{$arr['paramName']}`  varchar(255) NULL";
+    if($arr['paramType']=="INT")
+    $query="ALTER TABLE ads ADD `{$arr['paramName']}`  INT NULL";//not working also tinyint no
+    if($arr['paramType']=="TEXT")
+    $query="ALTER TABLE ads ADD `{$arr['paramName']}` TEXT NULL";
+    $result=$db->writeDBNotStoredProcedure($query);
+    $arr=[];
+	echo json_encode ($result);
 }
 function insertAd(){
     global $db;

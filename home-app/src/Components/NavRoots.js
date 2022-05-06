@@ -13,6 +13,10 @@ const NavRoot = () => {
       name: "מודעות",
     },
     {
+      path: "/AddParameterToAds",
+      name: "הוסף פרמטר למודעות(מנהל)",
+    },
+    {
       path: "/ListAds",
       name: "ListAds",
     },

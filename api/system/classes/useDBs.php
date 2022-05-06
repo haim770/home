@@ -63,7 +63,7 @@ class dbClass
     }
 
     /**
-     * Method write data to our database.
+     * Method write data to our database use stored procedure.
      * 
      */
 
@@ -71,6 +71,14 @@ class dbClass
     {
         self::connect();
         $statement = self::$connection->prepare('CALL '.$query);
+        $check = $statement->execute($query_data_array);
+        self::disconnect();
+        return $check;
+    }
+    public function writeDBNotStoredProcedure($query, $query_data_array = [])
+    {//Method write data to our database not using stored procedure.
+        self::connect();
+        $statement = self::$connection->prepare($query);
         $check = $statement->execute($query_data_array);
         self::disconnect();
         return $check;
