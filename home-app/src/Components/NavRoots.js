@@ -24,6 +24,10 @@ const NavRoot = () => {
       path: "/AddAdForm",
       name: "AddAdForm",
     },
+    {
+      path: "/AdsAddParams",
+      name: "הוספת פרמטרים בסיס",
+    },
   ];
   return (
     <nav className="MuiPaper-root MuiAppBar-root jss4 MuiAppBar-positionSticky MuiAppBar-colorPrimary jss2 MuiPaper-elevation4">

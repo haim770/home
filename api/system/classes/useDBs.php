@@ -75,6 +75,7 @@ class dbClass
         self::disconnect();
         return $check;
     }
+    
     public function writeDBNotStoredProcedure($query, $query_data_array = [])
     {//Method write data to our database not using stored procedure.
         self::connect();

@@ -5,6 +5,7 @@ import NavRoots from "./NavRoots";
 import Home from "./pages/Home";
 //import TestAxios from "./pages/TestAxios";
 import Ads from "./pages/Ads";
+import AdsAddParams from "./pages/AdsAddParams";
 import ListAds from "./ListAds";
 import AddAdForm from "./AddAdForm";
 import AddParameterToAds from "./AddParameterToAds";
@@ -30,6 +31,7 @@ const Nav = () => {
             path="/AddParameterToAds"
             element={<AddParameterToAds api={api} />}
           />
+          <Route path="/AdsAddParams" element={<AdsAddParams />} />
         </Routes>
       </BrowserRouter>
     </div>
