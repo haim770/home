@@ -16,6 +16,5 @@ axios.post(
           setdataServer(response.data);
         }
       });
-
   return JSON.stringify(dataServer);
 }
