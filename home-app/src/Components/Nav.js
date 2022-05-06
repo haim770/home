@@ -10,7 +10,7 @@ import AddAdForm from "./AddAdForm";
 import AddParameterToAds from "./AddParameterToAds";
 import Api from "../api/Api";
 const api = new Api();
-let arr = [];
+let arr=[];
 arr = api.postToGetData({ data: "ads" });
 const Nav = () => {
   return (
@@ -35,4 +35,37 @@ const Nav = () => {
     </div>
   );
 };
+/* Old Haim code
+function Nav(props) {
+  return (
+    <nav className="navigationStyle">
+      <NavPart
+        className="logo"
+        part="logo" //name of the part of the navbar
+        image={<img src={require("../pics/logoHome.png")} alt="logo" />}
+      />
+      <NavPart
+        className="mainPart"
+        part="main"
+        listAdsLink="/listAds"
+        listAdsLinkContent="list ads"
+        parameterLink="/parameter"
+        parameterLinkContent="parameter"
+        TestAxiousLink="/testAxios"
+        TestAxiousLinkContent="test axious"
+      />
+      <NavPart
+        className="userPart"
+        part="userPart"
+        listAdsLink="/listAds"
+        listAdsLinkContent="list ads"
+        parameterLink="/parameter"
+        parameterLinkContent="parameter"
+        TestAxiousLink="/testAxios"
+        TestAxiousLinkContent="test axious"
+      />
+    </nav>
+  );
+}
+Nav.defaultProps = {};*/
 export default Nav;

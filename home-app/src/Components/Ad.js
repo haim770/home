@@ -19,10 +19,7 @@ function Ad(props) {
         <Parameter paramName="city" paramValue={props.city} />
         <Parameter paramName="number" paramValue={props.number} />
         <Parameter paramName="entry" paramValue={props.entry} />
-        <Parameter
-          paramName="air conditioner"
-          paramValue={props.air_conditioner}
-        />
+        <Parameter paramName="air conditioner" paramValue={props.air_conditioner}/> 
       </ul>
       <p>
         <Button content="contact seller" onclick={props.onclick} />

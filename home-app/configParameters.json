@@ -1,0 +1,65 @@
+{
+  "parameters": [
+    {
+      "paramName": "price",
+      "paramStyle": "input",
+      "paramMinValue": "0",
+      "paramMaxValue": ""
+    },
+    {
+      "paramName": "type",
+      "paramStyle": "comboBox",
+      "values": { "option1": "buy", "option2": "rent" },
+      "paramMinValue": "",
+      "paramMaxValue": ""
+    },
+    {
+      "paramName": "ad_link",
+      "paramStyle": "input",
+      "paramMinValue": "",
+      "paramMaxValue": ""
+    },
+    {
+      "paramName": "air_condition",
+      "paramStyle": "checkBox",
+      "paramMinValue": "",
+      "paramMaxValue": ""
+    },
+    {
+      "paramName": "city",
+      "paramStyle": "input",
+      "paramMinValue": "",
+      "paramMaxValue": ""
+    },
+    {
+      "paramName": "street",
+      "paramStyle": "input",
+      "paramMinValue": "",
+      "paramMaxValue": ""
+    },
+    {
+      "paramName": "apartment",
+      "paramStyle": "input",
+      "paramMinValue": "",
+      "paramMaxValue": ""
+    },
+    {
+      "paramName": "entry",
+      "paramStyle": "input",
+      "paramMinValue": "",
+      "paramMaxValue": ""
+    },
+    {
+      "paramName": "rooms",
+      "paramStyle": "input",
+      "paramMinValue": "",
+      "paramMaxValue": ""
+    },
+    {
+      "paramName": "create_time",
+      "paramStyle": "input",
+      "paramMinValue": "",
+      "paramMaxValue": ""
+    }
+  ]
+}

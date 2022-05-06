@@ -18,22 +18,16 @@ $DATA_RAW = file_get_contents("php://input");
 $DATA_OBJ = json_decode($DATA_RAW);
 require_once('../api/system/classes/useDBs.php');
 $db = dbClass::GetInstance();
-$arr = [];
+$arr=[];
 $error = "";
-if (isset($_POST['data'])) {
-    $dataType = $_POST['data'];
-    if ($dataType == "ads")
-        getAllAds();
-    if (
-        $dataType == "getSelectedAdByIdAndCity"
-    ) {
-        getSelectedAdByIdAndCity();
-    }
-    if ($dataType == 'insertAd') {
-        insertAd();
-    }
+if(isset($_POST['data'])){
+$dataType = $_POST['data'];
+if ($dataType == "ads") 
+getAllAds();
+if($dataType=="getSelectedAdByIdAndCity"
+){
+getSelectedAdByIdAndCity();
 }
-<<<<<<< HEAD
 if($dataType=='insertAd'){
     insertAd();
 }
@@ -49,63 +43,200 @@ function addParameterAds(){
     if($arr['paramType']=="VARCHAR")
     $query="ALTER TABLE ads ADD `{$arr['paramName']}`  varchar(255) NULL";
     if($arr['paramType']=="INT")
-    $query="ALTER TABLE ads ADD `{$arr['paramName']}`  INT NULL";//not working also tinyint no
+    $query="ALTER TABLE ads ADD `{$arr['paramName']}`  tinyint(1)";
     if($arr['paramType']=="TEXT")
-    $query="ALTER TABLE ads ADD `{$arr['paramName']}` TEXT NULL";
+    $query="ALTER TABLE ads ADD `{$arr['paramName']}` TEXT";
     $result=$db->writeDBNotStoredProcedure($query);
     $arr=[];
 	echo json_encode ($result);
 }
 function insertAd(){
-=======
-function insertAd()
-{
->>>>>>> 0f1b9f86ac911efc439b65b62cc185acde01b630
     global $db;
     global $arr;
-    $arr['adID'] = $_POST['adID'];
-    $arr['city'] = $_POST['city'];
-    $arr['street'] = $_POST['street'];
-    $arr['building_number'] = $_POST['building_number'];
-    $arr['entry'] = $_POST['entry'];
-    $arr['user_id'] = $_POST['user_id'];
-    $arr['apartment'] = $_POST['apartment'];
-    $arr['rooms'] = $_POST['rooms'];
+    $arr['adID']=$_POST['adID'];
+    $arr['city']=$_POST['city'];
+    $arr['street']=$_POST['street'];
+    $arr['building_number']=$_POST['building_number'];
+    $arr['entry']=$_POST['entry'];
+    $arr['user_id']=$_POST['user_id'];
+    $arr['apartment']=$_POST['apartment'];
+    $arr['rooms']=$_POST['rooms'];
     $query = "insertAd(:adID,:city,:street,:building_number,:entry,:user_id,:apartment,:rooms)";
-    $result = $db->writeDB($query, $arr);
-    echo json_encode($result);
+    $result=$db->writeDB($query,$arr);
+	echo json_encode ($result);
 }
 // select city from ads where adID =:adIDd
-function getSelectedAdByIdAndCity()
-{
+function getSelectedAdByIdAndCity(){
     global $db;
     global $arr;
     $info = (object)[];
-    $arr['id'] = 1;
-    $arr['city'] = "haifa";
+    $arr['id']=1;
+    $arr['city']="haifa";
     $query = "getSelectedAdByIdAndCity(:id,:city)";
-    $result = $db->readDB($query, $arr);
+    $result=$db->readDB($query,$arr);
     echo json_encode($result);
 }
-function getAllAds()
-{
+function getAllAds(){
     global $db;
     global $arr;
     $arr=[];
     $query = "getAdsTable";
-    $arrayReturn = $db->readDB($query, $arr);
-    echo json_encode($arrayReturn, JSON_FORCE_OBJECT);
+    $arrayReturn= $db->readDB($query,$arr);
+    echo json_encode ($arrayReturn,JSON_FORCE_OBJECT);
 }
 
 // proccess the data
 if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "TEST") {
-    echo "TEST123";
+    echo "TEST WORKED";
 } else // proccess the data - Contact
     if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "contacts") {
         include("contact.php");
-    } else // proccess the data - Contact
-        if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "TEST2"
-        ) {
-            getAllAds();
-        }
+    } else // proccess the data - Chat
+        if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "chat") {
+            include("chat.php");
+        } else // proccess the data - settings
+            if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "settings") {
+                include("settings.php");
+            }
 
+// proccess the data - send message
+if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "send_message") {
+    include("send_message.php");
+}
+
+// proccess the data - get_last_message
+if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "get_last_message") {
+    include("get_last_message.php");
+}
+
+// proccess the data - refresh data
+if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "refresh") {
+    include("refresh.php");
+}
+
+// proccess the data - download chat data
+if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "download_data") {
+    include("data_download.php");
+}
+
+// proccess the data - user settings
+if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "user_settings") {
+    include("user_settings_update.php");
+}
+
+
+
+
+// function to return bob message template(other msg)
+function bob_message($data)
+{
+    $msgID = "msg" . $data->getMsgId();
+    $a = "<div class='bob_message' id='$msgID'>
+        <p>{$data->getMessage()}</p>";
+    /*if message sent today dont show date*/
+    if (check_if_today(strtotime($data->getdateMsg())))
+        $a .= "<span>" . date("H:i", strtotime($data->getdateMsg())) . "</span></div>";
+    else
+        $a .= "<span>" . date("d-m-y H:i", strtotime($data->getdateMsg())) . "</span></div>";
+    return $a;
+}
+
+// function to return alice message template(us msg)
+function alice_message($data)
+{
+    $msgID = "msg" . $data->getMsgId();
+    $seenStatus = $data->getMsgId();
+    $viewstats = $data->getSeen() +  $data->getRecieved(); // 
+    $a = "<div class='alice_message' id='$msgID'>
+        <p>{$data->getMessage()}</p>
+        <div class='alice_container'>";
+    /*if message sent today dont show date*/
+    if (check_if_today(strtotime($data->getdateMsg())))
+        $a .= "<span>" . date("H:i", strtotime($data->getdateMsg())) . "</span>";
+    else
+        $a .= "<span>" . date("d-m-y H:i", strtotime($data->getdateMsg())) . "</span>";
+
+    /**
+     * 0 - not recieved   --> one tick
+     * 1 - only recieved  --> grey tick
+     * 2 - seen           --> blue tick
+     */
+
+    switch ($viewstats) {
+        case 0:
+            $a .= "<img id='$seenStatus' src='ui/images/onetick.png'>
+             </div></div>";
+            break;
+        case 1:
+            $a .= "<img id='$seenStatus' src='ui/images/tick_grey.png'>
+             </div></div>";
+            break;
+        case 2:
+            $a .= "<img id='$seenStatus' src='ui/images/tick.png'>
+             </div></div>";
+            break;
+    }
+
+
+
+    return $a;
+}
+
+/**
+ * check if message sent today
+ */
+function check_if_today($date)
+{
+    $curDate = date("Y-m-d");
+    $expDate = date("Y-m-d", $date);
+    return $expDate == $curDate;
+}
+
+/**
+ * check if user is online, check 4 second from now if not seen
+ * return online or last time seen
+ */
+function check_if_onlice($date)
+{
+    $expFormat = mktime(
+        date("H"),
+        date("i"),
+        date("s") - 4,
+        date("m"),
+        date("d"),
+        date("Y")
+    );
+    $expDate = date("Y-m-d H:i:s", $expFormat);
+
+    // if user is offline check if last time seen is today, if today display only the hour 
+    return $expDate > $date;
+}
+
+function seen_status($date)
+{
+    $rtnStr = "מחובר/ת";
+    // if user is offline check if last time seen is today, if today display only the hour 
+    if (check_if_onlice($date)) {
+        $rtnStr = "נראה לאחרונה ";
+        if (check_if_today(strtotime($date))) {
+            $rtnStr .= date("H:i", strtotime($date));
+        } else {
+            $rtnStr .= date("d-m-Y H:i", strtotime($date));
+        }
+    }
+    return $rtnStr;
+}
+
+
+// function to return user we chat with 
+function user_contact($data, $last)
+{
+    // build user name
+    $a = "<div class='user_name' id='user_name_chat_with' style='font-size:1.3rem'>
+        <p style='margin-block-end: 0.1em; margin-block-start: 0.1em;'>$data</p></div>";
+    // build last seem
+    $a .= "<div class='lase_seem' id='user_name_last_seem' style='color: #667781; font-size:1rem;'>
+            <span>$last</span></div>";
+
+    return $a;
+}
