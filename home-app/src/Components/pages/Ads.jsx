@@ -34,11 +34,8 @@ const Ads = () => {
     <div>
       <p>Ads page</p>
       {/* we need to make and offset var to hold the next batch we want to load <TestAxios data_type="TEST2" params={currentOffset} />*/}
-<<<<<<< HEAD
+
       {/*<TestAxios data_type="TEST2" params={[]} />*/}
-=======
-      {<TestAxios data_type="TEST2" params={[]} />}
->>>>>>> 1fd7d4dfe483cbe328948776c142c6725e155dc5
 
       <p>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero, veniam
