@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 09, 2022 at 04:27 PM
+-- Generation Time: May 06, 2022 at 09:46 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.2
 
@@ -25,6 +25,13 @@ DELIMITER $$
 --
 -- Procedures
 --
+CREATE DEFINER=`root`@`localhost` PROCEDURE `addColumnToAds` (IN `name` VARCHAR(255), IN `t` VARCHAR(255))  READS SQL DATA
+    COMMENT 'adds another parameter to ads'
+BEGIN
+ALTER TABLE ads
+ADD name int;
+END$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getAdContentTable` ()  READS SQL DATA
     COMMENT 'Get all ad content from ad_content table'
 BEGIN
@@ -36,6 +43,12 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `getAdsTable` ()  READS SQL DATA
 BEGIN
 	SELECT * from ads;
 END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getAdTableJoinedWithAdContentTable` ()  READS SQL DATA
+SELECT *
+FROM ads
+INNER JOIN ad_content
+     ON ad_content.adID = ads.adID$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getBlogsTable` ()  READS SQL DATA
     COMMENT 'Get all blogs from blogs table'
@@ -97,6 +110,11 @@ BEGIN
 	SELECT * from report_reason;
 END$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getSelectedAdByIdAndCity` (IN `id` VARCHAR(255), IN `city` VARCHAR(255))  READS SQL DATA
+BEGIN
+select * from ads where ads.adID =id and ads.city=city;
+END$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getSystemMessagesTable` ()  READS SQL DATA
     COMMENT 'get all system messages table'
 BEGIN
@@ -114,6 +132,14 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `getUsersTable` ()  READS SQL DATA
 BEGIN
 	SELECT * from users;
 END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `insertAd` (IN `adID` VARCHAR(255), IN `user_id` VARCHAR(255), IN `city` VARCHAR(255), IN `street` VARCHAR(255), IN `building_number` INT, IN `apartment` VARCHAR(255), IN `entry` VARCHAR(255), IN `rooms` VARCHAR(255))  READS SQL DATA
+BEGIN
+INSERT INTO `ads` (`adID`, `create_time`, `user_id`, `active`, `contact_counter`, `views`, `close_reason`, `expire_date`, `approval_status`, `ad_link`, `city`, `street`, `building_number`, `entry`, `apartment`, `zip_code`, `map_X`, `map_Y`) VALUES (adID, current_timestamp(), user_id, '0', '0', '0', NULL, '', 'pending', 'ad link 3', city, street, building_number, entry, apartment, '3', '', '');
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `insertTry` (IN `name` VARCHAR(255), IN `id` INT)  READS SQL DATA
+INSERT INTO `try` (`id`, `name`) VALUES (id, name)$$
 
 DELIMITER ;
 
@@ -141,8 +167,22 @@ CREATE TABLE `ads` (
   `apartment` varchar(10) NOT NULL,
   `zip_code` varchar(50) NOT NULL,
   `map_X` varchar(255) NOT NULL,
-  `map_Y` varchar(255) NOT NULL
+  `map_Y` varchar(255) NOT NULL,
+  `price` double NOT NULL DEFAULT 0 COMMENT 'price for the property',
+  `air_conditioner` tinyint(1) NOT NULL,
+  `elevator` varchar(255) DEFAULT NULL,
+  `HAIM` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `ads`
+--
+
+INSERT INTO `ads` (`adID`, `create_time`, `user_id`, `active`, `contact_counter`, `views`, `close_reason`, `expire_date`, `approval_status`, `ad_link`, `city`, `street`, `building_number`, `entry`, `apartment`, `zip_code`, `map_X`, `map_Y`, `price`, `air_conditioner`, `elevator`, `HAIM`) VALUES
+('088c8395-a8fa-4a3d-aab5-e9b4893655ce', '2022-05-05 21:51:10', 'afula', 0, 0, 0, NULL, '0000-00-00 00:00:00', 'pending', 'ad link 3', 'afula street', '1', 1, '23', '1', '3', '', '', 0, 0, NULL, NULL),
+('1', '2022-05-05 16:19:11', '1', 0, 0, 0, NULL, '0000-00-00 00:00:00', 'pending', 'ad link 3', 'haifa', 'hagalil', 1, '1', '1', '3', '', '', 2002, 1, NULL, NULL),
+('4975c3c0-c612-42b9-b77f-53ae72823142', '2022-05-05 22:56:20', 'k', 0, 0, 0, NULL, '0000-00-00 00:00:00', 'pending', 'ad link 3', 'jjjjddjjd', 'kk', 2, '2', '1', '3', '', '', 0, 0, NULL, NULL),
+('a198e934-feb0-4326-bf46-8abd5edade6d', '2022-05-05 23:52:55', '1', 0, 0, 0, NULL, '0000-00-00 00:00:00', 'pending', 'ad link 3', '1', '1', 1, '1', '1', '3', '', '', 0, 0, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -152,7 +192,7 @@ CREATE TABLE `ads` (
 
 CREATE TABLE `ad_content` (
   `element_id` varchar(50) NOT NULL,
-  `adId` varchar(50) NOT NULL COMMENT 'when master is active adid will be zero (0)',
+  `adID` varchar(50) NOT NULL COMMENT 'when master is active adid will be zero (0)',
   `category` varchar(50) NOT NULL COMMENT 'exp, rent, buy...',
   `master` tinyint(1) NOT NULL DEFAULT 0 COMMENT 'defind if row is for new add properties',
   `min_value` double DEFAULT NULL COMMENT 'min value will appear only for chooseing parameter to set minmum row value',
@@ -162,6 +202,16 @@ CREATE TABLE `ad_content` (
   `required` tinyint(1) NOT NULL DEFAULT 0,
   `name` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `ad_content`
+--
+
+INSERT INTO `ad_content` (`element_id`, `adID`, `category`, `master`, `min_value`, `max_value`, `icon`, `free_text`, `required`, `name`) VALUES
+('1', '0', 'input', 1, 0, 40000, '', 'the price here', 0, 'price'),
+('12', '1', 'RENT', 0, 1, 10, '1', 'JDJDHJSHLSJFSJKFJSJKF', 1, 'PRESENTING'),
+('2', '0', 'checkBox', 1, NULL, NULL, '', 'check box for air conditioner', 0, 'air_conditioner'),
+('3', '1', 'checkBox', 0, NULL, NULL, '', 'air conditioner', 0, 'air_conditioner');
 
 -- --------------------------------------------------------
 
@@ -353,6 +403,25 @@ INSERT INTO `testtable` (`name`, `age`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `try`
+--
+
+CREATE TABLE `try` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `try`
+--
+
+INSERT INTO `try` (`id`, `name`) VALUES
+(0, '10'),
+(1, 'ed');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
@@ -410,7 +479,7 @@ ALTER TABLE `ads`
 --
 ALTER TABLE `ad_content`
   ADD PRIMARY KEY (`element_id`),
-  ADD KEY `adId` (`adId`);
+  ADD KEY `adId` (`adID`);
 
 --
 -- Indexes for table `blogs`
@@ -482,6 +551,12 @@ ALTER TABLE `purchase_history`
 ALTER TABLE `system_messages`
   ADD PRIMARY KEY (`msgId`),
   ADD KEY `userId` (`userId`);
+
+--
+-- Indexes for table `try`
+--
+ALTER TABLE `try`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `users`
