@@ -37,7 +37,6 @@ const Ads = () => {
 
       {/*<TestAxios data_type="TEST2" params={[]} />*/}
 
-
       <p>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero, veniam
         quibusdam. Expedita quas autem numquam in odit adipisci at labore est,
