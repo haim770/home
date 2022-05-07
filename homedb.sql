@@ -25,12 +25,19 @@ DELIMITER $$
 --
 -- Procedures
 --
-CREATE DEFINER=`root`@`localhost` PROCEDURE `addColumnToAds` (IN `name` VARCHAR(255), IN `t` VARCHAR(255))  READS SQL DATA
+CREATE DEFINER=`root`@`localhost` PROCEDURE `addColumnToAds` (IN `name` VARCHAR(255), IN `t` VARCHAR(255))  MODIFIES SQL DATA
     COMMENT 'adds another parameter to ads'
 BEGIN
 ALTER TABLE ads
 ADD name int;
 END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `addMasterAdsParams` (IN `element_Id` VARCHAR(50), IN `ad_Id` VARCHAR(50), IN `category_name` VARCHAR(50), IN `master_id` INT, IN `min_value_id` DOUBLE, IN `max_value_id` DOUBLE, IN `icon_id` TEXT, IN `free_text_id` TEXT, IN `required_id` BOOLEAN, IN `name_id` VARCHAR(50))  READS SQL DATA
+BEGIN
+INSERT INTO `ad_content`(`element_id`, `adID`, `category`, `master`, `min_value`, `max_value`, `icon`, `free_text`, `required`, `name`) VALUES (element_Id,ad_Id,category_name,master_id,min_value_id,
+max_value_id,icon_id,free_text_id,required_id,name_id);
+END$$
+
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getAdContentTable` ()  READS SQL DATA
     COMMENT 'Get all ad content from ad_content table'
