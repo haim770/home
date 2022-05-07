@@ -74,7 +74,7 @@ function getSelectedAdByIdAndCity(){
     $arr['city']="haifa";
     $query = "getSelectedAdByIdAndCity(:id,:city)";
     $result=$db->readDB($query,$arr);
-    echo json_encode($result);
+    echo json_encode ($result);
 }
 function getAllAds(){
     global $db;
