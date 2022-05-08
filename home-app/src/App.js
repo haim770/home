@@ -5,13 +5,17 @@ import Footer from "./Components/Footer.js";
 import Nav from "./Components/Nav";
 import { v4 as uuidv4 } from "uuid";
 import Main from "./Components/Main.js"
+import Register from "./Components/Register";
+import Api from "./api/Api.js";
 
 //the outlet is in the middle part just after nav b4 footer
 export default function App() {
+  const api=new Api();
   return (
     <div className="App">
       <Nav />
       <Main/>
+      <Register api={api}/>
     <Footer/>
     </div>
   );

@@ -24,6 +24,8 @@ if(isset($_POST['data'])){
 $dataType = $_POST['data'];
 if ($dataType == "ads") 
 getAllAds();
+if ($dataType == "register") 
+register();
 if($dataType=="getSelectedAdByIdAndCity"
 ){
 getSelectedAdByIdAndCity();
@@ -34,6 +36,21 @@ if($dataType=='insertAd'){
 if($dataType=='addParameterAds'){
     addParameterAds();
 }
+}
+function register(){
+      global $db;
+    global $arr;
+    $arr['first_name']=$_POST['first_name'];
+    $arr['mail']=$_POST['mail'];
+    $arr['password']=password_hash($_POST['password'], PASSWORD_DEFAULT);
+    $arr['uuid']=uniqid();
+    $arr['last_name']=$_POST['last_name'];
+    $arr['phone']=$_POST['phone'];
+    
+   $query = "register(:uuid,:first_name,:last_name,:phone,:mail,:password)";
+    $result=$db->writeDB($query,$arr);
+	echo json_encode ($result);
+    $arr=[];
 }
 function addParameterAds(){
     global $db;

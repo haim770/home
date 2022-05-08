@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 06, 2022 at 09:46 AM
+-- Generation Time: May 08, 2022 at 10:35 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.2
 
@@ -25,19 +25,12 @@ DELIMITER $$
 --
 -- Procedures
 --
-CREATE DEFINER=`root`@`localhost` PROCEDURE `addColumnToAds` (IN `name` VARCHAR(255), IN `t` VARCHAR(255))  MODIFIES SQL DATA
+CREATE DEFINER=`root`@`localhost` PROCEDURE `addColumnToAds` (IN `name` VARCHAR(255), IN `t` VARCHAR(255))  READS SQL DATA
     COMMENT 'adds another parameter to ads'
 BEGIN
 ALTER TABLE ads
 ADD name int;
 END$$
-
-CREATE DEFINER=`root`@`localhost` PROCEDURE `addMasterAdsParams` (IN `element_Id` VARCHAR(50), IN `ad_Id` VARCHAR(50), IN `category_name` VARCHAR(50), IN `master_id` INT, IN `min_value_id` DOUBLE, IN `max_value_id` DOUBLE, IN `icon_id` TEXT, IN `free_text_id` TEXT, IN `required_id` BOOLEAN, IN `name_id` VARCHAR(50))  READS SQL DATA
-BEGIN
-INSERT INTO `ad_content`(`element_id`, `adID`, `category`, `master`, `min_value`, `max_value`, `icon`, `free_text`, `required`, `name`) VALUES (element_Id,ad_Id,category_name,master_id,min_value_id,
-max_value_id,icon_id,free_text_id,required_id,name_id);
-END$$
-
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getAdContentTable` ()  READS SQL DATA
     COMMENT 'Get all ad content from ad_content table'
@@ -91,6 +84,12 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `getPackageTable` ()  READS SQL DATA
     COMMENT 'Get all packages from package table'
 BEGIN
 SELECT * from package;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getParametersMasters` ()  READS SQL DATA
+    COMMENT 'get all masters'
+BEGIN
+SELECT * from parametersmaster;
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getPasswordRecoveryTable` ()  READS SQL DATA
@@ -148,6 +147,9 @@ END$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `insertTry` (IN `name` VARCHAR(255), IN `id` INT)  READS SQL DATA
 INSERT INTO `try` (`id`, `name`) VALUES (id, name)$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `register` (IN `uuid` VARCHAR(255), IN `first_name` VARCHAR(255), IN `last_name` VARCHAR(255), IN `phone` VARCHAR(255), IN `mail` VARCHAR(255), IN `password` VARCHAR(255))  NO SQL
+INSERT INTO `users` (`uuid`, `first_name`, `last_name`, `phone`, `mail`, `create_time`, `password`, `last_seen`, `prompt`, `rule`) VALUES (uuid, first_name, last_name, phone, mail, current_timestamp(), password, current_timestamp(), 'k', 'user')$$
+
 DELIMITER ;
 
 -- --------------------------------------------------------
@@ -188,8 +190,14 @@ CREATE TABLE `ads` (
 INSERT INTO `ads` (`adID`, `create_time`, `user_id`, `active`, `contact_counter`, `views`, `close_reason`, `expire_date`, `approval_status`, `ad_link`, `city`, `street`, `building_number`, `entry`, `apartment`, `zip_code`, `map_X`, `map_Y`, `price`, `air_conditioner`, `elevator`, `HAIM`) VALUES
 ('088c8395-a8fa-4a3d-aab5-e9b4893655ce', '2022-05-05 21:51:10', 'afula', 0, 0, 0, NULL, '0000-00-00 00:00:00', 'pending', 'ad link 3', 'afula street', '1', 1, '23', '1', '3', '', '', 0, 0, NULL, NULL),
 ('1', '2022-05-05 16:19:11', '1', 0, 0, 0, NULL, '0000-00-00 00:00:00', 'pending', 'ad link 3', 'haifa', 'hagalil', 1, '1', '1', '3', '', '', 2002, 1, NULL, NULL),
+('193793f3-8e29-4f97-a796-e07b1d820ed8', '2022-05-08 22:12:10', '', 0, 0, 0, NULL, '0000-00-00 00:00:00', 'pending', 'ad link 3', '', '', 0, '', '1', '3', '', '', 0, 0, NULL, NULL),
+('38553d54-f007-47a3-84fe-5e2e87e1a26e', '2022-05-08 22:36:00', '1', 0, 0, 0, NULL, '0000-00-00 00:00:00', 'pending', 'ad link 3', '1', '1', 1, '1', '1', '3', '', '', 0, 0, NULL, NULL),
+('3e75bc42-f6c1-48bb-9811-8163b2ce0546', '2022-05-08 22:12:05', '', 0, 0, 0, NULL, '0000-00-00 00:00:00', 'pending', 'ad link 3', '', '', 0, '', '1', '3', '', '', 0, 0, NULL, NULL),
 ('4975c3c0-c612-42b9-b77f-53ae72823142', '2022-05-05 22:56:20', 'k', 0, 0, 0, NULL, '0000-00-00 00:00:00', 'pending', 'ad link 3', 'jjjjddjjd', 'kk', 2, '2', '1', '3', '', '', 0, 0, NULL, NULL),
-('a198e934-feb0-4326-bf46-8abd5edade6d', '2022-05-05 23:52:55', '1', 0, 0, 0, NULL, '0000-00-00 00:00:00', 'pending', 'ad link 3', '1', '1', 1, '1', '1', '3', '', '', 0, 0, NULL, NULL);
+('a198e934-feb0-4326-bf46-8abd5edade6d', '2022-05-05 23:52:55', '1', 0, 0, 0, NULL, '0000-00-00 00:00:00', 'pending', 'ad link 3', '1', '1', 1, '1', '1', '3', '', '', 0, 0, NULL, NULL),
+('c45ac08b-f8b1-48dd-9cc5-eb205ad1d674', '2022-05-08 22:12:04', '', 0, 0, 0, NULL, '0000-00-00 00:00:00', 'pending', 'ad link 3', '', '', 1, '', '1', '3', '', '', 0, 0, NULL, NULL),
+('cf739362-14be-47e4-8418-89201cbcf551', '2022-05-08 22:12:13', '', 0, 0, 0, NULL, '0000-00-00 00:00:00', 'pending', 'ad link 3', '', '', 0, '', '1', '3', '', '', 0, 0, NULL, NULL),
+('fbc3a555-e918-410c-bf4b-7b14944c1d54', '2022-05-08 22:12:09', '', 0, 0, 0, NULL, '0000-00-00 00:00:00', 'pending', 'ad link 3', '', '', 0, '', '1', '3', '', '', 0, 0, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -215,10 +223,7 @@ CREATE TABLE `ad_content` (
 --
 
 INSERT INTO `ad_content` (`element_id`, `adID`, `category`, `master`, `min_value`, `max_value`, `icon`, `free_text`, `required`, `name`) VALUES
-('1', '0', 'input', 1, 0, 40000, '', 'the price here', 0, 'price'),
-('12', '1', 'RENT', 0, 1, 10, '1', 'JDJDHJSHLSJFSJKFJSJKF', 1, 'PRESENTING'),
-('2', '0', 'checkBox', 1, NULL, NULL, '', 'check box for air conditioner', 0, 'air_conditioner'),
-('3', '1', 'checkBox', 0, NULL, NULL, '', 'air conditioner', 0, 'air_conditioner');
+('1', '1', 'checkBox', 1, NULL, NULL, '', 'air conditioner', 0, 'air_conditioner');
 
 -- --------------------------------------------------------
 
@@ -318,6 +323,37 @@ CREATE TABLE `package` (
   `update_time` datetime NOT NULL DEFAULT current_timestamp(),
   `life_cycle` datetime NOT NULL COMMENT 'the time the package will be avalible'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `parametersmaster`
+--
+
+CREATE TABLE `parametersmaster` (
+  `paramName` varchar(255) NOT NULL,
+  `paramStyle` varchar(255) NOT NULL,
+  `paramMinValue` double NOT NULL,
+  `paramMaxValue` double NOT NULL,
+  `paramType` varchar(255) NOT NULL,
+  `comboBoxValues` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `parametersmaster`
+--
+
+INSERT INTO `parametersmaster` (`paramName`, `paramStyle`, `paramMinValue`, `paramMaxValue`, `paramType`, `comboBoxValues`) VALUES
+('ad_link', 'input', 0, 0, 'varchar', ''),
+('air_conditioner', 'checkBox', 0, 0, 'boolean', ''),
+('apartment', 'input', 0, 0, 'int', ''),
+('building_number', 'input', 0, 0, 'int', ''),
+('city', 'input', 0, 0, 'varchar(255)', ''),
+('create_time', 'input', 0, 0, 'dateTime', ''),
+('entry', 'input', 0, 0, 'varchar(255)', ''),
+('price', 'input', 0, 0, 'int', ''),
+('rooms', 'comboBox', 0, 0, 'double', '{0.5,1,1.5,2,2.5,3,3.5,4,4.5,5,5.5,6,6.5,7,7.5,8,8.5,9,9.5,10}'),
+('street', 'input', 0, 0, 'varchr(255)', '');
 
 -- --------------------------------------------------------
 
@@ -433,14 +469,14 @@ INSERT INTO `try` (`id`, `name`) VALUES
 --
 
 CREATE TABLE `users` (
-  `uuid` varchar(50) NOT NULL,
-  `first_name` varchar(50) NOT NULL,
-  `last_name` varchar(50) NOT NULL,
-  `phone` varchar(50) NOT NULL,
+  `uuid` varchar(255) NOT NULL,
+  `first_name` varchar(255) NOT NULL,
+  `last_name` varchar(255) NOT NULL,
+  `phone` varchar(255) NOT NULL,
   `mail` varchar(255) NOT NULL,
   `create_time` datetime NOT NULL DEFAULT current_timestamp(),
-  `password` varchar(50) NOT NULL,
-  `last_seen` datetime NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `last_seen` datetime NOT NULL DEFAULT current_timestamp(),
   `prompt` varchar(255) NOT NULL,
   `rule` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -450,7 +486,27 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`uuid`, `first_name`, `last_name`, `phone`, `mail`, `create_time`, `password`, `last_seen`, `prompt`, `rule`) VALUES
-('123456', 'lidor', 'ben shimol', '0542155045', 'AAA', '2022-04-06 17:52:19', 'ASdasda', '0000-00-00 00:00:00', '', '');
+('', '', '', '', '', '2022-05-08 23:07:48', '1', '2022-05-08 23:07:48', 'k', 'user'),
+('1', 'haim', 'mo', '01', 'haim@gmail.con', '2022-05-03 21:19:17', '1', '2022-05-08 21:19:17', '', 'user'),
+('123456', 'lidor', 'ben shimol', '0542155045', 'AAA', '2022-04-06 17:52:19', 'ASdasda', '0000-00-00 00:00:00', '', ''),
+('2222222222222222', '2222222222222222', '2222222222222222', '2222222222222222', '2222222222222222', '2022-05-08 23:08:11', '1', '2022-05-08 23:08:11', 'k', 'user'),
+('48', '29', '22', '1', '12', '2022-05-08 23:04:51', '112', '2022-05-08 23:04:51', 'k', 'user'),
+('627824e644859', 'haimkel', 'monhait', '0030', 'haim@123.com', '2022-05-08 23:15:34', '12345678', '2022-05-08 23:15:34', 'k', 'user'),
+('6278268bcf8fb', 'haimmmmm', 'mmmmmm', 'mmmmmmm', 'mmmmmm', '2022-05-08 23:22:35', '$2y$10$LXc4nneaLWgnasmz7nnV6.K1g7/71oac46uNYZ.YTOyVSTRxHnrVK', '2022-05-08 23:22:35', 'k', 'user'),
+('627826f01b888', 'k', 'ks', 'k', 's', '2022-05-08 23:24:16', '$2y$10$Fwz6liVpMjKCFw6xz5VY7.BXEnVeJRhQK5U0Nz6Mb91sHA/DO68Ve', '2022-05-08 23:24:16', 'k', 'user'),
+('627827fb35231', '', '', '', '', '2022-05-08 23:28:43', '$2y$10$/gNDwtz.lBacBd3D1nkB8OOzbOi7Ip89xfrSCrbzPeYeH.nM1WChq', '2022-05-08 23:28:43', 'k', 'user'),
+('627827fd863f8', '', '', '', '', '2022-05-08 23:28:45', '$2y$10$K1OtF5q53gh4IyrHXBIlPeQkvJr/ivFL7nPp6MO9SjRo6qgf.K2eK', '2022-05-08 23:28:45', 'k', 'user'),
+('627827fe89557', '', '', '', '', '2022-05-08 23:28:46', '$2y$10$0XVRAdm2RErQRPevsK1DYeptgVJhje7FSv.tEszF9YibnOGMKk7Tq', '2022-05-08 23:28:46', 'k', 'user'),
+('627828e9313d7', 'mfk', 'kck', 'l', 'lld', '2022-05-08 23:32:41', '$2y$10$Kg53uqrhKDZ6Z5D/bHa9HufBnlxvcJBDkYP3sSZPF/tgWRzH/qpki', '2022-05-08 23:32:41', 'k', 'user'),
+('6278291bd3d9a', '', '', '', '', '2022-05-08 23:33:31', '$2y$10$DGTuCO7NHNq4Ntf6UHVgk.bnZEXbntd6vrh12mBXAUbMfIc4kf71e', '2022-05-08 23:33:31', 'k', 'user'),
+('ckfk', 'kk', 'k', 'kk', 'k', '2022-05-08 23:10:27', '627823b34ff60', '2022-05-08 23:10:27', 'k', 'user'),
+('ckfkkdkdkd', 'kkkkk', 'kkkkkkls', 'kkkkk', 'kkkkk', '2022-05-08 23:10:58', '627823d28d7bd', '2022-05-08 23:10:58', 'k', 'user'),
+('haim', 'kkkkk', 'kkkkkkls', 'ndmdmd', 'kkkkk', '2022-05-08 23:11:19', '627823e713057', '2022-05-08 23:11:19', 'k', 'user'),
+('haimke', 'll', 'll', 'll', 'll', '2022-05-08 23:14:16', '627824989503e', '2022-05-08 23:14:16', 'k', 'user'),
+('haimlfl', 'll', 'll', '62782439b08a4', 'll', '2022-05-08 23:12:41', '62782439b0897', '2022-05-08 23:12:41', 'k', 'user'),
+('k', 'k', 'k', '', 'l', '2022-05-08 23:01:14', 'l', '0000-00-00 00:00:00', 'l', 'l'),
+('kk', 'k', 'k', 'k', 'kk', '2022-05-08 23:02:13', 'k', '2022-05-08 23:02:13', 'k', 'k'),
+('kk1111111111111', 'kk1111111111111', 'kk1111111111111', 'kk1111111111111', 'kk1111111111111', '2022-05-08 23:09:23', '1', '2022-05-08 23:09:23', 'k', 'user');
 
 -- --------------------------------------------------------
 
@@ -531,6 +587,12 @@ ALTER TABLE `messages`
 --
 ALTER TABLE `package`
   ADD PRIMARY KEY (`packageId`);
+
+--
+-- Indexes for table `parametersmaster`
+--
+ALTER TABLE `parametersmaster`
+  ADD PRIMARY KEY (`paramName`);
 
 --
 -- Indexes for table `password_recovery`
