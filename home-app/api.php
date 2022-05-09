@@ -41,27 +41,24 @@ if($dataType=='login'){
 }
 }
 function login(){
-    user login to site by mail and password
+    //user login to site by mail and password
     global $db;
     global $arr;
     $arr['mail']=$_POST['mail'];
     $arr['password']=password_hash($_POST['password'], PASSWORD_DEFAULT);
-    $query = "getUserByMail(:mail,:password)";
+    $query = "getUserByMailAndPassword(:mail,:password)";
     $result=$db->readDB($query,$arr);
     echo json_encode($result);
     $arr=[];
-    setLastSeen();
-    var_dump ("cdd");
+    if($result)
+        setLastSeen();
 }
 function setLastSeen(){
     //user login to site by mail and password
     global $db;
     global $arr;
-    $arr['mail']=$_POST['mail'];
     $arr['last_seen']=date("Y-m-d H:i:s");
-    echo json_encode($arr['last_seen']);
     $arr['mail']=$_POST['mail'];
-    //echo json_encode(date("Y-m-d H:i:s"));
     $query = "setLastSeen(:mail,:last_seen)";
     $result=$db->writeDB($query,$arr);
     if($result!=null){

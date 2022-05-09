@@ -4,7 +4,7 @@ import "../styles/login.css";
 import Api from "../api/Api";
 import instance from "./pages/AxiosInstance";
 function LoginPage(props) {
-  const api=new Api();
+  const api = new Api();
   const [mail, setMail] = useState(""); //hook for parameter min value
   const [password, setPassword] = useState(""); //hook for parameter style
 
@@ -19,8 +19,9 @@ function LoginPage(props) {
   const makeObjOfAllFields = () => {
     //returns the ad from field states and save it amt return as object
     let obj = {
-      "mail": mail,
-      "password": password,
+      data: "login",
+      mail: mail,
+      password: password,
     };
     return obj;
   };
@@ -57,10 +58,10 @@ function LoginPage(props) {
       return;
     }
     const obj = makeObjOfAllFields();
-    let response = props.api.sendDataFromJsToPhp(obj); //call func to send for db
+    let response = api.sendDataFromJsToPhp(obj); //call func to send for db
     console.log(response);
     returnStateToDefault();
-  }
+  };
   return (
     <form className={"register_form"}>
       <label>
