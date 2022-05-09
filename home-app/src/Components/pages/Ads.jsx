@@ -43,134 +43,14 @@ const Ads = () => {
   },[ads]);
 
   return (
-    <div>
+    <>
       <p></p>
-      {ads.data[0].adID}
+      {JSON.stringify(ads.data)}
       {/* we need to make and offset var to hold the next batch we want to load <TestAxios data_type="TEST2" params={currentOffset} />*/}
 
       {/*<TestAxios data_type="TEST2" params={[]} />*/}
 
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero, veniam
-        quibusdam. Expedita quas autem numquam in odit adipisci at labore est,
-        exercitationem ab nesciunt animi minima ipsa, itaque, alias maiores.{" "}
-      </p>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero, veniam
-        quibusdam. Expedita quas autem numquam in odit adipisci at labore est,
-        exercitationem ab nesciunt animi minima ipsa, itaque, alias maiores.{" "}
-      </p>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero, veniam
-        quibusdam. Expedita quas autem numquam in odit adipisci at labore est,
-        exercitationem ab nesciunt animi minima ipsa, itaque, alias maiores.{" "}
-      </p>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero, veniam
-        quibusdam. Expedita quas autem numquam in odit adipisci at labore est,
-        exercitationem ab nesciunt animi minima ipsa, itaque, alias maiores.{" "}
-      </p>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero, veniam
-        quibusdam. Expedita quas autem numquam in odit adipisci at labore est,
-        exercitationem ab nesciunt animi minima ipsa, itaque, alias maiores.{" "}
-      </p>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero, veniam
-        quibusdam. Expedita quas autem numquam in odit adipisci at labore est,
-        exercitationem ab nesciunt animi minima ipsa, itaque, alias maiores.{" "}
-      </p>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero, veniam
-        quibusdam. Expedita quas autem numquam in odit adipisci at labore est,
-        exercitationem ab nesciunt animi minima ipsa, itaque, alias maiores.{" "}
-      </p>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero, veniam
-        quibusdam. Expedita quas autem numquam in odit adipisci at labore est,
-        exercitationem ab nesciunt animi minima ipsa, itaque, alias maiores.{" "}
-      </p>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero, veniam
-        quibusdam. Expedita quas autem numquam in odit adipisci at labore est,
-        exercitationem ab nesciunt animi minima ipsa, itaque, alias maiores.{" "}
-      </p>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero, veniam
-        quibusdam. Expedita quas autem numquam in odit adipisci at labore est,
-        exercitationem ab nesciunt animi minima ipsa, itaque, alias maiores.{" "}
-      </p>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero, veniam
-        quibusdam. Expedita quas autem numquam in odit adipisci at labore est,
-        exercitationem ab nesciunt animi minima ipsa, itaque, alias maiores.{" "}
-      </p>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero, veniam
-        quibusdam. Expedita quas autem numquam in odit adipisci at labore est,
-        exercitationem ab nesciunt animi minima ipsa, itaque, alias maiores.{" "}
-      </p>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero, veniam
-        quibusdam. Expedita quas autem numquam in odit adipisci at labore est,
-        exercitationem ab nesciunt animi minima ipsa, itaque, alias maiores.{" "}
-      </p>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero, veniam
-        quibusdam. Expedita quas autem numquam in odit adipisci at labore est,
-        exercitationem ab nesciunt animi minima ipsa, itaque, alias maiores.{" "}
-      </p>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero, veniam
-        quibusdam. Expedita quas autem numquam in odit adipisci at labore est,
-        exercitationem ab nesciunt animi minima ipsa, itaque, alias maiores.{" "}
-      </p>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero, veniam
-        quibusdam. Expedita quas autem numquam in odit adipisci at labore est,
-        exercitationem ab nesciunt animi minima ipsa, itaque, alias maiores.{" "}
-      </p>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero, veniam
-        quibusdam. Expedita quas autem numquam in odit adipisci at labore est,
-        exercitationem ab nesciunt animi minima ipsa, itaque, alias maiores.{" "}
-      </p>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero, veniam
-        quibusdam. Expedita quas autem numquam in odit adipisci at labore est,
-        exercitationem ab nesciunt animi minima ipsa, itaque, alias maiores.{" "}
-      </p>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero, veniam
-        quibusdam. Expedita quas autem numquam in odit adipisci at labore est,
-        exercitationem ab nesciunt animi minima ipsa, itaque, alias maiores.{" "}
-      </p>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero, veniam
-        quibusdam. Expedita quas autem numquam in odit adipisci at labore est,
-        exercitationem ab nesciunt animi minima ipsa, itaque, alias maiores.{" "}
-      </p>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero, veniam
-        quibusdam. Expedita quas autem numquam in odit adipisci at labore est,
-        exercitationem ab nesciunt animi minima ipsa, itaque, alias maiores.{" "}
-      </p>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero, veniam
-        quibusdam. Expedita quas autem numquam in odit adipisci at labore est,
-        exercitationem ab nesciunt animi minima ipsa, itaque, alias maiores.{" "}
-      </p>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero, veniam
-        quibusdam. Expedita quas autem numquam in odit adipisci at labore est,
-        exercitationem ab nesciunt animi minima ipsa, itaque, alias maiores.{" "}
-      </p>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero, veniam
-        quibusdam. Expedita quas autem numquam in odit adipisci at labore est,
-        exercitationem ab nesciunt animi minima ipsa, itaque, alias maiores.{" "}
-      </p>
-    </div>
+    </>
   );
 };
 export default Ads;

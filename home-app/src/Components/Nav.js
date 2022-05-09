@@ -11,7 +11,7 @@ import AddAdForm from "./AddAdForm";
 import AddParameterToAds from "./AddParameterToAds";
 import Api from "../api/Api";
 const api = new Api();
-let arr=[];
+let arr = [];
 arr = api.postToGetData({ data: "ads" });
 const Nav = () => {
   return (
@@ -19,20 +19,23 @@ const Nav = () => {
       <BrowserRouter>
         <NavRoots />
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/Ads" element={<Ads />} />
-          <Route
-            path="/ListAds"
-            element={<ListAds api={api} allAds={arr} />} //we pass the initial ads that will be seen at the page
-            //so it will render for the first time
-          />
-          <Route path="/AddAdForm" element={<AddAdForm api={api} />} />
-          <Route
-            path="/AddParameterToAds"
-            element={<AddParameterToAds api={api} />}
-          />
-          <Route path="/AdsAddParams" element={<AdsAddParams />} />
+        {/* Create Nested Route, all under row 23 will be subRoute of the main page */}
+          <Route path="/" element={<Home />}/>
+            <Route path="Ads" element={<Ads />} />
+            <Route
+              path="/ListAds"
+              element={<ListAds api={api} allAds={arr} />} //we pass the initial ads that will be seen at the page
+              //so it will render for the first time
+            />
+            <Route path="/AddAdForm" element={<AddAdForm api={api} />} />
+            <Route
+              path="/AddParameterToAds"
+              element={<AddParameterToAds api={api} />}
+            />
+            <Route path="/AdsAddParams" element={<AdsAddParams />} />
+          
         </Routes>
+        <Outlet/>
       </BrowserRouter>
     </div>
   );
