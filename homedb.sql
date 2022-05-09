@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 08, 2022 at 10:35 PM
+-- Generation Time: May 09, 2022 at 09:36 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.2
 
@@ -127,6 +127,12 @@ BEGIN
 	SELECT * from system_messages;
 END$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getUserByMailAndPassword` (IN `mail` VARCHAR(255))  READS SQL DATA
+    COMMENT 'get specific user by his mail and password'
+BEGIN
+SELECT * FROM `users` WHERE users.mail=mail and users.password=password;
+END$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getUsersReportTable` ()  READS SQL DATA
     COMMENT 'get all users reports table'
 BEGIN
@@ -149,6 +155,14 @@ INSERT INTO `try` (`id`, `name`) VALUES (id, name)$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `register` (IN `uuid` VARCHAR(255), IN `first_name` VARCHAR(255), IN `last_name` VARCHAR(255), IN `phone` VARCHAR(255), IN `mail` VARCHAR(255), IN `password` VARCHAR(255))  NO SQL
 INSERT INTO `users` (`uuid`, `first_name`, `last_name`, `phone`, `mail`, `create_time`, `password`, `last_seen`, `prompt`, `rule`) VALUES (uuid, first_name, last_name, phone, mail, current_timestamp(), password, current_timestamp(), 'k', 'user')$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `setLastSeen` (IN `mail` VARCHAR(255), IN `last_seen` DATETIME)  MODIFIES SQL DATA
+    COMMENT 'set last seen to current time'
+BEGIN
+UPDATE users
+SET users.last_seen = last_seen
+WHERE users.mail = mail;
+end$$
 
 DELIMITER ;
 
@@ -487,9 +501,9 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`uuid`, `first_name`, `last_name`, `phone`, `mail`, `create_time`, `password`, `last_seen`, `prompt`, `rule`) VALUES
 ('', '', '', '', '', '2022-05-08 23:07:48', '1', '2022-05-08 23:07:48', 'k', 'user'),
-('1', 'haim', 'mo', '01', 'haim@gmail.con', '2022-05-03 21:19:17', '1', '2022-05-08 21:19:17', '', 'user'),
+('1', 'haim', 'mo', '01', 'haim@gmail.con', '2022-05-03 21:19:17', '1', '2022-05-31 23:04:51', '', 'user'),
 ('123456', 'lidor', 'ben shimol', '0542155045', 'AAA', '2022-04-06 17:52:19', 'ASdasda', '0000-00-00 00:00:00', '', ''),
-('2222222222222222', '2222222222222222', '2222222222222222', '2222222222222222', '2222222222222222', '2022-05-08 23:08:11', '1', '2022-05-08 23:08:11', 'k', 'user'),
+('2222222222222222', '2222222222222222', '2222222222222222', '2222222222222222', '2222222222222222', '2022-05-08 23:08:11', '1', '0000-00-00 00:00:00', 'k', 'user'),
 ('48', '29', '22', '1', '12', '2022-05-08 23:04:51', '112', '2022-05-08 23:04:51', 'k', 'user'),
 ('627824e644859', 'haimkel', 'monhait', '0030', 'haim@123.com', '2022-05-08 23:15:34', '12345678', '2022-05-08 23:15:34', 'k', 'user'),
 ('6278268bcf8fb', 'haimmmmm', 'mmmmmm', 'mmmmmmm', 'mmmmmm', '2022-05-08 23:22:35', '$2y$10$LXc4nneaLWgnasmz7nnV6.K1g7/71oac46uNYZ.YTOyVSTRxHnrVK', '2022-05-08 23:22:35', 'k', 'user'),
