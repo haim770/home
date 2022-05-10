@@ -3,6 +3,7 @@ import Button from "./Button";
 import Address from "./Address";
 import Parameter from "./Parameter";
 import "../styles/Ad.css";
+import { Link, NavLink, Outlet } from "react-router-dom";
 function Ad(props) {
   return (
     <section className={props.className} id={props.id}>
@@ -19,8 +20,28 @@ function Ad(props) {
         <Parameter paramName="city" paramValue={props.city} />
         <Parameter paramName="number" paramValue={props.number} />
         <Parameter paramName="entry" paramValue={props.entry} />
-        <Parameter paramName="air conditioner" paramValue={props.air_conditioner}/> 
+        <Parameter
+          paramName="air conditioner"
+          paramValue={props.air_conditioner}
+        />
       </ul>
+      <Link
+        to={`/ListAds/${props.price}`}
+        key={props.price}
+        state={{
+          apartment:props.apartment,
+          entry:props.entry,
+          number:props.number,
+          city:props.city,
+          street:props.street,
+          price: props.price,
+          createTime: props.createTime,
+          adLink: props.adLink,
+          rooms: props.rooms,
+        }}
+      >
+        click here to move to full ad
+      </Link>
       <p>
         <Button content="contact seller" onclick={props.onclick} />
       </p>

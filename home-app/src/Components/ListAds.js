@@ -2,6 +2,7 @@ import React, { useState, useEffect, useLayoutEffect } from "react";
 import Ad from "./Ad";
 import SearchComp from "./SearchComp";
 import "../styles/ListAds.css";
+import { Link, NavLink, Outlet } from "react-router-dom";
 
 function ListAds(props) {
   let obj = {};
@@ -52,14 +53,20 @@ function ListAds(props) {
         <section>
           <SearchComp searchValue={searchAd} searchChange={changeSearchAd} />
           <ul className={props.className}>{makeListOfAds()}</ul>;
+          <Outlet />
         </section>
       );
     } else {
-      code = <section></section>;
+      code = (
+        <section>
+          <Outlet />
+        </section>
+      );
     }
     return code;
   };
   return renderEntireComp();
+  
 }
 
 ListAds.defaultProps = {

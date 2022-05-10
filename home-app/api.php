@@ -39,6 +39,20 @@ if($dataType=='addParameterAds'){
 if($dataType=='login'){
     login();
 }
+if($dataType=='getAdByLink'){
+    getAdByLink();
+}
+}
+function getAdByLink(){
+    global $db;
+    global $arr;
+    // $arr['adLink']=$Post[];
+    $arr['adLink']=$_POST['adLink']; 
+    $query = "getAdByLink(:adLink)";
+    $result=$db->readDB($query,$arr);
+    var_dump($result);
+   // echo json_encode ($result);
+    $arr=[];
 }
 function login(){
     //user login to site by mail and password

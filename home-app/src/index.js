@@ -2,23 +2,17 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./styles/index.css";
 import App from "./App";
-/*
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Expenses from "./expenses";
-import Invoices from "./invoices";
-import Invoice from "./invoice";
-import Parameter from "./Components/Parameter";
-import TestAxios from "./testAxios";
-import Register from "./users/Register";
-import Nav from "./Components/Nav";*/
-//import Api from "./api/Api";
 
-//import ListAds from "./Components/ListAds";
-//const api = new Api();
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
+  //router for app first component which wil include another components asterix is a joker 
   <React.StrictMode>
-    <App/>
- 
+    <Router>
+      <Routes>
+        <Route  path="*" element={<App/>}> </Route>
+      </Routes>
+    </Router>
   </React.StrictMode>
 );
