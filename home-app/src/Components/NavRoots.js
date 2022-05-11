@@ -9,23 +9,23 @@ const NavRoot = () => {
       name: "בית",
     },
     {
-      path: "/Ads",
+      path: "/main/Ads",
       name: "מודעות",
     },
     {
-      path: "/AddParameterToAds",
+      path: "/main/AddParameterToAds",
       name: "הוסף פרמטר למודעות(מנהל)",
     },
     {
-      path: "/ListAds",
+      path: "/main/ListAds",
       name: "ListAds",
     },
     {
-      path: "/AddAdForm",
+      path: "/main/AddAdForm",
       name: "AddAdForm",
     },
     {
-      path: "/AdsAddParams",
+      path: "/main/AdsAddParams",
       name: "הוספת פרמטרים בסיס",
     },
   ];

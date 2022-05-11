@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 09, 2022 at 09:36 PM
+-- Generation Time: May 11, 2022 at 05:49 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.2
 
@@ -31,6 +31,12 @@ BEGIN
 ALTER TABLE ads
 ADD name int;
 END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getAdByLink` (IN `adLink` VARCHAR(255))  READS SQL DATA
+    COMMENT 'get ad by its link'
+begin
+SELECT * from ads where ads.ad_link=adLink;
+end$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getAdContentTable` ()  READS SQL DATA
     COMMENT 'Get all ad content from ad_content table'
@@ -127,7 +133,7 @@ BEGIN
 	SELECT * from system_messages;
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `getUserByMailAndPassword` (IN `mail` VARCHAR(255))  READS SQL DATA
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getUserByMailAndPassword` (IN `mail` VARCHAR(255), IN `password` VARCHAR(255))  READS SQL DATA
     COMMENT 'get specific user by his mail and password'
 BEGIN
 SELECT * FROM `users` WHERE users.mail=mail and users.password=password;
@@ -202,16 +208,16 @@ CREATE TABLE `ads` (
 --
 
 INSERT INTO `ads` (`adID`, `create_time`, `user_id`, `active`, `contact_counter`, `views`, `close_reason`, `expire_date`, `approval_status`, `ad_link`, `city`, `street`, `building_number`, `entry`, `apartment`, `zip_code`, `map_X`, `map_Y`, `price`, `air_conditioner`, `elevator`, `HAIM`) VALUES
-('088c8395-a8fa-4a3d-aab5-e9b4893655ce', '2022-05-05 21:51:10', 'afula', 0, 0, 0, NULL, '0000-00-00 00:00:00', 'pending', 'ad link 3', 'afula street', '1', 1, '23', '1', '3', '', '', 0, 0, NULL, NULL),
-('1', '2022-05-05 16:19:11', '1', 0, 0, 0, NULL, '0000-00-00 00:00:00', 'pending', 'ad link 3', 'haifa', 'hagalil', 1, '1', '1', '3', '', '', 2002, 1, NULL, NULL),
-('193793f3-8e29-4f97-a796-e07b1d820ed8', '2022-05-08 22:12:10', '', 0, 0, 0, NULL, '0000-00-00 00:00:00', 'pending', 'ad link 3', '', '', 0, '', '1', '3', '', '', 0, 0, NULL, NULL),
+('088c8395-a8fa-4a3d-aab5-e9b4893655ce', '2022-05-05 21:51:10', 'afula', 0, 0, 0, NULL, '0000-00-00 00:00:00', 'pending', 'ad link 3fsfs', 'afula street', '1', 1, '23', '1', '3', '', '', 0, 0, NULL, NULL),
+('1', '2022-05-05 16:19:11', '1', 0, 0, 0, NULL, '0000-00-00 00:00:00', 'pending', 'ad dfflink 3', 'haifa', 'hagalil', 1, '1', '1', '3', '', '', 2002, 1, NULL, NULL),
+('193793f3-8e29-4f97-a796-e07b1d820ed8', '2022-05-08 22:12:10', '', 0, 0, 0, NULL, '0000-00-00 00:00:00', 'pending', 'ad link 3sdde', '', '', 0, '', '1', '3', '', '', 0, 0, NULL, NULL),
 ('38553d54-f007-47a3-84fe-5e2e87e1a26e', '2022-05-08 22:36:00', '1', 0, 0, 0, NULL, '0000-00-00 00:00:00', 'pending', 'ad link 3', '1', '1', 1, '1', '1', '3', '', '', 0, 0, NULL, NULL),
 ('3e75bc42-f6c1-48bb-9811-8163b2ce0546', '2022-05-08 22:12:05', '', 0, 0, 0, NULL, '0000-00-00 00:00:00', 'pending', 'ad link 3', '', '', 0, '', '1', '3', '', '', 0, 0, NULL, NULL),
-('4975c3c0-c612-42b9-b77f-53ae72823142', '2022-05-05 22:56:20', 'k', 0, 0, 0, NULL, '0000-00-00 00:00:00', 'pending', 'ad link 3', 'jjjjddjjd', 'kk', 2, '2', '1', '3', '', '', 0, 0, NULL, NULL),
-('a198e934-feb0-4326-bf46-8abd5edade6d', '2022-05-05 23:52:55', '1', 0, 0, 0, NULL, '0000-00-00 00:00:00', 'pending', 'ad link 3', '1', '1', 1, '1', '1', '3', '', '', 0, 0, NULL, NULL),
-('c45ac08b-f8b1-48dd-9cc5-eb205ad1d674', '2022-05-08 22:12:04', '', 0, 0, 0, NULL, '0000-00-00 00:00:00', 'pending', 'ad link 3', '', '', 1, '', '1', '3', '', '', 0, 0, NULL, NULL),
-('cf739362-14be-47e4-8418-89201cbcf551', '2022-05-08 22:12:13', '', 0, 0, 0, NULL, '0000-00-00 00:00:00', 'pending', 'ad link 3', '', '', 0, '', '1', '3', '', '', 0, 0, NULL, NULL),
-('fbc3a555-e918-410c-bf4b-7b14944c1d54', '2022-05-08 22:12:09', '', 0, 0, 0, NULL, '0000-00-00 00:00:00', 'pending', 'ad link 3', '', '', 0, '', '1', '3', '', '', 0, 0, NULL, NULL);
+('4975c3c0-c612-42b9-b77f-53ae72823142', '2022-05-05 22:56:20', 'k', 0, 0, 0, NULL, '0000-00-00 00:00:00', 'pending', 'ad link 32', 'jjjjddjjd', 'kk', 2, '2', '1', '3', '', '', 0, 0, NULL, NULL),
+('a198e934-feb0-4326-bf46-8abd5edade6d', '2022-05-05 23:52:55', '1', 0, 0, 0, NULL, '0000-00-00 00:00:00', 'pending', 'ad link 432', '1', '1', 1, '1', '1', '3', '', '', 0, 0, NULL, NULL),
+('c45ac08b-f8b1-48dd-9cc5-eb205ad1d674', '2022-05-08 22:12:04', '', 0, 0, 0, NULL, '0000-00-00 00:00:00', 'pending', 'ad link 233', '', '', 1, '', '1', '3', '', '', 0, 0, NULL, NULL),
+('cf739362-14be-47e4-8418-89201cbcf551', '2022-05-08 22:12:13', '', 0, 0, 0, NULL, '0000-00-00 00:00:00', 'pending', 'ad link 22', '', '', 0, '', '1', '3', '', '', 0, 0, NULL, NULL),
+('fbc3a555-e918-410c-bf4b-7b14944c1d54', '2022-05-08 22:12:09', '', 0, 0, 0, NULL, '0000-00-00 00:00:00', 'pending', 'ad link 5', '', '', 0, '', '1', '3', '', '', 0, 0, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -501,11 +507,11 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`uuid`, `first_name`, `last_name`, `phone`, `mail`, `create_time`, `password`, `last_seen`, `prompt`, `rule`) VALUES
 ('', '', '', '', '', '2022-05-08 23:07:48', '1', '2022-05-08 23:07:48', 'k', 'user'),
-('1', 'haim', 'mo', '01', 'haim@gmail.con', '2022-05-03 21:19:17', '1', '2022-05-31 23:04:51', '', 'user'),
+('1', 'haim', 'mo', '01', 'haim@gmail.con', '2022-05-03 21:19:17', '1', '2022-05-09 21:47:14', '', 'user'),
 ('123456', 'lidor', 'ben shimol', '0542155045', 'AAA', '2022-04-06 17:52:19', 'ASdasda', '0000-00-00 00:00:00', '', ''),
 ('2222222222222222', '2222222222222222', '2222222222222222', '2222222222222222', '2222222222222222', '2022-05-08 23:08:11', '1', '0000-00-00 00:00:00', 'k', 'user'),
 ('48', '29', '22', '1', '12', '2022-05-08 23:04:51', '112', '2022-05-08 23:04:51', 'k', 'user'),
-('627824e644859', 'haimkel', 'monhait', '0030', 'haim@123.com', '2022-05-08 23:15:34', '12345678', '2022-05-08 23:15:34', 'k', 'user'),
+('627824e644859', 'haimkel', 'monhait', '0030', 'haim@123.com', '2022-05-08 23:15:34', '12345678', '2022-05-09 21:45:40', 'k', 'user'),
 ('6278268bcf8fb', 'haimmmmm', 'mmmmmm', 'mmmmmmm', 'mmmmmm', '2022-05-08 23:22:35', '$2y$10$LXc4nneaLWgnasmz7nnV6.K1g7/71oac46uNYZ.YTOyVSTRxHnrVK', '2022-05-08 23:22:35', 'k', 'user'),
 ('627826f01b888', 'k', 'ks', 'k', 's', '2022-05-08 23:24:16', '$2y$10$Fwz6liVpMjKCFw6xz5VY7.BXEnVeJRhQK5U0Nz6Mb91sHA/DO68Ve', '2022-05-08 23:24:16', 'k', 'user'),
 ('627827fb35231', '', '', '', '', '2022-05-08 23:28:43', '$2y$10$/gNDwtz.lBacBd3D1nkB8OOzbOi7Ip89xfrSCrbzPeYeH.nM1WChq', '2022-05-08 23:28:43', 'k', 'user'),

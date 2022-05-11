@@ -7,6 +7,7 @@ import "../styles/Ad.css";
 import { useParams } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import Api from "../api/Api";
+import instance from "./pages/AxiosInstance";
 function AdFull(props) {
   const [ad, setAd] = useState({}); //hook for the rent/buy
   const Adlink = useParams();
@@ -16,19 +17,8 @@ function AdFull(props) {
   useEffect(() => {
     const arr = api.postToGetData({ data: "getAdByLink", adLink: Adlink });
     setAd(arr);
-    console.log(arr);
+    //console.log(arr);
   }, []);
-  // const getSpecificAd = async () => {
-  //   const result = await AxiosInstance({
-  //     data: {
-  //       data: "getAdByLink",
-  //       params: { adLink: Adlink },
-  //     },
-  //   });
-  //   setAd(result);
-  //   console.log(result);
-  // };
-
   return (
     <section className={props.className} id={props.id}>
       {console.log(ad)}

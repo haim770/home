@@ -26,7 +26,7 @@ function Ad(props) {
         />
       </ul>
       <Link
-        to={`/ListAds/${props.price}`}
+        to={`/main/${props.price}`}
         key={props.price}
         state={{
           apartment:props.apartment,

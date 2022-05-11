@@ -21,28 +21,25 @@ export default function App() {
   return (
     <div className="App">
       <NavRoots />
-      <main>
         <Routes>
-          <Route
-            exact
-            path="/ListAds"
-            element={<ListAds api={api} allAds={arr} />}
-          >
+          <Route exact path="/main" element={<Main  allAds={arr} api={api}/>}>
+            <Route
+              exact
+              path="ListAds"
+              element={<ListAds api={api} allAds={arr} />}
+            />
             <Route exact path=":linkAd" element={<AdFull />} />
-            {/**ad route is inside list ads Route */}
+            <Route exact path="Ads" element={<Ads />} />
+            <Route exact path="AddAdForm" element={<AddAdForm api={api} />} />
+            <Route
+              exact
+              path="AddParameterToAds"
+              element={<AddParameterToAds api={api} />}
+            />
+            <Route exact path="Login" element={<LoginPage api={api} />} />
           </Route>
-          <Route exact path="/main" element={<Main />} />
-          <Route exact path="Ads" element={<Ads />} />
-          <Route exact path="/AddAdForm" element={<AddAdForm api={api} />} />
-          <Route
-            exact
-            path="/AddParameterToAds"
-            element={<AddParameterToAds api={api} />}
-          />
-          <Route exact path="/Login" element={<LoginPage api={api} />} />
         </Routes>
-        <Outlet />
-      </main>
+        <Main/>
       <Footer />
     </div>
   );
