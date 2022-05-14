@@ -1,14 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import instance from "./AxiosInstance";
 
 import "../../styles/Main.css";
+import "../../styles/Ads.css";
+import AdsBlock from "./AdsBlock";
 
 const Ads = () => {
   /*
   const [adsTop, setAdsTop] = useState(10);
   const [adsMin, setAdsMin] = useState(0);
   */
-  const [ads, setAds] = useState({});
+  const [ads, setAds] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+
   // check when we scroll down to button
   const handleScroll = (e) => {
     // this is the inner height of the HTML page
@@ -25,6 +30,8 @@ const Ads = () => {
       console.log("Button");
     }
   };
+
+
   const getAds = async () => {
     const result = await instance.request({
       data: {
@@ -32,24 +39,33 @@ const Ads = () => {
         params: {},
       },
     });
-    setAds(result);
+     //setAds(result.data);
+     setAds(
+       ...ads,
+       result.data.map((ad) => (
+         <div key={ad.adID} className="innerCardWrapper jss177">
+           {<AdsBlock adBlock={ad} />}
+         </div>
+       ))
+     );
+     setLoading(true);
   };
+
+
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
-    
   });
+
+
   useEffect(()=>{
     getAds();
-  },[ads]);
+  },[]);
 
   return (
     <>
-      <p></p>
-      {JSON.stringify(ads.data)}
-      {/* we need to make and offset var to hold the next batch we want to load <TestAxios data_type="TEST2" params={currentOffset} />*/}
-
-      {/*<TestAxios data_type="TEST2" params={[]} />*/}
-
+      <div className="MuiContainer-root jss77">
+        <div className="cardWrapper">{loading && ads}</div>
+      </div>
     </>
   );
 };
