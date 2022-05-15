@@ -1,8 +1,14 @@
 import React from "react";
-
+import { Link, NavLink, Outlet } from "react-router-dom";
 const AdsBlock = (props) => {
   return (
-    <>
+    <Link
+      to={`/main/${props.adBlock.adID}`}
+      key={props.adBlock.adID}
+      state={{
+        adBlock: props.adBlock
+      }}
+    >
       <div className="MuiPaper-root jss184 jss186 jss181 MuiPaper-elevation3 MuiPaper-rounded">
         <div className="jss179">
           {/* This div will contain data like how many days the add on the site */}
@@ -49,7 +55,7 @@ const AdsBlock = (props) => {
           </h4>
         </div>
       </div>
-    </>
+    </Link>
   );
 };
 

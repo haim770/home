@@ -7,18 +7,13 @@ import "../styles/Ad.css";
 import { useParams } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import Api from "../api/Api";
-import instance from "./pages/AxiosInstance";
 function AdFull(props) {
   const [ad, setAd] = useState({}); //hook for the rent/buy
-  const Adlink = useParams();
+  const linkAd = useParams();
   const location = useLocation();
   const data = location.state;
   const api = new Api();
-  useEffect(() => {
-    const arr = api.postToGetData({ data: "getAdByLink", adLink: Adlink });
-    setAd(arr);
-    //console.log(arr);
-  }, []);
+  const renderCompParmeters = () => {};
   return (
     <section className={props.className} id={props.id}>
       {console.log(ad)}
@@ -26,19 +21,20 @@ function AdFull(props) {
         {props.id} {props.sellerName}
       </h2>
       <ul>
-        <Parameter paramName="price" paramValue={data.price} />
-        <Parameter paramName="create time" paramValue={data.price} />
-        <Parameter paramName="ad link" paramValue={data.adLink} />
-        <Parameter paramName="rooms" paramValue={data.rooms} />
-        <Parameter paramName="apartment" paramValue={data.apartment} />
-        <Parameter paramName="street" paramValue={data.street} />
-        <Parameter paramName="city" paramValue={data.city} />
-        <Parameter paramName="number" paramValue={data.number} />
-        <Parameter paramName="entry" paramValue={data.entry} />
-        <Parameter
+        {console.log(props.adBlock)}
+        <Parameter paramName="price" paramValue={data.adBlock.price} />
+        <Parameter paramName="create time" paramValue={data.adBlock.price} />
+        <Parameter paramName="ad link" paramValue={data.adBlock.adLink} />
+        <Parameter paramName="rooms" paramValue={data.adBlock.rooms} />
+        <Parameter paramName="apartment" paramValue={data.adBlock.apartment} />
+        <Parameter paramName="street" paramValue={data.adBlock.street} />
+        <Parameter paramName="city" paramValue={data.adBlock.city} />
+        <Parameter paramName="number" paramValue={data.adBlock.number} />
+        <Parameter paramName="entry" paramValue={data.adBlock.entry} />
+        {/* <Parameter
           paramName="air conditioner"
-          paramValue={props.air_conditioner}
-        />
+          paramValue={props.adBlock.air_conditioner}
+        /> */}
       </ul>
       <p>
         <Button content="contact seller" onclick={props.onclick} />

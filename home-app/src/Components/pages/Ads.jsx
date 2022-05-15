@@ -69,6 +69,7 @@ const Ads = (props) => {
         );
       }
     }
+    setLastSearch(props.search);
     setLoading(true);
   };
 

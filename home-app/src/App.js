@@ -10,6 +10,7 @@ import Register from "./Components/Register";
 import AdFull from "./Components/AdFull";
 import Api from "./api/Api.js";
 import Ads from "./Components/pages/Ads";
+import AdBlock from "./Components/pages/AdsBlock";
 import AddAdForm from "./Components/AddAdForm";
 import LoginPage from "./Components/LoginPage";
 import AddParameterToAds from "./Components/AddParameterToAds.js";
@@ -29,7 +30,7 @@ export default function App() {
             path="ListAds"
             element={<ListAds api={api} allAds={arr} />}
           /> */}
-          <Route exact path=":linkAd" element={<AdFull />} />
+          <Route exact path=":linkAd" element={<AdFull/>} />
           <Route exact path="Ads" element={<Ads />} />
           <Route exact path="AddAdForm" element={<AddAdForm api={api} />} />
           <Route
