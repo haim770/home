@@ -22,6 +22,9 @@ $arr=[];
 $error = "";
 if(isset($_POST['data'])){
 $dataType = $_POST['data'];
+if(isset($_POST['params'])){
+    $params=$_POST['params'];
+}
 if ($dataType == "ads") 
 getAllAds();
 if ($dataType == "register") 
@@ -42,7 +45,7 @@ if($dataType=='login'){
 if($dataType=='getAdByLink'){
     getAdByLink();
 }
-if($dataType=='searchAdByParameters'){
+if($dataType=='searchAdByParameters2'){
     searchAdByParameters();
 }
 }
@@ -56,44 +59,51 @@ function getAdByLink(){
    // echo json_encode ($result);
     $arr=[];
 }
+
+function searchAdByParameters(){
+    global $DATA_OBJ;
+    global $db;
+    global $arr;
+    $paramsName=generateStringsFromKeysPost();
+    generateArrayParamsFromPost();
+    print_r($arr);
+    $query = "searchAdByCityStreetRoomsPrice({$paramsName})";
+    $result=$db->readDB($query,$arr);
+    echo json_encode ($result);
+    $arr=[];
+
+}
 function generateArrayParamsFromPost(){
     //GENERATE ARRAY OF KEYS AND VALUES FROM THE POST ARRAY
     global $arr;
-    if(isset($_POST)){
-        foreach($_POST as $key => $value){
-            if($key=='data')
+    global $DATA_OBJ;
+    if(isset($DATA_OBJ->params)){
+        foreach($DATA_OBJ->params as $key => $value){
+            if($key=='data_type')
             {
                 continue;
             }
             $arr[$key]=$value;
         }
     }
+    print_r($arr);
 }
 function generateStringsFromKeysPost(){
     //returns the num of parameters with : as delimiter and ,
+    global $DATA_OBJ;
     $str="";
-    if(isset($_POST)){
-        foreach($_POST as $key => $value){
-            if($key=='data')
+    if(isset($DATA_OBJ->params)){
+        foreach($DATA_OBJ->params as $key => $value){
+            if($key=='data_type')
             {
                 continue;
             }
+            
             $str.=":$key,";
         }
         $str=substr($str,0,-1);
     }
     return $str;
-}
-function searchAdByParameters(){
-    global $db;
-    global $arr;
-    $paramsName=generateStringsFromKeysPost();
-    generateArrayParamsFromPost();
-    $query = "searchAdByCityStreetRoomsPrice({$paramsName})";
-    $result=$db->readDB($query,$arr);
-    echo json_encode ($result);
-    $arr=[];
-
 }
 function login(){
     //user login to site by mail and password
@@ -152,6 +162,7 @@ function addParameterAds(){
     if($arr['paramType']=="date")
     $query="ALTER TABLE ads ADD `{$arr['paramName']}` dateTime";
     
+    
 
     $result=$db->writeDBNotStoredProcedure($query);
     $arr=[];
@@ -194,6 +205,14 @@ function getAllAds(){
 }
 
 // proccess the data
+
+if(isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "searchAdByParameters"){
+   
+    searchAdByParameters();
+
+
+}
+else
 if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "TEST") {
     echo "TEST123";
 } else // proccess the data - Contact

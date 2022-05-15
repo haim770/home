@@ -28,6 +28,7 @@ const NavRoot = () => {
       path: "/main/AdsAddParams",
       name: "הוספת פרמטרים בסיס",
     },
+    { path: "/main/AdsWithSearch", name: "רשימת מודעות יחד עם חיפוש" },
   ];
   return (
     <nav className="MuiPaper-root MuiAppBar-root jss4 MuiAppBar-positionSticky MuiAppBar-colorPrimary jss2 MuiPaper-elevation4">

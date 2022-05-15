@@ -1,6 +1,6 @@
 import React from "react";
 
-const AdsBlock = (adBlock) => {
+const AdsBlock = (props) => {
   return (
     <>
       <div className="MuiPaper-root jss184 jss186 jss181 MuiPaper-elevation3 MuiPaper-rounded">
@@ -43,9 +43,9 @@ const AdsBlock = (adBlock) => {
         </div>
 
         <div className="adCardTitle">
-          <h3>{adBlock.adBlock.type}</h3>
+          <h3>{props.adBlock.type}</h3>
           <h4>
-            {adBlock.adBlock.city} , {adBlock.adBlock.street}
+            {props.adBlock.city} , {props.adBlock.street} {props.adBlock.price}
           </h4>
         </div>
       </div>

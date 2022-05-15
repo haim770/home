@@ -1,15 +1,15 @@
-import React from 'react'
+import React from "react";
 import { useState } from "react";
 import "../../styles/Main.css";
-import instance from './AxiosInstance';
+import instance from "./AxiosInstance";
 function AdsAddParams() {
-   const [inputs, setInputs] = useState({});
-   const [returnInput, setReturnInput] = useState(0);
+  const [inputs, setInputs] = useState({});
+  const [returnInput, setReturnInput] = useState(0);
   const handleChange = (event) => {
     const name = event.target.name;
     const value = event.target.value;
-    setInputs(values => ({...values, [name]: value}));
-  }
+    setInputs((values) => ({ ...values, [name]: value }));
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -19,7 +19,7 @@ function AdsAddParams() {
         params: inputs,
       },
     });
-        console.log(result);
+    console.log(result);
     //<TestAxios data_type="SetNewParams" params={inputs} />;
   };
 
@@ -99,4 +99,4 @@ function AdsAddParams() {
   );
 }
 
-export default AdsAddParams
+export default AdsAddParams;

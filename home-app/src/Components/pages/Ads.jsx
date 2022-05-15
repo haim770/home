@@ -5,7 +5,7 @@ import "../../styles/Main.css";
 import "../../styles/Ads.css";
 import AdsBlock from "./AdsBlock";
 
-const Ads = () => {
+const Ads = (props) => {
   /*
   const [adsTop, setAdsTop] = useState(10);
   const [adsMin, setAdsMin] = useState(0);
@@ -35,11 +35,13 @@ const Ads = () => {
   const getAds = async () => {
     const result = await instance.request({
       data: {
-        data_type: "TEST2",
-        params: {},
+        data_type: props.search.data_type,
+        params: props.search.params,
       },
     });
-     //setAds(result.data);
+     console.log(result.data);
+    
+     setAds(result.data);
      setAds(
        ...ads,
        result.data.map((ad) => (
@@ -47,7 +49,7 @@ const Ads = () => {
            {<AdsBlock adBlock={ad} />}
          </div>
        ))
-     );
+    );
      setLoading(true);
   };
 
@@ -59,7 +61,7 @@ const Ads = () => {
 
   useEffect(()=>{
     getAds();
-  },[]);
+  },[props.search]);
 
   return (
     <>
