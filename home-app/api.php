@@ -42,17 +42,58 @@ if($dataType=='login'){
 if($dataType=='getAdByLink'){
     getAdByLink();
 }
+if($dataType=='searchAdByParameters'){
+    searchAdByParameters();
+}
 }
 function getAdByLink(){
     global $db;
     global $arr;
-    // $arr['adLink']=$Post[];
     $arr['adLink']=$_POST['adLink']; 
     $query = "getAdByLink(:adLink)";
     $result=$db->readDB($query,$arr);
     var_dump($result);
    // echo json_encode ($result);
     $arr=[];
+}
+function generateArrayParamsFromPost(){
+    //GENERATE ARRAY OF KEYS AND VALUES FROM THE POST ARRAY
+    global $arr;
+    if(isset($_POST)){
+        foreach($_POST as $key => $value){
+            if($key=='data')
+            {
+                continue;
+            }
+            $arr[$key]=$value;
+        }
+    }
+}
+function generateStringsFromKeysPost(){
+    //returns the num of parameters with : as delimiter and ,
+    $str="";
+    if(isset($_POST)){
+        foreach($_POST as $key => $value){
+            if($key=='data')
+            {
+                continue;
+            }
+            $str.=":$key,";
+        }
+        $str=substr($str,0,-1);
+    }
+    return $str;
+}
+function searchAdByParameters(){
+    global $db;
+    global $arr;
+    $paramsName=generateStringsFromKeysPost();
+    generateArrayParamsFromPost();
+    $query = "searchAdByCityStreetRoomsPrice({$paramsName})";
+    $result=$db->readDB($query,$arr);
+    echo json_encode ($result);
+    $arr=[];
+
 }
 function login(){
     //user login to site by mail and password
@@ -95,6 +136,7 @@ function register(){
     $arr=[];
 }
 function addParameterAds(){
+    //adding columns to ads table
     global $db;
     global $arr;
     $arr['paramName']=$_POST['paramName'];
@@ -102,9 +144,15 @@ function addParameterAds(){
     if($arr['paramType']=="VARCHAR")
     $query="ALTER TABLE ads ADD `{$arr['paramName']}`  varchar(255) NULL";
     if($arr['paramType']=="INT")
-    $query="ALTER TABLE ads ADD `{$arr['paramName']}`  tinyint(1)";
+    $query="ALTER TABLE ads ADD `{$arr['paramName']}` int";
     if($arr['paramType']=="TEXT")
     $query="ALTER TABLE ads ADD `{$arr['paramName']}` TEXT";
+    if($arr['paramType']=="DOUBLE")
+    $query="ALTER TABLE ads ADD `{$arr['paramName']}` double";
+    if($arr['paramType']=="date")
+    $query="ALTER TABLE ads ADD `{$arr['paramName']}` dateTime";
+    
+
     $result=$db->writeDBNotStoredProcedure($query);
     $arr=[];
 	echo json_encode ($result);
@@ -141,7 +189,7 @@ function getAllAds(){
     $arr=[];
     $query = "getAdsTable";
     $arrayReturn= $db->readDB($query,$arr);
-    // echo json_encode ($arrayReturn,JSON_FORCE_OBJECT);
+     //echo json_encode ($arrayReturn,JSON_FORCE_OBJECT);
     echo json_encode ($arrayReturn);
 }
 

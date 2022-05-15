@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 11, 2022 at 05:49 PM
+-- Generation Time: May 15, 2022 at 05:26 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.2
 
@@ -25,11 +25,37 @@ DELIMITER $$
 --
 -- Procedures
 --
-CREATE DEFINER=`root`@`localhost` PROCEDURE `addColumnToAds` (IN `name` VARCHAR(255), IN `t` VARCHAR(255))  READS SQL DATA
-    COMMENT 'adds another parameter to ads'
+CREATE DEFINER=`root`@`localhost` PROCEDURE `addColumnToAdsTypeDateTime` (IN `name` INT)  NO SQL
+    COMMENT 'adds datetime column to ads'
 BEGIN
 ALTER TABLE ads
-ADD name int;
+add name datetime;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `addColumnToAdsTypeDouble` (IN `namecol` INT)  NO SQL
+    COMMENT 'adds another column to ads double type'
+BEGIN
+ALTER TABLE ads
+add namecol double;
+end$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `addColumnToAdstYPEInt` (IN `namecol` VARCHAR(255))  BEGIN
+ALTER TABLE ads
+ADD COLUMN `namecol` int;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `addColumnToAdsTypeTinyInt` (IN `nam` INT)  READS SQL DATA
+    COMMENT 'adds another column to ads tinyint'
+BEGIN
+ALTER TABLE ads
+add name tinyInt;
+end$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `addColumnToAdsTypeVarchar` (IN `nameCol` TEXT)  READS SQL DATA
+    COMMENT 'adds varchar type column'
+BEGIN
+ALTER TABLE ads
+add nameCol varchar(255);
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getAdByLink` (IN `adLink` VARCHAR(255))  READS SQL DATA
@@ -162,6 +188,18 @@ INSERT INTO `try` (`id`, `name`) VALUES (id, name)$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `register` (IN `uuid` VARCHAR(255), IN `first_name` VARCHAR(255), IN `last_name` VARCHAR(255), IN `phone` VARCHAR(255), IN `mail` VARCHAR(255), IN `password` VARCHAR(255))  NO SQL
 INSERT INTO `users` (`uuid`, `first_name`, `last_name`, `phone`, `mail`, `create_time`, `password`, `last_seen`, `prompt`, `rule`) VALUES (uuid, first_name, last_name, phone, mail, current_timestamp(), password, current_timestamp(), 'k', 'user')$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `searchAdByCityStreetRoomsPrice` (IN `minPrice` INT, IN `maxPrice` INT, IN `city` TEXT, IN `street` TEXT, IN `rooms` TEXT, IN `numOfAds` INT)  READS SQL DATA
+    COMMENT 'search ad by params'
+BEGIN
+select * from ads where ads.price>=minPrice and ads.price<=maxPrice and ads.city like city and ads.street like street and ads.rooms=rooms limit numOfAds;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `searchByAdCityContains` (IN `city` VARCHAR(255))  READS SQL DATA
+    COMMENT 'if we want the city to contain the param we need to pass in % %'
+BEGIN
+SELECT * from ads where ads.city like `city`;
+END$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `setLastSeen` (IN `mail` VARCHAR(255), IN `last_seen` DATETIME)  MODIFIES SQL DATA
     COMMENT 'set last seen to current time'
 BEGIN
@@ -200,24 +238,17 @@ CREATE TABLE `ads` (
   `price` double NOT NULL DEFAULT 0 COMMENT 'price for the property',
   `air_conditioner` tinyint(1) NOT NULL,
   `elevator` varchar(255) DEFAULT NULL,
-  `HAIM` varchar(255) DEFAULT NULL
+  `rooms` int(11) NOT NULL,
+  `type` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `ads`
 --
 
-INSERT INTO `ads` (`adID`, `create_time`, `user_id`, `active`, `contact_counter`, `views`, `close_reason`, `expire_date`, `approval_status`, `ad_link`, `city`, `street`, `building_number`, `entry`, `apartment`, `zip_code`, `map_X`, `map_Y`, `price`, `air_conditioner`, `elevator`, `HAIM`) VALUES
-('088c8395-a8fa-4a3d-aab5-e9b4893655ce', '2022-05-05 21:51:10', 'afula', 0, 0, 0, NULL, '0000-00-00 00:00:00', 'pending', 'ad link 3fsfs', 'afula street', '1', 1, '23', '1', '3', '', '', 0, 0, NULL, NULL),
-('1', '2022-05-05 16:19:11', '1', 0, 0, 0, NULL, '0000-00-00 00:00:00', 'pending', 'ad dfflink 3', 'haifa', 'hagalil', 1, '1', '1', '3', '', '', 2002, 1, NULL, NULL),
-('193793f3-8e29-4f97-a796-e07b1d820ed8', '2022-05-08 22:12:10', '', 0, 0, 0, NULL, '0000-00-00 00:00:00', 'pending', 'ad link 3sdde', '', '', 0, '', '1', '3', '', '', 0, 0, NULL, NULL),
-('38553d54-f007-47a3-84fe-5e2e87e1a26e', '2022-05-08 22:36:00', '1', 0, 0, 0, NULL, '0000-00-00 00:00:00', 'pending', 'ad link 3', '1', '1', 1, '1', '1', '3', '', '', 0, 0, NULL, NULL),
-('3e75bc42-f6c1-48bb-9811-8163b2ce0546', '2022-05-08 22:12:05', '', 0, 0, 0, NULL, '0000-00-00 00:00:00', 'pending', 'ad link 3', '', '', 0, '', '1', '3', '', '', 0, 0, NULL, NULL),
-('4975c3c0-c612-42b9-b77f-53ae72823142', '2022-05-05 22:56:20', 'k', 0, 0, 0, NULL, '0000-00-00 00:00:00', 'pending', 'ad link 32', 'jjjjddjjd', 'kk', 2, '2', '1', '3', '', '', 0, 0, NULL, NULL),
-('a198e934-feb0-4326-bf46-8abd5edade6d', '2022-05-05 23:52:55', '1', 0, 0, 0, NULL, '0000-00-00 00:00:00', 'pending', 'ad link 432', '1', '1', 1, '1', '1', '3', '', '', 0, 0, NULL, NULL),
-('c45ac08b-f8b1-48dd-9cc5-eb205ad1d674', '2022-05-08 22:12:04', '', 0, 0, 0, NULL, '0000-00-00 00:00:00', 'pending', 'ad link 233', '', '', 1, '', '1', '3', '', '', 0, 0, NULL, NULL),
-('cf739362-14be-47e4-8418-89201cbcf551', '2022-05-08 22:12:13', '', 0, 0, 0, NULL, '0000-00-00 00:00:00', 'pending', 'ad link 22', '', '', 0, '', '1', '3', '', '', 0, 0, NULL, NULL),
-('fbc3a555-e918-410c-bf4b-7b14944c1d54', '2022-05-08 22:12:09', '', 0, 0, 0, NULL, '0000-00-00 00:00:00', 'pending', 'ad link 5', '', '', 0, '', '1', '3', '', '', 0, 0, NULL, NULL);
+INSERT INTO `ads` (`adID`, `create_time`, `user_id`, `active`, `contact_counter`, `views`, `close_reason`, `expire_date`, `approval_status`, `ad_link`, `city`, `street`, `building_number`, `entry`, `apartment`, `zip_code`, `map_X`, `map_Y`, `price`, `air_conditioner`, `elevator`, `rooms`, `type`) VALUES
+('088c8395-a8fa-4a3d-aab5-e9b4893655ce', '2022-05-05 21:51:10', 'afula', 0, 0, 0, NULL, '0000-00-00 00:00:00', 'pending', 'ad link 3fsfs', 'afula street', '1', 1, '23', '1', '3', '', '', 0, 0, NULL, 0, ''),
+('1', '2022-05-05 16:19:11', '1', 0, 0, 0, NULL, '0000-00-00 00:00:00', 'pending', 'ad dfflink 3', 'haifa', 'hagalil', 1, '1', '1', '3', '', '', 2002, 1, NULL, 0, '');
 
 -- --------------------------------------------------------
 
