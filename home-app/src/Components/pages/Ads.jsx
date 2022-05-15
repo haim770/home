@@ -12,7 +12,7 @@ const Ads = (props) => {
   */
   const [ads, setAds] = useState([]);
   const [loading, setLoading] = useState(false);
-
+  const [lastSearch, setLastSearch] = useState("");
 
   // check when we scroll down to button
   const handleScroll = (e) => {
@@ -31,7 +31,11 @@ const Ads = (props) => {
     }
   };
 
-
+  const chooseTypeOfFetchingByTheSearch = (result) => {
+    if (JSON.stringify(props.search) === JSON.stringify(lastSearch)) {
+    } else {
+    }
+  };
   const getAds = async () => {
     const result = await instance.request({
       data: {
@@ -39,37 +43,42 @@ const Ads = (props) => {
         params: props.search.params,
       },
     });
-     console.log(result.data);
-     if(result.data===false){
-       console.log("empty");
-       setAds("no ads feet");
-       return;
-     }
-     if(ads==="no ads feet"){
-       setAds(result.data.map((ad) => (
-         <div key={ad.adID} className="innerCardWrapper jss177">
-           {<AdsBlock adBlock={ad} />}
-         </div>)))}
-     setAds(
-       ...ads,
-       result.data.map((ad) => (
-         <div key={ad.adID} className="innerCardWrapper jss177">
-           {<AdsBlock adBlock={ad} />}
-         </div>
-       ))
-    );
-     setLoading(true);
+    console.log(result.data);
+    if (result.data === false) {
+      console.log("empty");
+      setAds("no ads feet");
+    } else {
+      if (JSON.stringify(props.search) !== JSON.stringify(lastSearch)) {
+        console.log("changed query");
+        setAds(
+          result.data.map((ad) => (
+            <div key={ad.adID} className="innerCardWrapper jss177">
+              {<AdsBlock adBlock={ad} />}
+            </div>
+          ))
+        );
+      } else {
+        console.log("append");
+        setAds(
+          ...ads,
+          result.data.map((ad) => (
+            <div key={ad.adID} className="innerCardWrapper jss177">
+              {<AdsBlock adBlock={ad} />}
+            </div>
+          ))
+        );
+      }
+    }
+    setLoading(true);
   };
-
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
   });
 
-
-  useEffect(()=>{
+  useEffect(() => {
     getAds();
-  },[props.search]);
+  }, [props.search]);
 
   return (
     <>
