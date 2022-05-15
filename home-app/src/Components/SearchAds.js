@@ -35,8 +35,8 @@ function SearchAds(props) {
       params: {
         minPrice: minPrice,
         Maxprice: maxPrice,
-        city: "%" + city + "%",
-        street: "%" + street + "%",
+        city: city?"%" + city + "%":city,
+        street: street?"%" + street + "%":street,
         rooms: rooms,
         numOfAds: 10, //number of ads we want to get from backend
       },

@@ -66,7 +66,6 @@ function searchAdByParameters(){
     global $arr;
     $paramsName=generateStringsFromKeysPost();
     generateArrayParamsFromPost();
-    print_r($arr);
     $query = "searchAdByCityStreetRoomsPrice({$paramsName})";
     $result=$db->readDB($query,$arr);
     echo json_encode ($result);
@@ -86,7 +85,6 @@ function generateArrayParamsFromPost(){
             $arr[$key]=$value;
         }
     }
-    print_r($arr);
 }
 function generateStringsFromKeysPost(){
     //returns the num of parameters with : as delimiter and ,
@@ -193,6 +191,7 @@ function getSelectedAdByIdAndCity(){
     $query = "getSelectedAdByIdAndCity(:id,:city)";
     $result=$db->readDB($query,$arr);
     echo json_encode ($result);
+    $arr=[];
 }
 function getAllAds(){
     global $db;

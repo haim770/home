@@ -40,8 +40,16 @@ const Ads = (props) => {
       },
     });
      console.log(result.data);
-    
-     setAds(result.data);
+     if(result.data===false){
+       console.log("empty");
+       setAds("no ads feet");
+       return;
+     }
+     if(ads==="no ads feet"){
+       setAds(result.data.map((ad) => (
+         <div key={ad.adID} className="innerCardWrapper jss177">
+           {<AdsBlock adBlock={ad} />}
+         </div>)))}
      setAds(
        ...ads,
        result.data.map((ad) => (
