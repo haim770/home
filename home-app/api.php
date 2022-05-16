@@ -59,7 +59,57 @@ function getAdByLink(){
    // echo json_encode ($result);
     $arr=[];
 }
+function getAdsAndAdContentForAd(){
+    global $db;
+    global $DATA_OBJ;
+    global $arr;
+    if(isset(($DATA_OBJ->params))){
+    $arr['adID']=$DATA_OBJ->params;//the adid
+    }
+    $query="getAdById(:adID)";
+    $resultAdTable=$db->readDb($query,$arr);
+    $query = "getAdContentForAdId(:adID)";
+    $resultAdContentTable=$db->readDb($query,$arr);
+    $result=[];
+    $result["ad"]=$resultAdTable;
+    $result["adContent"]=$resultAdContentTable;
+    echo json_encode($result);
+    $arr=[];
 
+
+     
+}
+function generateKeysFromKeyValueArray(){
+    global $DATA_OBJ;
+    $str="";
+    if(isset($DATA_OBJ->params)){
+        foreach($DATA_OBJ->params as $key => $value){
+            if($key=='data_type')
+            {
+                continue;
+            }
+            
+            $str.="$key = :$key and ";
+        }
+        $str=substr($str,0,-4);
+    }
+    return $str;
+}
+function searchInDbWithUnknownParamsAndTable($table){
+    //the params are in a key value array and table is string
+    global $DATA_OBJ;
+    global $arr;
+    global $db;
+    $paramsName=generateKeysFromKeyValueArray();
+    generateArrayParamsFromPost();
+     $query = "select * from {$table} where $paramsName";
+    //  echo $query;
+    //  die;
+    $result=$db->readDBNoStoredProcedure($query,$arr);
+    $arr=[];
+	echo json_encode ($result);
+     
+}
 function searchAdByParameters(){
     global $DATA_OBJ;
     global $db;
@@ -204,12 +254,13 @@ function getAllAds(){
 }
 
 // proccess the data
-
+if(isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "searchInDbWithUnknownParamsAndTable"){
+   searchInDbWithUnknownParamsAndTable("ads");
+}
+else
 if(isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "searchAdByParameters"){
    
     searchAdByParameters();
-
-
 }
 else
 if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "TEST") {
