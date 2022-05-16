@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 15, 2022 at 05:26 PM
+-- Generation Time: May 16, 2022 at 05:08 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.2
 
@@ -58,11 +58,22 @@ ALTER TABLE ads
 add nameCol varchar(255);
 END$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getAdById` (IN `adID` VARCHAR(255) CHARSET sjis)  READS SQL DATA
+BEGIN
+select * from ads WHERE ads.adID=adID;
+END$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getAdByLink` (IN `adLink` VARCHAR(255))  READS SQL DATA
     COMMENT 'get ad by its link'
 begin
 SELECT * from ads where ads.ad_link=adLink;
 end$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getAdContentForAdId` (IN `adID` VARCHAR(255))  READS SQL DATA
+    COMMENT 'get ads content by the adId'
+BEGIN
+SELECT * from ad_content where ad_content.adID=adId;
+END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getAdContentTable` ()  READS SQL DATA
     COMMENT 'Get all ad content from ad_content table'
@@ -257,16 +268,16 @@ INSERT INTO `ads` (`adID`, `create_time`, `user_id`, `active`, `contact_counter`
 --
 
 CREATE TABLE `ad_content` (
-  `element_id` varchar(50) NOT NULL,
-  `adID` varchar(50) NOT NULL COMMENT 'when master is active adid will be zero (0)',
-  `category` varchar(50) NOT NULL COMMENT 'exp, rent, buy...',
+  `element_id` varchar(255) NOT NULL,
+  `adID` varchar(255) NOT NULL COMMENT 'when master is active adid will be zero (0)',
+  `category` varchar(255) NOT NULL COMMENT 'exp, rent, buy...',
   `master` tinyint(1) NOT NULL DEFAULT 0 COMMENT 'defind if row is for new add properties',
   `min_value` double DEFAULT NULL COMMENT 'min value will appear only for chooseing parameter to set minmum row value',
   `max_value` double DEFAULT NULL COMMENT 'min value will appear only for chooseing parameter to set minmum row value',
   `icon` varchar(255) NOT NULL COMMENT 'use to set the row thumbnail show in ad',
   `free_text` text NOT NULL,
   `required` tinyint(1) NOT NULL DEFAULT 0,
-  `name` varchar(100) NOT NULL
+  `name` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -274,7 +285,8 @@ CREATE TABLE `ad_content` (
 --
 
 INSERT INTO `ad_content` (`element_id`, `adID`, `category`, `master`, `min_value`, `max_value`, `icon`, `free_text`, `required`, `name`) VALUES
-('1', '1', 'checkBox', 1, NULL, NULL, '', 'air conditioner', 0, 'air_conditioner');
+('1', '1', 'checkBox', 1, NULL, NULL, '', 'air conditioner', 0, 'air_conditioner'),
+('haim', '1', 'hah', 0, NULL, NULL, 'jdj', 'jd', 0, 'kddkkkk');
 
 -- --------------------------------------------------------
 
