@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from "react";
-import instance from "./AxiosInstance";
+import instance from "../../api/AxiosInstance";
 
 import "../../styles/Main.css";
 import "../../styles/Ads.css";
