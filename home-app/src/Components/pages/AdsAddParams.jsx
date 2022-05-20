@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import "../../styles/Main.css";
-import instance from "./AxiosInstance";
+import instance from "../../api/AxiosInstance";
 function AdsAddParams() {
   const [inputs, setInputs] = useState({});
   const [returnInput, setReturnInput] = useState(0);

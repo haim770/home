@@ -3,7 +3,7 @@ import Ad from "./Ad";
 import SearchComp from "./SearchComp";
 import "../styles/ListAds.css";
 import { Link, NavLink, Outlet } from "react-router-dom";
-import instance from "./pages/AxiosInstance";
+import instance from "../api/AxiosInstance";
 
 function ListAds(props) {
   let obj = {};

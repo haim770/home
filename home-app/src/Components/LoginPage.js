@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Button from "./Button";
 import "../styles/login.css";
 import Api from "../api/Api";
-import instance from "./pages/AxiosInstance";
+import instance from "../api/AxiosInstance";
 function LoginPage(props) {
   const api = new Api();
   const [mail, setMail] = useState(""); //hook for parameter min value

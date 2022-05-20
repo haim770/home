@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Button from "./Button";
 import Address from "./Address";
 import Parameter from "./Parameter";
-import AxiosInstance from "./pages/AxiosInstance.jsx";
+import instance from "../api/AxiosInstance.jsx";
 import "../styles/Ad.css";
 import { useParams } from "react-router-dom";
 import { useLocation } from "react-router-dom";
