@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 16, 2022 at 05:08 PM
+-- Generation Time: May 20, 2022 at 08:56 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.2
 
@@ -92,6 +92,11 @@ SELECT *
 FROM ads
 INNER JOIN ad_content
      ON ad_content.adID = ads.adID$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getAllAdCOntentMasters` ()  READS SQL DATA
+BEGIN
+select * from ad_content where ad_content.master=1;
+end$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getBlogsTable` ()  READS SQL DATA
     COMMENT 'Get all blogs from blogs table'
@@ -277,16 +282,19 @@ CREATE TABLE `ad_content` (
   `icon` varchar(255) NOT NULL COMMENT 'use to set the row thumbnail show in ad',
   `free_text` text NOT NULL,
   `required` tinyint(1) NOT NULL DEFAULT 0,
-  `name` varchar(255) NOT NULL
+  `name` varchar(255) NOT NULL,
+  `display_type` text NOT NULL,
+  `value` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `ad_content`
 --
 
-INSERT INTO `ad_content` (`element_id`, `adID`, `category`, `master`, `min_value`, `max_value`, `icon`, `free_text`, `required`, `name`) VALUES
-('1', '1', 'checkBox', 1, NULL, NULL, '', 'air conditioner', 0, 'air_conditioner'),
-('haim', '1', 'hah', 0, NULL, NULL, 'jdj', 'jd', 0, 'kddkkkk');
+INSERT INTO `ad_content` (`element_id`, `adID`, `category`, `master`, `min_value`, `max_value`, `icon`, `free_text`, `required`, `name`, `display_type`, `value`) VALUES
+('1', '1', 'checkBox', 1, NULL, NULL, '', 'air conditioner', 0, 'air_conditioner', '', ''),
+('2', '0', '12', 1, 1, 1, 'kfkf', '33232', 0, 'ndndndndn', '2', 'mwmwmw'),
+('haim', '1', 'hah', 0, NULL, NULL, 'jdj', 'jd', 0, 'kddkkkk', '', '');
 
 -- --------------------------------------------------------
 
