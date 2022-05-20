@@ -30,6 +30,7 @@ if ($hasValidCredentials) {
         'exp'  => $expire,                      // Expire
         'data' => [                             // Data related to the signer user
             'userName' => $username,            // User name
+            'role' => "SoomeRoleHere",          // User permissions on site
         ]
     ];
 
