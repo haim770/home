@@ -15,11 +15,11 @@ $pass = $DATA_OBJ->params->pwd;
 // For the purposes of this example, we'll assume that they're valid
 $hasValidCredentials = $db->checkPassword($pass, $username);
 if ($hasValidCredentials) {
-    $secretKey  = 'bGS6lzFqvvSQ8ALbOxatm7/Vk7mLQyzqaS34Q4oR1ew=';
+    $secretKey  = 'TGlkb3JCZW5TaGltb2w=';
     $tokenId    = base64_encode(random_bytes(16));
     $issuedAt   = new DateTimeImmutable();
-    $expire     = $issuedAt->modify('+1600 minutes')->getTimestamp();      // Add 1600 min
-    $serverName = "Amico"; // Retrieved from filtered POST data
+    $expire     = $issuedAt->modify('+1 minutes')->getTimestamp();      // Add 1 min
+    $serverName = "localhost"; // Retrieved from filtered POST data
 
     // Create the token as an array
     $data = [
@@ -37,7 +37,7 @@ if ($hasValidCredentials) {
 	echo json_encode(
             array(
                 "message" => "Successful login.",
-                "jwt" => JWT::encode(
+                "accessToken" => JWT::encode(
 									$data,      //Data to be encoded in the JWT
 									$secretKey, // The signing key
 									'HS512'     // Algorithm used to sign the token, see https://tools.ietf.org/html/draft-ietf-jose-json-web-algorithms-40#section-3
