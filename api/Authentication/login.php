@@ -64,7 +64,7 @@ if ($hasValidCredentials) {
 
     // Creates Secure Cookie with refresh token
     // httpOnly: true, secure: true
-    setcookie("jwt", $refreshToken, time() + (24 * 60 * 60 * 1000),"","",true,true);
+    setcookie("jwtRefreshToken", $refreshToken, time() + (24 * 60 * 60 * 1000),"","",true,true);
 
     // Encode the array to a JWT string.
 	echo json_encode(

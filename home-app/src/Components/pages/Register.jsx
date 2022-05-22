@@ -5,11 +5,11 @@ import {
   faInfoCircle,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import axios from "../api/axios";
+import { axiosPrivate } from "../../api/AxiosInstance";
+import { Link } from "react-router-dom";
 
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
-const REGISTER_URL = "/register";
 
 const Register = () => {
   const userRef = useRef();
@@ -47,7 +47,6 @@ const Register = () => {
     setErrMsg("");
   }, [user, pwd, matchPwd]);
 
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     // if button enabled with JS hack
@@ -58,20 +57,15 @@ const Register = () => {
       return;
     }
     try {
-      const response = await axios.post(
-        REGISTER_URL,
-        JSON.stringify({ user, pwd }),
-        {
-          headers: { "Content-Type": "application/json" },
-          withCredentials: true,
-        }
-      );
-      console.log(response?.data);
-      console.log(response?.accessToken);
-      console.log(JSON.stringify(response));
+      const response = await axiosPrivate.post({
+        data: {
+          data_type: "Regist",
+          params: { user, pwd },
+        },
+      });
+
       setSuccess(true);
       //clear state and controlled inputs
-      //need value attrib on inputs for this
       setUser("");
       setPwd("");
       setMatchPwd("");
@@ -90,10 +84,10 @@ const Register = () => {
   return (
     <>
       {success ? (
-        <section>
-          <h1>Success!</h1>
+        <section className="logRegBox">
+          <h1>הצלחה!</h1>
           <p>
-            <a href="#">Sign In</a>
+            <a href="#">התחבר</a>
           </p>
         </section>
       ) : (
@@ -105,10 +99,10 @@ const Register = () => {
           >
             {errMsg}
           </p>
-          <h1>Register</h1>
+          <h1>הרשמה</h1>
           <form onSubmit={handleSubmit}>
             <label htmlFor="username">
-              Username:
+              שם משתמש:
               <FontAwesomeIcon
                 icon={faCheck}
                 className={validName ? "valid" : "hide"}
@@ -138,15 +132,15 @@ const Register = () => {
               }
             >
               <FontAwesomeIcon icon={faInfoCircle} />
-              4 to 24 characters.
+              4 עד 24 תווים.
               <br />
-              Must begin with a letter.
+              חייב להתחיל עם אות.
               <br />
-              Letters, numbers, underscores, hyphens allowed.
+              אותיות, מספרים, קו תחתון ומקף מותרים.
             </p>
 
             <label htmlFor="password">
-              Password:
+              סיסמה:
               <FontAwesomeIcon
                 icon={faCheck}
                 className={validPwd ? "valid" : "hide"}
@@ -186,7 +180,7 @@ const Register = () => {
             </p>
 
             <label htmlFor="confirm_pwd">
-              Confirm Password:
+              אמת סיסמה:
               <FontAwesomeIcon
                 icon={faCheck}
                 className={validMatch && matchPwd ? "valid" : "hide"}
@@ -220,18 +214,16 @@ const Register = () => {
             <button
               disabled={!validName || !validPwd || !validMatch ? true : false}
             >
-              Sign Up
+              הירשם
             </button>
           </form>
           <p>
-            Already registered?
+            כבר רשום?
             <br />
             <span className="line">
-              {/*put router link here*/}
-              <a href="#">Sign In</a>
+              <Link to="/">התחבר</Link>
             </span>
           </p>
-
         </section>
       )}
     </>
