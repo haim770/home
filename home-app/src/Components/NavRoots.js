@@ -25,8 +25,12 @@ const NavRoot = () => {
       name: "AddAdForm",
     },
     {
-      path: "/main/AdsAddParams",
-      name: "הוספת פרמטרים בסיס",
+      path: "/main/packages",
+      name: "הצגת  חבילות",
+    },
+    {
+      path: "/main/addPack",
+      name: "הוספת  חבילות",
     },
     { path: "/main/AdsWithSearch", name: "רשימת מודעות יחד עם חיפוש" },
   ];

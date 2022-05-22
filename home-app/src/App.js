@@ -15,7 +15,12 @@ import AddAdForm from "./Components/AddAdForm";
 import LoginPage from "./Components/LoginPage";
 import AddParameterToAds from "./Components/AddParameterToAds.js";
 import AdsWithSearch from "./Components/AdsWithSearch.js";
+import PackageDisplay from "./Components/PackageDisplay.js";
+import CreatePackage from "./Components/CreatePackage.js";
+import { DataProvider } from "./Components/Context";
 import { useHistory } from "react-router-dom";
+import Package1 from "./Components/Package1";
+import PackageFull from "./Components/PackageFull";
 //the outlet is in the middle part just after nav b4 footer
 export default function App() {
   const api = new Api();
@@ -25,12 +30,7 @@ export default function App() {
       <NavRoots />
       <Routes>
         <Route exact path="/main" element={<Main allAds={arr} api={api} />}>
-          {/* <Route
-            exact
-            path="ListAds"
-            element={<ListAds api={api} allAds={arr} />}
-          /> */}
-          <Route exact path=":linkAd" element={<AdFull/>} />
+          <Route exact path=":linkAd" element={<AdFull />} />
           <Route exact path="Ads" element={<Ads />} />
           <Route exact path="AddAdForm" element={<AddAdForm api={api} />} />
           <Route
@@ -44,6 +44,13 @@ export default function App() {
             path="adsWithSearch"
             element={<AdsWithSearch api={api} />}
           />
+          <Route
+            exact
+            path="/main/packages/:packageId"
+            element={<PackageFull />}
+          />
+          <Route exact path="packages" element={<PackageDisplay />} />
+          <Route exact path= "addPack" element={<CreatePackage/>}/>
         </Route>
       </Routes>
       <Main />
