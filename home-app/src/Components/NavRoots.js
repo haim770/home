@@ -8,10 +8,8 @@ const NavRoot = () => {
       path: "/",
       name: "בית",
     },
-    {
-      path: "/main/Ads",
-      name: "מודעות",
-    },
+
+    { path: "/AdsWithSearch", name: "מודעות" },
     {
       path: "/main/AddParameterToAds",
       name: "הוסף פרמטר למודעות(מנהל)",

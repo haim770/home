@@ -3,7 +3,7 @@ import axios from 'axios'
 
     const instance = axios.create({
       baseURL: BASE_URL,
-      method: "POST",
+      method: "POST", // whem we define our method, when using "Request" then automatic it will be turn to post.
       timeout: 1000,
     });
 export default instance;
