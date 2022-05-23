@@ -4,7 +4,7 @@ import "../styles/Package1.css";
 const Package1 = (props) => {
   return (
     <Link
-      to={`/main/packages/${props.pack.packageId}`}
+      to={`/packages/${props.pack.packageId}`}
       key={props.pack.packageId}
       state={{
         pack: props.pack,
