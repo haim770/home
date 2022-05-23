@@ -32,6 +32,7 @@ const PersistLogin = () => {
 
   useEffect(() => {
     console.log(`isLoading: ${isLoading}`);
+    console.log(`persist: ${persist}`);
     console.log(`aT: ${JSON.stringify(auth?.accessToken)}`);
   }, [isLoading]);
 

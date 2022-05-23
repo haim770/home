@@ -3,7 +3,6 @@ import useAuth from "../../Auth/useAuth";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import useInput from "../../Auth/useInput";
 import useToggle from "../../Auth/useInput";
-
 import instance, { axiosPrivate } from "../../api/AxiosInstance";
 
 const Login = () => {
@@ -19,7 +18,8 @@ const Login = () => {
   const [user, resetUser, userAttribs] = useInput("user", "");
   const [pwd, setPwd] = useState("");
   const [errMsg, setErrMsg] = useState("");
-  const [check, toggleCheck] = useToggle("persist", false);
+  const [check, toggleCheck] = useToggle("persist", true);
+
 
   useEffect(() => {
     userRef.current.focus();
@@ -33,15 +33,16 @@ const Login = () => {
     e.preventDefault();
 
     try {
-        const response = await axiosPrivate.request({
+        const response = await instance.request({
           data: {
             data_type: "Login",
             params: { user, pwd },
           },
         });
-            console.log(response);
+
       const accessToken = response?.data?.accessToken;
       const roles = response?.data?.roles;
+      console.log(response?.data);
       setAuth({ user, pwd, roles, accessToken });
       resetUser();
       setPwd("");

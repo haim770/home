@@ -7,7 +7,7 @@ const useLogout = () => {
   const logout = async () => {
     setAuth({});
     try {
-      const response = await instance(
+      const response = await instance.request(
         {
           data: {
             data_type: "Logout",

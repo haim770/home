@@ -1,10 +1,6 @@
 import React, { useState } from "react";
 import Button from "./Button";
-import Address from "./Address";
-import Parameter from "./Parameter";
 import "../styles/searchAds.css";
-import Api from "../api/Api";
-import { v4 as uuidv4 } from "uuid";
 function SearchAds(props) {
   const [minPrice, setMinPrice] = useState(""); //hook for the price state
   const [maxPrice, setMaxPrice] = useState("100000000"); //hook for the price state

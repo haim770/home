@@ -2,7 +2,16 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import "../styles/navigation/navStyle.css";
 import "../styles/navigation/responsiveNavigation.css";
+import useAuth from "../Auth/useAuth";
+import useLogout from "../Auth/useLogout";
 const NavRoot = () => {
+
+  const { auth } = useAuth();
+  const logout = useLogout();
+
+  const signOut = async () => {
+        await logout();
+      };
   const menuData = [
     {
       path: "/",
@@ -10,6 +19,7 @@ const NavRoot = () => {
     },
 
     { path: "/AdsWithSearch", name: "מודעות" },
+    { path: "/Settings", name: "הגדרות" },
   ];
   return (
     <nav className="MuiPaper-root MuiAppBar-root jss4 MuiAppBar-positionSticky MuiAppBar-colorPrimary jss2 MuiPaper-elevation4">
@@ -52,7 +62,11 @@ const NavRoot = () => {
 
         {/* Site User area */}
         <div className="userArea">
-          <NavLink to="/Login">login</NavLink>
+          {auth?.accessToken ? (
+            <button onClick={signOut}>Sign Out</button>
+          ) : (
+            <NavLink to="/Login">login</NavLink>
+          )}
         </div>
       </div>
     </nav>

@@ -65,16 +65,17 @@ if (is_array($hasValidCredentials)) {
     );
 
     // This method will write the refreshToken of the user to the database.
-  /*
+    $arr2=array();
     $arr2['user'] = $username;
     $arr2['refreshToken'] = $refreshToken;
-    $query = "wrtieUserRfreshToken(:username,:refreshToken)";
-    $hasValidCredentials = $db->writeDB($query, $arr);
-*/
+    $query = "UPDATE `users` SET `refreshToken`=:refreshToken WHERE mail=:user";
+    $hasValidCredentials = $db->writeDBNotStoredProcedure($query, $arr2);
+
     // Creates Secure Cookie with refresh token
     // httpOnly: true, secure: true
-    setcookie("jwtRefreshToken", $refreshToken, time() + (24 * 60 * 60 * 1000),"","",true,true);
-
+        setcookie("Home_RefreshToken", $refreshToken, time() + 2 * 24 * 60 *60, '/');
+        $_COOKIE["Home_RefreshToken"] = $refreshToken;
+    
     // Encode the array to a JWT string.
 	echo json_encode(
             array(

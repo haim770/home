@@ -2,7 +2,7 @@
 //error_reporting(E_ALL);
 //ini_set('display_errors', 1);
 header("Access-Control-Allow-Origin: http://localhost:3000");
-header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
+header("Access-Control-Allow-Headers: *");
 header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
 header("Access-Control-Allow-Credentials: true");
 
@@ -336,6 +336,7 @@ if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "Logout") {
         include("../api/Authentication/logout.php");
     } else
 if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "Refresh") {
+   // echo "refreshCall";
         include("../api/Authentication/refreshTokenController.php");
     } else
 if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "Regist") {

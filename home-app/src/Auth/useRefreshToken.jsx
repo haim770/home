@@ -1,11 +1,11 @@
-import instance from "../api/AxiosInstance";
+import instance, { axiosPrivate } from "../api/AxiosInstance";
 import useAuth from "./useAuth";
 
 const useRefreshToken = () => {
   const { setAuth } = useAuth();
 
   const refresh = async () => {
-    const response = await instance.get(
+    const response = await instance.request(
       {
         data: {
           data_type: "Refresh",
@@ -16,6 +16,7 @@ const useRefreshToken = () => {
         withCredentials: true,
       }
     );
+    console.log(response);
     setAuth((prev) => {
       console.log(JSON.stringify(prev));
       console.log(response.data.accessToken);

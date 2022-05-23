@@ -14,13 +14,14 @@ if (isset($_COOKIE["jwtRefreshToken"])) {
 
     // Check if we have this jwtRefreshToken in our database.
     $arr['refreshToken'] = $refreshToken;
-    $query = "checkForRefreshToken(:refreshToken)";
-    $foundUser = $db->readDB($query, $arr);
+    $query = "select * from users where refreshToken = :refreshToken";
+    $foundUser = $db->readDBNoStoredProcedure($query, $arr);
     if(!is_array($foundUser))
         {
         header('HTTP/1.1 403 Forbidde');
         exit;
         }
+    $username = $foundUser[0]->first_name;
     $refreshTokenDecoded  = JWT::decode(
         $refreshToken,      //Data to be encoded in the JWT
         $refreshKey, // The signing key
@@ -46,8 +47,8 @@ if (isset($_COOKIE["jwtRefreshToken"])) {
         'nbf'  => $issuedAt->getTimestamp(),    // Not before
         'exp'  => $expireAccess,                      // Expire
         'data' => [                             // Data related to the signer user
-            'userName' => $foundUser,            // User name
-            'role' => "SoomeRoleHere",          // User permissions on site
+            'user' => $username,            // User name
+            'role' => "2001",          // User permissions on site
         ]
     ];
     $accessToken = JWT::encode(
@@ -69,6 +70,11 @@ if (isset($_COOKIE["jwtRefreshToken"])) {
 }
 else{
     header('HTTP/1.1 401 Unauthorized');
+    echo json_encode(
+        array(
+            "message" => "Failed refresh.",
+        )
+    );
     exit;
     }
 ?>

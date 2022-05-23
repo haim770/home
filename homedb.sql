@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 22, 2022 at 09:50 PM
+-- Generation Time: May 23, 2022 at 04:02 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.2
 
@@ -221,10 +221,10 @@ END$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `register` (IN `uuid` VARCHAR(255), IN `first_name` VARCHAR(255), IN `last_name` VARCHAR(255), IN `phone` VARCHAR(255), IN `mail` VARCHAR(255), IN `password` VARCHAR(255))  NO SQL
 INSERT INTO `users` (`uuid`, `first_name`, `last_name`, `phone`, `mail`, `create_time`, `password`, `last_seen`, `prompt`, `rule`) VALUES (uuid, first_name, last_name, phone, mail, current_timestamp(), password, current_timestamp(), 'k', 'user')$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `searchAdByCityStreetRoomsPriceTypeWatch` (IN `minPrice` INT, IN `maxPrice` INT, IN `city` TEXT, IN `street` TEXT, IN `rooms` TEXT, IN `watch` INT, IN `adType` TEXT, IN `create_time` DATETIME, IN `numOfAds` INT)  READS SQL DATA
+CREATE DEFINER=`root`@`localhost` PROCEDURE `searchAdByCityStreetRoomsPriceTypeWatch` (IN `minPrice` INT, IN `maxPrice` INT, IN `city` TEXT, IN `street` TEXT, IN `rooms` TEXT, IN `numOfAds` INT)  READS SQL DATA
     COMMENT 'search ad by params'
 BEGIN
-select * from ads where ads.price>=minPrice and ads.price<=maxPrice and ads.city like city and ads.street like street and ads.rooms=rooms and ads.watch >= watch and ads.adType =adType and ads.create_time < create_time  limit numOfAds;
+select * from ads where ads.price>=minPrice and ads.price<=maxPrice and ads.city like city and ads.street like street and ads.rooms=rooms   limit numOfAds;
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `searchByAdCityContains` (IN `city` VARCHAR(255))  READS SQL DATA
@@ -421,7 +421,8 @@ INSERT INTO `package` (`packageId`, `price`, `is_active`, `title`, `content`, `c
 ('23', 2, 1, 'ckskc', 'ckk', '2022-05-22 17:41:39', 3, '2022-05-22 17:41:39'),
 ('3', 33, 1, '33', '3dwd', '2022-05-22 17:40:47', 332, '2022-05-22 17:40:47'),
 ('628a91127da05', 23, 1, '23', '13', '2022-05-22 22:37:54', 13, '2022-05-22 22:37:54'),
-('628a913467f66', 929292, 1, '1', 'dswdsmm', '2022-05-22 22:38:28', 212, '2022-05-22 22:38:28');
+('628a913467f66', 929292, 1, '1', 'dswdsmm', '2022-05-22 22:38:28', 212, '2022-05-22 22:38:28'),
+('628a99d860576', 11, 1, 'DCDC', 'EE', '2022-05-22 23:15:20', 2332, '2022-05-22 23:15:20');
 
 -- --------------------------------------------------------
 
