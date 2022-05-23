@@ -4,6 +4,10 @@ import Footer from "./Components/Footer.js";
 import NavRoots from "./Components/NavRoots.js";
 import Main from "./Components/Main.js";
 import AdsWithSearch from "./Components/AdsWithSearch.js";
+import AdFull from "./Components/AdFull";
+import PackageFull from "./Components/PackageFull";
+import PackageDisplay from "./Components/PackageDisplay.js";
+import CreatePackage from "./Components/CreatePackage.js";
 
 // NEW //
 import Unauthorized from "./Components/pages/Unauthorized";
@@ -30,9 +34,16 @@ export default function App() {
           <Route path="/" element={<Main />} />
           <Route path="/Login" element={<Login />} />
           <Route path="/adsWithSearch" element={<AdsWithSearch />} />
+          <Route exact path=":linkAd" element={<AdFull />} />
+          <Route
+            exact
+            path="/main/packages/:packageId"
+            element={<PackageFull />}
+          />
+          <Route exact path="packages" element={<PackageDisplay />} />
+          <Route exact path="addPack" element={<CreatePackage />} />
           <Route path="/Register" element={<Register />} />
           <Route path="unauthorized" element={<Unauthorized />} />
-
           {/* we want to protect these routes */}
           <Route element={<PersistLogin />}>
             <Route element={<RequireAuth allowedRoles={[ROLES.User]} />}>
