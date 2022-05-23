@@ -6,8 +6,6 @@
   min-height: 100vh;
    font-size: calc(10px + 2vmin);
 }
-main{flex-grow: 1;
-height: 100vh;}
 .App-logo {
   height: 40vmin;
   pointer-events: none;

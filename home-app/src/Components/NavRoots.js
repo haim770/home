@@ -9,9 +9,28 @@ const NavRoot = () => {
       name: "בית",
     },
 
-    { path: "/AdsWithSearch",
-     name: "מודעות" 
+    { path: "/AdsWithSearch", name: "מודעות" },
+    {
+      path: "/main/AddParameterToAds",
+      name: "הוסף פרמטר למודעות(מנהל)",
     },
+    {
+      path: "/main/ListAds",
+      name: "ListAds",
+    },
+    {
+      path: "/main/AddAdForm",
+      name: "AddAdForm",
+    },
+    {
+      path: "/main/packages",
+      name: "הצגת  חבילות",
+    },
+    {
+      path: "/main/addPack",
+      name: "הוספת  חבילות",
+    },
+    { path: "/main/AdsWithSearch", name: "רשימת מודעות יחד עם חיפוש" },
   ];
   return (
     <nav className="MuiPaper-root MuiAppBar-root jss4 MuiAppBar-positionSticky MuiAppBar-colorPrimary jss2 MuiPaper-elevation4">

@@ -44,7 +44,12 @@ function Parameter(props) {
       }
     }
   };
-  return buildShowForParam();
+  return (
+    <li>
+      <span>{props.paramName}</span>
+      <span>{props.paramValue}</span>
+    </li>
+  );
 }
 Parameter.defaultProps = {
   paramName: "name",

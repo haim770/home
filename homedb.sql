@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 20, 2022 at 08:56 AM
+-- Generation Time: May 22, 2022 at 09:50 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.2
 
@@ -97,6 +97,9 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `getAllAdCOntentMasters` ()  READS S
 BEGIN
 select * from ad_content where ad_content.master=1;
 end$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getAllMasters` ()  NO SQL
+select * from ad_content where ad_content.master=1$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getBlogsTable` ()  READS SQL DATA
     COMMENT 'Get all blogs from blogs table'
@@ -198,16 +201,30 @@ BEGIN
 INSERT INTO `ads` (`adID`, `create_time`, `user_id`, `active`, `contact_counter`, `views`, `close_reason`, `expire_date`, `approval_status`, `ad_link`, `city`, `street`, `building_number`, `entry`, `apartment`, `zip_code`, `map_X`, `map_Y`) VALUES (adID, current_timestamp(), user_id, '0', '0', '0', NULL, '', 'pending', 'ad link 3', city, street, building_number, entry, apartment, '3', '', '');
 END$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `insertPackage` (IN `packageId` VARCHAR(255), IN `price` DOUBLE, IN `title` VARCHAR(255), IN `content` TEXT, IN `ad_value` INT)  READS SQL DATA
+    COMMENT 'ad package'
+BEGIN
+INSERT INTO `package` (`packageId`, `price`, `is_active`, `title`, `content`, `create_time`, `ad_value`, `update_time`) VALUES (packageId, price, '1', title, content, current_timestamp(), ad_value, current_timestamp());
+END$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `insertTry` (IN `name` VARCHAR(255), IN `id` INT)  READS SQL DATA
 INSERT INTO `try` (`id`, `name`) VALUES (id, name)$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `joinAdsWithAdContent` ()  BEGIN
+select * from ads,ad_content where ads.adID=1 and ad_content.adID=1;
+end$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `packTry` (IN `ad_value` INT)  BEGIN
+INSERT INTO `package` (`packageId`, `price`, `is_active`, `title`, `content`, `create_time`, `ad_value`, `update_time`) VALUES (1, 12, '1', 'title', 'content', current_timestamp(), ad_value, current_timestamp());
+END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `register` (IN `uuid` VARCHAR(255), IN `first_name` VARCHAR(255), IN `last_name` VARCHAR(255), IN `phone` VARCHAR(255), IN `mail` VARCHAR(255), IN `password` VARCHAR(255))  NO SQL
 INSERT INTO `users` (`uuid`, `first_name`, `last_name`, `phone`, `mail`, `create_time`, `password`, `last_seen`, `prompt`, `rule`) VALUES (uuid, first_name, last_name, phone, mail, current_timestamp(), password, current_timestamp(), 'k', 'user')$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `searchAdByCityStreetRoomsPrice` (IN `minPrice` INT, IN `maxPrice` INT, IN `city` TEXT, IN `street` TEXT, IN `rooms` TEXT, IN `numOfAds` INT)  READS SQL DATA
+CREATE DEFINER=`root`@`localhost` PROCEDURE `searchAdByCityStreetRoomsPriceTypeWatch` (IN `minPrice` INT, IN `maxPrice` INT, IN `city` TEXT, IN `street` TEXT, IN `rooms` TEXT, IN `watch` INT, IN `adType` TEXT, IN `create_time` DATETIME, IN `numOfAds` INT)  READS SQL DATA
     COMMENT 'search ad by params'
 BEGIN
-select * from ads where ads.price>=minPrice and ads.price<=maxPrice and ads.city like city and ads.street like street and ads.rooms=rooms limit numOfAds;
+select * from ads where ads.price>=minPrice and ads.price<=maxPrice and ads.city like city and ads.street like street and ads.rooms=rooms and ads.watch >= watch and ads.adType =adType and ads.create_time < create_time  limit numOfAds;
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `searchByAdCityContains` (IN `city` VARCHAR(255))  READS SQL DATA
@@ -234,11 +251,11 @@ DELIMITER ;
 
 CREATE TABLE `ads` (
   `adID` varchar(50) NOT NULL,
-  `create_time` datetime NOT NULL DEFAULT current_timestamp(),
+  `create_time` timestamp NOT NULL DEFAULT current_timestamp(),
   `user_id` varchar(50) NOT NULL,
   `active` tinyint(1) NOT NULL DEFAULT 0,
   `contact_counter` int(10) UNSIGNED NOT NULL DEFAULT 0,
-  `views` int(10) UNSIGNED NOT NULL DEFAULT 0,
+  `watch` int(10) UNSIGNED NOT NULL DEFAULT 0,
   `close_reason` text DEFAULT NULL,
   `expire_date` datetime NOT NULL,
   `approval_status` varchar(50) NOT NULL DEFAULT 'pending',
@@ -252,19 +269,19 @@ CREATE TABLE `ads` (
   `map_X` varchar(255) NOT NULL,
   `map_Y` varchar(255) NOT NULL,
   `price` double NOT NULL DEFAULT 0 COMMENT 'price for the property',
-  `air_conditioner` tinyint(1) NOT NULL,
-  `elevator` varchar(255) DEFAULT NULL,
-  `rooms` int(11) NOT NULL,
-  `type` text NOT NULL
+  `rooms` int(11) UNSIGNED NOT NULL,
+  `adType` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `ads`
 --
 
-INSERT INTO `ads` (`adID`, `create_time`, `user_id`, `active`, `contact_counter`, `views`, `close_reason`, `expire_date`, `approval_status`, `ad_link`, `city`, `street`, `building_number`, `entry`, `apartment`, `zip_code`, `map_X`, `map_Y`, `price`, `air_conditioner`, `elevator`, `rooms`, `type`) VALUES
-('088c8395-a8fa-4a3d-aab5-e9b4893655ce', '2022-05-05 21:51:10', 'afula', 0, 0, 0, NULL, '0000-00-00 00:00:00', 'pending', 'ad link 3fsfs', 'afula street', '1', 1, '23', '1', '3', '', '', 0, 0, NULL, 0, ''),
-('1', '2022-05-05 16:19:11', '1', 0, 0, 0, NULL, '0000-00-00 00:00:00', 'pending', 'ad dfflink 3', 'haifa', 'hagalil', 1, '1', '1', '3', '', '', 2002, 1, NULL, 0, '');
+INSERT INTO `ads` (`adID`, `create_time`, `user_id`, `active`, `contact_counter`, `watch`, `close_reason`, `expire_date`, `approval_status`, `ad_link`, `city`, `street`, `building_number`, `entry`, `apartment`, `zip_code`, `map_X`, `map_Y`, `price`, `rooms`, `adType`) VALUES
+('088c8395-a8fa-4a3d-aab5-e9b4893655ce', '2022-05-05 18:51:10', 'afula', 0, 0, 5, NULL, '0000-00-00 00:00:00', 'pending', 'ad link 3fsfs', 'afula street', '1', 1, '23', '1', '3', '', '', 0, 0, 'rent'),
+('1', '2022-05-05 13:19:11', '1', 0, 0, 7, NULL, '0000-00-00 00:00:00', 'pending', 'ad dfflink 3', 'haifa', 'hagalil', 1, '1', '1', '3', '', '', 2002, 0, 'rent'),
+('2', '2022-05-21 18:53:41', 'haim', 1, 1, 1, NULL, '2022-05-31 21:52:10', 'pending', 'linkhai', 'haifa', 'hagalil', 1, '12', '1', '', '', '', 0, 0, 'rent'),
+('4', '2022-05-21 18:53:41', 'tal', 1, 1, 1, 'W', '2022-05-25 21:52:10', 'pending', 'ws', 'afula', 'street', 1, '1', '1', '1', '1', '1', 1, 1, '1');
 
 -- --------------------------------------------------------
 
@@ -292,9 +309,9 @@ CREATE TABLE `ad_content` (
 --
 
 INSERT INTO `ad_content` (`element_id`, `adID`, `category`, `master`, `min_value`, `max_value`, `icon`, `free_text`, `required`, `name`, `display_type`, `value`) VALUES
-('1', '1', 'checkBox', 1, NULL, NULL, '', 'air conditioner', 0, 'air_conditioner', '', ''),
+('1', '1', 'every', 1, NULL, NULL, '', 'air conditioner', 0, 'air_conditioner', 'checkBox', '1'),
 ('2', '0', '12', 1, 1, 1, 'kfkf', '33232', 0, 'ndndndndn', '2', 'mwmwmw'),
-('haim', '1', 'hah', 0, NULL, NULL, 'jdj', 'jd', 0, 'kddkkkk', '', '');
+('3', '1', 'hah', 0, NULL, NULL, 'jdj', 'jd', 0, 'garden', '', '1');
 
 -- --------------------------------------------------------
 
@@ -384,16 +401,27 @@ CREATE TABLE `messages` (
 --
 
 CREATE TABLE `package` (
-  `packageId` varchar(50) NOT NULL,
+  `packageId` varchar(255) NOT NULL,
   `price` double NOT NULL,
   `is_active` tinyint(1) NOT NULL DEFAULT 1,
   `title` varchar(255) NOT NULL,
   `content` text NOT NULL,
   `create_time` datetime NOT NULL DEFAULT current_timestamp(),
   `ad_value` int(10) UNSIGNED NOT NULL COMMENT 'number of ad''s added after purches',
-  `update_time` datetime NOT NULL DEFAULT current_timestamp(),
-  `life_cycle` datetime NOT NULL COMMENT 'the time the package will be avalible'
+  `update_time` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `package`
+--
+
+INSERT INTO `package` (`packageId`, `price`, `is_active`, `title`, `content`, `create_time`, `ad_value`, `update_time`) VALUES
+('1', 12, 1, 'tiny package', 'worst pack', '2022-05-22 17:39:42', 0, '2022-05-22 17:39:42'),
+('2', 201, 1, 'mid pack', 's2nd peck', '2022-05-22 17:40:25', 230, '2022-05-22 17:40:25'),
+('23', 2, 1, 'ckskc', 'ckk', '2022-05-22 17:41:39', 3, '2022-05-22 17:41:39'),
+('3', 33, 1, '33', '3dwd', '2022-05-22 17:40:47', 332, '2022-05-22 17:40:47'),
+('628a91127da05', 23, 1, '23', '13', '2022-05-22 22:37:54', 13, '2022-05-22 22:37:54'),
+('628a913467f66', 929292, 1, '1', 'dswdsmm', '2022-05-22 22:38:28', 212, '2022-05-22 22:38:28');
 
 -- --------------------------------------------------------
 

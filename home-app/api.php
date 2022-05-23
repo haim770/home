@@ -49,9 +49,7 @@ if (isset($_POST['data'])) {
     if ($dataType == 'getAdByLink') {
         getAdByLink();
     }
-    if ($dataType == 'searchAdByParameters2') {
-        searchAdByParameters();
-    }
+    
 }
 function getAdByLink()
 {
@@ -63,6 +61,17 @@ function getAdByLink()
     var_dump($result);
     // echo json_encode ($result);
     $arr = [];
+}
+function getAllMasters(){
+    //get masters from adcontent table
+     global $db;
+    global $DATA_OBJ;
+    global $arr;
+    $query = "getAllMasters()";
+ $result = $db->readDb($query, $arr);
+ $arr=[];
+ echo json_encode($result);
+
 }
 function getAdsAndAdContentForAd()
 {
@@ -120,7 +129,7 @@ function searchAdByParameters()
     global $arr;
     $paramsName = generateStringsFromKeysPost();
     generateArrayParamsFromPost();
-    $query = "searchAdByCityStreetRoomsPrice({$paramsName})";
+    $query = "searchAdByCityStreetRoomsPriceTypeWatch({$paramsName})";
     $result = $db->readDB($query, $arr);
     echo json_encode($result);
     $arr = [];
@@ -259,11 +268,63 @@ function getAllAds()
     $arr = [];
     $query = "getAdsTable";
     $arrayReturn = $db->readDB($query, $arr);
-    //echo json_encode ($arrayReturn,JSON_FORCE_OBJECT);
     echo json_encode($arrayReturn);
+    $arr=[];
 }
+function searchAdByParameterswithAdContent(){
+    global $db;
+    global $arr;
+    global $DATA_OBJ;
+    $arr = [];
+    $paramsName = generateStringsFromKeysPost();
+    generateArrayParamsFromPost();
+    $query = "searchAdByCityStreetRoomsPriceTypeWatch({$paramsName})";
+    $result = $db->readDB($query, $arr);
+    $query = "getAdsTable";
+    print_r($DATA_OBJ->paramsForAdContent);
+    die;
+}
+function insertPackage(){
+    //insert package
+    global $db;
+    global $DATA_OBJ;
+    global $arr;
+    $arr['packageId'] = uniqid();
+    generateArrayParamsFromPost();
+    $query = "insertPackage(:packageId,:price,:title,:content,:ad_value)";
+    $result = $db->writeDb($query, $arr);
+    echo json_encode($result);
+    $arr=[];
+}
+function getAllPackages(){
+    global $db;
+    global $DATA_OBJ;
+    global $arr;
+    $query = "getPackageTable()";
+    $result = $db->readDB($query,[]);
+    echo json_encode($result);
 
+}
+if(isset($DATA_OBJ->data_type)&&$DATA_OBJ->data_type=='getAllPackages'){
+    getAllPackages();
+}
+else
+if(isset($DATA_OBJ->data_type)&&$DATA_OBJ->data_type=='addPackage'){
+    insertPackage();
+}
+else
+if(isset($DATA_OBJ->data_type)&&$DATA_OBJ->data_type=='getAllMasters'){
+    getAllMasters();
+}
+else
+if ( isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type ==  'searchAdByParameters') {
+        searchAdByParameters();
+    }
+ else
 // proccess the data
+if(isset ($DATA_OBJ->data_type)&&$DATA_OBJ->data_type=="searchAdByParameterswithAdContent"){
+    searchAdByParameterswithAdContent();
+}
 if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "searchInDbWithUnknownParamsAndTable") {
     searchInDbWithUnknownParamsAndTable("ads");
 } else
@@ -280,8 +341,14 @@ if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "Refresh") {
 if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "Regist") {
     include("../api/Authentication/regist.php");
     } else // proccess the data - Contact
+
         if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "contacts") {
             include("contact.php");
+        if (
+            isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "getAllAds"
+        ) {
+            getAllAds();
+
         } else // proccess the data - Contact
             if (
                 isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "TEST2"
@@ -311,3 +378,4 @@ if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "Regist") {
                     $result = $db->writeDB($query, $arr);
                     echo json_encode($result);
                 }
+?>
