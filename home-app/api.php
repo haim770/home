@@ -343,7 +343,7 @@ if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "Regist") {
     } else // proccess the data - Contact
 
         if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "contacts") {
-            include("contact.php");
+            include("contact.php");}
         if (
             isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "getAllAds"
         ) {
