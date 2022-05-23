@@ -11,6 +11,8 @@ export default instance;
 // adding private instance to send cookies with our axios requests
 export const axiosPrivate = axios.create({
   baseURL: BASE_URL,
+  method: "POST",
+  origin: 'http://localhost:3000',
   headers: { "Content-Type": "application/json" },
   withCredentials: true,
 });

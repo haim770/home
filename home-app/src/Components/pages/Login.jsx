@@ -4,7 +4,7 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import useInput from "../../Auth/useInput";
 import useToggle from "../../Auth/useInput";
 
-import { axiosPrivate } from "../../api/AxiosInstance";
+import instance, { axiosPrivate } from "../../api/AxiosInstance";
 
 const Login = () => {
   const { setAuth } = useAuth();
@@ -33,12 +33,13 @@ const Login = () => {
     e.preventDefault();
 
     try {
-        const response = await axiosPrivate.post({
-            data: {
-                data_type: "Login",
-                params: { user, pwd },
-              },
-            });
+        const response = await axiosPrivate.request({
+          data: {
+            data_type: "Login",
+            params: { user, pwd },
+          },
+        });
+            console.log(response);
       const accessToken = response?.data?.accessToken;
       const roles = response?.data?.roles;
       setAuth({ user, pwd, roles, accessToken });

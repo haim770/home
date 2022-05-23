@@ -5,7 +5,7 @@ import {
   faInfoCircle,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { axiosPrivate } from "../../api/AxiosInstance";
+import instance from "../../api/AxiosInstance";
 import { Link } from "react-router-dom";
 
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
@@ -57,13 +57,13 @@ const Register = () => {
       return;
     }
     try {
-      const response = await axiosPrivate.post({
+      const response = await instance.request({
         data: {
           data_type: "Regist",
           params: { user, pwd },
         },
       });
-
+      console.log(response);
       setSuccess(true);
       //clear state and controlled inputs
       setUser("");

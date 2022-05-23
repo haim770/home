@@ -3,7 +3,6 @@ import "./styles/App.css";
 import Footer from "./Components/Footer.js";
 import NavRoots from "./Components/NavRoots.js";
 import Main from "./Components/Main.js";
-import LoginPage from "./Components/LoginPage";
 import AdsWithSearch from "./Components/AdsWithSearch.js";
 
 // NEW //

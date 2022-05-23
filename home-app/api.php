@@ -1,10 +1,13 @@
 <?php
 //error_reporting(E_ALL);
 //ini_set('display_errors', 1);
-header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Headers: *");
-header("Access-Control-Allow-Methods: *");
+header("Access-Control-Allow-Origin: http://localhost:3000");
+header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
+header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
+header("Access-Control-Allow-Credentials: true");
+
 header('Content-Type: application/json');
+
 
 // use to capture the data we get from client side
 // we use this way and not with POST or GET becuse if we want to use it with POST or GET we need to 
@@ -264,47 +267,47 @@ function getAllAds()
 if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "searchInDbWithUnknownParamsAndTable") {
     searchInDbWithUnknownParamsAndTable("ads");
 } else
-// Proccess login
-if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "Login") {
-    include("../api/Authentication/login.php");
-} else
+    // Proccess login
+    if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "Login") {
+        include("../api/Authentication/login.php");
+    } else
 if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "Logout") {
-    include("../api/Authentication/logout.php");
-} else
+        include("../api/Authentication/logout.php");
+    } else
 if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "Refresh") {
-    include("../api/Authentication/refreshTokenController.php");
-} else
-if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "TEST") {
-    echo "TEST123";
-} else // proccess the data - Contact
-    if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "contacts") {
-        include("contact.php");
+        include("../api/Authentication/refreshTokenController.php");
+    } else
+if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "Regist") {
+    include("../api/Authentication/regist.php");
     } else // proccess the data - Contact
-        if (
-            isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "TEST2"
-        ) {
-            getAllAds();
+        if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "contacts") {
+            include("contact.php");
         } else // proccess the data - Contact
             if (
-                isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "SetNewParams"
+                isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "TEST2"
             ) {
+                getAllAds();
+            } else // proccess the data - Contact
+                if (
+                    isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "SetNewParams"
+                ) {
 
-                //element_Id,ad_Id,category_name,master_id,min_value_id,
-                //max_value_id,icon_id,free_text_id,required_id,name_id
-                global $db;
-                $arr = [];
-                $arr['element_Id'] = uniqid();
-                $arr['ad_Id'] = '0';
-                $arr['category_name'] = $DATA_OBJ->params->category_name ?? "null";
-                $arr['master_id'] = '1';
-                $arr['min_value_id'] = $DATA_OBJ->params->min_value_id ?? "0";
-                $arr['max_value_id'] = $DATA_OBJ->params->max_value_id ?? "0";
-                $arr['icon_id'] = $DATA_OBJ->params->icon_id ?? "null";
-                $arr['free_text_id'] = $DATA_OBJ->params->free_text_id ?? "null";
-                $arr['required_id'] = $DATA_OBJ->params->required_id ?? "0";
-                $arr['name_id'] = $DATA_OBJ->params->name_id ?? "null";
-                $query = "addMasterAdsParams(:element_Id,:ad_Id,:category_name,:master_id,:min_value_id,:max_value_id
+                    //element_Id,ad_Id,category_name,master_id,min_value_id,
+                    //max_value_id,icon_id,free_text_id,required_id,name_id
+                    global $db;
+                    $arr = [];
+                    $arr['element_Id'] = uniqid();
+                    $arr['ad_Id'] = '0';
+                    $arr['category_name'] = $DATA_OBJ->params->category_name ?? "null";
+                    $arr['master_id'] = '1';
+                    $arr['min_value_id'] = $DATA_OBJ->params->min_value_id ?? "0";
+                    $arr['max_value_id'] = $DATA_OBJ->params->max_value_id ?? "0";
+                    $arr['icon_id'] = $DATA_OBJ->params->icon_id ?? "null";
+                    $arr['free_text_id'] = $DATA_OBJ->params->free_text_id ?? "null";
+                    $arr['required_id'] = $DATA_OBJ->params->required_id ?? "0";
+                    $arr['name_id'] = $DATA_OBJ->params->name_id ?? "null";
+                    $query = "addMasterAdsParams(:element_Id,:ad_Id,:category_name,:master_id,:min_value_id,:max_value_id
     ,:icon_id,:free_text_id,:required_id,:name_id)";
-                $result = $db->writeDB($query, $arr);
-                echo json_encode($result);
-            }
+                    $result = $db->writeDB($query, $arr);
+                    echo json_encode($result);
+                }

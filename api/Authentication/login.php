@@ -13,8 +13,13 @@ $pass = $DATA_OBJ->params->pwd;
 // Validate the credentials against a database, or other data store.
 // ...
 // For the purposes of this example, we'll assume that they're valid
-$hasValidCredentials = $db->checkPassword($pass, $username);
-if ($hasValidCredentials) {
+$arr = [];
+$arr['password'] = $pass;
+$arr['user'] = $username;
+$query = "getUserByMailAndPassword(:user,:password)";
+$hasValidCredentials = $db->readDB($query, $arr);
+
+if (is_array($hasValidCredentials)) {
     $secretKey  = '9c68e1263b2a8575939dd1b29431927380dcaab2';
     $refreshKey = '291aad3e1acf2106b167fd6bce9875cb83fc6870';
     $tokenId    = base64_encode(random_bytes(16));
@@ -31,8 +36,8 @@ if ($hasValidCredentials) {
         'nbf'  => $issuedAt->getTimestamp(),    // Not before
         'exp'  => $expireAccess,                      // Expire
         'data' => [                             // Data related to the signer user
-            'userName' => $username,            // User name
-            'role' => "SoomeRoleHere",          // User permissions on site
+            'user' => $username,            // User name
+            'role' => "2001",          // User permissions on site
         ]
     ];
 
@@ -44,7 +49,7 @@ if ($hasValidCredentials) {
         'nbf'  => $issuedAt->getTimestamp(),    // Not before
         'exp'  => $expireRefresh,                      // Expire
         'data' => [                             // Data related to the signer user
-            'userName' => $username,            // User name
+            'user' => $username,            // User name
         ]
     ];
 
@@ -54,14 +59,18 @@ if ($hasValidCredentials) {
 					'HS512'             // Algorithm used to sign the token, see https://tools.ietf.org/html/draft-ietf-jose-json-web-algorithms-40#section-3
     );
     $refreshToken  = JWT::encode(
-        $data,      //Data to be encoded in the JWT
-        $refreshTokenData, // The signing key
+        $refreshTokenData,      //Data to be encoded in the JWT
+        $refreshKey, // The signing key
         'HS512'     // Algorithm used to sign the token, see https://tools.ietf.org/html/draft-ietf-jose-json-web-algorithms-40#section-3
     );
 
     // This method will write the refreshToken of the user to the database.
-    $db->wrtieUserRfreshToken($username,$refreshToken);
-
+  /*
+    $arr2['user'] = $username;
+    $arr2['refreshToken'] = $refreshToken;
+    $query = "wrtieUserRfreshToken(:username,:refreshToken)";
+    $hasValidCredentials = $db->writeDB($query, $arr);
+*/
     // Creates Secure Cookie with refresh token
     // httpOnly: true, secure: true
     setcookie("jwtRefreshToken", $refreshToken, time() + (24 * 60 * 60 * 1000),"","",true,true);
@@ -71,15 +80,18 @@ if ($hasValidCredentials) {
             array(
                 "message" => "Successful login.",
                 "accessToken" => $accessToken,
+                "roles" => "2001",
                 "refreshToken" => $refreshToken,
-                "username" => $username,
-                "expireAt" => $expire,
+                "user" => $username,
+                "expireAt" => $expireAccess,
 
             ));
 }
 
 else {
-	 echo json_encode(array("message" => "Login failed."));
+	 echo json_encode(array("message" => "Login failed."
+    , 
+"pass" => $arr['password']));
 }
 
 
