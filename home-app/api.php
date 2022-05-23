@@ -344,20 +344,16 @@ if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "Regist") {
 
         if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "contacts") {
             include("contact.php");
-        if (
-            isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "getAllAds"
-        ) {
+        }
+        else
+        if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "getAllAds") {
             getAllAds();
 
         } else // proccess the data - Contact
-            if (
-                isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "TEST2"
-            ) {
+            if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "TEST2") {
                 getAllAds();
             } else // proccess the data - Contact
-                if (
-                    isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "SetNewParams"
-                ) {
+                if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "SetNewParams") {
 
                     //element_Id,ad_Id,category_name,master_id,min_value_id,
                     //max_value_id,icon_id,free_text_id,required_id,name_id
@@ -374,7 +370,7 @@ if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "Regist") {
                     $arr['required_id'] = $DATA_OBJ->params->required_id ?? "0";
                     $arr['name_id'] = $DATA_OBJ->params->name_id ?? "null";
                     $query = "addMasterAdsParams(:element_Id,:ad_Id,:category_name,:master_id,:min_value_id,:max_value_id
-    ,:icon_id,:free_text_id,:required_id,:name_id)";
+                        ,:icon_id,:free_text_id,:required_id,:name_id)";
                     $result = $db->writeDB($query, $arr);
                     echo json_encode($result);
                 }
