@@ -318,8 +318,7 @@ if(isset($DATA_OBJ->data_type)&&$DATA_OBJ->data_type=='getAllMasters'){
 }
 else
 if ( isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type ==  'searchAdByParameters') {
-        searchAdByParameters();
-    }
+searchAdByParameters();    }
  else
 // proccess the data
 if(isset ($DATA_OBJ->data_type)&&$DATA_OBJ->data_type=="searchAdByParameterswithAdContent"){
