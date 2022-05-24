@@ -1,13 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 
-import { Routes, Route, Link, Outlet } from "react-router-dom";
-import "../styles/Main.css";
-function Main(props) {
-  return <main className="main">
-    <Outlet/>
-  </main>;
-}
-Main.defaultProps = {
- content:"dd"
+const Home = () => {
+  return (
+    <div>
+      
+    </div>
+  );
 };
-export default Main;
+
+export default Home;

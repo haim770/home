@@ -73,8 +73,8 @@ if (is_array($hasValidCredentials)) {
 
     // Creates Secure Cookie with refresh token
     // httpOnly: true, secure: true
-        setcookie("Home_RefreshToken", $refreshToken, time() + 2 * 24 * 60 *60, '/');
-        $_COOKIE["Home_RefreshToken"] = $refreshToken;
+        setcookie("Home_RefreshToken", $refreshToken, time() + 2 * 24 * 60 *60, "", "localhost");
+       $_COOKIE["Home_RefreshToken"] = $refreshToken;
     
     // Encode the array to a JWT string.
 	echo json_encode(
@@ -85,7 +85,7 @@ if (is_array($hasValidCredentials)) {
                 "refreshToken" => $refreshToken,
                 "user" => $username,
                 "expireAt" => $expireAccess,
-
+                
             ));
 }
 
