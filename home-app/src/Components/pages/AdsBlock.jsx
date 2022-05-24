@@ -1,15 +1,34 @@
 import React from "react";
 import { Link, NavLink, Outlet } from "react-router-dom";
+
+// view component for the chat
+import useView from "./Chat/ChatUseContext";
+
 const AdsBlock = (props) => {
+  /**
+   * Add function of start new chat with user ad publisher
+   */
+  const { startNewChat } = useView();
+
+  const handleClickChatWith = () => {
+    const chatWith = {
+      username: props.adBlock.user_id,
+      uuid: props.adBlock.user_id,
+      adID: props.adBlock.adID,
+    };
+    startNewChat(chatWith);
+  };
+
   return (
-    <Link
+
+      <div className="MuiPaper-root jss184 jss186 jss181 MuiPaper-elevation3 MuiPaper-rounded">
+          <Link
       to={`/${props.adBlock.adID}`}
       key={props.adBlock.adID}
       state={{
         adBlock: props.adBlock,
       }}
     >
-      <div className="MuiPaper-root jss184 jss186 jss181 MuiPaper-elevation3 MuiPaper-rounded">
         <div className="jss179">
           {/* This div will contain data like how many days the add on the site */}
           <div className="jss190">
@@ -32,8 +51,8 @@ const AdsBlock = (props) => {
                 >
                   <path
                     d="M482.207,186.973l-159.699-33.705L241.104,11.803l-81.404,141.465L0,186.973l109.388,121.134L92.094,470.404l149.01-66.6
-	l149.01,66.6l-17.294-162.296L482.207,186.973z M241.104,370.943l-113.654,50.798l13.191-123.788l-83.433-92.393l121.807-25.707
-	l62.09-107.9l62.09,107.9L425,205.561l-83.433,92.393l13.191,123.788L241.104,370.943z"
+	                  l149.01,66.6l-17.294-162.296L482.207,186.973z M241.104,370.943l-113.654,50.798l13.191-123.788l-83.433-92.393l121.807-25.707
+	                  l62.09-107.9l62.09,107.9L425,205.561l-83.433,92.393l13.191,123.788L241.104,370.943z"
                   ></path>
                 </svg>
               </span>
@@ -47,15 +66,37 @@ const AdsBlock = (props) => {
             className="jss2255"
           />
         </div>
-
+        {/** This will contain the Ad details */}
         <div className="adCardTitle">
           <h3>{props.adBlock.type}</h3>
           <h4>
             {props.adBlock.city} , {props.adBlock.street} {props.adBlock.price}
           </h4>
         </div>
+        </Link>
+        {/** This will contain the Ad footer wrapper  */}
+        <div className="jss185 jss181">
+          {/** This will contain the Ad footer inner wrapper  */}
+          <div className="jss1060">
+            {/** This will contain the Ad footer Right button  */}
+            <div className="jss1062">
+              <div className="jss142">
+                <button
+                  className="MuiButtonBase-root MuiButton-root jss151 MuiButton-contained MuiButton-containedPrimary MuiButton-disableElevation MuiButton-fullWidth"
+                  onClick={handleClickChatWith}
+                >
+                  <span className="buttonSpanLabel">התחל צ'ט</span>
+                </button>
+              </div>
+            </div>
+            {/** This will contain the Ad footer Left button  */}
+            <div className="jss1061">
+              <div className="jss142">WHATSAPP</div>
+            </div>
+          </div>
+        </div>
       </div>
-    </Link>
+    
   );
 };
 

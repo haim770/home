@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import { styles } from "./styles";
+import useView from "./ChatUseContext";
 
-const ChatContant = (props) => {
+const ChatContant = () => {
+  const { contactView } = useView();
+
   const [hovered, setHovered] = useState(false);
-  return props.visible ? (
+  return contactView ? (
     <div
       className="transition-5"
       style={{

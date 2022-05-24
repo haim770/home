@@ -12,6 +12,7 @@ export const styles = {
     // Size
     width: "84px",
     height: "84px",
+    zIndex: "1000",
   },
   avatarHello: {
     // Position
@@ -37,6 +38,7 @@ export const styles = {
     flexDirection: "row-reverse",
     bottom: "25px",
     right: "25px",
+    zIndex: "1000",
   },
   chatBoxWindowWrapper: {
     // Position
@@ -55,11 +57,13 @@ export const styles = {
     overflow: "hidden",
     // Shadow
     boxShadow: "0px 0px 4px 2px rgba(0, 0, 0, 0.33)",
+    zIndex: "1000",
   },
   chatBoxWindowContant: {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
     marginTop: "4px",
+    zIndex: "1000",
   },
 };

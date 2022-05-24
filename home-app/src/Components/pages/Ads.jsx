@@ -5,6 +5,8 @@ import "../../styles/Main.css";
 import "../../styles/Ads.css";
 import AdsBlock from "./AdsBlock";
 
+
+
 const Ads = (props) => {
   /*
   const [adsTop, setAdsTop] = useState(10);
@@ -13,6 +15,7 @@ const Ads = (props) => {
   const [ads, setAds] = useState([]);
   const [loading, setLoading] = useState(false);
   const [lastSearch, setLastSearch] = useState("");
+
 
   // check when we scroll down to button
   const handleScroll = (e) => {
