@@ -20,6 +20,8 @@ import PersistLogin from "./Auth/PersistLogin";
 import Settings from "./Components/pages/Settings";
 import TryAds from "./Components/TryAds";
 
+import Chat from "./Components/pages/Chat";
+
 const ROLES = {
   User: 2001,
   Admin: 5150,
@@ -29,6 +31,7 @@ export default function App() {
   return (
     <div className="App">
       <NavRoots />
+      <Chat />
       <Routes>
         <Route path="/" element={<Layout />}>
           {/* public routes */}
@@ -58,6 +61,7 @@ export default function App() {
       </Routes>
       <TryAds/>
       <Main />
+      
       <Footer />
     </div>
   );

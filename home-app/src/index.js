@@ -6,6 +6,7 @@ import App from "./App";
 import { AuthProvider } from "./api/AuthProvider";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   //router for app first component which wil include another components asterix is a joker
