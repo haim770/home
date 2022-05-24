@@ -6,7 +6,7 @@ const index = () => {
     <div
       className="transition-5"
       style={{
-        ...styles.chatBoxWrapper,       
+        ...styles.chatBoxLogoWrapper,
       }}
     >
       <ChatEngine />

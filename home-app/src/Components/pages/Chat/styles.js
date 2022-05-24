@@ -28,7 +28,7 @@ export const styles = {
     backgroundColor: "#f9f0ff",
     color: "black",
   },
-  chatBoxWrapper: {
+  chatBoxLogoWrapper: {
     position: "fixed",
     width: "100%",
     height: "100%",
@@ -38,10 +38,28 @@ export const styles = {
     bottom: "25px",
     right: "25px",
   },
-  chatBoxInned: {
-    width: "130px",
-    height: "130px",
-    position: "absolute",
-    backgroundColor: "green",
+  chatBoxWindowWrapper: {
+    // Position
+    position: "fixed",
+    bottom: "116px",
+    right: "24px",
+    // Size
+    width: "420px",
+    height: "530px",
+    maxWidth: "calc(100% - 48px)",
+    maxHeight: "calc(100% - 48px)",
+    backgroundColor: "white",
+    // Border
+    borderRadius: "12px",
+    border: `2px solid #f9f0ff`,
+    overflow: "hidden",
+    // Shadow
+    boxShadow: "0px 0px 4px 2px rgba(0, 0, 0, 0.33)",
+  },
+  chatBoxWindowContant: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: "4px",
   },
 };
