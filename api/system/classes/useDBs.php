@@ -165,5 +165,29 @@ public function readDBNoStoredProcedure($query ,$arr=[])
         self::disconnect();
         return false;
     }
+    public function readDBNoStoredProcedureWithOutParamsInArr($query ,$arr=[])
+    {
+        //call the passed query and read not stored procedure
+        self::connect();
+        $statement = self::$connection->prepare($query);
+        //$check = $statement->execute();
+
+        //if ($check) {
+            /**
+             * PDO::FETCH_OBJ : returns an anonymous object with property names that correspond 
+             * to the column names returned in your result
+             */
+            $result="ddd";
+            $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+            return $result;
+            self::disconnect();
+            if (is_array($result) && count($result) > 0) {
+                return $result;
+            }
+            return false;
+       // }
+        self::disconnect();
+        return false;
+    }
 
 }
