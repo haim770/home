@@ -18,6 +18,7 @@ import Register from "./Components/pages/Register";
 import RequireAuth from "./Auth/RequireAuth";
 import PersistLogin from "./Auth/PersistLogin";
 import Settings from "./Components/pages/Settings";
+import TryAds from "./Components/TryAds";
 
 const ROLES = {
   User: 2001,
@@ -55,6 +56,7 @@ export default function App() {
           <Route path="*" element={<Missing />} />
         </Route>
       </Routes>
+      <TryAds/>
       <Main />
       <Footer />
     </div>

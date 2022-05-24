@@ -62,6 +62,73 @@ function getAdByLink()
     // echo json_encode ($result);
     $arr = [];
 }
+function generateSearchFromBothAdContentAndAds(){
+    //make a search arr from the params we got and based on adcontent and ads gets a start of the search query
+    global $arr;
+    global $DATA_OBJ;
+    $query="select DISTINCT ads.adID from ads,ad_content where ads.adID=ad_content.adID" ;
+    $queryAdTableParams="";//the part for querying ads table
+    $queryAdContentTableParams="";//the part for querying adcontent
+    if (isset($DATA_OBJ->params)) {
+        foreach ($DATA_OBJ->params as $key => $value) {
+            if ($key == 'data_type') {
+                continue;
+            }
+            if($key=="create_time"||$key=="user_id"||$key=="active"||$key=="contact_counter"||$key=="watch"||$key=="close_reason"||$key=="expire_date"||$key=="approval_status"||$key=="ad_link"||$key=="city"||$key=="street"||$key=="building_number"||$key=="entry"||$key=="apartment"||$key=="zip_code"||$key=="map_X"||$key=="map_Y"||$key=="price"||$key=="rooms"||$key=="adType"){
+                $queryAdTableParams.=" and $key = '$value' ";
+                $arr[$key] = $value;
+
+            }
+            else{
+               $queryAdContentTableParams.="and EXISTS(select 1 from ad_content where ad_content.name = '$key' and ad_content.value ='$value')"; 
+               $arr[$key] = $key;
+               $arr[$value] = $value;
+            }
+            
+        }
+        $query.=" ".$queryAdTableParams." ".$queryAdContentTableParams.";";
+    }
+    return $query;
+}
+function getAdsIdThatFeetSearch(){
+    //we search in ads and in adcontent and get adid desired ad return them
+     global $db;
+    global $DATA_OBJ;
+    global $arr;
+     $query = generateSearchFromBothAdContentAndAds();
+    $result = $db->readDBNoStoredProcedure($query,[]);
+    $arr=[];
+    return $result;
+}
+function getAdWithAdContentForAdId($adId){
+    //get adcontent+ad for adid
+    global $db;
+    global $DATA_OBJ;
+    global $arr;
+    $arr['adID'] = $adId; //the adid
+    $query = "getAdById(:adID)";
+    $resultAdTable = $db->readDb($query, $arr);
+    $query = "getAdContentForAdId(:adID)";
+    $resultAdContentTable = $db->readDb($query, $arr);
+    $result = [];
+    $result["ad"] = $resultAdTable;
+    $result["adContent"] = $resultAdContentTable;
+    $arr = [];
+    return $result;
+}
+function getAllAdContentAndAdForArrOfAds(){
+    $adIdsForTheSearch=getAdsIdThatFeetSearch();
+    // $adIdsForTheSearch= json_decode(json_encode($adIdsForTheSearch));
+    $result=[];
+    // echo count($adIdsForTheSearch);
+    $i=0;
+    foreach ($adIdsForTheSearch as $key => $value) {
+        $result[$i++]=getAdWithAdContentForAdId($value->adID);
+    }
+    //echo $adIdsForTheSearch[0]->adID;
+    echo json_encode($result);
+    $arr=[];
+}
 function getAllMasters(){
     //get masters from adcontent table
      global $db;
@@ -305,6 +372,11 @@ function getAllPackages(){
     echo json_encode($result);
 
 }
+
+if(isset($DATA_OBJ->data_type)&&$DATA_OBJ->data_type=='getAdsIdThatFeetSearch'){
+    getAllAdContentAndAdForArrOfAds();
+}
+else
 if(isset($DATA_OBJ->data_type)&&$DATA_OBJ->data_type=='getAllPackages'){
     getAllPackages();
 }
