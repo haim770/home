@@ -23,11 +23,12 @@ const TryAds = (props) => {
     getAds();
   }, []);
   const renderComp = () => {
+    if(ads?.data) {
     let code = [];
     let codeForOneAd = [];
     for (let index = 0; index < ads.length; index++) {
       codeForOneAd = [];
-      console.log(ads[index].ad);
+      //console.log(ads[index].ad);
       for (const [key, value] of Object.entries(ads[index].ad[0])) {
         codeForOneAd.push(
           <div key={ads[index].ad[0].adID}>
@@ -50,6 +51,7 @@ const TryAds = (props) => {
     // code=ads[0]+"d";
     //console.log(ads.ad[0].adID);
     return code;
+  }
   };
   return (
     <div>
