@@ -30,8 +30,8 @@ export const styles = {
   },
   chatBoxLogoWrapper: {
     position: "fixed",
-    width: "100%",
-    height: "100%",
+    //width: "100%",
+    //height: "100%",
     display: "flex",
     flexWrap: "wrap-reverse",
     flexDirection: "row-reverse",
