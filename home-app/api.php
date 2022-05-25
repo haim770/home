@@ -66,6 +66,11 @@ function generateSearchFromBothAdContentAndAds(){
     //make a search arr from the params we got and based on adcontent and ads gets a start of the search query
     global $arr;
     global $DATA_OBJ;
+    if(!isset($DATA_OBJ->params)||$DATA_OBJ->params==[]){
+        //if there is no params
+        return "select  DISTINCT ads.adID from ads";
+    }
+    //if there is parameters to search by
     $query="select DISTINCT ads.adID from ads,ad_content where ads.adID=ad_content.adID" ;
     $queryAdTableParams="";//the part for querying ads table
     $queryAdContentTableParams="";//the part for querying adcontent

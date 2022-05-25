@@ -59,7 +59,7 @@ export default function App() {
           <Route path="*" element={<Missing />} />
         </Route>
       </Routes>
-      <TryAds />
+      {/* <TryAds /> */}
       <Main />
 
       <Footer />

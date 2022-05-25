@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo } from "react";
 import instance from "../../api/AxiosInstance";
+import { v4 as uuidv4 } from "uuid";
 
 import "../../styles/Main.css";
 import "../../styles/Ads.css";
@@ -30,12 +31,6 @@ const Ads = (props) => {
       console.log("Button");
     }
   };
-
-  const chooseTypeOfFetchingByTheSearch = (result) => {
-    if (JSON.stringify(props.search) === JSON.stringify(lastSearch)) {
-    } else {
-    }
-  };
   const getAds = async () => {
     const result = await instance.request({
       data: {
@@ -52,8 +47,8 @@ const Ads = (props) => {
         console.log("changed query");
         setAds(
           result.data.map((ad) => (
-            <div key={ad.adID} className="innerCardWrapper jss177">
-              {<AdsBlock adBlock={ad} />}
+            <div key={ad.adID + uuidv4()} className="innerCardWrapper jss177">
+              {<AdsBlock key={ad.adID} adBlock={ad} />}
             </div>
           ))
         );
@@ -62,8 +57,8 @@ const Ads = (props) => {
         setAds(
           ...ads,
           result.data.map((ad) => (
-            <div key={ad.adID} className="innerCardWrapper jss177">
-              {<AdsBlock adBlock={ad} />}
+            <div key={ad.adID + uuidv4()} className="innerCardWrapper jss177">
+              {<AdsBlock key={ad.adID} adBlock={ad} />}
             </div>
           ))
         );

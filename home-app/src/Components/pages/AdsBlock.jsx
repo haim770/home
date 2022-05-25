@@ -1,10 +1,12 @@
 import React from "react";
 import { Link, NavLink, Outlet } from "react-router-dom";
+import AdPart from "../AdPart.js";
+import AdContentPart from "../AdContentPart.js";
 const AdsBlock = (props) => {
   return (
     <Link
-      to={`/${props.adBlock.adID}`}
-      key={props.adBlock.adID}
+      to={`/${props.adBlock.ad[0].adID}`}
+      key={props.adBlock.ad[0].adID}
       state={{
         adBlock: props.adBlock,
       }}
@@ -49,9 +51,10 @@ const AdsBlock = (props) => {
         </div>
 
         <div className="adCardTitle">
-          <h3>{props.adBlock.type}</h3>
           <h4>
-            {props.adBlock.city} , {props.adBlock.street} {props.adBlock.price}
+            {console.log(props.adBlock.ad)}
+            <AdPart ad={props.adBlock.ad} />
+            <AdContentPart adContent={props.adBlock.adContent} />
           </h4>
         </div>
       </div>

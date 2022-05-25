@@ -6,7 +6,7 @@ import instance from "../api/AxiosInstance";
 import Ads from "./pages/Ads.jsx";
 function AdsWithSearch(props) {
   const [searchAd, setSearchAd] = useState({
-    data_type: "getAllAds",
+    data_type: "getAdsIdThatFeetSearch",
     params: [],
   }); //search ads
   const rendercomp = () => {
