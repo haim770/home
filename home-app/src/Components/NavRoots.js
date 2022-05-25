@@ -20,6 +20,7 @@ const NavRoot = () => {
 
     { path: "/AdsWithSearch", name: "מודעות" },
     { path: "/Settings", name: "הגדרות" },
+    { path: "/Blog", name: "בלוג" },
   ];
   return (
     <nav className="MuiPaper-root MuiAppBar-root jss4 MuiAppBar-positionSticky MuiAppBar-colorPrimary jss2 MuiPaper-elevation4">
