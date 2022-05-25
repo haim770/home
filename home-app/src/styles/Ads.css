@@ -97,8 +97,6 @@
   overflow: auto;
   will-change: transform;
   direction: rtl;
-  height: 100% !important;
-  width: 100%;
 }
 
 /* Card Style */

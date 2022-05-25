@@ -1,1 +1,7 @@
-.search{display:flex;flex-direction: column; max-width: 20%;border: 2px solid black;}
+.search {
+  display: flex;
+  flex-direction: column;
+  max-width: 20%;
+  border: 2px solid black;
+  justify-content: flex-start;
+}
