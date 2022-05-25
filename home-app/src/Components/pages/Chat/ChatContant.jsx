@@ -1,17 +1,26 @@
 import React, { useState } from "react";
 import { styles } from "./styles";
+import useView from "./ChatUseContext";
 
-const ChatContant = (props) => {
+const ChatContant = () => {
+  const { contactView, startNewChat } = useView();
+
   const [hovered, setHovered] = useState(false);
-  return props.visible ? (
-    <div
-      className="transition-5"
-      style={{
-        ...styles.chatBoxWindowWrapper,
-      }}
-    >
+
+
+    const handleClick = () => {
+      const chatWith = {
+        username: "TEST",
+        uuid: "",
+        adID: "",
+      };
+      startNewChat(chatWith);
+    };
+
+  return contactView ? (
       <div
         className="transition-3"
+        onClick={handleClick}
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
         style={{
@@ -23,10 +32,8 @@ const ChatContant = (props) => {
       >
         ChatContant
       </div>
-    </div>
-  ) : (
-    <></>
-  );
+  ) : (    <>
+    </> )
 };
 
 export default ChatContant;

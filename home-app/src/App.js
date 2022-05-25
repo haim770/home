@@ -19,8 +19,8 @@ import RequireAuth from "./Auth/RequireAuth";
 import PersistLogin from "./Auth/PersistLogin";
 import Settings from "./Components/pages/Settings";
 import TryAds from "./Components/TryAds";
-
 import Chat from "./Components/pages/Chat";
+import { ViewProvidor } from "./Components/pages/Chat/ChatUseContext";
 
 const ROLES = {
   User: 2001,
@@ -30,38 +30,39 @@ const ROLES = {
 export default function App() {
   return (
     <div className="App">
-      <NavRoots />
-      <Chat />
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          {/* public routes */}
-          <Route path="/" element={<Main />} />
-          <Route path="/Login" element={<Login />} />
-          <Route path="/adsWithSearch" element={<AdsWithSearch />} />
-          <Route exact path=":linkAd" element={<AdFull />} />
-          <Route
-            exact
-            path="/main/packages/:packageId"
-            element={<PackageFull />}
-          />
-          <Route exact path="packages" element={<PackageDisplay />} />
-          <Route exact path="addPack" element={<CreatePackage />} />
-          <Route path="/Register" element={<Register />} />
-          <Route path="unauthorized" element={<Unauthorized />} />
-          {/* we want to protect these routes */}
-          <Route element={<PersistLogin />}>
-            <Route element={<RequireAuth allowedRoles={[ROLES.User]} />}>
-              <Route path="/Settings" element={<Settings />} />
+      {/* viewprovidor let all children of this provider to use the chat */}
+      <ViewProvidor>
+        <NavRoots />
+        <Chat />
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            {/* public routes */}
+            <Route path="/" element={<Main />} />
+            <Route path="/Login" element={<Login />} />
+            <Route path="/adsWithSearch" element={<AdsWithSearch />} />
+            <Route exact path=":linkAd" element={<AdFull />} />
+            <Route
+              exact
+              path="/main/packages/:packageId"
+              element={<PackageFull />}
+            />
+            <Route exact path="packages" element={<PackageDisplay />} />
+            <Route exact path="addPack" element={<CreatePackage />} />
+            <Route path="/Register" element={<Register />} />
+            <Route path="unauthorized" element={<Unauthorized />} />
+            {/* we want to protect these routes */}
+            <Route element={<PersistLogin />}>
+              <Route element={<RequireAuth allowedRoles={[ROLES.User]} />}>
+                <Route path="/Settings" element={<Settings />} />
+              </Route>
             </Route>
+
+            {/* catch all */}
+            <Route path="*" element={<Missing />} />
           </Route>
-
-          {/* catch all */}
-          <Route path="*" element={<Missing />} />
-        </Route>
-      </Routes>
-      {/* <TryAds /> */}
-      <Main />
-
+        </Routes>
+        <Main />
+      </ViewProvidor>
       <Footer />
     </div>
   );

@@ -25,6 +25,7 @@ const TryAds = (props) => {
     getAds();
   }, []);
   const renderComp = () => {
+    if(ads?.data) {
     let code = [];
     let codeForOneAd = [];
     codeForOneAd = [];
@@ -49,6 +50,7 @@ const TryAds = (props) => {
     // code=ads[0]+"d";
     //console.log(ads.ad[0].adID);
     return code;
+  }
   };
   return ads ? (
     <div>
