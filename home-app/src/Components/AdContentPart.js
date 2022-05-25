@@ -43,7 +43,6 @@ const AdContentPart = (props) => {
   return (
     <div className="adCardTitle">
       <h1>ad content part</h1>
-      {console.log(props.ad)}
       {props.adContent ? renderComp() : <p>no ad content</p>}
     </div>
   );

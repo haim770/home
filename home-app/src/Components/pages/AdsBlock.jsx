@@ -2,7 +2,7 @@ import React from "react";
 import { Link, NavLink, Outlet } from "react-router-dom";
 import AdPart from "../AdPart.js";
 import AdContentPart from "../AdContentPart.js";
-
+import AdUserPart from "../AdUserPart.js";
 // view component for the chat
 import useView from "./Chat/ChatUseContext";
 
@@ -69,7 +69,7 @@ const AdsBlock = (props) => {
         {/** This will contain the Ad details */}
         <div className="adCardTitle">
           <h4>
-            {console.log(props.adBlock.ad)}
+            <AdUserPart user={props.adBlock.user}/>
             <AdPart ad={props.adBlock.ad} />
             <AdContentPart adContent={props.adBlock.adContent} />
           </h4>

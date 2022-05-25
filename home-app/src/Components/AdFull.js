@@ -7,12 +7,14 @@ import { useParams } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import AdPart from "./AdPart";
 import AdContentPart from "./AdContentPart";
+import AdUserPart from "./AdUserPart.js";
 function AdFull(props) {
   const location = useLocation();
   const data = location.state;
   return (
     <section className={"ad"}>
       <ul>
+        <AdUserPart user={data.adBlock.user} />
         <AdPart ad={data.adBlock.ad} />
         <AdContentPart adContent={data.adBlock.adContent} />
       </ul>

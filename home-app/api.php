@@ -68,10 +68,10 @@ function generateSearchFromBothAdContentAndAds(){
     global $DATA_OBJ;
     if(!isset($DATA_OBJ->params)||$DATA_OBJ->params==[]){
         //if there is no params
-        return "select  DISTINCT ads.adID from ads";
+        return "select  DISTINCT ads.adID,ads.user_id from ads";
     }
     //if there is parameters to search by
-    $query="select DISTINCT ads.adID from ads,ad_content where ads.adID=ad_content.adID" ;
+    $query="select DISTINCT ads.adID,ads.user_id from ads,ad_content where ads.adID=ad_content.adID" ;
     $queryAdTableParams="";//the part for querying ads table
     $queryAdContentTableParams="";//the part for querying adcontent
     if (isset($DATA_OBJ->params)) {
@@ -95,8 +95,8 @@ function generateSearchFromBothAdContentAndAds(){
     }
     return $query;
 }
-function getAdsIdThatFeetSearch(){
-    //we search in ads and in adcontent and get adid desired ad return them
+function getAdsIdAndUserIdThatFeetSearch(){
+    //we search in ads and in adcontent and get adid and user id desired ad return them
      global $db;
     global $DATA_OBJ;
     global $arr;
@@ -105,7 +105,7 @@ function getAdsIdThatFeetSearch(){
     $arr=[];
     return $result;
 }
-function getAdWithAdContentForAdId($adId){
+function getAdWithAdContentForAdId($adId,$user_id){
     //get adcontent+ad for adid
     global $db;
     global $DATA_OBJ;
@@ -115,20 +115,36 @@ function getAdWithAdContentForAdId($adId){
     $resultAdTable = $db->readDb($query, $arr);
     $query = "getAdContentForAdId(:adID)";
     $resultAdContentTable = $db->readDb($query, $arr);
+    $resultUserForTheAd=getUserForUserId($user_id);
     $result = [];
     $result["ad"] = $resultAdTable;
     $result["adContent"] = $resultAdContentTable;
+    $result["user"]=$resultUserForTheAd;
     $arr = [];
     return $result;
 }
-function getAllAdContentAndAdForArrOfAds(){
-    $adIdsForTheSearch=getAdsIdThatFeetSearch();
+function getUserForUserId($user_id){
+    //return user record for param user_id
+    global $db;
+    global $DATA_OBJ;
+    global $arr;
+    $arr=[];
+    $arr['uuid'] = $user_id; //the adid
+    $query = "select * from users where uuid =:uuid";
+    $result = $db->readDBNoStoredProcedure($query, $arr);
+    $arr=[];
+    return $result;
+
+}
+function getAllAdContentAndAdAndUsersForArrOfAds(){
+    //returns the wanted ads with all their data and user created the ad
+    $adIdsForTheSearch=getAdsIdAndUserIdThatFeetSearch();
     // $adIdsForTheSearch= json_decode(json_encode($adIdsForTheSearch));
     $result=[];
     // echo count($adIdsForTheSearch);
     $i=0;
     foreach ($adIdsForTheSearch as $key => $value) {
-        $result[$i++]=getAdWithAdContentForAdId($value->adID);
+        $result[$i++]=getAdWithAdContentForAdId($value->adID,$value->user_id);
     }
     //echo $adIdsForTheSearch[0]->adID;
     echo json_encode($result);
@@ -378,8 +394,8 @@ function getAllPackages(){
 
 }
 
-if(isset($DATA_OBJ->data_type)&&$DATA_OBJ->data_type=='getAdsIdThatFeetSearch'){
-    getAllAdContentAndAdForArrOfAds();
+if(isset($DATA_OBJ->data_type)&&$DATA_OBJ->data_type=='getAllAdContentAndAdAndUsersForArrOfAds'){
+    getAllAdContentAndAdAndUsersForArrOfAds();
 }
 else
 if(isset($DATA_OBJ->data_type)&&$DATA_OBJ->data_type=='getAllPackages'){

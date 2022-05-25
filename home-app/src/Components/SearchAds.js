@@ -27,7 +27,7 @@ function SearchAds(props) {
   const makeObjOfAllFields = () => {
     //returns the ad from field states and save it amt return as object
     let obj = {
-      data_type: "getAdsIdThatFeetSearch",
+      data_type: "getAllAdContentAndAdAndUsersForArrOfAds",
       params: {
         // minPrice: minPrice,
         // Maxprice: maxPrice,
