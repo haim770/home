@@ -1,14 +1,12 @@
 import { styles } from "./styles";
 import React, { useState } from "react";
 import useAuth from "../../../Auth/useAuth";
-import ChatContant from "./ChatContant";
-import { ViewProvidor } from "./ChatUseContext";
 import useView from "./ChatUseContext";
+import ChatWindow from "./ChatWindow";
 
 const ChatEngine = () => {
   const { auth } = useAuth();
-  const { showContacts, closeWindow } = useView();
-  const [contantWindow, setContantWindow] = useState(false);
+  const { showContacts, closeWindow, chatWindow } = useView();
   const [hovered, setHovered] = useState(false);
 
     const handleClick = () => {
@@ -17,32 +15,29 @@ const ChatEngine = () => {
         uuid: "",
         adID: "",
       };
-      if(contantWindow) {
+      // if some view is open, then close it on next click otherwise open chat contacts
+      if (chatWindow) {
         closeWindow(chatWith);
-        setContantWindow(false);
+      } else {
+        showContacts(chatWith);
       }
-      else{
-            showContacts(chatWith);
-            setContantWindow(true);
-        }
     };
 
   return (
     // if we login show chat, else dont show
     auth.accessToken ? (
-      <div
-        onClick={handleClick}
-        className="transition-5"
-        onMouseEnter={() => setHovered(true)}
-        onMouseLeave={() => setHovered(false)}
-        style={{
-          ...styles.chatWithMeButton,
-          ...{ border: hovered ? "4px solid #f9f0ff" : "1px solid #f9f0ff" },
-        }}
-      >
-        <div onMouseEnter={() => setHovered(false)}>
-          <ChatContant />
-        </div>
+      <div>
+        <div
+          className="transition-5"
+          onClick={handleClick}
+          onMouseEnter={() => setHovered(true)}
+          onMouseLeave={() => setHovered(false)}
+          style={{
+            ...styles.chatWithMeButton,
+            ...{ border: hovered ? "4px solid #f9f0ff" : "1px solid #f9f0ff" },
+          }}
+        ></div>
+        <ChatWindow />
       </div>
     ) : (
       <></>

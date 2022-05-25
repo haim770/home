@@ -2,6 +2,7 @@
 export const initialState = {
   contactView: false,
   chatView: false,
+  chatWindow: false,
   /**
    * chatInfo will contain:
    *    - username we chat with
@@ -21,7 +22,9 @@ const viewReducer = (state, action) => {
       return {
         ...state,
         contactView: payload.contactView,
+        chatView: payload.chatView,
         chatInfo: payload.chatInfo,
+        chatWindow: payload.chatWindow,
       };
 
     case "SHOW_CONTACTS":
@@ -31,6 +34,7 @@ const viewReducer = (state, action) => {
         contactView: payload.contactView,
         chatView: payload.chatView,
         chatInfo: payload.chatInfo,
+        chatWindow: payload.chatWindow,
       };
 
       case "CLOSE_WINDOW":
@@ -40,6 +44,7 @@ const viewReducer = (state, action) => {
         contactView: payload.contactView,
         chatView: payload.chatView,
         chatInfo: payload.chatInfo,
+        chatWindow: payload.chatWindow,
       };
 
     default:

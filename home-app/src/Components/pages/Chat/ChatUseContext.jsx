@@ -16,6 +16,7 @@ export const ViewProvidor = ({ children }) => {
         chatInfo: updateChatInfo,
         contactView: false,
         chatView: true,
+        chatWindow: true,
       },
     });
   };
@@ -29,6 +30,7 @@ export const ViewProvidor = ({ children }) => {
         chatInfo: updateChatInfo,
         contactView: true,
         chatView: false,
+        chatWindow: true,
       },
     });
   };
@@ -42,6 +44,7 @@ export const ViewProvidor = ({ children }) => {
         chatInfo: updateChatInfo,
         contactView: false,
         chatView: false,
+        chatWindow: false,
       },
     });
   };
@@ -50,6 +53,7 @@ export const ViewProvidor = ({ children }) => {
     chatView: state.chatView,
     contactView: state.contactView,
     chatInfo: state.chatInfo,
+    chatWindow: state.chatWindow,
     startNewChat,
     showContacts,
     closeWindow,

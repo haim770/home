@@ -3,18 +3,24 @@ import { styles } from "./styles";
 import useView from "./ChatUseContext";
 
 const ChatContant = () => {
-  const { contactView } = useView();
+  const { contactView, startNewChat } = useView();
 
   const [hovered, setHovered] = useState(false);
+
+
+    const handleClick = () => {
+      const chatWith = {
+        username: "TEST",
+        uuid: "",
+        adID: "",
+      };
+      startNewChat(chatWith);
+    };
+
   return contactView ? (
-    <div
-      className="transition-5"
-      style={{
-        ...styles.chatBoxWindowWrapper,
-      }}
-    >
       <div
         className="transition-3"
+        onClick={handleClick}
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
         style={{
@@ -26,10 +32,8 @@ const ChatContant = () => {
       >
         ChatContant
       </div>
-    </div>
-  ) : (
-    <></>
-  );
+  ) : (    <>
+    </> )
 };
 
 export default ChatContant;
