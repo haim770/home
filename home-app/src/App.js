@@ -8,6 +8,7 @@ import AdFull from "./Components/AdFull";
 import PackageFull from "./Components/PackageFull";
 import PackageDisplay from "./Components/PackageDisplay.js";
 import CreatePackage from "./Components/CreatePackage.js";
+import FormAdContent from "./Components/FormAdContent.js";
 
 // NEW //
 import Unauthorized from "./Components/pages/Unauthorized";
@@ -69,6 +70,7 @@ export default function App() {
           </Route>
         </Routes>
         <Main />
+        <FormAdContent/>
       </ViewProvidor>
       <Footer />
     </div>
