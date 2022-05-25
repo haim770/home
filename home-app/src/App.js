@@ -20,8 +20,12 @@ import PersistLogin from "./Auth/PersistLogin";
 import Settings from "./Components/pages/Settings";
 import TryAds from "./Components/TryAds";
 
+// Chat
 import Chat from "./Components/pages/Chat";
 import { ViewProvidor } from "./Components/pages/Chat/ChatUseContext";
+
+// Blog
+import Blog from "./Components/pages/Blog";
 
 const ROLES = {
   User: 2001,
@@ -51,6 +55,8 @@ export default function App() {
             <Route exact path="addPack" element={<CreatePackage />} />
             <Route path="/Register" element={<Register />} />
             <Route path="unauthorized" element={<Unauthorized />} />
+        
+            <Route exact path="/Blog" element={<Blog />} />
             {/* we want to protect these routes */}
             <Route element={<PersistLogin />}>
               <Route element={<RequireAuth allowedRoles={[ROLES.User]} />}>
