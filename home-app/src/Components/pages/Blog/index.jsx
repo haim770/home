@@ -1,10 +1,11 @@
 import React from 'react'
-import TopBar from './TopBar'
+import Blog from "./Blog";
+
 
 const index = () => {
   return (
     <>
-      <TopBar />
+      <Blog />
     </>
   );
 }
