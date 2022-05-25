@@ -1,5 +1,7 @@
 import React from "react";
 import { Link, NavLink, Outlet } from "react-router-dom";
+import AdPart from "../AdPart.js";
+import AdContentPart from "../AdContentPart.js";
 
 // view component for the chat
 import useView from "./Chat/ChatUseContext";
@@ -20,11 +22,9 @@ const AdsBlock = (props) => {
   };
 
   return (
-
-      <div className="MuiPaper-root jss184 jss186 jss181 MuiPaper-elevation3 MuiPaper-rounded">
-          <Link
-      to={`/${props.adBlock.adID}`}
-      key={props.adBlock.adID}
+    <Link
+      to={`/${props.adBlock.ad[0].adID}`}
+      key={props.adBlock.ad[0].adID}
       state={{
         adBlock: props.adBlock,
       }}
@@ -68,12 +68,13 @@ const AdsBlock = (props) => {
         </div>
         {/** This will contain the Ad details */}
         <div className="adCardTitle">
-          <h3>{props.adBlock.type}</h3>
           <h4>
-            {props.adBlock.city} , {props.adBlock.street} {props.adBlock.price}
+            {console.log(props.adBlock.ad)}
+            <AdPart ad={props.adBlock.ad} />
+            <AdContentPart adContent={props.adBlock.adContent} />
           </h4>
         </div>
-        </Link>
+       
         {/** This will contain the Ad footer wrapper  */}
         <div className="jss185 jss181">
           {/** This will contain the Ad footer inner wrapper  */}
@@ -95,7 +96,7 @@ const AdsBlock = (props) => {
             </div>
           </div>
         </div>
-      </div>
+       </Link>
     
   );
 };

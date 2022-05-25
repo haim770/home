@@ -1,57 +1,48 @@
 import React, { useState } from "react";
 import "../styles/Parameter.css";
 function Parameter(props) {
-  // const getParamConfigFromFile = () => {
-  //   //returns the json that are relevant to our parameter
-  //   const element = parameters.filter(
-  //     (element) => element.paramName === props.paramName
-  //   );
-  //   return element;
-  // };
-  // const buildShowForParam = () => {
-  //   //build the list of parameters to show one by one we get a json obj and check his style
-  //   //then we style it accordingly
-  //   const paramConfig = getParamConfigFromFile();
-  //   if (paramConfig[0]["paramStyle"] === "input") {
-  //     return (
-  //       <li>
-  //         <span>{props.paramName}</span>
-  //         <span>{props.paramValue}</span>
-  //       </li>
-  //     );
-  //   } else {
-  //     if (paramConfig[0]["paramStyle"] === "checkBox") {
-  //       return (
-  //         <li>
-  //           <span>{props.paramName}</span>
-  //           <span>
-  //             <input
-  //               type="checkbox"
-  //               readOnly
-  //               checked={props.paramValue === "1" ? true : false}
-  //             />
-  //           </span>
-  //         </li>
-  //       );
-  //     } else {
-  //       return (
-  //         <li>
-  //           <span>{props.paramName}</span>
-  //           <span>{props.paramValue}</span>
-  //         </li>
-  //       );
-  //     }
-  //   }
-  // };
+ 
+  const buildShowForParam = () => {
+    //build the list of parameters to show one by one we get a json obj and check his style
+    //then we style it accordingly
+    if (props.display_type === "text") {
+      return (
+        <li>
+          <span>{props.paramName}</span>
+          <span>{props.paramValue}</span>
+        </li>
+      );
+    } else {
+      if (props.display_type === "checkBox") {
+        return (
+          <li>
+            <span>{props.paramName}</span>
+            <span>
+              <input
+                type="checkbox"
+                readOnly
+                checked={props.paramValue === "1" ? true : false}
+              />
+            </span>
+          </li>
+        );
+      } else {
+        return (
+          <li>
+            <span>{props.paramName}</span>
+            <span>{props.paramValue}</span>
+          </li>
+        );
+      }
+    }
+  };
   return (
-    <li>
-      <span>{props.paramName}</span>
-      <span>{props.paramValue}</span>
-    </li>
+    props.paramName?buildShowForParam():<p>no parameter</p>
   );
 }
 Parameter.defaultProps = {
   paramName: "name",
   paramValue: "value",
+  display_type:"text",
 };
 export default Parameter;
