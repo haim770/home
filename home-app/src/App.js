@@ -70,7 +70,6 @@ export default function App() {
           </Route>
         </Routes>
         <Main />
-        <FormAdContent/>
       </ViewProvidor>
       <Footer />
     </div>

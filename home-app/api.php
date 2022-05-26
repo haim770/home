@@ -102,6 +102,7 @@ function getAdsIdAndUserIdThatFeetSearch(){
     global $arr;
      $query = generateSearchFromBothAdContentAndAds();
     $result = $db->readDBNoStoredProcedure($query,[]);
+    
     $arr=[];
     return $result;
 }
@@ -138,6 +139,7 @@ function getUserForUserId($user_id){
 }
 function getAllAdContentAndAdAndUsersForArrOfAds(){
     //returns the wanted ads with all their data and user created the ad
+    $arr=[];
     $adIdsForTheSearch=getAdsIdAndUserIdThatFeetSearch();
     // $adIdsForTheSearch= json_decode(json_encode($adIdsForTheSearch));
     $result=[];
@@ -146,7 +148,6 @@ function getAllAdContentAndAdAndUsersForArrOfAds(){
     foreach ($adIdsForTheSearch as $key => $value) {
         $result[$i++]=getAdWithAdContentForAdId($value->adID,$value->user_id);
     }
-    //echo $adIdsForTheSearch[0]->adID;
     echo json_encode($result);
     $arr=[];
 }
@@ -462,6 +463,11 @@ function insertNewAd(){
     echo json_encode($result);
     $arr=[];
 }
+if(isset($DATA_OBJ->data_type)&&$DATA_OBJ->data_type=='getAdByID'){
+    if(isser($DATA_OBJ->params))
+    getAdWithAdContentForAdId($DATA_OBJ->params->adID,$DATA_OBJ->params->user_id,);
+}
+else
 if(isset($DATA_OBJ->data_type)&&$DATA_OBJ->data_type=='insertNewAd'){
     insertNewAd();
 }

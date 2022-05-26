@@ -5,9 +5,6 @@ import { v4 as uuidv4 } from "uuid";
 import "../../styles/Main.css";
 import "../../styles/Ads.css";
 import AdsBlock from "./AdsBlock";
-
-
-
 const Ads = (props) => {
   /*
   const [adsTop, setAdsTop] = useState(10);
