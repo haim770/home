@@ -391,9 +391,81 @@ function getAllPackages(){
     $query = "getPackageTable()";
     $result = $db->readDB($query,[]);
     echo json_encode($result);
+    $arr=[];
 
 }
+function insertNewAdTableArray($ad)
+{
+    //return array with the ad params the ad we got is std class type so the fields storde like ->
+    global $db;
+    global $arr;
+    $arrForAd=[];
+    $arrForAd['adID'] = uniqid();
+    $arrForAd['user_id'] = $ad->user_id;
+    $arrForAd['city'] = $ad->city;
+    $arrForAd['street'] = $ad->street;
+    $arrForAd['price'] = $ad->price;
+    $arrForAd['adType'] = "ad->adType";
+    $arrForAd['building_number'] = $ad->building_number;
+    $arrForAd['entry'] = $ad->entry;
+    $arrForAd['apartment'] = $ad->apartment;
+    $arrForAd['rooms'] = $ad->rooms;
+    return $arrForAd;
+    // $query = "insertAd(:adID,:city,:street,:building_number,:entry,:user_id,:apartment,:rooms)";
+    // $result = $db->writeDB($query, $arr);
+    // echo json_encode($result);
+}
+function insertNewAdContentTableArray($adContent){
+    //return array with params of ad content
+  $arrOfAdContent=[];
+    global $DATA_OBJ;
+    $count=0;
+    if (isset($adContent)) {
+        foreach ($adContent as $key => $value) {
+             $arrOfAdContent[$count]["element_id"]=uniqid();
+            $arrOfAdContent[$count]["name"] = $key;
+            $arrOfAdContent[$count]["value"] = $value;
+            $arrOfAdContent[$count++]["master"] = 0;
+        }
+    }
+  
+    return $arrOfAdContent;
 
+}
+function makeInsertAdContentQuery($adContentArr,$adID){
+    //make from the array of 2d ad content query for inserting multy rows
+$query="INSERT into ad_content (element_id, adID,master,name,value) VALUES ";
+for ($i=0; $i < count($adContentArr); $i++) { 
+    $query=$query." ('{$adContentArr[$i]['element_id']}','$adID','0','{$adContentArr[$i]['name']}','{$adContentArr[$i]['value']}'),";
+}
+    $query=substr($query,0,-1);
+ return $query;
+
+}
+function insertNewAd(){
+    //insert new ad with its ad content
+    global $db;
+    global $DATA_OBJ;
+    global $arr;
+    $arr=[];
+    $arrOfAd=insertNewAdTableArray($DATA_OBJ->params->ad);
+    
+    $arrOfAdContent=[];
+    $arrOfAdContent=insertNewAdContentTableArray($DATA_OBJ->params->adContent);
+    
+    $queryAdContent=makeInsertAdContentQuery($arrOfAdContent,$arrOfAd['adID']);
+    $queryAd="insertAd(:adID,:user_id,:city,:street,:price,:adType,:building_number,:entry,:apartment,:rooms)";
+    $result = $db->writeDB($queryAd, $arrOfAd);
+    if($result){
+        $result = $db->writeDBNotStoredProcedure($queryAdContent);
+    }
+    echo json_encode($result);
+    $arr=[];
+}
+if(isset($DATA_OBJ->data_type)&&$DATA_OBJ->data_type=='insertNewAd'){
+    insertNewAd();
+}
+else
 if(isset($DATA_OBJ->data_type)&&$DATA_OBJ->data_type=='getAllAdContentAndAdAndUsersForArrOfAds'){
     getAllAdContentAndAdAndUsersForArrOfAds();
 }

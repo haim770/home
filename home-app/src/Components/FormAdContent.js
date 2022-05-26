@@ -3,36 +3,40 @@ import Button from "./Button";
 import instance from "../api/AxiosInstance";
 function FormAdContent(props) {
   const [masters, setMasters] = useState("");
-  const [mastersComp, setMastersComp] = useState({});
-  const [inputs, setInputs] = useState({});
+  const [inputsAdContent, setInputsAdContent] = useState({});
+  const [inputsAd, setInputsAd] = useState({ user_id: 1 });
+
   const getMasters = async () => {
     const result = await instance.request({
       data: {
         data_type: "getAllMasters",
       },
     });
-    console.log(result.data);
     setMasters(result.data);
+    console.log(result.data);
   };
   useEffect(() => {
     getMasters();
-    let x = {};
   }, []);
-  const handleChange = (event) => {
+  const handleChangeAd = (event) => {
     const name = event.target.name;
     const value = event.target.value;
-    setInputs((values) => ({ ...values, [name]: value }));
+    setInputsAd((values) => ({ ...values, [name]: value }));
+  };
+  const handleChangeAdContent = (event) => {
+    const name = event.target.name;
+    const value = event.target.value;
+    setInputsAdContent((values) => ({ ...values, [name]: value }));
   };
   const submitAd = async (e) => {
-    console.log(inputs);
     e.preventDefault();
     const result = await instance.request({
       data: {
         data_type: "insertNewAd",
-        params: inputs,
+        params: { ad: inputsAd, adContent: inputsAdContent },
       },
     });
-    console.log(result);
+    console.log(result.data);
   };
   const makeFieldsOfAdColumnsWeKnow = (code) => {
     code.push(
@@ -43,8 +47,8 @@ function FormAdContent(props) {
           name="city"
           id="city"
           required
-          value={inputs.name}
-          onChange={(e) => handleChange}
+          value={inputsAd.name}
+          onChange={handleChangeAd}
         />
       </label>
     );
@@ -56,8 +60,8 @@ function FormAdContent(props) {
           name="street"
           id="street"
           required
-          value={inputs.name}
-          onChange={(e) => handleChange}
+          value={inputsAd.name}
+          onChange={handleChangeAd}
         />
       </label>
     );
@@ -69,8 +73,8 @@ function FormAdContent(props) {
           name="building_number"
           id="building_number"
           required
-          value={inputs.name}
-          onChange={(e) => handleChange}
+          value={inputsAd.name}
+          onChange={handleChangeAd}
         />
       </label>
     );
@@ -79,11 +83,11 @@ function FormAdContent(props) {
         <span>enter entry </span>
         <input
           type="text"
-          name="	entry"
+          name="entry"
           id="entry"
           required
-          value={inputs.name}
-          onChange={(e) => handleChange}
+          value={inputsAd.name}
+          onChange={handleChangeAd}
         />
       </label>
     );
@@ -95,8 +99,8 @@ function FormAdContent(props) {
           name="apartment"
           id="apartment"
           required
-          value={inputs.name}
-          onChange={(e) => handleChange}
+          value={inputsAd.name}
+          onChange={handleChangeAd}
         />
       </label>
     );
@@ -108,8 +112,8 @@ function FormAdContent(props) {
           name="zip_code"
           id="zip_code"
           required
-          value={inputs.name}
-          onChange={(e) => handleChange}
+          value={inputsAd.name}
+          onChange={handleChangeAd}
         />
       </label>
     );
@@ -118,24 +122,11 @@ function FormAdContent(props) {
         <span>enter price </span>
         <input
           type="text"
-          name="	price"
-          id="	price"
+          name="price"
+          id="price"
           required
-          value={inputs.name}
-          onChange={(e) => handleChange}
-        />
-      </label>
-    );
-    code.push(
-      <label>
-        <span>enter rooms </span>
-        <input
-          type="text"
-          name="	rooms"
-          id="	rooms"
-          required
-          value={inputs.name}
-          onChange={(e) => handleChange}
+          value={inputsAd.name}
+          onChange={handleChangeAd}
         />
       </label>
     );
@@ -147,19 +138,15 @@ function FormAdContent(props) {
           name="rooms"
           id="rooms"
           required
-          value={inputs.name}
-          onChange={(e) => handleChange}
+          value={inputsAd.name}
+          onChange={handleChangeAd}
         />
       </label>
     );
     code.push(
       <label>
         <span>enter adType </span>
-        <select
-          name="adType"
-          value={inputs.name}
-          onChange={(e) => handleChange}
-        >
+        <select name="adType" value={inputsAd.name} id={"adType"}onChange={handleChangeAd}>
           <option>rent</option>
           <option>buy</option>
         </select>
@@ -170,6 +157,7 @@ function FormAdContent(props) {
     //form of the adcontent masters we have
     let code = [];
     makeFieldsOfAdColumnsWeKnow(code);
+    console.log(masters.length);
     for (let index = 0; index < masters.length; index++) {
       if (masters[index].display_type === "checkBox") {
         code.push(
@@ -180,8 +168,8 @@ function FormAdContent(props) {
               name={masters[index].name}
               id={masters[index].name}
               required={masters[index].required}
-              value={inputs.name}
-              onChange={handleChange}
+              value={inputsAdContent.name}
+              onChange={handleChangeAdContent}
             />
           </label>
         );
@@ -195,8 +183,8 @@ function FormAdContent(props) {
               name={masters[index].name}
               id={masters[index].name}
               required
-              value={inputs.name}
-              onChange={handleChange}
+              value={inputsAdContent.name}
+              onChange={handleChangeAdContent}
             />
           </label>
         );
@@ -207,7 +195,6 @@ function FormAdContent(props) {
 
   return (
     <form>
-      {masters ? console.log(masters[0].adID) : "k"}
       {masters ? makeFormOfAdContent() : "no masters yet"}
       <Button onClick={submitAd} content="submit ad" />
     </form>
