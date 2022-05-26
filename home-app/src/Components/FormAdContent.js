@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Button from "./Button";
 import instance from "../api/AxiosInstance";
+import { v4 as uuidv4 } from "uuid";
 function FormAdContent(props) {
   const [masters, setMasters] = useState("");
   const [inputsAdContent, setInputsAdContent] = useState({});
@@ -13,7 +14,6 @@ function FormAdContent(props) {
       },
     });
     setMasters(result.data);
-    console.log(result.data);
   };
   useEffect(() => {
     getMasters();
@@ -41,7 +41,7 @@ function FormAdContent(props) {
   const makeFieldsOfAdColumnsWeKnow = (code) => {
     code.push(
       <label>
-        <span>enter city</span>
+        <span>עיר</span>
         <input
           type="text"
           name="city"
@@ -54,7 +54,7 @@ function FormAdContent(props) {
     );
     code.push(
       <label>
-        <span>enter street</span>
+        <span>רחוב</span>
         <input
           type="text"
           name="street"
@@ -67,7 +67,7 @@ function FormAdContent(props) {
     );
     code.push(
       <label>
-        <span>enter building_number </span>
+        <span>מס בניין </span>
         <input
           type="text"
           name="building_number"
@@ -80,7 +80,7 @@ function FormAdContent(props) {
     );
     code.push(
       <label>
-        <span>enter entry </span>
+        <span>כניסה </span>
         <input
           type="text"
           name="entry"
@@ -93,7 +93,7 @@ function FormAdContent(props) {
     );
     code.push(
       <label>
-        <span>enter apartment </span>
+        <span>דירה </span>
         <input
           type="text"
           name="apartment"
@@ -106,7 +106,7 @@ function FormAdContent(props) {
     );
     code.push(
       <label>
-        <span>enter zip code </span>
+        <span>זיפ קוד </span>
         <input
           type="text"
           name="zip_code"
@@ -119,7 +119,7 @@ function FormAdContent(props) {
     );
     code.push(
       <label>
-        <span>enter price </span>
+        <span>מחיר </span>
         <input
           type="text"
           name="price"
@@ -132,7 +132,7 @@ function FormAdContent(props) {
     );
     code.push(
       <label>
-        <span>enter rooms </span>
+        <span> חדרים </span>
         <input
           type="text"
           name="rooms"
@@ -145,7 +145,7 @@ function FormAdContent(props) {
     );
     code.push(
       <label>
-        <span>enter adType </span>
+        <span>סוג מודעה(קנייה/השכרה) </span>
         <select name="adType" value={inputsAd.name} id={"adType"}onChange={handleChangeAd}>
           <option>rent</option>
           <option>buy</option>
@@ -157,12 +157,11 @@ function FormAdContent(props) {
     //form of the adcontent masters we have
     let code = [];
     makeFieldsOfAdColumnsWeKnow(code);
-    console.log(masters.length);
     for (let index = 0; index < masters.length; index++) {
       if (masters[index].display_type === "checkBox") {
         code.push(
           <label key={masters[index].name + masters[index].adID}>
-            <span>enter {masters[index].name}</span>
+            <span>{masters[index].free_text}</span>
             <input
               type="checkBox"
               name={masters[index].name}
@@ -177,7 +176,7 @@ function FormAdContent(props) {
         //for text
         code.push(
           <label key={masters[index].name + masters[index].adID}>
-            <span>enter {masters[index].name}</span>
+            <span>{masters[index].free_text}</span>
             <input
               type="text"
               name={masters[index].name}
@@ -201,14 +200,5 @@ function FormAdContent(props) {
   );
 }
 FormAdContent.defaultProps = {
-  sellerName: "",
-  price: "",
-  createTime: "",
-  adLink: "",
-  city: "",
-  street: "",
-  number: "",
-  rooms: "",
-  userId: "",
 };
 export default FormAdContent;
