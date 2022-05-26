@@ -9,7 +9,6 @@ import AdPart from "./AdPart";
 import AdContentPart from "./AdContentPart";
 import AdUserPart from "./AdUserPart.js";
 function AdFull(props) {
-  let { slug } = useParams();
   const [dataForUrl, setDataForUrl] = useState({});
   const location = useLocation();
   const data = location.state;
