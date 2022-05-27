@@ -14,6 +14,7 @@ const AdsBlock = (props) => {
 
   const handleClickChatWith = () => {
     const chatWith = {
+      adBlock:props.adBlock,
       username: props.adBlock.user_id,
       uuid: props.adBlock.user_id,
       adID: props.adBlock.adID,

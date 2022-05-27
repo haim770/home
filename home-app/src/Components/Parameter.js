@@ -7,7 +7,7 @@ function Parameter(props) {
     //then we style it accordingly
     if (props.display_type === "text") {
       return (
-        <li>
+        <li className={props.className}>
           <span>{props.paramName}</span>
           <span>{props.paramValue}</span>
         </li>
@@ -15,7 +15,7 @@ function Parameter(props) {
     } else {
       if (props.display_type === "checkBox") {
         return (
-          <li>
+          <li className={props.className}>
             <span>{props.paramName}</span>
             <span>
               <input
@@ -28,7 +28,7 @@ function Parameter(props) {
         );
       } else {
         return (
-          <li>
+          <li className={props.className}>
             <span>{props.paramName}</span>
             <span>{props.paramValue}</span>
           </li>
@@ -43,6 +43,7 @@ function Parameter(props) {
 Parameter.defaultProps = {
   paramName: "name",
   paramValue: "value",
-  display_type:"text",
+  display_type: "text",
+  className: "paramVisible",
 };
 export default Parameter;

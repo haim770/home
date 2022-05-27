@@ -71,6 +71,7 @@ export default function App() {
         </Routes>
         <Main />
       </ViewProvidor>
+      <FormAdContent/>
       <Footer />
     </div>
   );

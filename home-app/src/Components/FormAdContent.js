@@ -146,7 +146,12 @@ function FormAdContent(props) {
     code.push(
       <label>
         <span>סוג מודעה(קנייה/השכרה) </span>
-        <select name="adType" value={inputsAd.name} id={"adType"}onChange={handleChangeAd}>
+        <select
+          name="adType"
+          value={inputsAd.name}
+          id={"adType"}
+          onChange={handleChangeAd}
+        >
           <option>rent</option>
           <option>buy</option>
         </select>
@@ -199,6 +204,5 @@ function FormAdContent(props) {
     </form>
   );
 }
-FormAdContent.defaultProps = {
-};
+FormAdContent.defaultProps = {};
 export default FormAdContent;

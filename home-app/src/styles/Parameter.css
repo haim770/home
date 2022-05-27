@@ -1,2 +1,14 @@
-.param{display: flex; flex-direction: row;justify-content: space-between;}
+
 span{color:red;text-decoration: underline;}
+.paramVisible {
+  visibility: visible;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.paramNotVisible {
+  visibility: hidden;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}

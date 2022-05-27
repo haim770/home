@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 26, 2022 at 09:00 PM
+-- Generation Time: May 27, 2022 at 08:51 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.2
 
@@ -332,24 +332,25 @@ CREATE TABLE `ad_content` (
   `required` tinyint(1) DEFAULT 0,
   `name` varchar(255) NOT NULL,
   `display_type` text NOT NULL DEFAULT 'text',
-  `value` text NOT NULL
+  `value` text NOT NULL,
+  `prevDisplay` tinyint(4) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `ad_content`
 --
 
-INSERT INTO `ad_content` (`element_id`, `adID`, `category`, `master`, `min_value`, `max_value`, `icon`, `free_text`, `required`, `name`, `display_type`, `value`) VALUES
-('1', '0', 'every', 1, NULL, NULL, '', 'air conditioner', 0, 'air_conditioner', 'checkBox', '1'),
-('123', '234', 'all', 0, NULL, NULL, '', '', 0, '333', 'text', '444'),
-('2', '2', '12', 0, 1, 1, 'kfkf', '33232', 0, 'air_conditioner', '2', '0'),
-('3', '1', 'hah', 0, NULL, NULL, 'jdj', 'jd', 0, 'garden', '', '4'),
-('33', '0', '32', 1, 31, NULL, '31', '', 0, 'haim', 'kke', 'mm'),
-('34453', '0', '2', 1, 21, 13, '21', '3', 1, 'garden', '0', '1'),
-('628fa5dfa9693', '628fa5dfa968b', 'all', 0, NULL, NULL, '', '', 0, 'haim', 'text', '6'),
-('628fa5dfa9696', '628fa5dfa968b', 'all', 0, NULL, NULL, '', '', 0, 'garden', 'text', '6'),
-('628fb7e629feb', '628fb7e629fd8', 'all', 0, NULL, NULL, '', '', 0, 'haim', 'text', '1'),
-('628fb7e629ff3', '628fb7e629fd8', 'all', 0, NULL, NULL, '', '', 0, 'garden', 'text', '1');
+INSERT INTO `ad_content` (`element_id`, `adID`, `category`, `master`, `min_value`, `max_value`, `icon`, `free_text`, `required`, `name`, `display_type`, `value`, `prevDisplay`) VALUES
+('1', '0', 'every', 1, NULL, NULL, '', 'מזגן', 0, 'air_conditioner', 'checkBox', '1', 0),
+('123', '234', 'all', 0, NULL, NULL, '', '333', 0, '333', 'text', '444', 0),
+('2', '2', '12', 0, 1, 1, 'kfkf', 'מזגן', 0, 'air_conditioner', '2', '0', 0),
+('3', '1', 'hah', 0, NULL, NULL, 'jdj', 'גינה', 0, 'garden', '', '4', 0),
+('33', '0', '32', 1, 31, NULL, '31', 'חיים', 0, 'haim', 'kke', 'mm', 0),
+('34453', '0', '2', 1, 21, 13, '21', 'גינה', 1, 'garden', '0', '1', 0),
+('628fa5dfa9693', '628fa5dfa968b', 'all', 0, NULL, NULL, '', 'חיים', 0, 'haim', 'text', '6', 0),
+('628fa5dfa9696', '628fa5dfa968b', 'all', 0, NULL, NULL, '', 'גינה', 0, 'garden', 'text', '6', 0),
+('628fb7e629feb', '628fb7e629fd8', 'all', 0, NULL, NULL, '', 'חיים', 0, 'haim', 'text', '1', 0),
+('628fb7e629ff3', '628fb7e629fd8', 'all', 0, NULL, NULL, '', 'גינה', 0, 'garden', 'text', '1', 0);
 
 -- --------------------------------------------------------
 
@@ -461,37 +462,6 @@ INSERT INTO `package` (`packageId`, `price`, `is_active`, `title`, `content`, `c
 ('628a91127da05', 23, 1, '23', '13', '2022-05-22 22:37:54', 13, '2022-05-22 22:37:54'),
 ('628a913467f66', 929292, 1, '1', 'dswdsmm', '2022-05-22 22:38:28', 212, '2022-05-22 22:38:28'),
 ('628a99d860576', 11, 1, 'DCDC', 'EE', '2022-05-22 23:15:20', 2332, '2022-05-22 23:15:20');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `parametersmaster`
---
-
-CREATE TABLE `parametersmaster` (
-  `paramName` varchar(255) NOT NULL,
-  `paramStyle` varchar(255) NOT NULL,
-  `paramMinValue` double NOT NULL,
-  `paramMaxValue` double NOT NULL,
-  `paramType` varchar(255) NOT NULL,
-  `comboBoxValues` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `parametersmaster`
---
-
-INSERT INTO `parametersmaster` (`paramName`, `paramStyle`, `paramMinValue`, `paramMaxValue`, `paramType`, `comboBoxValues`) VALUES
-('ad_link', 'input', 0, 0, 'varchar', ''),
-('air_conditioner', 'checkBox', 0, 0, 'boolean', ''),
-('apartment', 'input', 0, 0, 'int', ''),
-('building_number', 'input', 0, 0, 'int', ''),
-('city', 'input', 0, 0, 'varchar(255)', ''),
-('create_time', 'input', 0, 0, 'dateTime', ''),
-('entry', 'input', 0, 0, 'varchar(255)', ''),
-('price', 'input', 0, 0, 'int', ''),
-('rooms', 'comboBox', 0, 0, 'double', '{0.5,1,1.5,2,2.5,3,3.5,4,4.5,5,5.5,6,6.5,7,7.5,8,8.5,9,9.5,10}'),
-('street', 'input', 0, 0, 'varchr(255)', '');
 
 -- --------------------------------------------------------
 
@@ -616,36 +586,26 @@ CREATE TABLE `users` (
   `password` varchar(255) NOT NULL,
   `last_seen` datetime NOT NULL DEFAULT current_timestamp(),
   `prompt` varchar(255) NOT NULL,
-  `rule` varchar(255) NOT NULL
+  `rule` varchar(255) NOT NULL,
+  `refreshToken` varchar(255) NOT NULL,
+  `remaining_ads` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`uuid`, `first_name`, `last_name`, `phone`, `mail`, `create_time`, `password`, `last_seen`, `prompt`, `rule`) VALUES
-('', '', '', '', '', '2022-05-08 23:07:48', '1', '2022-05-08 23:07:48', 'k', 'user'),
-('1', 'haim', 'mo', '01', 'haim', '2022-05-03 21:19:17', '123', '2022-05-09 21:47:14', '', 'user'),
-('123456', 'lidor', 'ben shimol', '0542155045', 'AAA', '2022-04-06 17:52:19', 'ASdasda', '0000-00-00 00:00:00', '', ''),
-('2222222222222222', '2222222222222222', '2222222222222222', '2222222222222222', '2222222222222222', '2022-05-08 23:08:11', '1', '0000-00-00 00:00:00', 'k', 'user'),
-('48', '29', '22', '1', '12', '2022-05-08 23:04:51', '112', '2022-05-08 23:04:51', 'k', 'user'),
-('627824e644859', 'haimkel', 'monhait', '0030', 'haim@123.com', '2022-05-08 23:15:34', '12345678', '2022-05-09 21:45:40', 'k', 'user'),
-('6278268bcf8fb', 'haimmmmm', 'mmmmmm', 'mmmmmmm', 'mmmmmm', '2022-05-08 23:22:35', '$2y$10$LXc4nneaLWgnasmz7nnV6.K1g7/71oac46uNYZ.YTOyVSTRxHnrVK', '2022-05-08 23:22:35', 'k', 'user'),
-('627826f01b888', 'k', 'ks', 'k', 's', '2022-05-08 23:24:16', '$2y$10$Fwz6liVpMjKCFw6xz5VY7.BXEnVeJRhQK5U0Nz6Mb91sHA/DO68Ve', '2022-05-08 23:24:16', 'k', 'user'),
-('627827fb35231', '', '', '', '', '2022-05-08 23:28:43', '$2y$10$/gNDwtz.lBacBd3D1nkB8OOzbOi7Ip89xfrSCrbzPeYeH.nM1WChq', '2022-05-08 23:28:43', 'k', 'user'),
-('627827fd863f8', '', '', '', '', '2022-05-08 23:28:45', '$2y$10$K1OtF5q53gh4IyrHXBIlPeQkvJr/ivFL7nPp6MO9SjRo6qgf.K2eK', '2022-05-08 23:28:45', 'k', 'user'),
-('627827fe89557', '', '', '', '', '2022-05-08 23:28:46', '$2y$10$0XVRAdm2RErQRPevsK1DYeptgVJhje7FSv.tEszF9YibnOGMKk7Tq', '2022-05-08 23:28:46', 'k', 'user'),
-('627828e9313d7', 'mfk', 'kck', 'l', 'lld', '2022-05-08 23:32:41', '$2y$10$Kg53uqrhKDZ6Z5D/bHa9HufBnlxvcJBDkYP3sSZPF/tgWRzH/qpki', '2022-05-08 23:32:41', 'k', 'user'),
-('6278291bd3d9a', '', '', '', '', '2022-05-08 23:33:31', '$2y$10$DGTuCO7NHNq4Ntf6UHVgk.bnZEXbntd6vrh12mBXAUbMfIc4kf71e', '2022-05-08 23:33:31', 'k', 'user'),
-('628bc5489e47e', 'lidor', 'bs', '123456789', 'lidorag2@gmail.com', '2022-05-23 20:32:56', '$2y$10$ddf3qEi.2rr5RbaZS8oNOuSMdeSAGxcR386Na9fGhkfxA3QZIHN3C', '2022-05-23 20:32:56', 'k', 'user'),
-('ckfk', 'kk', 'k', 'kk', 'k', '2022-05-08 23:10:27', '627823b34ff60', '2022-05-08 23:10:27', 'k', 'user'),
-('ckfkkdkdkd', 'kkkkk', 'kkkkkkls', 'kkkkk', 'kkkkk', '2022-05-08 23:10:58', '627823d28d7bd', '2022-05-08 23:10:58', 'k', 'user'),
-('haim', 'kkkkk', 'kkkkkkls', 'ndmdmd', 'kkkkk', '2022-05-08 23:11:19', '627823e713057', '2022-05-08 23:11:19', 'k', 'user'),
-('haimke', 'll', 'll', 'll', 'll', '2022-05-08 23:14:16', '627824989503e', '2022-05-08 23:14:16', 'k', 'user'),
-('haimlfl', 'll', 'll', '62782439b08a4', 'll', '2022-05-08 23:12:41', '62782439b0897', '2022-05-08 23:12:41', 'k', 'user'),
-('k', 'k', 'k', '', 'l', '2022-05-08 23:01:14', 'l', '0000-00-00 00:00:00', 'l', 'l'),
-('kk', 'k', 'k', 'k', 'kk', '2022-05-08 23:02:13', 'k', '2022-05-08 23:02:13', 'k', 'k'),
-('kk1111111111111', 'kk1111111111111', 'kk1111111111111', 'kk1111111111111', 'kk1111111111111', '2022-05-08 23:09:23', '1', '2022-05-08 23:09:23', 'k', 'user');
+INSERT INTO `users` (`uuid`, `first_name`, `last_name`, `phone`, `mail`, `create_time`, `password`, `last_seen`, `prompt`, `rule`, `refreshToken`, `remaining_ads`) VALUES
+('1', 'haim', 'mo', '01', 'haim', '2022-05-03 21:19:17', '123', '2022-05-09 21:47:14', '', 'user', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2NTM2MzQxNzMsImp0aSI6Iit1ZGRFSUtVU003aTVJRVk4cmdmVVE9PSIsImlzcyI6ImxvY2FsaG9zdCIsIm5iZiI6MTY1MzYzNDE3MywiZXhwIjoxNjUzNzIwNTczLCJkYXRhIjp7InVzZXIiOiJoYWltIn19.KPNVGezUXvc9O8xD9lamsHcpZtXKLR-e00aParXoRZXHa12Qu', 0),
+('123456', 'lidor', 'ben shimol', '0542155045', 'AAA', '2022-04-06 17:52:19', 'ASdasda', '0000-00-00 00:00:00', '', '', '', 0),
+('2222222222222222', '2222222222222222', '2222222222222222', '2222222222222222', '2222222222222222', '2022-05-08 23:08:11', '1', '0000-00-00 00:00:00', 'k', 'user', '', 0),
+('48', '29', '22', '1', '12', '2022-05-08 23:04:51', '112', '2022-05-08 23:04:51', 'k', 'user', '', 0),
+('627824e644859', 'haimkel', 'monhait', '0030', 'haim@123.com', '2022-05-08 23:15:34', '12345678', '2022-05-09 21:45:40', 'k', 'user', '', 0),
+('6278268bcf8fb', 'haimmmmm', 'mmmmmm', 'mmmmmmm', 'mmmmmm', '2022-05-08 23:22:35', '$2y$10$LXc4nneaLWgnasmz7nnV6.K1g7/71oac46uNYZ.YTOyVSTRxHnrVK', '2022-05-08 23:22:35', 'k', 'user', '', 0),
+('627826f01b888', 'k', 'ks', 'k', 's', '2022-05-08 23:24:16', '$2y$10$Fwz6liVpMjKCFw6xz5VY7.BXEnVeJRhQK5U0Nz6Mb91sHA/DO68Ve', '2022-05-08 23:24:16', 'k', 'user', '', 0),
+('ckfkkdkdkd', 'kkkkk', 'kkkkkkls', 'kkkkk', 'kkkkk', '2022-05-08 23:10:58', '627823d28d7bd', '2022-05-08 23:10:58', 'k', 'user', '', 0),
+('haim', 'kkkkk', 'kkkkkkls', 'ndmdmd', 'kkkkk', '2022-05-08 23:11:19', '627823e713057', '2022-05-08 23:11:19', 'k', 'user', '', 0),
+('haimke', 'll', 'll', 'll', 'll', '2022-05-08 23:14:16', '627824989503e', '2022-05-08 23:14:16', 'k', 'user', '', 0);
 
 -- --------------------------------------------------------
 
@@ -726,12 +686,6 @@ ALTER TABLE `messages`
 --
 ALTER TABLE `package`
   ADD PRIMARY KEY (`packageId`);
-
---
--- Indexes for table `parametersmaster`
---
-ALTER TABLE `parametersmaster`
-  ADD PRIMARY KEY (`paramName`);
 
 --
 -- Indexes for table `password_recovery`
