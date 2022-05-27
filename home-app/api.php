@@ -464,8 +464,8 @@ function insertNewAd(){
     $arr=[];
 }
 if(isset($DATA_OBJ->data_type)&&$DATA_OBJ->data_type=='getAdByID'){
-    if(isser($DATA_OBJ->params))
-    getAdWithAdContentForAdId($DATA_OBJ->params->adID,$DATA_OBJ->params->user_id,);
+    if(isset($DATA_OBJ->params))
+    echo json_encode(getAdWithAdContentForAdId($DATA_OBJ->params->adID,$DATA_OBJ->params->user_id));
 }
 else
 if(isset($DATA_OBJ->data_type)&&$DATA_OBJ->data_type=='insertNewAd'){

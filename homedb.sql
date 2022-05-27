@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 23, 2022 at 04:02 PM
+-- Generation Time: May 26, 2022 at 09:00 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.2
 
@@ -58,6 +58,16 @@ ALTER TABLE ads
 add nameCol varchar(255);
 END$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `checkIfAdHasValues` ()  NO SQL
+BEGIN
+Select distinct(ads.adID) from ad_content,ads where ads.adID=ad_content.adID and EXISTS(select 1 from ad_content where ad_content.adID = 1 and ad_content.name ='air_conditioner' and ad_content.value=1) and EXISTS (select 1 FROM ad_content where ad_content.adID = 1 and ad_content.name ='garden' and ad_content.value=4);
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `checkIfValuesExistInTableAdContent` ()  READS SQL DATA
+BEGIN
+select ads.*,ad_content.name,ad_content.value,ad_content.display_type from ads,ad_content where ads.adID=ad_content.adID   and EXISTS (SELECT ad_content.adID FROM ad_content WHERE ad_content.name = "air_conditioner" AND ad_content.value=1)ORDER by ads.adID limit 10;
+END$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getAdById` (IN `adID` VARCHAR(255) CHARSET sjis)  READS SQL DATA
 BEGIN
 select * from ads WHERE ads.adID=adID;
@@ -81,6 +91,10 @@ BEGIN
 	SELECT * from ad_content;
 END$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getAdsMathSearch` ()  BEGIN
+select DISTINCT ads.adID from ads,ad_content where ads.adID=ad_content.adID   and EXISTS (SELECT ad_content.adID FROM ad_content WHERE ad_content.name = "air_conditioner" AND ad_content.value=1)ORDER by ads.adID limit 10;
+END$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getAdsTable` ()  READS SQL DATA
     COMMENT 'Get all ads from ads Table'
 BEGIN
@@ -96,6 +110,10 @@ INNER JOIN ad_content
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getAllAdCOntentMasters` ()  READS SQL DATA
 BEGIN
 select * from ad_content where ad_content.master=1;
+end$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getAllAdsWithAdContent` ()  BEGIN
+select ads.*,ad_content.name,ad_content.value,ad_content.display_type from ads,ad_content WHERE ads.adID=ad_content.adID order by ads.adID;
 end$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getAllMasters` ()  NO SQL
@@ -196,9 +214,15 @@ BEGIN
 	SELECT * from users;
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `insertAd` (IN `adID` VARCHAR(255), IN `user_id` VARCHAR(255), IN `city` VARCHAR(255), IN `street` VARCHAR(255), IN `building_number` INT, IN `apartment` VARCHAR(255), IN `entry` VARCHAR(255), IN `rooms` VARCHAR(255))  READS SQL DATA
+CREATE DEFINER=`root`@`localhost` PROCEDURE `haimtry` ()  BEGIN
+Select * from ad_content,ads
+where ads.adID=ad_content.adID GROUP by ads.adID;
+
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `insertAd` (IN `adID` VARCHAR(255), IN `user_id` VARCHAR(255), IN `city` VARCHAR(255), IN `street` VARCHAR(255), IN `building_number` INT, IN `apartment` VARCHAR(255), IN `entry` VARCHAR(255), IN `rooms` VARCHAR(255), IN `adType` VARCHAR(255), IN `price` DOUBLE)  READS SQL DATA
 BEGIN
-INSERT INTO `ads` (`adID`, `create_time`, `user_id`, `active`, `contact_counter`, `views`, `close_reason`, `expire_date`, `approval_status`, `ad_link`, `city`, `street`, `building_number`, `entry`, `apartment`, `zip_code`, `map_X`, `map_Y`) VALUES (adID, current_timestamp(), user_id, '0', '0', '0', NULL, '', 'pending', 'ad link 3', city, street, building_number, entry, apartment, '3', '', '');
+INSERT INTO `ads` (`adID`, `create_time`, `user_id`, `active`, `contact_counter`, `watch`, `close_reason`, `expire_date`, `approval_status`, `ad_link`, `city`, `street`, `building_number`, `entry`, `apartment`, `zip_code`, `map_X`, `map_Y`, `price`, `rooms`, `adType`) VALUES (adID, current_timestamp(), user_id, '0', '0', '0', NULL, '', 'pending', 'ad link 3', city, street, building_number, entry, apartment, '3', '', '', price, rooms, adType);
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `insertPackage` (IN `packageId` VARCHAR(255), IN `price` DOUBLE, IN `title` VARCHAR(255), IN `content` TEXT, IN `ad_value` INT)  READS SQL DATA
@@ -231,6 +255,12 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `searchByAdCityContains` (IN `city` 
     COMMENT 'if we want the city to contain the param we need to pass in % %'
 BEGIN
 SELECT * from ads where ads.city like `city`;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `searchInAdsAndInAdContent` (IN `contentS` VARCHAR(255), IN `contentV` VARCHAR(255), IN `adS` VARCHAR(255))  READS SQL DATA
+BEGIN
+select ads.adID from ads,ad_content where ads.city=adS and ad_content.name=contentS and ad_content.value=contentV and ads.adID=ad_content.adID
+LIMIT 10;
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `setLastSeen` (IN `mail` VARCHAR(255), IN `last_seen` DATETIME)  MODIFIES SQL DATA
@@ -278,10 +308,11 @@ CREATE TABLE `ads` (
 --
 
 INSERT INTO `ads` (`adID`, `create_time`, `user_id`, `active`, `contact_counter`, `watch`, `close_reason`, `expire_date`, `approval_status`, `ad_link`, `city`, `street`, `building_number`, `entry`, `apartment`, `zip_code`, `map_X`, `map_Y`, `price`, `rooms`, `adType`) VALUES
-('088c8395-a8fa-4a3d-aab5-e9b4893655ce', '2022-05-05 18:51:10', 'afula', 0, 0, 5, NULL, '0000-00-00 00:00:00', 'pending', 'ad link 3fsfs', 'afula street', '1', 1, '23', '1', '3', '', '', 0, 0, 'rent'),
 ('1', '2022-05-05 13:19:11', '1', 0, 0, 7, NULL, '0000-00-00 00:00:00', 'pending', 'ad dfflink 3', 'haifa', 'hagalil', 1, '1', '1', '3', '', '', 2002, 0, 'rent'),
+('12', '2022-05-26 12:08:10', '1', 0, 1, 1, '1', '0000-00-00 00:00:00', '1', '1', '1', '1', 1, '1', '1', '1', '1', '1', 1, 1, '1'),
 ('2', '2022-05-21 18:53:41', 'haim', 1, 1, 1, NULL, '2022-05-31 21:52:10', 'pending', 'linkhai', 'haifa', 'hagalil', 1, '12', '1', '', '', '', 0, 0, 'rent'),
-('4', '2022-05-21 18:53:41', 'tal', 1, 1, 1, 'W', '2022-05-25 21:52:10', 'pending', 'ws', 'afula', 'street', 1, '1', '1', '1', '1', '1', 1, 1, '1');
+('4', '2022-05-21 18:53:41', 'tal', 1, 1, 1, 'W', '2022-05-25 21:52:10', 'pending', 'ws', 'afula', 'street', 1, '1', '1', '1', '1', '1', 1, 1, '1'),
+('628fb7e629fd8', '2022-05-26 17:24:54', '1', 0, 0, 0, NULL, '0000-00-00 00:00:00', 'pending', 'ad link 3', '1', '1', 1, '1', 'ad->adType', '3', '', '', 1, 1, '1');
 
 -- --------------------------------------------------------
 
@@ -292,15 +323,15 @@ INSERT INTO `ads` (`adID`, `create_time`, `user_id`, `active`, `contact_counter`
 CREATE TABLE `ad_content` (
   `element_id` varchar(255) NOT NULL,
   `adID` varchar(255) NOT NULL COMMENT 'when master is active adid will be zero (0)',
-  `category` varchar(255) NOT NULL COMMENT 'exp, rent, buy...',
+  `category` varchar(255) NOT NULL DEFAULT 'all' COMMENT 'exp, rent, buy...',
   `master` tinyint(1) NOT NULL DEFAULT 0 COMMENT 'defind if row is for new add properties',
   `min_value` double DEFAULT NULL COMMENT 'min value will appear only for chooseing parameter to set minmum row value',
   `max_value` double DEFAULT NULL COMMENT 'min value will appear only for chooseing parameter to set minmum row value',
-  `icon` varchar(255) NOT NULL COMMENT 'use to set the row thumbnail show in ad',
-  `free_text` text NOT NULL,
-  `required` tinyint(1) NOT NULL DEFAULT 0,
+  `icon` varchar(255) NOT NULL DEFAULT '' COMMENT 'use to set the row thumbnail show in ad',
+  `free_text` text NOT NULL DEFAULT '',
+  `required` tinyint(1) DEFAULT 0,
   `name` varchar(255) NOT NULL,
-  `display_type` text NOT NULL,
+  `display_type` text NOT NULL DEFAULT 'text',
   `value` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -309,9 +340,16 @@ CREATE TABLE `ad_content` (
 --
 
 INSERT INTO `ad_content` (`element_id`, `adID`, `category`, `master`, `min_value`, `max_value`, `icon`, `free_text`, `required`, `name`, `display_type`, `value`) VALUES
-('1', '1', 'every', 1, NULL, NULL, '', 'air conditioner', 0, 'air_conditioner', 'checkBox', '1'),
-('2', '0', '12', 1, 1, 1, 'kfkf', '33232', 0, 'ndndndndn', '2', 'mwmwmw'),
-('3', '1', 'hah', 0, NULL, NULL, 'jdj', 'jd', 0, 'garden', '', '1');
+('1', '0', 'every', 1, NULL, NULL, '', 'air conditioner', 0, 'air_conditioner', 'checkBox', '1'),
+('123', '234', 'all', 0, NULL, NULL, '', '', 0, '333', 'text', '444'),
+('2', '2', '12', 0, 1, 1, 'kfkf', '33232', 0, 'air_conditioner', '2', '0'),
+('3', '1', 'hah', 0, NULL, NULL, 'jdj', 'jd', 0, 'garden', '', '4'),
+('33', '0', '32', 1, 31, NULL, '31', '', 0, 'haim', 'kke', 'mm'),
+('34453', '0', '2', 1, 21, 13, '21', '3', 1, 'garden', '0', '1'),
+('628fa5dfa9693', '628fa5dfa968b', 'all', 0, NULL, NULL, '', '', 0, 'haim', 'text', '6'),
+('628fa5dfa9696', '628fa5dfa968b', 'all', 0, NULL, NULL, '', '', 0, 'garden', 'text', '6'),
+('628fb7e629feb', '628fb7e629fd8', 'all', 0, NULL, NULL, '', '', 0, 'haim', 'text', '1'),
+('628fb7e629ff3', '628fb7e629fd8', 'all', 0, NULL, NULL, '', '', 0, 'garden', 'text', '1');
 
 -- --------------------------------------------------------
 
@@ -587,7 +625,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`uuid`, `first_name`, `last_name`, `phone`, `mail`, `create_time`, `password`, `last_seen`, `prompt`, `rule`) VALUES
 ('', '', '', '', '', '2022-05-08 23:07:48', '1', '2022-05-08 23:07:48', 'k', 'user'),
-('1', 'haim', 'mo', '01', 'haim@gmail.con', '2022-05-03 21:19:17', '1', '2022-05-09 21:47:14', '', 'user'),
+('1', 'haim', 'mo', '01', 'haim', '2022-05-03 21:19:17', '123', '2022-05-09 21:47:14', '', 'user'),
 ('123456', 'lidor', 'ben shimol', '0542155045', 'AAA', '2022-04-06 17:52:19', 'ASdasda', '0000-00-00 00:00:00', '', ''),
 ('2222222222222222', '2222222222222222', '2222222222222222', '2222222222222222', '2222222222222222', '2022-05-08 23:08:11', '1', '0000-00-00 00:00:00', 'k', 'user'),
 ('48', '29', '22', '1', '12', '2022-05-08 23:04:51', '112', '2022-05-08 23:04:51', 'k', 'user'),
@@ -599,6 +637,7 @@ INSERT INTO `users` (`uuid`, `first_name`, `last_name`, `phone`, `mail`, `create
 ('627827fe89557', '', '', '', '', '2022-05-08 23:28:46', '$2y$10$0XVRAdm2RErQRPevsK1DYeptgVJhje7FSv.tEszF9YibnOGMKk7Tq', '2022-05-08 23:28:46', 'k', 'user'),
 ('627828e9313d7', 'mfk', 'kck', 'l', 'lld', '2022-05-08 23:32:41', '$2y$10$Kg53uqrhKDZ6Z5D/bHa9HufBnlxvcJBDkYP3sSZPF/tgWRzH/qpki', '2022-05-08 23:32:41', 'k', 'user'),
 ('6278291bd3d9a', '', '', '', '', '2022-05-08 23:33:31', '$2y$10$DGTuCO7NHNq4Ntf6UHVgk.bnZEXbntd6vrh12mBXAUbMfIc4kf71e', '2022-05-08 23:33:31', 'k', 'user'),
+('628bc5489e47e', 'lidor', 'bs', '123456789', 'lidorag2@gmail.com', '2022-05-23 20:32:56', '$2y$10$ddf3qEi.2rr5RbaZS8oNOuSMdeSAGxcR386Na9fGhkfxA3QZIHN3C', '2022-05-23 20:32:56', 'k', 'user'),
 ('ckfk', 'kk', 'k', 'kk', 'k', '2022-05-08 23:10:27', '627823b34ff60', '2022-05-08 23:10:27', 'k', 'user'),
 ('ckfkkdkdkd', 'kkkkk', 'kkkkkkls', 'kkkkk', 'kkkkk', '2022-05-08 23:10:58', '627823d28d7bd', '2022-05-08 23:10:58', 'k', 'user'),
 ('haim', 'kkkkk', 'kkkkkkls', 'ndmdmd', 'kkkkk', '2022-05-08 23:11:19', '627823e713057', '2022-05-08 23:11:19', 'k', 'user'),

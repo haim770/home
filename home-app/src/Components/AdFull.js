@@ -9,14 +9,41 @@ import AdPart from "./AdPart";
 import AdContentPart from "./AdContentPart";
 import AdUserPart from "./AdUserPart.js";
 function AdFull(props) {
+  const [dataForUrl, setDataForUrl] = useState({});
   const location = useLocation();
   const data = location.state;
-  return (
+  const getAd = async () => {
+    const result = await instance.request({
+      data: {
+        data_type: "getAdByID",
+        params: { adID: window.location.href.split("/")[3], user_id: 1 }, //window.location.href gets the urlline
+      },
+    });
+    setDataForUrl(result.data);
+    console.log(dataForUrl);
+  };
+  useEffect(() => {
+    if (!data) {
+      getAd();
+    }
+  }, []);
+  return data ? (
     <section className={"ad"}>
       <ul>
         <AdUserPart user={data.adBlock.user} />
         <AdPart ad={data.adBlock.ad} />
         <AdContentPart adContent={data.adBlock.adContent} />
+      </ul>
+      <p>
+        <Button content="contact seller" onclick={props.onclick} />
+      </p>
+    </section>
+  ) : (
+    <section className={"ad"}>
+      <ul>
+        <AdUserPart user={dataForUrl.user} />
+        <AdPart ad={dataForUrl.ad} />
+        <AdContentPart adContent={dataForUrl.adContent} />
       </ul>
       <p>
         <Button content="contact seller" onclick={props.onclick} />
