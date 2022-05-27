@@ -43,7 +43,7 @@ $tokenParts = explode('.', $jwt);
 $header = base64_decode($tokenParts[0]);
 $payload = base64_decode($tokenParts[1]);
 $signature_provided = $tokenParts[2];
-$token = json_decode($payloadl);
+$token = json_decode($payload);
 
 // build a signature based on the header and payload using the secret
 $base64_url_header = base64url_encode($header);
@@ -74,4 +74,3 @@ if (
     exit;
 }
 */
-print_r($token);
