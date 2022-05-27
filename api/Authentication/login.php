@@ -56,12 +56,12 @@ if (is_array($hasValidCredentials)) {
     $accessToken = JWT::encode(
                     $accessTokenData,   //Data to be encoded in the JWT
 					$secretKey,         // The signing key
-					'HS512'             // Algorithm used to sign the token, see https://tools.ietf.org/html/draft-ietf-jose-json-web-algorithms-40#section-3
+        'HS256',           // Algorithm used to sign the token, see https://tools.ietf.org/html/draft-ietf-jose-json-web-algorithms-40#section-3
     );
     $refreshToken  = JWT::encode(
         $refreshTokenData,      //Data to be encoded in the JWT
         $refreshKey, // The signing key
-        'HS512'     // Algorithm used to sign the token, see https://tools.ietf.org/html/draft-ietf-jose-json-web-algorithms-40#section-3
+        'HS256',    // Algorithm used to sign the token, see https://tools.ietf.org/html/draft-ietf-jose-json-web-algorithms-40#section-3
     );
 
     // This method will write the refreshToken of the user to the database.
