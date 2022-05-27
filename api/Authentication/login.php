@@ -38,7 +38,7 @@ if (is_array($hasValidCredentials)) {
         'data' => [                             // Data related to the signer user
             'user' => $username,            // User name
             'role' => "2001",          // User permissions on site
-        ]
+            ]
     ];
 
     // Create the Refresh token as an array
@@ -56,12 +56,12 @@ if (is_array($hasValidCredentials)) {
     $accessToken = JWT::encode(
                     $accessTokenData,   //Data to be encoded in the JWT
 					$secretKey,         // The signing key
-					'HS512'             // Algorithm used to sign the token, see https://tools.ietf.org/html/draft-ietf-jose-json-web-algorithms-40#section-3
+        'HS256',           // Algorithm used to sign the token, see https://tools.ietf.org/html/draft-ietf-jose-json-web-algorithms-40#section-3
     );
     $refreshToken  = JWT::encode(
         $refreshTokenData,      //Data to be encoded in the JWT
         $refreshKey, // The signing key
-        'HS512'     // Algorithm used to sign the token, see https://tools.ietf.org/html/draft-ietf-jose-json-web-algorithms-40#section-3
+        'HS256',    // Algorithm used to sign the token, see https://tools.ietf.org/html/draft-ietf-jose-json-web-algorithms-40#section-3
     );
 
     // This method will write the refreshToken of the user to the database.
@@ -84,8 +84,7 @@ if (is_array($hasValidCredentials)) {
                 "roles" => "2001",
                 "refreshToken" => $refreshToken,
                 "user" => $username,
-                "expireAt" => $expireAccess,
-                
+                "expireAt" => $expireAccess,               
             ));
 }
 

@@ -502,6 +502,11 @@ if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "searchInDbWithUnknow
     if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "Login") {
         include("../api/Authentication/login.php");
     } else
+    // Proccess testAuth
+    if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "testAuth") {
+        include("../api/Authentication/authTest.php");
+    }
+     else
 if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "Logout") {
         include("../api/Authentication/logout.php");
     } else
@@ -520,7 +525,8 @@ if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "Regist") {
         if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "getAllAds") {
             getAllAds();
 
-        } else // proccess the data - Contact
+        }
+         else // proccess the data - Contact
             if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "TEST2") {
                 getAllAds();
             } else // proccess the data - Contact

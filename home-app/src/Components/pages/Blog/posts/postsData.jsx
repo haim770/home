@@ -8,7 +8,7 @@ export const blogData = [
       "AALorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda officia architecto deserunt deleniti? Labore ipsum aspernatur magnam fugiat, reprehenderit praesentium blanditiis quos cupiditate ratione atque, exercitationem quibusdam, reiciendis odio laboriosam",
     BlogCreateTime: "1 hour ago",
     BlogAuthor: "Lidor",
-    BlogCategory: "Cat1,Cat2,Cat3",
+    BlogCategory: "Cat1|Cat2,Cat3",
   },
   {
     title: "Lorem ipsum dolor sit amet",
