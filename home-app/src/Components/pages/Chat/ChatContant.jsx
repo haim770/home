@@ -8,18 +8,18 @@ const ChatContant = () => {
   const { contactView, startNewChat } = useView();
 
   const [hovered, setHovered] = useState(false);
-
+  const [contacts, setContacts] = useState({});
     const getContacts = async () => {
     const result = await instance.request({
       data: {
-        data_type: "testAuth",
+        data_type: "getContacts",
         params: {},
       },
       headers: {
         Authorization: `Bearer ${auth.accessToken}`,
       },
     });
-    console.log(result.data);
+    setContacts(result.data.message);
   }
 
     const handleClick = () => {

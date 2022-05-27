@@ -502,6 +502,10 @@ if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "searchInDbWithUnknow
     if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "Login") {
         include("../api/Authentication/login.php");
     } else
+    // Proccess get user contacts
+    if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "getContacts") {
+        include("../api/system/chat/getContacts.php");
+    } else
     // Proccess testAuth
     if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "testAuth") {
         include("../api/Authentication/authTest.php");
