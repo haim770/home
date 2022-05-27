@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import "../styles/Parameter.css";
 function Parameter(props) {
- 
+  // const [classParam, setClassParam] = useState(props.className);
+
   const buildShowForParam = () => {
     //build the list of parameters to show one by one we get a json obj and check his style
     //then we style it accordingly
@@ -28,7 +29,7 @@ function Parameter(props) {
         );
       } else {
         return (
-          <li className={props.className}>
+          <li className={props.classParam}>
             <span>{props.paramName}</span>
             <span>{props.paramValue}</span>
           </li>
@@ -36,9 +37,7 @@ function Parameter(props) {
       }
     }
   };
-  return (
-    props.paramName?buildShowForParam():<p>no parameter</p>
-  );
+  return props.paramName ? buildShowForParam() : <p>no parameter</p>;
 }
 Parameter.defaultProps = {
   paramName: "name",
