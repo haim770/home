@@ -1,14 +1,29 @@
+span {
+  color: red;
+  text-decoration: underline;
+}
 
-span{color:red;text-decoration: underline;}
 .paramVisible {
   visibility: visible;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
+
 .paramNotVisible {
-  visibility: hidden;
-  display: flex;
+  /* visibility: hidden; */
+  display: none;
   flex-direction: row;
   justify-content: space-between;
+}
+.transition-3 {
+  transition: all 0.33s ease;
+  -webkit-transition: all 0.33s ease;
+  -moz-transition: all 0.33s ease;
+}
+
+.transition-5 {
+  transition: all 0.5s ease;
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
 }

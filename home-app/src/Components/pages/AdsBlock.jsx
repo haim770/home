@@ -73,10 +73,10 @@ const AdsBlock = (props) => {
           <h4>
             <AdUserPart user={props.adBlock.user} />
             <AdPart ad={props.adBlock.ad} />
-            <AdContentPart adContent={props.adBlock.adContent} />
           </h4>
         </div>
       </Link>
+      <AdContentPart adContent={props.adBlock.adContent} />
       {/** This will contain the Ad footer wrapper  */}
       <div className="jss185 jss181">
         {/** This will contain the Ad footer inner wrapper  */}
