@@ -23,13 +23,14 @@ const AdsBlock = (props) => {
   };
 
   return (
-    <Link
-      to={`/${props.adBlock.ad[0].adID}`}
-      key={props.adBlock.ad[0].adID}
-      state={{
-        adBlock: props.adBlock,
-      }}
-    >
+    <div>
+      <Link
+        to={`/${props.adBlock.ad[0].adID}`}
+        key={props.adBlock.ad[0].adID}
+        state={{
+          adBlock: props.adBlock,
+        }}
+      >
         <div className="jss179">
           {/* This div will contain data like how many days the add on the site */}
           <div className="jss190">
@@ -70,35 +71,34 @@ const AdsBlock = (props) => {
         {/** This will contain the Ad details */}
         <div className="adCardTitle">
           <h4>
-            <AdUserPart user={props.adBlock.user}/>
+            <AdUserPart user={props.adBlock.user} />
             <AdPart ad={props.adBlock.ad} />
             <AdContentPart adContent={props.adBlock.adContent} />
           </h4>
         </div>
-       
-        {/** This will contain the Ad footer wrapper  */}
-        <div className="jss185 jss181">
-          {/** This will contain the Ad footer inner wrapper  */}
-          <div className="jss1060">
-            {/** This will contain the Ad footer Right button  */}
-            <div className="jss1062">
-              <div className="jss142">
-                <button
-                  className="MuiButtonBase-root MuiButton-root jss151 MuiButton-contained MuiButton-containedPrimary MuiButton-disableElevation MuiButton-fullWidth"
-                  onClick={handleClickChatWith}
-                >
-                  <span className="buttonSpanLabel">התחל צ'ט</span>
-                </button>
-              </div>
-            </div>
-            {/** This will contain the Ad footer Left button  */}
-            <div className="jss1061">
-              <div className="jss142">WHATSAPP</div>
+      </Link>
+      {/** This will contain the Ad footer wrapper  */}
+      <div className="jss185 jss181">
+        {/** This will contain the Ad footer inner wrapper  */}
+        <div className="jss1060">
+          {/** This will contain the Ad footer Right button  */}
+          <div className="jss1062">
+            <div className="jss142">
+              <button
+                className="MuiButtonBase-root MuiButton-root jss151 MuiButton-contained MuiButton-containedPrimary MuiButton-disableElevation MuiButton-fullWidth"
+                onClick={handleClickChatWith}
+              >
+                <span className="buttonSpanLabel">התחל צ'ט</span>
+              </button>
             </div>
           </div>
+          {/** This will contain the Ad footer Left button  */}
+          <div className="jss1061">
+            <div className="jss142">WHATSAPP</div>
+          </div>
         </div>
-       </Link>
-    
+      </div>
+    </div>
   );
 };
 

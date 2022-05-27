@@ -5,7 +5,7 @@ const BlogHeader = () => {
   return (
     <div className="header">
       <div className="headerTitles">
-        <span className="headerTitleSm">React & Node</span>
+        <span className="headerTitleSm">The home</span>
         <span className="headerTitleLg">Blog</span>
       </div>
       <img className="headerImg" src={coverImg} alt="CoverImg" />
