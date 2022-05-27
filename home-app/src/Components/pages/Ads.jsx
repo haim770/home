@@ -14,7 +14,6 @@ const Ads = (props) => {
   const [loading, setLoading] = useState(false);
   const [lastSearch, setLastSearch] = useState("");
 
-
   // check when we scroll down to button
   const handleScroll = (e) => {
     // this is the inner height of the HTML page
@@ -46,21 +45,13 @@ const Ads = (props) => {
       if (JSON.stringify(props.search) !== JSON.stringify(lastSearch)) {
         console.log("changed query");
         setAds(
-          result.data.map((ad) => (
-            <div key={ad.adID + uuidv4()} className="innerCardWrapper jss177">
-              {<AdsBlock key={ad.adID} adBlock={ad} />}
-            </div>
-          ))
+          result.data.map((ad) => <AdsBlock key={ad.adID} adBlock={ad} />)
         );
       } else {
         console.log("append");
         setAds(
           ...ads,
-          result.data.map((ad) => (
-            <div key={ad.adID + uuidv4()} className="innerCardWrapper jss177">
-              {<AdsBlock key={ad.adID} adBlock={ad} />}
-            </div>
-          ))
+          result.data.map((ad) => <AdsBlock key={ad.adID} adBlock={ad} />)
         );
       }
     }
@@ -76,12 +67,6 @@ const Ads = (props) => {
     getAds();
   }, [props.search]);
 
-  return (
-    <>
-      <div className="MuiContainer-root jss77">
-        <div className="cardWrapper">{loading && ads}</div>
-      </div>
-    </>
-  );
+  return <div className="listAds">{loading && ads}</div>;
 };
 export default Ads;

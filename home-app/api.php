@@ -117,11 +117,25 @@ function getAdWithAdContentForAdId($adId,$user_id){
     $query = "getAdContentForAdId(:adID)";
     $resultAdContentTable = $db->readDb($query, $arr);
     $resultUserForTheAd=getUserForUserId($user_id);
+    $resultImagesForAdId=getImagesForAdId($adId);
     $result = [];
     $result["ad"] = $resultAdTable;
     $result["adContent"] = $resultAdContentTable;
     $result["user"]=$resultUserForTheAd;
+    $result["adImages"]=$resultImagesForAdId;
     $arr = [];
+    return $result;
+}
+function getImagesForAdId($adId){
+    //return the images for the adId
+    global $db;
+    global $DATA_OBJ;
+    global $arr;
+    $arr=[];
+    $arr['element_id'] = $adId; //the adid
+    $query = "select * from pictures where element_id =:element_id order by serial_number";
+    $result = $db->readDBNoStoredProcedure($query, $arr);
+    $arr=[];
     return $result;
 }
 function getUserForUserId($user_id){
@@ -130,7 +144,7 @@ function getUserForUserId($user_id){
     global $DATA_OBJ;
     global $arr;
     $arr=[];
-    $arr['uuid'] = $user_id; //the adid
+    $arr['uuid'] = $user_id; //the userId
     $query = "select * from users where uuid =:uuid";
     $result = $db->readDBNoStoredProcedure($query, $arr);
     $arr=[];

@@ -1,0 +1,20 @@
+.adBlock{
+   display:flex;
+   flex-direction: column;
+   border:2px solid yellow;
+   padding: 1rem;
+   max-width: 40%;
+   will-change: transform;
+   direction: rtl;
+   font-size: 1rem;
+   border-radius: 5px;
+  background-color: #fff;
+}
+.headerOnTheTop {
+  color:blue;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: baseline;
+
+}

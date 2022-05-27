@@ -8,6 +8,7 @@ import { useLocation } from "react-router-dom";
 import AdPart from "./AdPart";
 import AdContentPart from "./AdContentPart";
 import AdUserPart from "./AdUserPart.js";
+import AdImages from "./AdImages";
 function AdFull(props) {
   const [dataForUrl, setDataForUrl] = useState({});
   const location = useLocation();
@@ -31,6 +32,7 @@ function AdFull(props) {
     <section className={"ad"}>
       <ul>
         <AdUserPart user={data.adBlock.user} />
+        <AdImages images={data.adBlock.adImages}/>
         <AdPart ad={data.adBlock.ad} />
         <AdContentPart adContent={data.adBlock.adContent} />
       </ul>
