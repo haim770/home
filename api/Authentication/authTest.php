@@ -18,13 +18,15 @@ use \Firebase\JWT\JWT;
 // if there is some authorization it will get into matches
 if (!preg_match('/Bearer\s(\S+)/', $_SERVER['HTTP_AUTHORIZATION'], $matches)) {
     // can also http_response_code(400)
-    header('HTTP/1.0 400 Bad Request');
     echo 'Token not found in request';
+    header('HTTP/1.0 400 Bad Request');
+    
     exit;
 }
 
 $jwt = $matches[1];
 if (!$jwt) {
+    print_r($jwt);
     // No token was able to be extracted from the authorization header
     header('HTTP/1.0 400 Bad Request');
     exit;
@@ -43,3 +45,5 @@ if (
     header('HTTP/1.1 401 Unauthorized');
     exit;
 }
+
+print_r($token);

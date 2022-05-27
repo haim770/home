@@ -7,7 +7,7 @@ export const initialState = {
    * chatInfo will contain:
    *    - username we chat with
    *    - username uuid we chat with
-   *    - username Ad id
+   *    - username Ad Data
    */
   chatInfo: [],
 };

@@ -38,7 +38,7 @@ if (is_array($hasValidCredentials)) {
         'data' => [                             // Data related to the signer user
             'user' => $username,            // User name
             'role' => "2001",          // User permissions on site
-        ]
+            ]
     ];
 
     // Create the Refresh token as an array
@@ -84,8 +84,7 @@ if (is_array($hasValidCredentials)) {
                 "roles" => "2001",
                 "refreshToken" => $refreshToken,
                 "user" => $username,
-                "expireAt" => $expireAccess,
-                
+                "expireAt" => $expireAccess,               
             ));
 }
 

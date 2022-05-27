@@ -11,6 +11,7 @@ const ChatEngine = () => {
 
     const handleClick = () => {
       const chatWith = {
+        adBlock: [],
         username: "",
         uuid: "",
         adID: "",

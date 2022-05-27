@@ -9,6 +9,7 @@ const ChatWith = () => {
 
   const handleClick = () => {
     const chatWith = {
+      adBlock: [],
       username: "",
       uuid: "",
       adID: "",

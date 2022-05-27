@@ -1,2 +1,5 @@
 Header Set Access-Control-Allow-Origin http://localhost:3000
 Header Set Access-Control-Allow-Headers *
+RewriteEngine On
+RewriteCond %{HTTP:Authorization} ^(.+)$
+RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
