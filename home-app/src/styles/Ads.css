@@ -1,18 +1,20 @@
-/* Main Page Style */
-.MuiContainer-root {
-  width: 100%;
-  display: block;
-  box-sizing: border-box;
-  margin-right: auto;
-  margin-left: auto;
-  padding-right: 16px;
-  padding-left: 16px;
+
+.listAds{
+  display:flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  flex-grow: 1;
+  border:2px solid red;
+  justify-content: space-between;
+  padding: 1rem;
+  will-change: transform;
+  direction: rtl;
+  font-size: 1rem;
 }
 
-@media (min-width: 600px) {
-  .MuiContainer-root {
-    padding-right: 24px;
-    padding-left: 24px;
+@media (max-width: 700px) {
+  .listAds {
+    font-size: 0.7rem;
   }
 }
 

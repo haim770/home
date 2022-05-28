@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 27, 2022 at 08:51 AM
+-- Generation Time: May 27, 2022 at 05:32 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.2
 
@@ -333,7 +333,7 @@ CREATE TABLE `ad_content` (
   `name` varchar(255) NOT NULL,
   `display_type` text NOT NULL DEFAULT 'text',
   `value` text NOT NULL,
-  `prevDisplay` tinyint(4) NOT NULL DEFAULT 0
+  `prevDisplay` tinyint(2) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -341,13 +341,13 @@ CREATE TABLE `ad_content` (
 --
 
 INSERT INTO `ad_content` (`element_id`, `adID`, `category`, `master`, `min_value`, `max_value`, `icon`, `free_text`, `required`, `name`, `display_type`, `value`, `prevDisplay`) VALUES
-('1', '0', 'every', 1, NULL, NULL, '', 'מזגן', 0, 'air_conditioner', 'checkBox', '1', 0),
+('1', '0', 'every', 1, NULL, NULL, '', 'מזגן', 0, 'air_conditioner', 'checkBox', '1', 1),
 ('123', '234', 'all', 0, NULL, NULL, '', '333', 0, '333', 'text', '444', 0),
-('2', '2', '12', 0, 1, 1, 'kfkf', 'מזגן', 0, 'air_conditioner', '2', '0', 0),
+('2', '2', '12', 0, 1, 1, 'kfkf', 'מזגן', 0, 'air_conditioner', '2', '0', 1),
 ('3', '1', 'hah', 0, NULL, NULL, 'jdj', 'גינה', 0, 'garden', '', '4', 0),
 ('33', '0', '32', 1, 31, NULL, '31', 'חיים', 0, 'haim', 'kke', 'mm', 0),
 ('34453', '0', '2', 1, 21, 13, '21', 'גינה', 1, 'garden', '0', '1', 0),
-('628fa5dfa9693', '628fa5dfa968b', 'all', 0, NULL, NULL, '', 'חיים', 0, 'haim', 'text', '6', 0),
+('628fa5dfa9693', '628fa5dfa968b', 'all', 0, NULL, NULL, '', 'חיים', 0, 'haim', 'text', '6', 1),
 ('628fa5dfa9696', '628fa5dfa968b', 'all', 0, NULL, NULL, '', 'גינה', 0, 'garden', 'text', '6', 0),
 ('628fb7e629feb', '628fb7e629fd8', 'all', 0, NULL, NULL, '', 'חיים', 0, 'haim', 'text', '1', 0),
 ('628fb7e629ff3', '628fb7e629fd8', 'all', 0, NULL, NULL, '', 'גינה', 0, 'garden', 'text', '1', 0);
@@ -483,13 +483,20 @@ CREATE TABLE `password_recovery` (
 --
 
 CREATE TABLE `pictures` (
-  `pictureID` varchar(50) NOT NULL,
-  `element_id` varchar(50) NOT NULL,
-  `serial_number` int(11) UNSIGNED NOT NULL,
+  `pictureID` varchar(255) NOT NULL,
+  `element_id` varchar(255) NOT NULL,
+  `serial_number` int(10) UNSIGNED NOT NULL,
   `picture_url` varchar(255) NOT NULL,
   `upload_time` datetime NOT NULL DEFAULT current_timestamp(),
   `alt` varchar(255) NOT NULL DEFAULT ''
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `pictures`
+--
+
+INSERT INTO `pictures` (`pictureID`, `element_id`, `serial_number`, `picture_url`, `upload_time`, `alt`) VALUES
+('1', '1', 1, 'pics/blank_home.png', '2022-05-27 16:58:57', 'first picc');
 
 -- --------------------------------------------------------
 
@@ -596,7 +603,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`uuid`, `first_name`, `last_name`, `phone`, `mail`, `create_time`, `password`, `last_seen`, `prompt`, `rule`, `refreshToken`, `remaining_ads`) VALUES
-('1', 'haim', 'mo', '01', 'haim', '2022-05-03 21:19:17', '123', '2022-05-09 21:47:14', '', 'user', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2NTM2MzQxNzMsImp0aSI6Iit1ZGRFSUtVU003aTVJRVk4cmdmVVE9PSIsImlzcyI6ImxvY2FsaG9zdCIsIm5iZiI6MTY1MzYzNDE3MywiZXhwIjoxNjUzNzIwNTczLCJkYXRhIjp7InVzZXIiOiJoYWltIn19.KPNVGezUXvc9O8xD9lamsHcpZtXKLR-e00aParXoRZXHa12Qu', 0),
+('1', 'haim', 'mo', '01', 'haim', '2022-05-03 21:19:17', '123', '2022-05-09 21:47:14', '', 'user', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2NTM2MzQ4NzgsImp0aSI6ImdyTTMrWTdSdDBtV1l0WEpuSHFENWc9PSIsImlzcyI6ImxvY2FsaG9zdCIsIm5iZiI6MTY1MzYzNDg3OCwiZXhwIjoxNjUzNzIxMjc4LCJkYXRhIjp7InVzZXIiOiJoYWltIn19.p-Yw7_57v5l7K-YDjGw1_7oxPqSJxT0VUFEJewiS2_G3F5eMw', 0),
 ('123456', 'lidor', 'ben shimol', '0542155045', 'AAA', '2022-04-06 17:52:19', 'ASdasda', '0000-00-00 00:00:00', '', '', '', 0),
 ('2222222222222222', '2222222222222222', '2222222222222222', '2222222222222222', '2222222222222222', '2022-05-08 23:08:11', '1', '0000-00-00 00:00:00', 'k', 'user', '', 0),
 ('48', '29', '22', '1', '12', '2022-05-08 23:04:51', '112', '2022-05-08 23:04:51', 'k', 'user', '', 0),
