@@ -1,5 +1,5 @@
 import { styles } from "./styles";
-import React, { useState } from "react";
+import React, { useState,useRef } from "react";
 import useAuth from "../../../Auth/useAuth";
 import useView from "./ChatUseContext";
 import ChatWindow from "./ChatWindow";
@@ -23,6 +23,7 @@ const ChatEngine = () => {
         showContacts(chatWith);
       }
     };
+
 
   return (
     // if we login show chat, else dont show
