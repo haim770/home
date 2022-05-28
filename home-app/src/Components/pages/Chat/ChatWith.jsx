@@ -3,7 +3,7 @@ import { styles } from "./styles";
 import useView from "./ChatUseContext";
 
 const ChatWith = () => {
-  const { chatView, showContacts } = useView();
+  const { chatView, showContacts, chatInfo } = useView();
 
   const [hovered, setHovered] = useState(false);
 
@@ -30,7 +30,7 @@ const ChatWith = () => {
         },
       }}
     >
-      chatView
+      {`${chatInfo.username}`}
     </div>
   ) : (
     <div></div>

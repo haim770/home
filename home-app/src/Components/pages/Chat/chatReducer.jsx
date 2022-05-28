@@ -18,7 +18,7 @@ const viewReducer = (state, action) => {
 
   switch (type) {
     case "START_NEW_CHAT":
-      console.log("START_NEW_CHAT", payload);
+      //console.log("START_NEW_CHAT", payload);
       return {
         ...state,
         contactView: payload.contactView,
@@ -28,7 +28,7 @@ const viewReducer = (state, action) => {
       };
 
     case "SHOW_CONTACTS":
-      console.log("SHOW_CONTACTS", payload);
+      //console.log("SHOW_CONTACTS", payload);
       return {
         ...state,
         contactView: payload.contactView,
@@ -38,14 +38,14 @@ const viewReducer = (state, action) => {
       };
 
       case "CLOSE_WINDOW":
-              console.log("CLOSE_WINDOW", payload);
-      return {
-        ...state,
-        contactView: payload.contactView,
-        chatView: payload.chatView,
-        chatInfo: payload.chatInfo,
-        chatWindow: payload.chatWindow,
-      };
+      //console.log("CLOSE_WINDOW", payload);
+        return {
+          ...state,
+          contactView: payload.contactView,
+          chatView: payload.chatView,
+          chatInfo: payload.chatInfo,
+          chatWindow: payload.chatWindow,
+        };
 
     default:
       // only for the dev
