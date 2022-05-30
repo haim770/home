@@ -1,5 +1,6 @@
 import React from "react";
 import { styles } from "./styles";
+import "./styles.css";
 import useView from "./ChatUseContext";
 import ChatContant from "./ChatContant";
 import ChatWith from "./ChatWith";
@@ -14,11 +15,11 @@ const ChatWindow = () => {
       }}
     >
       {contactView ? (
-        <div>
+        <div style={{ height: "100%" }}>
           <ChatContant />
         </div>
       ) : (
-        <div>{chatView ? <ChatWith /> : <></>}</div>
+        <div style={{ height: "100%" }}>{chatView ? <ChatWith /> : <></>}</div>
       )}
     </div>
   ) : (

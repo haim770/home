@@ -1,4 +1,5 @@
 import { styles } from "./styles";
+import "./styles.css";
 import React, { useState,useRef } from "react";
 import useAuth from "../../../Auth/useAuth";
 import useView from "./ChatUseContext";

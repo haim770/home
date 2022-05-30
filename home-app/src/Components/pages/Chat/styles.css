@@ -9,3 +9,88 @@
   -webkit-transition: all 0.5s ease;
   -moz-transition: all 0.5s ease;
 }
+
+.chatWrapper{
+  display: inline-grid;
+  grid-template-rows: 12% 77% 10%;
+  width: 100%;
+}
+
+.chatWindowHeader {
+box-shadow: 0px 2px 4px -1px rgb(0 0 0 / 20%), 0px 4px 5px 0px rgb(0 0 0 / 14%), 0px 1px 10px 0px rgb(0 0 0 / 12%);
+display: flex;
+flex-direction: row;
+align-items: center;
+font-size: 1.2rem;
+justify-content: space-between;
+flex-wrap: wrap;
+direction: rtl;
+}
+
+.backButton {
+  padding-left: 1rem;
+ -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
+}
+
+.closeButton {
+  padding-left: 1rem;
+}
+
+.userInfo{
+display: flex;
+flex-direction: column;
+align-items: center;
+font-size: 1.2rem;
+justify-content: center;
+}
+
+.chatWindowBody {
+  display: flex;
+  flex-direction: column;
+  overflow: scroll;
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+  overflow-y: auto;
+  direction: rtl;
+  /*set the direction Right to left so we can display the scrollbar in the left side of the screen */
+}
+/* style chat scrolling*/
+.chatWindowBody::-webkit-scrollbar-track {
+  border-radius: 10px;
+  background-color: #F5F5F5;
+  direction: rtl;
+}
+
+.chatWindowBody::-webkit-scrollbar {
+  width: 12px;
+  background-color: #F5F5F5;
+  direction: rtl;
+}
+
+.chatWindowBody::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: #555;
+  direction: rtl;
+}
+
+/*send_message_box*/
+.send_message_box {
+  display: flex;
+  flex-direction: row;
+  direction: rtl;
+}
+
+/*make the send message box wide*/
+.send_message_box #text_box {
+  flex: 1;
+  overflow: scroll;
+  padding-right: 10px;
+  margin: 0px 18px 7px 13px;
+  border-radius: 5px;
+}
+
+
+.send_message_box #send_btn {
+  margin: 0px 0px 7px 21px;
+}

@@ -1,5 +1,6 @@
 import React, { useEffect, useLayoutEffect, useState } from "react";
 import { styles } from "./styles";
+import "./styles.css";
 import useView from "./ChatUseContext";
 import useAuth from "../../../Auth/useAuth";
 import instance from "../../../api/AxiosInstance";
@@ -29,7 +30,7 @@ const ChatContant = () => {
   function handleClick(firstname,lastname,uuid) {
       const chatWith = {
         adBlock: [],
-        username: firstname,
+        username: `${firstname} ${lastname}`,
         uuid: uuid,
         adID: "",
       };
@@ -77,6 +78,7 @@ const ChatContant = () => {
           ...styles.chatBoxWindowContant,
           ...{
             backgroundColor: hovered ? "#E0E0E0" : "#ffffff",
+            height: "100%",
           },
         }}
       >
