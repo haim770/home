@@ -9,16 +9,16 @@ function Parameter(props) {
     if (props.display_type === "text") {
       return (
         <li className={props.className}>
-          <span>{props.paramName}</span>
-          <span>{props.paramValue}</span>
+          <span className="key">{props.paramName}</span>
+          <span className="val">{props.paramValue}</span>
         </li>
       );
     } else {
       if (props.display_type === "checkBox") {
         return (
           <li className={props.className}>
-            <span>{props.paramName}</span>
-            <span>
+            <span className="key">{props.paramName}</span>
+            <span className="val">
               <input
                 type="checkbox"
                 readOnly
@@ -30,8 +30,8 @@ function Parameter(props) {
       } else {
         return (
           <li className={props.classParam}>
-            <span>{props.paramName}</span>
-            <span>{props.paramValue}</span>
+            <span className="key">{props.paramName}</span>
+            <span className="val">{props.paramValue}</span>
           </li>
         );
       }

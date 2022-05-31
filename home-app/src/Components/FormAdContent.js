@@ -189,7 +189,7 @@ function FormAdContent(props) {
     for (let index = 0; index < masters.length; index++) {
       if (masters[index].display_type === "checkBox") {
         code.push(
-          <label key={masters[index].name + masters[index].adID+uuidv4()}>
+          <label key={masters[index].name + masters[index].adID + uuidv4()}>
             <span>{masters[index].free_text}</span>
             <input
               type="checkBox"
@@ -204,7 +204,7 @@ function FormAdContent(props) {
       } else {
         //for text
         code.push(
-          <label key={masters[index].name + masters[index].adID+uuidv4()}>
+          <label key={masters[index].name + masters[index].adID + uuidv4()}>
             <span>{masters[index].free_text}</span>
             <input
               type="text"
@@ -221,7 +221,7 @@ function FormAdContent(props) {
     code.push(
       <label key={uuidv4()}>
         <span>insert pics</span>
-        <input type="file" onChange={handleChangeImages} />
+        <input type="file" onChange={(e) => handleChangeImages} />
       </label>
     );
     return code;

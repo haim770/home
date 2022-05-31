@@ -38,7 +38,7 @@ const AdsBlock = (props) => {
           <header className="headerOnTheTop">
             {/* This div will contain data like how many days the add on the site */}
             <div>
-              <span>Some data</span>
+              <h3>Some data</h3>
             </div>
             {/* This div will contain add to favorite */}
             <div className="jss191">
@@ -74,12 +74,20 @@ const AdsBlock = (props) => {
           <div className="adCardTitle">
             <h4>
               <AdUserPart key={uuidv4()} user={props.adBlock.user} />
-              <AdPart key={uuidv4()} ad={props.adBlock.ad} />
+              <AdPart
+                key={uuidv4()}
+                ad={props.adBlock.ad}
+                className="adPartList"
+              />
             </h4>
           </div>
         </div>
       </Link>
-      <AdContentPart key={uuidv4()} adContent={props.adBlock.adContent} />
+      <AdContentPart
+        key={uuidv4()}
+        adContent={props.adBlock.adContent}
+        className="adContentPartList"
+      />
       {/** This will contain the Ad footer wrapper  */}
       <div className="jss185 jss181">
         {/** This will contain the Ad footer inner wrapper  */}
