@@ -7,8 +7,9 @@
    will-change: transform;
    direction: rtl;
    font-size: 1rem;
-   border-radius: 5px;
+   border-radius: 30px;
   background-color: #fff;
+  margin-bottom: 1rem;
 }
 .headerOnTheTop {
   color:blue;
