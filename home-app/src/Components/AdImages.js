@@ -14,6 +14,14 @@ const AdImages = (props) => {
             alt={props.images[0].alt}
           />
         );
+
+        // code.push(
+        //   <ImageComponent
+        //     key={uuidv4()}
+        //     src="../pics/blank_home.png"
+        //     alt={props.images[0].alt}
+        //   />
+        // );
       } else {
         <div>no pics</div>;
       }
@@ -21,7 +29,6 @@ const AdImages = (props) => {
       for (let index = 0; index < props.images.length; index++) {
         //we get array of all the  images as props
         //we make display as checkbox
-        console.log(props.images[index].picture_url);
         code.push(
           <ImageComponent
             key={uuidv4()}

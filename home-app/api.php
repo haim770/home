@@ -138,6 +138,12 @@ function getImagesForAdId($adId){
     $arr=[];
     return $result;
 }
+function checkIfPathIsFile($path){
+    if(isset($path)&&is_file($path)){
+        return true;
+    }
+    return false;
+}
 function getUserForUserId($user_id){
     //return user record for param user_id
     global $db;
