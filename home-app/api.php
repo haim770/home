@@ -528,9 +528,21 @@ if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "searchInDbWithUnknow
     if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "Login") {
         include("../api/Authentication/login.php");
     } else
-    // Proccess get user contacts
+    // Proccess get user contacts getChat
     if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "getContacts") {
         include("../api/system/chat/getContacts.php");
+    } else
+    // Proccess get user Chat
+    if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "getChat") {
+        include("../api/system/chat/getChatWith.php");
+    } else
+// Proccess submit Message 
+    if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "submitMessage") {
+        include("../api/system/chat/submitMessage.php");
+    } else
+// Proccess refreshData Message 
+    if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "refreshData") {
+        include("../api/system/chat/refreshData.php");
     } else
     // Proccess testAuth
     if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "testAuth") {

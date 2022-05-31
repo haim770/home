@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import { styles } from "./styles";
+import "./styles.css";
 import useView from "./ChatUseContext";
 import useAuth from "../../../Auth/useAuth";
 import instance from "../../../api/AxiosInstance";
@@ -9,7 +10,11 @@ const ChatContant = () => {
 
   const [hovered, setHovered] = useState(false);
   const [contacts, setContacts] = useState({});
-    const getContacts = async () => {
+
+  /**
+   * Get contacts from server
+   */
+  const getContacts = async () => {
     const result = await instance.request({
       data: {
         data_type: "getContacts",
@@ -20,38 +25,76 @@ const ChatContant = () => {
       },
     });
     setContacts(result.data.message);
-  }
+  };
 
-    const handleClick = () => {
-      /*
+  function handleClick(firstname,lastname,uuid) {
       const chatWith = {
         adBlock: [],
-        username: "TEST",
-        uuid: "",
+        username: `${firstname} ${lastname}`,
+        uuid: uuid,
         adID: "",
       };
       startNewChat(chatWith);
-      */
-      getContacts();
-    };
+  };
 
+  /**
+   * This use effect will render only once when the component loaded, when we close the contacts it will 
+   * end the interval.
+   * Will refesh contacts every 1 second.
+   */
+  useEffect(() => {
+    if (contactView) {
+      const Interval = setInterval(() => {
+        getContacts();
+      }, 1000);
+      return () => clearInterval(Interval);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [contactView]);
+
+  /**
+   * This will make that first we get all contacts then we will display all other
+   * data and view, so we will see all contacts when we open the contacts
+   * window
+   */
+  useLayoutEffect(()=> {
+    getContacts();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[])
+    /* This convert object to array and map it */
   return contactView ? (
-      <div
-        className="transition-3"
-        onClick={handleClick}
-        onMouseEnter={() => setHovered(true)}
-        onMouseLeave={() => setHovered(false)}
-        style={{
-          ...styles.chatBoxWindowContant,
-          ...{
-            backgroundColor: hovered ? "#E0E0E0" : "#ffffff",
-          },
-        }}
-      >
-        ChatContant
-      </div>
-  ) : (    <>
-    </> )
+    <div
+      style={{
+        ...styles.chatBoxWindowContant,
+      }}
+    >
+      {Object.values(contacts).map((contact) => (
+        <div
+          key={contact["uuid"]}
+          className="transition-3"
+          onClick={function () {
+            handleClick(
+              contact["first_name"],
+              contact["last_name"],
+              contact["uuid"]
+            );
+          }}
+          onMouseEnter={() => setHovered(true)}
+          onMouseLeave={() => setHovered(false)}
+          style={{
+            ...{
+              backgroundColor: hovered ? "#E0E0E0" : "#ffffff",
+              height: "100%",
+            },
+          }}
+        >
+          {`${contact["first_name"]} ${contact["last_name"]}`}
+        </div>
+      ))}
+    </div>
+  ) : (
+    <></>
+  );
 };
 
 export default ChatContant;
