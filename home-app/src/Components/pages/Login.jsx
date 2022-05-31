@@ -3,7 +3,8 @@ import useAuth from "../../Auth/useAuth";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import useInput from "../../Auth/useInput";
 import useToggle from "../../Auth/useInput";
-import instance, { axiosPrivate } from "../../api/AxiosInstance";
+import instance from "../../api/AxiosInstance";
+import Cookies from "universal-cookie";
 
 const Login = () => {
   const { setAuth } = useAuth();
@@ -20,6 +21,7 @@ const Login = () => {
   const [errMsg, setErrMsg] = useState("");
   const [check, toggleCheck] = useToggle("persist", true);
 
+  const cookies = new Cookies();
 
   useEffect(() => {
     userRef.current.focus();
@@ -41,9 +43,13 @@ const Login = () => {
         });
 
       const accessToken = response?.data?.accessToken;
+      const refreshTokenCookie = response?.data?.refreshToken;
       const roles = response?.data?.roles;
       console.log(response?.data);
       setAuth({ user, pwd, roles, accessToken });
+      // create the refresh token cookie
+      cookies.set("refreshToken", refreshTokenCookie, { path: "/" });
+
       resetUser();
       setPwd("");
       navigate(from, { replace: true });

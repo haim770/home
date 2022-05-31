@@ -7,31 +7,63 @@ require_once 'jwt/src/JWK.php';
 
 use \Firebase\JWT\JWT;
 // Verifying whether a cookie is set or not
-if (isset($_COOKIE["jwtRefreshToken"])) {
+
+if (isset($DATA_OBJ->params->myCookie)) {
     $secretKey  = '9c68e1263b2a8575939dd1b29431927380dcaab2';
     $refreshKey = '291aad3e1acf2106b167fd6bce9875cb83fc6870';
-    $refreshToken = $_COOKIE["jwtRefreshToken"];
+    $refreshToken = $DATA_OBJ->params->myCookie;
 
     // Check if we have this jwtRefreshToken in our database.
     $arr['refreshToken'] = $refreshToken;
-    $query = "select * from users where refreshToken = :refreshToken";
+    $query = "SELECT * FROM `users` WHERE `refreshToken` =:refreshToken";
     $foundUser = $db->readDBNoStoredProcedure($query, $arr);
+
     if(!is_array($foundUser))
         {
         header('HTTP/1.1 403 Forbidde');
         exit;
         }
-    $username = $foundUser[0]->first_name;
-    $refreshTokenDecoded  = JWT::decode(
-        $refreshToken,      //Data to be encoded in the JWT
-        $refreshKey, // The signing key
-        ['HS512']       // Algorithm used to sign the token, see https://tools.ietf.org/html/draft-ietf-jose-json-web-algorithms-40#section-3
-    );    
+    $username = $foundUser[0]->mail;
+
+/**
+ * 
+ */
+    function base64url_encode($str)
+    {
+        return rtrim(strtr(base64_encode($str), '+/', '-_'), '=');
+    }
+
+    $key  = '291aad3e1acf2106b167fd6bce9875cb83fc6870';
+    // split the jwt
+    $tokenParts = explode('.', $refreshToken);
+    $header = base64_decode($tokenParts[0]);
+    $payload = base64_decode($tokenParts[1]);
+    $signature_provided = $tokenParts[2];
+    $token = json_decode($payload);
+
+    // build a signature based on the header and payload using the secret
+    $base64_url_header = base64url_encode($header);
+    $base64_url_payload = base64url_encode($payload);
+    $signature = hash_hmac('SHA256', $base64_url_header . "." . $base64_url_payload, $key, true);
+    $base64_url_signature = base64url_encode($signature);
+
+    // verify it matches the signature provided in the jwt
+    $is_signature_valid = ($base64_url_signature === $signature_provided);
+    if (!$is_signature_valid) {
+        header('HTTP/1.1 401 Unauthorized');
+        exit;
+    }
+
+ /**
+  * 
+  */
+
     // check if the username in the refresh token match the username in our database.
-    if($refreshTokenDecoded->data->userName != $foundUser) {
+    if($token->data->user != $foundUser[0]->mail) {
         header('HTTP/1.1 403 Forbidde');
         exit;
     }
+
     // create new user Token:
     $tokenId    = base64_encode(random_bytes(16));
     $issuedAt   = new DateTimeImmutable();
@@ -48,7 +80,7 @@ if (isset($_COOKIE["jwtRefreshToken"])) {
         'exp'  => $expireAccess,                      // Expire
         'data' => [                             // Data related to the signer user
             'user' => $username,            // User name
-            'role' => "2001",          // User permissions on site
+            'role' => $foundUser[0]->rule,          // User permissions on site
         ]
     ];
     $accessToken = JWT::encode(
@@ -62,9 +94,9 @@ if (isset($_COOKIE["jwtRefreshToken"])) {
         array(
             "message" => "Successful login.",
             "accessToken" => $accessToken,
+            "roles" => $foundUser[0]->rule,
             "username" => $username,
-            "expireAt" => $expire,
-
+            "expireAt" => $expireAccess,
         )
     );
 }
