@@ -16,14 +16,14 @@ $arr['chatWith'] = $DATA_OBJ->params->chatWith ?? "null";
 
 //gets new msgs updates we got and set the status of new updates
 $query = "select * from messages where sender = :alice && receiver =:chatWith && newUpdate = 1";
-$messageUpdateView = $db->writeDBNotStoredProcedure($query, $arr);
+$messageUpdateView = $db->readDBNoStoredProcedure($query, $arr);
 $messageToUpdate = array();
 $info->newMessageUpdate = 0;
     if (is_array($messageUpdateView)) {
-        $info->newMessageUpdate = true;
+        $info->newMessageUpdate = 1;
         //update database that we recived the updates
-        $query = "update messages set newUpdate = 0 where (receiver = :alice and sender = :chatWith and newUpdate = 1)";
-        $db->writeDB($query, $arr);
+        $query = "update messages set newUpdate = 1 where (receiver = :alice and sender = :chatWith and newUpdate = 1)";
+        $db->writeDBNotStoredProcedure($query, $arr);
             foreach ($messageUpdateView as $value) {
                 array_push($messageToUpdate,['msgid'=>$value->msgid,'seen'=>$value->seen, 'received' => $value->received]);
             }

@@ -47,7 +47,6 @@ const ChatWith = () => {
             };
           }),
         ]);
-        console.log(result.data);
       }
 
       if (result?.data?.newMessageUpdate > 0) {
