@@ -73,7 +73,6 @@ export default function App() {
         </Routes>
         <Main />
       </ViewProvidor>
-      {/* <FileUpload/> */}
       <FormAdContent/>
       <Footer />
     </div>
