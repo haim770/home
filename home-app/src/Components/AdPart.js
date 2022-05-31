@@ -1,24 +1,23 @@
 import React from "react";
 import Parameter from "./Parameter.js";
+import "../styles/adPart.css";
 const AdPart = (props) => {
   const renderComp = () => {
     let code = [];
     for (const [key, value] of Object.entries(props.ad[0])) {
       //we get an object of ad in the props and get out the 0 place which is the ads params
       code.push(
-        <div key={props.ad[0].adId+key}>
-          <Parameter paramName={key} paramValue={value} />
-        </div>
+          <Parameter  key={props.ad[0].adId+key} paramName={key} paramValue={value} />
       );
     }
     return code;
   };
 
   return (
-    <div className="adCardTitle">
+    <ul className={props.className}>
       <h1>adPart</h1>
-      {props.ad ? renderComp() : <p>no ad</p>}
-    </div>
+      {props.ad ? renderComp() : <li>no ad</li>}
+    </ul>
   );
 };
 

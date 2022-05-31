@@ -8,6 +8,10 @@ const ImageComponent = (props) => {
         src={require("../" + props.src)}
         alt={props.alt}
         className={props.className}
+        onError={({ currentTarget }) => {
+          currentTarget.onerror = null; // prevents looping
+          currentTarget.src = "image_path_here";
+        }}
       />
     </div>
   );

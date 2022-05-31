@@ -1,13 +1,12 @@
-.adContentPartList {
+.adPartList{
   border: 2px solid blue;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-content: flex-start;
-
+  
 }
-
-.adContentPartFull {
+.adPartFull{
   max-height: 100vw;
   border: 2px solid blue;
   display: grid;

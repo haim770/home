@@ -26,6 +26,7 @@ function FormAdContent(props) {
   const handleChangeAd = (event) => {
     const name = event.target.name;
     const value = event.target.value;
+  
     setInputsAd((values) => ({ ...values, [name]: value }));
   };
   const handleChangeAdContent = (event) => {
@@ -53,15 +54,6 @@ function FormAdContent(props) {
     }
     console.log(response.data);
   };
-  //   e.preventDefault();
-  //   const result = await instance.request({
-  //     data: {
-  //       data_type: "insertNewAd",
-  //       params: { ad: inputsAd, adContent: inputsAdContent },
-  //     },
-  //   });
-  //   console.log(result.data);
-  // };
   const makeFieldsOfAdColumnsWeKnow = (code) => {
     code.push(
       <label>

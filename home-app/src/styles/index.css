@@ -4,7 +4,6 @@ body {
     font-size: 0.875rem;
     font-family: 'Rubik', sans-serif;
     font-weight: 300;
-    line-height: 1.43;
     background-color: #FFFFFF;
     min-height: 100vh;
 }
@@ -16,12 +15,11 @@ html,
 }
 
 #app {
-  position: relative;
+  position: flex;
   top: 0;
   right: 0;
   width: 100vw;
   height: 100vh;
-  z-index: 200;
 }
 
 .instructions {
@@ -64,7 +62,13 @@ html,
     padding: 0.5rem;
     margin-bottom: 0.5rem;
 }
-
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    flex-grow: 1;
+    padding-bottom: 1rem;
+}
 .line {
     display: inline-block;
 }
@@ -112,12 +116,4 @@ html,
   display: flex;
   flex-direction: column;
   min-height: 100vh; 
-}
-
-form {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    flex-grow: 1;
-    padding-bottom: 1rem;
 }

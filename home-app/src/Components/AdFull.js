@@ -32,9 +32,12 @@ function AdFull(props) {
     <section className={"ad"}>
       <ul>
         <AdUserPart user={data.adBlock.user} />
-        <AdImages images={data.adBlock.adImages}/>
-        <AdPart ad={data.adBlock.ad} />
-        <AdContentPart adContent={data.adBlock.adContent} />
+        <AdImages images={data.adBlock.adImages} />
+        <AdPart ad={data.adBlock.ad} className="adPartFull" />
+        <AdContentPart
+          adContent={data.adBlock.adContent}
+          className="adContentPartFull"
+        />
       </ul>
       <p>
         <Button content="contact seller" onclick={props.onclick} />
