@@ -26,6 +26,7 @@ function FormAdContent(props) {
   const handleChangeAd = (event) => {
     const name = event.target.name;
     const value = event.target.value;
+  
     setInputsAd((values) => ({ ...values, [name]: value }));
   };
   const handleChangeAdContent = (event) => {
@@ -53,18 +54,9 @@ function FormAdContent(props) {
     }
     console.log(response.data);
   };
-  //   e.preventDefault();
-  //   const result = await instance.request({
-  //     data: {
-  //       data_type: "insertNewAd",
-  //       params: { ad: inputsAd, adContent: inputsAdContent },
-  //     },
-  //   });
-  //   console.log(result.data);
-  // };
   const makeFieldsOfAdColumnsWeKnow = (code) => {
     code.push(
-      <label key={uuidv4()}>
+      <label>
         <span>עיר</span>
         <input
           type="text"
@@ -77,7 +69,7 @@ function FormAdContent(props) {
       </label>
     );
     code.push(
-      <label key={uuidv4()}>
+      <label>
         <span>רחוב</span>
         <input
           type="text"
@@ -90,7 +82,7 @@ function FormAdContent(props) {
       </label>
     );
     code.push(
-      <label key={uuidv4()}>
+      <label>
         <span>מס בניין </span>
         <input
           type="text"
@@ -103,7 +95,7 @@ function FormAdContent(props) {
       </label>
     );
     code.push(
-      <label key={uuidv4()}>
+      <label>
         <span>כניסה </span>
         <input
           type="text"
@@ -116,7 +108,7 @@ function FormAdContent(props) {
       </label>
     );
     code.push(
-      <label key={uuidv4()}>
+      <label>
         <span>דירה </span>
         <input
           type="text"
@@ -129,7 +121,7 @@ function FormAdContent(props) {
       </label>
     );
     code.push(
-      <label key={uuidv4()}>
+      <label>
         <span>זיפ קוד </span>
         <input
           type="text"
@@ -142,7 +134,7 @@ function FormAdContent(props) {
       </label>
     );
     code.push(
-      <label key={uuidv4()}>
+      <label>
         <span>מחיר </span>
         <input
           type="text"
@@ -155,7 +147,7 @@ function FormAdContent(props) {
       </label>
     );
     code.push(
-      <label key={uuidv4()}>
+      <label>
         <span> חדרים </span>
         <input
           type="text"
@@ -168,7 +160,7 @@ function FormAdContent(props) {
       </label>
     );
     code.push(
-      <label key={uuidv4()}>
+      <label>
         <span>סוג מודעה(קנייה/השכרה) </span>
         <select
           name="adType"
@@ -189,7 +181,7 @@ function FormAdContent(props) {
     for (let index = 0; index < masters.length; index++) {
       if (masters[index].display_type === "checkBox") {
         code.push(
-          <label key={masters[index].name + masters[index].adID + uuidv4()}>
+          <label key={masters[index].name + masters[index].adID}>
             <span>{masters[index].free_text}</span>
             <input
               type="checkBox"
@@ -204,7 +196,7 @@ function FormAdContent(props) {
       } else {
         //for text
         code.push(
-          <label key={masters[index].name + masters[index].adID + uuidv4()}>
+          <label key={masters[index].name + masters[index].adID}>
             <span>{masters[index].free_text}</span>
             <input
               type="text"
@@ -219,9 +211,9 @@ function FormAdContent(props) {
       }
     }
     code.push(
-      <label key={uuidv4()}>
+      <label>
         <span>insert pics</span>
-        <input type="file" onChange={(e) => handleChangeImages} />
+        <input type="file" onChange={handleChangeImages} />
       </label>
     );
     return code;
