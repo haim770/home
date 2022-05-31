@@ -25,7 +25,7 @@ const data = props.props;
     const date = new Date(data.dateMsg);
     let timeShow = (date.getHours() + ":" + date.getMinutes());
     
-      if (isToday(date)) {
+      if (!isToday(date)) {
               timeShow = (
                 date.getDate() +
                   "-" +
@@ -43,14 +43,14 @@ const data = props.props;
      */
     const aliceOrBob = data.sender === chatInfo.uuid; // if true, means we got message
     return aliceOrBob ? (
-      <div class="bob_message" id={msgID}>
+      <div class="bob_message" id={msgID} key={msgID}>
         <p>{data.message}</p>
         <div class="bob_container">
           <span>{timeShow}</span>
         </div>
       </div>
     ) : (
-      <div class="alice_message" id={msgID}>
+      <div class="alice_message" id={msgID} key={msgID}>
         <p>{data.message}</p>
         <div class="alice_container">
           <span>{timeShow}</span>

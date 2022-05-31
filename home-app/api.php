@@ -524,6 +524,10 @@ if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "searchInDbWithUnknow
     if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "getChat") {
         include("../api/system/chat/getChatWith.php");
     } else
+    // Proccess submit Message
+    if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "submitMessage") {
+        include("../api/system/chat/submitMessage.php");
+    } else
     // Proccess testAuth
     if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "testAuth") {
         include("../api/Authentication/authTest.php");

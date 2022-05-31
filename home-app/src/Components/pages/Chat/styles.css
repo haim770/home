@@ -25,6 +25,7 @@ font-size: 1.2rem;
 justify-content: space-between;
 flex-wrap: wrap;
 direction: rtl;
+z-index: 1000;
 }
 
 .backButton {
@@ -162,4 +163,34 @@ justify-content: center;
   flex-direction: row;
   align-self: self-end;
   flex: 1;
+}
+
+/** 
+LOADING data
+*/
+
+.loader {
+  position: absolute;
+  top: calc(50% - 4em);
+  left: calc(50% - 4em);
+  width: 6em;
+  height: 6em;
+  border: 1.1em solid rgba(0, 0, 0, 0.2);
+  border-left: 1.1em solid #000000;
+  border-radius: 50%;
+  animation: load8 1.1s infinite linear;
+  transition: opacity 0.3s;
+}
+
+.loader--hide {
+  opacity: 0;
+}
+
+@keyframes load8 {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }

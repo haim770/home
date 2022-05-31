@@ -61,9 +61,9 @@ export const styles = {
   },
   chatBoxWindowContant: {
     display: "flex",
-    alignItems: "center",
     justifyContent: "center",
     marginTop: "4px",
     zIndex: "1000",
+    height: "2rem",
   },
 };

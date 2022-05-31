@@ -11,7 +11,10 @@ const ChatWith = () => {
   const { chatView, showContacts, chatInfo, closeWindow } = useView();
   const [chatContact, setChatContact] = useState([]);
   const [showNewMessages, setShowNewMessages] = useState("getChat");
+  const [loading, setLoading] = useState(true);
   const divRef = useRef();
+  const inputRef = useRef();
+  const [input, setInput] = useState("");
   const { auth } = useAuth();
 
   /**
@@ -21,36 +24,36 @@ const ChatWith = () => {
     const result = await instance.request({
       data: {
         data_type: showNewMessages,
-        params: { "chatWith": chatInfo.uuid },
+        params: { chatWith: chatInfo.uuid },
       },
       headers: {
         Authorization: `Bearer ${auth.accessToken}`,
       },
     });
-      /**
-       * After we load all user message we want to show only new messages.
-       */
-      setShowNewMessages("refreshData");
+    /**
+     * After we load all user message we want to show only new messages.
+     */
+    setShowNewMessages("refreshData");
 
-      // check if we got new data from server or any response
-      if (result?.data) {
-          setChatContact([
-            ...chatContact,
-            Object.values(result.data.chatMessages).map(
-              (anObjectMapped, index) => {
-                 return {
-                   key: anObjectMapped["msgid"],
-                   msgData: anObjectMapped,
-                 };
-              }
-            ),
-          ]);
-          console.log(result.data.chatMessages);
-        }
-        /**
-         * Add messages styling
-         */
-
+    // check if we got new data from server or any response
+    if (result?.data) {
+      setChatContact([
+        ...chatContact,
+        Object.values(result.data.chatMessages).map((anObjectMapped, index) => {
+          return {
+            key: anObjectMapped["msgid"],
+            msgData: anObjectMapped,
+          };
+        }),
+      ]);
+      //console.log(result.data.chatMessages);
+    }
+    /**
+     * Add messages styling
+     */
+    
+    // after finish load all data stop loading
+    setLoading(false);
   };
 
   /**
@@ -67,7 +70,6 @@ const ChatWith = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [chatContact]);
-
 
   /**
    * Handle go back to contacts button
@@ -95,10 +97,66 @@ const ChatWith = () => {
     closeWindow(chatWith);
   };
 
+  /**
+   * Handle sumbit button and Enter key button
+   */
+  const handleBtnlistener = (event) => {
+    if (event.code === "Enter" || event.code === "NumpadEnter") {
+      //console.log("Enter key was pressed. Run your function.");
+      event.preventDefault();
+      //console.log(input);
+      handleSubmit();
+    }
+  };
+
+  const handleSubmit = async () => {
+    if (input.trim().length !== 0) {
+      const result = await instance.request({
+        data: {
+          data_type: "submitMessage",
+          params: {
+            chatWith: chatInfo.uuid,
+            message: input,
+          },
+        },
+        headers: {
+          Authorization: `Bearer ${auth.accessToken}`,
+        },
+      });
+      console.log(result.data);
+      // check if we got new data from server or any response
+      if (result?.data) {
+        setChatContact([
+          ...chatContact,
+          Object.values(result.data.chatMessages).map(
+            (anObjectMapped, index) => {
+              return {
+                key: anObjectMapped["msgid"],
+                msgData: anObjectMapped,
+              };
+            }
+          ),
+        ]);
+        //console.log(result.data.chatMessages);
+      }
+    }
+    // reset our input to empty string
+    setInput("");
+  };
+
   // this function will scroll down to button when we load our messages
   useEffect(() => {
     if (divRef.current) divRef.current.scrollTo(0, divRef.current.scrollHeight);
   }, [divRef]);
+  // this function will scroll down to button when we load our messages
+  useEffect(() => {
+    if (divRef.current) divRef.current.scrollTo(0, divRef.current.scrollHeight);
+  }, [chatContact]);
+
+  // scroll down when new messages comes
+  useEffect(() => {
+    inputRef.current.focus();
+  }, []);
 
   return chatView ? (
     <div
@@ -127,20 +185,32 @@ const ChatWith = () => {
           {chatContact.map((msg) => (
             <>
               {msg.map((message) => (
-                <><MessageBlock props={message["msgData"]}/></>
+                <>
+                  <MessageBlock props={message["msgData"]} />
+                </>
               ))}
             </>
           ))}
         </div>
         {/* Footer */}
         <div className="chatWindowFooter">
-          <div class="left_pannel send_message_box" id="send_message_box">
-            <input type="text" id="text_box" placeholder="רשום את ההודעה שלך" />
+          <div className="left_pannel send_message_box" id="send_message_box">
+            <input
+              type="text"
+              id="text_box"
+              ref={inputRef}
+              autoComplete="off"
+              onChange={(e) => setInput(e.target.value)}
+              value={input}
+              aria-describedby="uidnote"
+              placeholder="רשום את ההודעה שלך"
+              onKeyPress={handleBtnlistener}
+            />
             <input
               type="button"
               value="שלח"
               id="send_btn"
-              onclick="send_message(event)"
+              onclick={handleSubmit}
             />
           </div>
         </div>

@@ -17,15 +17,12 @@ $arr['chatWith'] = $DATA_OBJ->params->chatWith ?? "null";
 $query = "update messages set seen = 1 ,newUpdate = 1 where receiver = :alice and sender = :chatWith and seen = 0";
 $db->writeDBNotStoredProcedure($query, $arr);
 
-
 //read data back from data base and display it on pur chat box
 $query = "select * from messages where (sender =:alice && receiver =:chatWith) || (sender =:chatWith && receiver =:alice)";
 $chatMessages = $db->readDBNoStoredProcedure($query, $arr);
 
 $info = (object)[];
 $info->chatMessages = $chatMessages;
-$info->gotData = $DATA_OBJ->params;
-$info->arr = $arr;
 $info->data_type = "chatMessages";
 echo json_encode($info);
 die;
