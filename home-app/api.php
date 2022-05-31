@@ -477,6 +477,13 @@ function insertNewAd(){
     echo json_encode($result);
     $arr=[];
 }
+function uploadFile(){
+    global $DATA_OBJ;
+        var_dump($DATA_OBJ->params);
+        die;
+    
+
+}
 if(isset($DATA_OBJ->data_type)&&$DATA_OBJ->data_type=='getAdByID'){
     if(isset($DATA_OBJ->params))
     echo json_encode(getAdWithAdContentForAdId($DATA_OBJ->params->adID,$DATA_OBJ->params->user_id));
@@ -484,6 +491,11 @@ if(isset($DATA_OBJ->data_type)&&$DATA_OBJ->data_type=='getAdByID'){
 else
 if(isset($DATA_OBJ->data_type)&&$DATA_OBJ->data_type=='insertNewAd'){
     insertNewAd();
+}
+if(isset($DATA_OBJ->data_type)&&$DATA_OBJ->data_type=='uploadFile'){
+    var_dump($DATA_OBJ->params);
+    die;
+    uploadFile();
 }
 else
 if(isset($DATA_OBJ->data_type)&&$DATA_OBJ->data_type=='getAllAdContentAndAdAndUsersForArrOfAds'){

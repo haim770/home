@@ -3,7 +3,6 @@ import Parameter from "./Parameter.js";
 const AdPart = (props) => {
   const renderComp = () => {
     let code = [];
-    console.log(props);
     for (const [key, value] of Object.entries(props.ad[0])) {
       //we get an object of ad in the props and get out the 0 place which is the ads params
       code.push(
@@ -18,7 +17,6 @@ const AdPart = (props) => {
   return (
     <div className="adCardTitle">
       <h1>adPart</h1>
-      {console.log(props.ad)}
       {props.ad ? renderComp() : <p>no ad</p>}
     </div>
   );

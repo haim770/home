@@ -44,7 +44,7 @@ function FormAdContent(props) {
     try {
       response = await axios({
         method: "post",
-        url: "http://localhost:80/home/home-app/apiFile.php",
+        url: "http://localhost:80/home/home-app/insertNewAdIncludePic.php",
         data: formData,
         headers: { "Content-Type": "multipart/form-data" },
       });

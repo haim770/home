@@ -131,6 +131,17 @@ function AddAdForm(props) {
           onChange={(e) => onChangeState(setbuilding_number, e)}
         />
       </label>
+      <label>
+        <span>enter number home</span>
+        <input
+          type="text"
+          name="form_building_number"
+          id="building_number"
+          required
+          value={building_number}
+          onChange={(e) => onChangeState(setbuilding_number, e)}
+        />
+      </label>
       <p>
         <Button onClick={submitAd} />
       </p>

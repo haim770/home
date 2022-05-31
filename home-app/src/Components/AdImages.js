@@ -7,6 +7,7 @@ const AdImages = (props) => {
     let code = [];
     if (props.numPicToDisplay === 1) {
       if (props.images[0]) {
+        console.log(props.images[0].picture_url);
         code.push(
           <ImageComponent
             key={uuidv4()}
@@ -21,6 +22,7 @@ const AdImages = (props) => {
       for (let index = 0; index < props.images.length; index++) {
         //we get array of all the  images as props
         //we make display as checkbox
+        console.log(props.images[index].picture_url);
         code.push(
           <ImageComponent
             key={uuidv4()}
@@ -36,7 +38,6 @@ const AdImages = (props) => {
   return (
     <div>
       <h1>ad image part</h1>
-      {console.log(props.images)}
       {props.images ? (
         renderComp()
       ) : (
@@ -47,7 +48,6 @@ const AdImages = (props) => {
             alt="main_home_frame"
             className="jss2255"
           />
-          {console.log("kdkd")}
         </div>
       )}
     </div>
