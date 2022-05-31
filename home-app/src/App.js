@@ -42,6 +42,7 @@ export default function App() {
       <ViewProvidor>
         <NavRoots />
         <Chat />
+        <PersistLogin />
         <Routes>
           <Route path="/" element={<Layout />}>
             {/* public routes */}
@@ -58,11 +59,15 @@ export default function App() {
             <Route exact path="addPack" element={<CreatePackage />} />
             <Route path="/Register" element={<Register />} />
             <Route path="unauthorized" element={<Unauthorized />} />
-        
+
             <Route exact path="/Blog" element={<Blog />} />
             {/* we want to protect these routes */}
             <Route element={<PersistLogin />}>
-              <Route element={<RequireAuth allowedRoles={[ROLES.User]} />}>
+              <Route
+                element={
+                  <RequireAuth allowedRoles={[ROLES.User, ROLES.Admin]} />
+                }
+              >
                 <Route path="/Settings" element={<Settings />} />
               </Route>
             </Route>
@@ -73,7 +78,7 @@ export default function App() {
         </Routes>
         <Main />
       </ViewProvidor>
-      <FormAdContent/>
+      <FormAdContent />
       <Footer />
     </div>
   );

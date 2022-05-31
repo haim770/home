@@ -1,10 +1,13 @@
 import instance from "../api/AxiosInstance";
 import useAuth from "./useAuth";
+import Cookies from "universal-cookie";
 
 const useLogout = () => {
   const { setAuth } = useAuth();
+  const cookies = new Cookies();
 
   const logout = async () => {
+    cookies.remove("refreshToken");
     setAuth({});
     try {
       const response = await instance.request(
@@ -14,9 +17,6 @@ const useLogout = () => {
             params: {},
           },
         },
-        {
-          withCredentials: true,
-        }
       );
     } catch (err) {
       console.error(err);

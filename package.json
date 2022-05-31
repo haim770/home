@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "react-cookie": "^4.1.1",
+    "universal-cookie": "^4.0.4"
+  }
+}
