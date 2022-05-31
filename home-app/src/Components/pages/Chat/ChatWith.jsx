@@ -48,10 +48,6 @@ const ChatWith = () => {
       ]);
       //console.log(result.data.chatMessages);
     }
-    /**
-     * Add messages styling
-     */
-    
     // after finish load all data stop loading
     setLoading(false);
   };
@@ -182,7 +178,8 @@ const ChatWith = () => {
         </div>
         {/* Body, ref will use to scroll down to the last message */}
         <div className="chatWindowBody" ref={divRef}>
-          {chatContact.map((msg) => (
+          {loading ? (<div className="loader"></div>) : 
+          (chatContact.map((msg) => (
             <>
               {msg.map((message) => (
                 <>
@@ -190,7 +187,8 @@ const ChatWith = () => {
                 </>
               ))}
             </>
-          ))}
+          )))}
+          
         </div>
         {/* Footer */}
         <div className="chatWindowFooter">
