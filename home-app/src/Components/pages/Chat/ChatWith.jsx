@@ -37,16 +37,22 @@ const ChatWith = () => {
 
     // check if we got new data from server or any response
     if (result?.data) {
-      setChatContact([
-        ...chatContact,
-        Object.values(result.data.chatMessages).map((anObjectMapped, index) => {
-          return {
-            key: anObjectMapped["msgid"],
-            msgData: anObjectMapped,
-          };
-        }),
-      ]);
-      //console.log(result.data.chatMessages);
+        if (result?.data?.chatMessages) {
+        setChatContact([
+          ...chatContact,
+          Object.values(result.data.chatMessages).map((anObjectMapped, index) => {
+            return {
+              key: anObjectMapped["msgid"],
+              msgData: anObjectMapped,
+            };
+          }),
+        ]);
+        console.log(result.data);
+      }
+
+      if (result?.data?.newMessageUpdate > 0) {
+        console.log(result.data);
+      }
     }
     // after finish load all data stop loading
     setLoading(false);
@@ -122,18 +128,19 @@ const ChatWith = () => {
       console.log(result.data);
       // check if we got new data from server or any response
       if (result?.data) {
-        setChatContact([
-          ...chatContact,
-          Object.values(result.data.chatMessages).map(
-            (anObjectMapped, index) => {
-              return {
-                key: anObjectMapped["msgid"],
-                msgData: anObjectMapped,
-              };
-            }
-          ),
-        ]);
-        //console.log(result.data.chatMessages);
+          if (result?.data?.chatMessages) {
+            setChatContact([
+              ...chatContact,
+              Object.values(result.data.chatMessages).map(
+                (anObjectMapped, index) => {
+                  return {
+                    key: anObjectMapped["msgid"],
+                    msgData: anObjectMapped,
+                  };
+                }
+              ),
+            ]);
+          }
       }
     }
     // reset our input to empty string
@@ -208,7 +215,7 @@ const ChatWith = () => {
               type="button"
               value="שלח"
               id="send_btn"
-              onclick={handleSubmit}
+              onClick={handleSubmit}
             />
           </div>
         </div>
