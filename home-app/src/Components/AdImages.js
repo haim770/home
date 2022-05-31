@@ -7,7 +7,6 @@ const AdImages = (props) => {
     let code = [];
     if (props.numPicToDisplay === 1) {
       if (props.images[0]) {
-        console.log(props.images[0].picture_url);
         code.push(
           <ImageComponent
             key={uuidv4()}

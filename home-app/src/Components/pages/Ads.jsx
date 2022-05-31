@@ -45,7 +45,7 @@ const Ads = (props) => {
       if (JSON.stringify(props.search) !== JSON.stringify(lastSearch)) {
         console.log("changed query");
         setAds(
-          result.data.map((ad) => <AdsBlock key={ad.adID} adBlock={ad} />)
+          result.data.map((ad) => <AdsBlock key={ad.adID+uuidv4()} adBlock={ad} />)
         );
       } else {
         console.log("append");
