@@ -3,7 +3,6 @@ import { Link, NavLink, Outlet } from "react-router-dom";
 import Parameter from "./Parameter.js";
 const AdUserPart = (props) => {
   const renderComp = () => {
-    console.log(props.user)
     let code = 
     <div>
           <Parameter

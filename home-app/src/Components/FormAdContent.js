@@ -2,10 +2,12 @@ import React, { useState, useEffect } from "react";
 import Button from "./Button";
 import instance from "../api/AxiosInstance";
 import { v4 as uuidv4 } from "uuid";
+import axios from "axios";
 function FormAdContent(props) {
   const [masters, setMasters] = useState("");
   const [inputsAdContent, setInputsAdContent] = useState({});
   const [inputsAd, setInputsAd] = useState({ user_id: 1 });
+  const [images, setImages] = useState("");
 
   const getMasters = async () => {
     const result = await instance.request({
@@ -18,6 +20,9 @@ function FormAdContent(props) {
   useEffect(() => {
     getMasters();
   }, []);
+  const handleChangeImages = (event) => {
+    setImages(event.target.files[0]);
+  };
   const handleChangeAd = (event) => {
     const name = event.target.name;
     const value = event.target.value;
@@ -30,14 +35,33 @@ function FormAdContent(props) {
   };
   const submitAd = async (e) => {
     e.preventDefault();
-    const result = await instance.request({
-      data: {
-        data_type: "insertNewAd",
-        params: { ad: inputsAd, adContent: inputsAdContent },
-      },
-    });
-    console.log(result.data);
+    const formData = new FormData();
+    formData.append("data", "addAdComplete");
+    formData.append("ad", JSON.stringify(inputsAd));
+    formData.append("adContent", JSON.stringify(inputsAdContent));
+    formData.append("images", images);
+    let response = "";
+    try {
+      response = await axios({
+        method: "post",
+        url: "http://localhost:80/home/home-app/insertNewAdIncludePic.php",
+        data: formData,
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+    } catch (error) {
+      console.log(error);
+    }
+    console.log(response.data);
   };
+  //   e.preventDefault();
+  //   const result = await instance.request({
+  //     data: {
+  //       data_type: "insertNewAd",
+  //       params: { ad: inputsAd, adContent: inputsAdContent },
+  //     },
+  //   });
+  //   console.log(result.data);
+  // };
   const makeFieldsOfAdColumnsWeKnow = (code) => {
     code.push(
       <label>
@@ -194,6 +218,12 @@ function FormAdContent(props) {
         );
       }
     }
+    code.push(
+      <label>
+        <span>insert pics</span>
+        <input type="file" onChange={handleChangeImages} />
+      </label>
+    );
     return code;
   };
 
