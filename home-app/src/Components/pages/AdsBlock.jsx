@@ -26,7 +26,7 @@ const AdsBlock = (props) => {
   };
 
   return (
-    <section>
+    <section className="cardBlock">
       <Link
         to={`/${props.adBlock.ad[0].adID}`}
         key={props.adBlock.ad[0].adID}
