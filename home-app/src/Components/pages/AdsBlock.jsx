@@ -26,7 +26,7 @@ const AdsBlock = (props) => {
   };
 
   return (
-    <section className="adBlock">
+    <section>
       <Link
         to={`/${props.adBlock.ad[0].adID}`}
         key={props.adBlock.ad[0].adID}

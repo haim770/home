@@ -91,7 +91,7 @@ function FormAdContent(props) {
   };
   const makeFieldsOfAdColumnsWeKnow = (code) => {
     code.push(
-      <label>
+      <label key={uuidv4()}>
         <span>עיר</span>
         <input
           type="text"
@@ -104,7 +104,7 @@ function FormAdContent(props) {
       </label>
     );
     code.push(
-      <label>
+      <label key={uuidv4()}>
         <span>רחוב</span>
         <input
           type="text"
@@ -117,7 +117,7 @@ function FormAdContent(props) {
       </label>
     );
     code.push(
-      <label>
+      <label key={uuidv4()}>
         <span>מס בניין </span>
         <input
           type="text"
@@ -130,7 +130,7 @@ function FormAdContent(props) {
       </label>
     );
     code.push(
-      <label>
+      <label key={uuidv4()}>
         <span>כניסה </span>
         <input
           type="text"
@@ -143,7 +143,7 @@ function FormAdContent(props) {
       </label>
     );
     code.push(
-      <label>
+      <label key={uuidv4()}>
         <span>דירה </span>
         <input
           type="text"
@@ -156,7 +156,7 @@ function FormAdContent(props) {
       </label>
     );
     code.push(
-      <label>
+      <label key={uuidv4()}>
         <span>זיפ קוד </span>
         <input
           type="text"
@@ -169,7 +169,7 @@ function FormAdContent(props) {
       </label>
     );
     code.push(
-      <label>
+      <label key={uuidv4()}>
         <span>מחיר </span>
         <input
           type="text"
@@ -182,7 +182,7 @@ function FormAdContent(props) {
       </label>
     );
     code.push(
-      <label>
+      <label key={uuidv4()}>
         <span> חדרים </span>
         <input
           type="text"
@@ -195,7 +195,7 @@ function FormAdContent(props) {
       </label>
     );
     code.push(
-      <label>
+      <label key={uuidv4()}>
         <span>סוג מודעה(קנייה/השכרה) </span>
         <select
           id="adType"
@@ -216,7 +216,7 @@ function FormAdContent(props) {
     for (let index = 0; index < masters.length; index++) {
       if (masters[index].display_type === "checkBox") {
         code.push(
-          <label key={masters[index].name + masters[index].adID}>
+          <label key={uuidv4()}>
             <span>{masters[index].free_text}</span>
             <input
               type="checkBox"
@@ -231,7 +231,7 @@ function FormAdContent(props) {
       } else {
         //for text
         code.push(
-          <label key={masters[index].name + masters[index].adID}>
+          <label key={uuidv4()}>
             <span>{masters[index].free_text}</span>
             <input
               type="text"
@@ -246,7 +246,7 @@ function FormAdContent(props) {
       }
     }
     code.push(
-      <label>
+      <label key={uuidv4()}>
         <span>insert pics</span>
         <input type="file" onChange={handleChangeImages} />
       </label>

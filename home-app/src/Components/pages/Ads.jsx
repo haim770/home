@@ -66,7 +66,7 @@ const Ads = (props) => {
   useEffect(() => {
     getAds();
   }, [props.search]);
-
+ 
   return <div className="listAds">{loading && ads}</div>;
 };
 export default Ads;

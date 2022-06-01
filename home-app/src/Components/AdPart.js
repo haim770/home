@@ -5,9 +5,10 @@ const AdPart = (props) => {
   const renderComp = () => {
     let code = [];
     for (const [key, value] of Object.entries(props.ad[0])) {
+
       //we get an object of ad in the props and get out the 0 place which is the ads params
       code.push(
-          <Parameter  key={props.ad[0].adId+key} paramName={key} paramValue={value} />
+        <Parameter key={props.ad[0].adID+key} paramName={key} paramValue={value} />
       );
     }
     return code;
