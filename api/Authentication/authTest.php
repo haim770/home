@@ -53,14 +53,6 @@ $base64_url_signature = base64url_encode($signature);
 
 // verify it matches the signature provided in the jwt
 $is_signature_valid = ($base64_url_signature == $signature_provided);
-echo json_encode(
-    array(
-        "base64_url_signature" => $base64_url_signature,
-        "signature_provided" => $signature_provided,
-        "is_signature_valid" => $is_signature_valid,
-    )
-);
-die;
 if (!$is_signature_valid) {
     header('HTTP/1.1 401 Unauthorized');
     exit;
