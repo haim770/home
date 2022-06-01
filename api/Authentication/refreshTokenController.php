@@ -86,7 +86,7 @@ if (isset($DATA_OBJ->params->myCookie)) {
     $accessToken = JWT::encode(
         $accessTokenData,   //Data to be encoded in the JWT
         $secretKey,         // The signing key
-        'HS512'             // Algorithm used to sign the token, see https://tools.ietf.org/html/draft-ietf-jose-json-web-algorithms-40#section-3
+        'HS256'             // Algorithm used to sign the token, see https://tools.ietf.org/html/draft-ietf-jose-json-web-algorithms-40#section-3
     );
 
     // Encode the array to a JWT string.
@@ -95,7 +95,7 @@ if (isset($DATA_OBJ->params->myCookie)) {
             "message" => "Successful login.",
             "accessToken" => $accessToken,
             "roles" => $foundUser[0]->rule,
-            "username" => $username,
+            "user" => $username,
             "expireAt" => $expireAccess,
         )
     );

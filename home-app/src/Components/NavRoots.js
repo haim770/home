@@ -4,6 +4,7 @@ import "../styles/navigation/navStyle.css";
 import "../styles/navigation/responsiveNavigation.css";
 import useAuth from "../Auth/useAuth";
 import useLogout from "../Auth/useLogout";
+import UserProfile from "./pages/users/UserProfile";
 const NavRoot = () => {
 
   const { auth } = useAuth();
@@ -64,9 +65,9 @@ const NavRoot = () => {
         {/* Site User area */}
         <div className="userArea">
           {auth?.accessToken ? (
-            <button onClick={signOut}>Sign Out</button>
+            <UserProfile />
           ) : (
-            <NavLink to="/Login">login</NavLink>
+            <NavLink to="/Login">התחבר</NavLink>
           )}
         </div>
       </div>
