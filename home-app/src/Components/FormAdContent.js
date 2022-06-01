@@ -3,10 +3,12 @@ import Button from "./Button";
 import instance from "../api/AxiosInstance";
 import { v4 as uuidv4 } from "uuid";
 import axios from "axios";
+import useAuth from "../Auth/useAuth";
 function FormAdContent(props) {
   const [masters, setMasters] = useState("");
-  const [formFilledBadly,setFormFilledBadly]=useState(false);
+  const [formFilledBadly, setFormFilledBadly] = useState(false);
   const [inputsAdContent, setInputsAdContent] = useState({});
+  const { auth } = useAuth();
   const [inputsAd, setInputsAd] = useState({
     user_id: 1,
     city: "",
@@ -48,21 +50,25 @@ function FormAdContent(props) {
     const value = event.target.value;
     setInputsAdContent({ ...inputsAdContent, [name]: value });
   };
-  const checkIfRequiredFieldsFull=()=>{
+  const checkIfRequiredFieldsFull = () => {
     //check if all required fields has value
-    if(inputsAd.user_id===""||inputsAd.price===""||inputsAd.city===""||inputsAd.street===""){
-      setFormFilledBadly(<h2>forgot to fill some required inputs</h2>)
+    if (
+      inputsAd.user_id === "" ||
+      inputsAd.price === "" ||
+      inputsAd.city === "" ||
+      inputsAd.street === ""
+    ) {
+      setFormFilledBadly(<h2>forgot to fill some required inputs</h2>);
       return false;
     }
     return true;
-  }
+  };
   const submitAd = async (e) => {
     e.preventDefault();
-    if(!checkIfRequiredFieldsFull()){
+    if (!checkIfRequiredFieldsFull()) {
       console.log("no input good");
-       return;
+      return;
     }
-   
 
     const formData = new FormData();
     formData.append("data", "addAdComplete");
@@ -248,9 +254,8 @@ function FormAdContent(props) {
   };
 
   return (
-    
     <form>
-      {masters||formFilledBadly ? makeFormOfAdContent() : "no good fill"}
+      {masters || formFilledBadly ? makeFormOfAdContent() : "no good fill"}
       <Button onClick={submitAd} content="submit ad" />
     </form>
   );
