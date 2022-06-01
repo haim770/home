@@ -28,18 +28,18 @@ const ChatContant = () => {
     setContacts(result.data.message);
   };
 
-  function handleClick(firstname,lastname,uuid) {
-      const chatWith = {
-        adBlock: [],
-        username: `${firstname} ${lastname}`,
-        uuid: uuid,
-        adID: "",
-      };
-      startNewChat(chatWith);
-  };
+  function handleClick(firstname, lastname, uuid) {
+    const chatWith = {
+      adBlock: [],
+      username: `${firstname} ${lastname}`,
+      uuid: uuid,
+      adID: "",
+    };
+    startNewChat(chatWith);
+  }
 
   /**
-   * This use effect will render only once when the component loaded, when we close the contacts it will 
+   * This use effect will render only once when the component loaded, when we close the contacts it will
    * end the interval.
    * Will refesh contacts every 1 second.
    */
@@ -58,41 +58,45 @@ const ChatContant = () => {
    * data and view, so we will see all contacts when we open the contacts
    * window
    */
-  useLayoutEffect(()=> {
+  useLayoutEffect(() => {
     getContacts();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[])
-    /* This convert object to array and map it */
-    console.log(auth);
+  }, []);
+  /* This convert object to array and map it */
+  console.log(auth);
   return contactView && auth?.accessToken ? (
     <div
+      className="chatContactsWindow"
       style={{
         ...styles.chatBoxWindowContant,
       }}
     >
-      {contacts ? Object.values(contacts).map((contact) => (
-        <div
-          key={contact["uuid"]}
-          className="transition-3"
-          onClick={function () {
-            handleClick(
-              contact["first_name"],
-              contact["last_name"],
-              contact["uuid"]
-            );
-          }}
-          onMouseEnter={() => setHovered(true)}
-          onMouseLeave={() => setHovered(false)}
-          style={{
-            ...{
-              backgroundColor: hovered ? "#E0E0E0" : "#ffffff",
-              height: "100%",
-            },
-          }}
-        >
-          {`${contact["first_name"]} ${contact["last_name"]}`}
-        </div>
-      )) : (<div>אין צ'טים פעילים</div>)}
+      {contacts ? (
+        Object.values(contacts).map((contact) => (
+          <div
+            key={contact["uuid"]}
+            className="transition-3 contactWindow"
+            onClick={function () {
+              handleClick(
+                contact["first_name"],
+                contact["last_name"],
+                contact["uuid"]
+              );
+            }}
+            onMouseEnter={() => setHovered(true)}
+            onMouseLeave={() => setHovered(false)}
+            style={{
+              ...{
+                backgroundColor: hovered ? "#E0E0E0" : "#ffffff",
+              },
+            }}
+          >
+            {`${contact["first_name"]} ${contact["last_name"]}`}
+          </div>
+        ))
+      ) : (
+        <div>אין צ'טים פעילים</div>
+      )}
     </div>
   ) : (
     <></>
