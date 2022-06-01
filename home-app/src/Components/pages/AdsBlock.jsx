@@ -16,7 +16,6 @@ const AdsBlock = (props) => {
   const { startNewChat } = useView();
 
   const handleClickChatWith = () => {
-    console.log(props.adBlock);
     const chatWith = {
       adBlock: props.adBlock.ad[0],
       username: `${props.adBlock.user[0].first_name} ${props.adBlock.user[0].last_name}`,

@@ -63,7 +63,6 @@ const ChatContant = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   /* This convert object to array and map it */
-  console.log(auth);
   return contactView && auth?.accessToken ? (
     <div
       className="chatContactsWindow"
