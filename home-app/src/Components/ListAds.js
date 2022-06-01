@@ -13,7 +13,7 @@ function ListAds(props) {
   const [loading, setLoading] = useState(false);
    const getAds = async () => {
      //setAds(result.data);
-     console.log(typeof ads);
+     //console.log(typeof ads);
      setAds(
        props.adsShow.map((item) => (
          <Ad
@@ -72,7 +72,7 @@ function ListAds(props) {
   const renderEntireComp = () => {
     //just becuse we want a clean return of comp func
     if (ads&&loading) {
-       console.log(ads);
+       //console.log(ads);
       return (
         <section>
           <ul className={props.className}>{ads}</ul>;

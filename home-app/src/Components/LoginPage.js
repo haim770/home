@@ -27,7 +27,7 @@ function LoginPage(props) {
   };
   const checkForValidFields = () => {
     if (!(mail && password)) {
-      console.log("no value at mail/password");
+      //console.log("no value at mail/password");
       return false;
     }
     return true;
@@ -59,7 +59,7 @@ function LoginPage(props) {
     }
     const obj = makeObjOfAllFields();
     let response = api.sendDataFromJsToPhp(obj); //call func to send for db
-    console.log(response);
+    //console.log(response);
     returnStateToDefault();
   };
   return (

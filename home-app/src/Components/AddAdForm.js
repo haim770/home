@@ -49,7 +49,7 @@ function AddAdForm(props) {
     //add ad to the db, returns true/false
     const obj = makeObjOfAllFields();
     let response = props.api.sendDataFromJsToPhp(obj);//call func to send for db
-    console.log(response);
+    //console.log(response);
     returnStateToDefault();
   };
   return (

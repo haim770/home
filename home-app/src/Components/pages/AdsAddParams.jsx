@@ -19,7 +19,7 @@ function AdsAddParams() {
         params: inputs,
       },
     });
-    console.log(result);
+    //console.log(result);
     //<TestAxios data_type="SetNewParams" params={inputs} />;
   };
 

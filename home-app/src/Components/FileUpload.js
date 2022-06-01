@@ -19,9 +19,9 @@ const FileUpload = () => {
         headers: { "Content-Type": "multipart/form-data" },
       });
     } catch (error) {
-      console.log(error);
+      //console.log(error);
     }
-    console.log(response.data);
+    //console.log(response.data);
   };
 
   const handleFileSelect = (event) => {

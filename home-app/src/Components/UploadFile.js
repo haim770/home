@@ -12,7 +12,7 @@ const UploadFile = (props) => {
   };
 
   const handleSubmission = async () => {
-    console.log(selectedFile);
+    //console.log(selectedFile);
     let dataForm = new FormData();
     dataForm.append("potato", selectedFile[0]);
 
@@ -24,11 +24,11 @@ const UploadFile = (props) => {
     })
       .then(function (response) {
         //handle success
-        console.log(response.data);
+        //console.log(response.data);
       })
       .catch(function (response) {
         //handle error
-        console.log(response);
+        //console.log(response);
       });
   };
   return (

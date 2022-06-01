@@ -21,7 +21,7 @@ function AdFull(props) {
       },
     });
     setDataForUrl(result.data);
-    console.log(dataForUrl);
+    //console.log(dataForUrl);
   };
   useEffect(() => {
     if (!data) {

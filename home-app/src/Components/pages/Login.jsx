@@ -45,7 +45,7 @@ const Login = () => {
       const accessToken = response?.data?.accessToken;
       const refreshTokenCookie = response?.data?.refreshToken;
       const roles = response?.data?.roles;
-      console.log(response?.data);
+      //console.log(response?.data);
       setAuth({ user, roles, accessToken });
       // create the refresh token cookie
       cookies.set("refreshToken", refreshTokenCookie, { path: "/" });
