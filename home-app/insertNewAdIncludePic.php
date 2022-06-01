@@ -36,21 +36,22 @@
     $queryAdContent=makeInsertAdContentQuery($arrOfAdContent,$arrOfAd['adID']);
     echo $queryAdContent;
     $queryAd="insertAd(:adID,:user_id,:city,:street,:price,:adType,:building_number,:entry,:apartment,:rooms)";
+    if($_FILES){
+      //if there is files we will process them and upload to folder pics at src and upload it to db
     $newFileLocation=moveFileToNewLocation();
     if(!$newFileLocation){
-      echo "no upload was done for file";
-    }
+      echo "no upload was done for file";}
     else{
       $imageQuery="INSERT INTO pictures (pictureID, element_id, serial_number, picture_url, alt) VALUES ('$newFileLocation','{$arrOfAd["adID"]}',1,'$newFileLocation','pic for the ad')";
     }
-    $imageArray=[];
+    $imageArray=[];}
     $result = $db->writeDB($queryAd, $arrOfAd);
     if($result){
         $result = $db->writeDBNotStoredProcedure($queryAdContent);
         if($result){
           //after both ad and adcontent are successful we upload imgas
+          if($_FILES)
             $result = $db->writeDBNotStoredProcedure($imageQuery);
-            print_r($result);
         }
     }
     echo json_encode($result);

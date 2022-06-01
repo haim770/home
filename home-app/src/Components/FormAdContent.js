@@ -5,8 +5,20 @@ import { v4 as uuidv4 } from "uuid";
 import axios from "axios";
 function FormAdContent(props) {
   const [masters, setMasters] = useState("");
+  const [formFilledBadly,setFormFilledBadly]=useState(false);
   const [inputsAdContent, setInputsAdContent] = useState({});
-  const [inputsAd, setInputsAd] = useState({ user_id: 1 });
+  const [inputsAd, setInputsAd] = useState({
+    user_id: 1,
+    city: "",
+    street: "",
+    adType: "rent",
+    rooms: "",
+    apartment: "",
+    zip_code: "",
+    price: "",
+    building_number: "",
+    entry: "",
+  });
   const [images, setImages] = useState("");
 
   const getMasters = async () => {
@@ -26,16 +38,32 @@ function FormAdContent(props) {
   const handleChangeAd = (event) => {
     const name = event.target.name;
     const value = event.target.value;
-  
-    setInputsAd((values) => ({ ...values, [name]: value }));
+    if (name === "price" || name === "rooms" || name === "building_number") {
+      if (isNaN(value)) return;
+    }
+    setInputsAd({ ...inputsAd, [name]: value });
   };
   const handleChangeAdContent = (event) => {
     const name = event.target.name;
     const value = event.target.value;
-    setInputsAdContent((values) => ({ ...values, [name]: value }));
+    setInputsAdContent({ ...inputsAdContent, [name]: value });
   };
+  const checkIfRequiredFieldsFull=()=>{
+    //check if all required fields has value
+    if(inputsAd.user_id===""||inputsAd.price===""||inputsAd.city===""||inputsAd.street===""){
+      setFormFilledBadly(<h2>forgot to fill some required inputs</h2>)
+      return false;
+    }
+    return true;
+  }
   const submitAd = async (e) => {
     e.preventDefault();
+    if(!checkIfRequiredFieldsFull()){
+      console.log("no input good");
+       return;
+    }
+   
+
     const formData = new FormData();
     formData.append("data", "addAdComplete");
     formData.append("ad", JSON.stringify(inputsAd));
@@ -63,7 +91,7 @@ function FormAdContent(props) {
           name="city"
           id="city"
           required
-          value={inputsAd.name}
+          value={inputsAd.city}
           onChange={handleChangeAd}
         />
       </label>
@@ -76,7 +104,7 @@ function FormAdContent(props) {
           name="street"
           id="street"
           required
-          value={inputsAd.name}
+          value={inputsAd.street}
           onChange={handleChangeAd}
         />
       </label>
@@ -89,7 +117,7 @@ function FormAdContent(props) {
           name="building_number"
           id="building_number"
           required
-          value={inputsAd.name}
+          value={inputsAd.building_number}
           onChange={handleChangeAd}
         />
       </label>
@@ -102,7 +130,7 @@ function FormAdContent(props) {
           name="entry"
           id="entry"
           required
-          value={inputsAd.name}
+          value={inputsAd.entry}
           onChange={handleChangeAd}
         />
       </label>
@@ -115,7 +143,7 @@ function FormAdContent(props) {
           name="apartment"
           id="apartment"
           required
-          value={inputsAd.name}
+          value={inputsAd.apartment}
           onChange={handleChangeAd}
         />
       </label>
@@ -128,7 +156,7 @@ function FormAdContent(props) {
           name="zip_code"
           id="zip_code"
           required
-          value={inputsAd.name}
+          value={inputsAd.zip_code}
           onChange={handleChangeAd}
         />
       </label>
@@ -141,7 +169,7 @@ function FormAdContent(props) {
           name="price"
           id="price"
           required
-          value={inputsAd.name}
+          value={inputsAd.price}
           onChange={handleChangeAd}
         />
       </label>
@@ -154,7 +182,7 @@ function FormAdContent(props) {
           name="rooms"
           id="rooms"
           required
-          value={inputsAd.name}
+          value={inputsAd.rooms}
           onChange={handleChangeAd}
         />
       </label>
@@ -163,9 +191,9 @@ function FormAdContent(props) {
       <label>
         <span>סוג מודעה(קנייה/השכרה) </span>
         <select
+          id="adType"
           name="adType"
-          value={inputsAd.name}
-          id={"adType"}
+          value={inputsAd.adType}
           onChange={handleChangeAd}
         >
           <option>rent</option>
@@ -220,8 +248,9 @@ function FormAdContent(props) {
   };
 
   return (
+    
     <form>
-      {masters ? makeFormOfAdContent() : "no masters yet"}
+      {masters||formFilledBadly ? makeFormOfAdContent() : "no good fill"}
       <Button onClick={submitAd} content="submit ad" />
     </form>
   );
