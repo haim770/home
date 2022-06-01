@@ -4,6 +4,7 @@ import { v4 as uuidv4 } from "uuid";
 import ImageComponent from "./ImageComponent.js";
 const AdImages = (props) => {
   const renderComp = () => {
+
     let code = [];
     if (props.numPicToDisplay === 1) {
       if (props.images[0]) {
