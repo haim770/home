@@ -28,7 +28,11 @@ import { ViewProvidor } from "./Components/pages/Chat/ChatUseContext";
 
 // Blog
 import Blog from "./Components/pages/Blog";
+import Single from "./Components/pages/Blog/posts/Single";
+
+
 import FileUpload from "./Components/FileUpload";
+
 
 const ROLES = {
   User: 2001,
@@ -50,6 +54,7 @@ export default function App() {
             <Route path="/Login" element={<Login />} />
             <Route path="/adsWithSearch" element={<AdsWithSearch />} />
             <Route exact path=":linkAd" element={<AdFull />} />
+            <Route path="/post/:postId" element={<Single />} />
             <Route
               exact
               path="/main/packages/:packageId"

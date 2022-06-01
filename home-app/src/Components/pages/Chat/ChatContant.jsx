@@ -62,13 +62,13 @@ const ChatContant = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   },[])
     /* This convert object to array and map it */
-  return contactView ? (
+  return contactView && auth?.accessToken ? (
     <div
       style={{
         ...styles.chatBoxWindowContant,
       }}
     >
-      {Object.values(contacts).map((contact) => (
+      {contacts ? Object.values(contacts).map((contact) => (
         <div
           key={contact["uuid"]}
           className="transition-3"
@@ -90,7 +90,7 @@ const ChatContant = () => {
         >
           {`${contact["first_name"]} ${contact["last_name"]}`}
         </div>
-      ))}
+      )) : (<div>אין צ'טים פעילים</div>)}
     </div>
   ) : (
     <></>
