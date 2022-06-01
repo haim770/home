@@ -63,7 +63,7 @@ const Register = () => {
           params: { user, pwd },
         },
       });
-      console.log(response);
+      //console.log(response);
       setSuccess(true);
       //clear state and controlled inputs
       setUser("");

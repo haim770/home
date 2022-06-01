@@ -26,7 +26,7 @@ const PackageDisplay = (props) => {
       e.target.documentElement.scrollTop + window.innerHeight
     );
     if (currentHeight + 1 >= scrollHeight) {
-      console.log("Button");
+      //console.log("Button");
     }
   };
 
@@ -36,7 +36,7 @@ const PackageDisplay = (props) => {
         data_type:"getAllPackages",
       },
     });
-    console.log(result.data);
+    //console.log(result.data);
     if (result.data === false) {
       setPackages("no packages");
     } else {

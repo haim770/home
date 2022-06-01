@@ -100,6 +100,8 @@ justify-content: center;
 /* bob is him*/
 .bob_message {
   align-self: flex-end;
+  display: flex;
+  flex-direction: column;
   margin: 10px;
   border-radius: 25px 10px 10px 10px;
   /*border-top-left-radius: 15%; /*will make the left border little more pointed */
@@ -119,6 +121,7 @@ justify-content: center;
 
 .bob_message span {
   font-size: 1rem;
+  margin: 0.2rem;
 
 }
 
@@ -150,6 +153,7 @@ justify-content: center;
 .alice_message span {
   font-size: 1rem;
   float: left;
+  margin: 0.2rem;
 }
 
 .alice_message img {

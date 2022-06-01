@@ -27,7 +27,7 @@ const Ads = (props) => {
       e.target.documentElement.scrollTop + window.innerHeight
     );
     if (currentHeight + 1 >= scrollHeight) {
-      console.log("Button");
+      //console.log("Button");
     }
   };
   const getAds = async () => {
@@ -37,18 +37,18 @@ const Ads = (props) => {
         params: props.search.params,
       },
     });
-    console.log(result.data);
+    //console.log(result.data);
     if (result.data === false) {
-      console.log("empty");
+      //console.log("empty");
       setAds("no ads feet");
     } else {
       if (JSON.stringify(props.search) !== JSON.stringify(lastSearch)) {
-        console.log("changed query");
+        //console.log("changed query");
         setAds(
           result.data.map((ad) => <AdsBlock key={ad.adID+uuidv4()} adBlock={ad} />)
         );
       } else {
-        console.log("append");
+        //console.log("append");
         setAds(
           ...ads,
           result.data.map((ad) => <AdsBlock key={ad.adID} adBlock={ad} />)

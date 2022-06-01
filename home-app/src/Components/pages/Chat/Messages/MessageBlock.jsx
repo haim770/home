@@ -44,10 +44,8 @@ const data = props.props;
     const aliceOrBob = data.sender === chatInfo.uuid; // if true, means we got message
     return aliceOrBob ? (
       <div className="bob_message" id={msgID} key={msgID}>
-        <p>{data.message}</p>
-        <div className="bob_container">
+          <p>{data.message}</p>
           <span>{timeShow}</span>
-        </div>
       </div>
     ) : (
       <div className="alice_message" id={msgID} key={msgID}>

@@ -59,7 +59,7 @@ function FormAdContent(props) {
   const submitAd = async (e) => {
     e.preventDefault();
     if(!checkIfRequiredFieldsFull()){
-      console.log("no input good");
+      //console.log("no input good");
        return;
     }
    
@@ -78,9 +78,9 @@ function FormAdContent(props) {
         headers: { "Content-Type": "multipart/form-data" },
       });
     } catch (error) {
-      console.log(error);
+      //console.log(error);
     }
-    console.log(response.data);
+    //console.log(response.data);
   };
   const makeFieldsOfAdColumnsWeKnow = (code) => {
     code.push(

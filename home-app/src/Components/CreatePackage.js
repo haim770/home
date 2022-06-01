@@ -39,7 +39,7 @@ function CreatePackage(props) {
         },
       },
     });
-    console.log(result.data);
+    //console.log(result.data);
     returnStateToDefault();
   };
   return (
