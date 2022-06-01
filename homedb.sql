@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 27, 2022 at 05:32 PM
+-- Generation Time: Jun 01, 2022 at 05:12 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.2
 
@@ -312,7 +312,41 @@ INSERT INTO `ads` (`adID`, `create_time`, `user_id`, `active`, `contact_counter`
 ('12', '2022-05-26 12:08:10', '1', 0, 1, 1, '1', '0000-00-00 00:00:00', '1', '1', '1', '1', 1, '1', '1', '1', '1', '1', 1, 1, '1'),
 ('2', '2022-05-21 18:53:41', 'haim', 1, 1, 1, NULL, '2022-05-31 21:52:10', 'pending', 'linkhai', 'haifa', 'hagalil', 1, '12', '1', '', '', '', 0, 0, 'rent'),
 ('4', '2022-05-21 18:53:41', 'tal', 1, 1, 1, 'W', '2022-05-25 21:52:10', 'pending', 'ws', 'afula', 'street', 1, '1', '1', '1', '1', '1', 1, 1, '1'),
-('628fb7e629fd8', '2022-05-26 17:24:54', '1', 0, 0, 0, NULL, '0000-00-00 00:00:00', 'pending', 'ad link 3', '1', '1', 1, '1', 'ad->adType', '3', '', '', 1, 1, '1');
+('628fb7e629fd8', '2022-05-26 17:24:54', '1', 0, 0, 0, NULL, '0000-00-00 00:00:00', 'pending', 'ad link 3', '1', '1', 1, '1', 'ad->adType', '3', '', '', 1, 1, '1'),
+('62960ace01526', '2022-05-31 12:32:14', '1', 0, 0, 0, NULL, '0000-00-00 00:00:00', 'pending', 'ad link 3', '1', '1', 1, '1', 'ad->adType', '3', '', '', 1, 1, '1'),
+('62960b0725272', '2022-05-31 12:33:11', '1', 0, 0, 0, NULL, '0000-00-00 00:00:00', 'pending', 'ad link 3', 'תל אביב', 'התיכון', 2929, '37', 'ad->adType', '3', '', '', 23, 33, 'ש'),
+('62960b710cb3f', '2022-05-31 12:34:57', '1', 0, 0, 0, NULL, '0000-00-00 00:00:00', 'pending', 'ad link 3', 'תל אביב', 'התיכון', 2929, '37', 'ad->adType', '3', '', '', 23, 33, 'ש'),
+('62960be070059', '2022-05-31 12:36:48', '1', 0, 0, 0, NULL, '0000-00-00 00:00:00', 'pending', 'ad link 3', 'תל אביב', 'התיכון', 2929, '37', 'ad->adType', '3', '', '', 23, 33, 'ש'),
+('62960bf1785e8', '2022-05-31 12:37:05', '1', 0, 0, 0, NULL, '0000-00-00 00:00:00', 'pending', 'ad link 3', 'תל אביב', 'התיכון', 2929, '37', 'ad->adType', '3', '', '', 23, 33, 'ש'),
+('62960bf2407f4', '2022-05-31 12:37:06', '1', 0, 0, 0, NULL, '0000-00-00 00:00:00', 'pending', 'ad link 3', 'תל אביב', 'התיכון', 2929, '37', 'ad->adType', '3', '', '', 23, 33, 'ש'),
+('62960bf53b5a9', '2022-05-31 12:37:09', '1', 0, 0, 0, NULL, '0000-00-00 00:00:00', 'pending', 'ad link 3', 'תל אביב', 'התיכון', 2929, '37', 'ad->adType', '3', '', '', 23, 33, 'ש'),
+('62960bf78c890', '2022-05-31 12:37:11', '1', 0, 0, 0, NULL, '0000-00-00 00:00:00', 'pending', 'ad link 3', 'תל אביב', 'התיכון', 2929, '37', 'ad->adType', '3', '', '', 23, 33, 'ש'),
+('62960c02512ef', '2022-05-31 12:37:22', '1', 0, 0, 0, NULL, '0000-00-00 00:00:00', 'pending', 'ad link 3', 'תל אביב', 'התיכון', 2929, '37', 'ad->adType', '3', '', '', 23, 33, 'ש'),
+('62960c0cd52a1', '2022-05-31 12:37:32', '1', 0, 0, 0, NULL, '0000-00-00 00:00:00', 'pending', 'ad link 3', 'תל אביב', 'התיכון', 2929, '37', 'ad->adType', '3', '', '', 23, 33, 'ש'),
+('62960c107fe14', '2022-05-31 12:37:36', '1', 0, 0, 0, NULL, '0000-00-00 00:00:00', 'pending', 'ad link 3', 'תל אביב', 'התיכון', 2929, '37', 'ad->adType', '3', '', '', 23, 33, 'ש'),
+('62960c14d047e', '2022-05-31 12:37:40', '1', 0, 0, 0, NULL, '0000-00-00 00:00:00', 'pending', 'ad link 3', 'תל אביב', 'התיכון', 2929, '37', 'ad->adType', '3', '', '', 23, 33, 'ש'),
+('62960c3e7b1a7', '2022-05-31 12:38:22', '1', 0, 0, 0, NULL, '0000-00-00 00:00:00', 'pending', 'ad link 3', 'תל אביב', 'התיכון', 2929, '37', 'ad->adType', '3', '', '', 23, 33, 'ש'),
+('62960c53cc525', '2022-05-31 12:38:43', '1', 0, 0, 0, NULL, '0000-00-00 00:00:00', 'pending', 'ad link 3', 'יפו', 'חדרה', 11, '11', 'ad->adType', '3', '', '', 11, 11, '11'),
+('62960c62a4e40', '2022-05-31 12:38:58', '1', 0, 0, 0, NULL, '0000-00-00 00:00:00', 'pending', 'ad link 3', 'יפו', 'חדרה', 11, '11', 'ad->adType', '3', '', '', 11, 11, '11'),
+('62960d7909f70', '2022-05-31 12:43:37', '1', 0, 0, 0, NULL, '0000-00-00 00:00:00', 'pending', 'ad link 3', 'haifa', 'iseael', 2, '22', 'ad->adType', '3', '', '', 2, 0, '2ii'),
+('629615ebf406d', '2022-05-31 13:19:40', '1', 0, 0, 0, NULL, '0000-00-00 00:00:00', 'pending', 'ad link 3', 'ניסיון', 'ניסיון', 299, '939', 'ad->adType', '3', '', '', 299, 93939, '29'),
+('62965cf5e4866', '2022-05-31 18:22:45', '1', 0, 0, 0, NULL, '0000-00-00 00:00:00', 'pending', 'ad link 3', 'kkkkkkkkkkk', 'ddk', 99, '29', 'ad->adType', '3', '', '', 99, 9, '9'),
+('6296668724507', '2022-05-31 19:03:35', '1', 0, 0, 0, NULL, '0000-00-00 00:00:00', 'pending', 'ad link 3', '94', '99', 9, '9', 'ad->adType', '3', '', '', 9, 9, '99'),
+('629675f68af89', '2022-05-31 20:09:26', '1', 0, 0, 0, NULL, '0000-00-00 00:00:00', 'pending', 'ad link 3', 'dh', '2u82', 2222, '2', 'ad->adType', '3', '', '', 2, 11, 'jeje'),
+('6296781332110', '2022-05-31 20:18:27', '1', 0, 0, 0, NULL, '0000-00-00 00:00:00', 'pending', 'ad link 3', '', '8', 88, '8', 'ad->adType', '3', '', '', 88, 8, '88'),
+('62967814c42a1', '2022-05-31 20:18:28', '1', 0, 0, 0, NULL, '0000-00-00 00:00:00', 'pending', 'ad link 3', '', '8', 88, '8', 'ad->adType', '3', '', '', 88, 8, '88'),
+('6296784403549', '2022-05-31 20:19:16', '1', 0, 0, 0, NULL, '0000-00-00 00:00:00', 'pending', 'ad link 3', '', '8', 88, '8', 'ad->adType', '3', '', '', 88, 8, '88'),
+('6296787ba205e', '2022-05-31 20:20:11', '1', 0, 0, 0, NULL, '0000-00-00 00:00:00', 'pending', 'ad link 3', '', '', 0, '', 'ad->adType', '3', '', '', 0, 0, ''),
+('6296787c8bc33', '2022-05-31 20:20:12', '1', 0, 0, 0, NULL, '0000-00-00 00:00:00', 'pending', 'ad link 3', '', '', 0, '', 'ad->adType', '3', '', '', 0, 0, ''),
+('629678f14fa46', '2022-05-31 20:22:09', '1', 0, 0, 0, NULL, '0000-00-00 00:00:00', 'pending', 'ad link 3', 'hadera', 'hadera', 29, '29', 'ad->adType', '3', '', '', 29, 0, '29k'),
+('629678f944701', '2022-05-31 20:22:17', '1', 0, 0, 0, NULL, '0000-00-00 00:00:00', 'pending', 'ad link 3', 'hadera', 'hadera', 29, '29', 'ad->adType', '3', '', '', 29, 0, '29k'),
+('629678fa37c83', '2022-05-31 20:22:18', '1', 0, 0, 0, NULL, '0000-00-00 00:00:00', 'pending', 'ad link 3', 'hadera', 'hadera', 29, '29', 'ad->adType', '3', '', '', 29, 0, '29k'),
+('62967995165ee', '2022-05-31 20:24:53', '1', 0, 0, 0, NULL, '0000-00-00 00:00:00', 'pending', 'ad link 3', 'hadera', 'hadera', 29, '29', 'ad->adType', '3', '', '', 29, 0, '29k'),
+('629679a6037c0', '2022-05-31 20:25:10', '1', 0, 0, 0, NULL, '0000-00-00 00:00:00', 'pending', 'ad link 3', 'hadera', 'hadera', 29, '29', 'ad->adType', '3', '', '', 29, 0, '29k'),
+('6296861386380', '2022-05-31 21:18:11', '1', 0, 0, 0, NULL, '0000-00-00 00:00:00', 'pending', 'ad link 3', 'kdjd', 'jsj', 1, '1', 'ad->adType', '3', '', '', 1, 1, '1'),
+('6296861f4f31f', '2022-05-31 21:18:23', '1', 0, 0, 0, NULL, '0000-00-00 00:00:00', 'pending', 'ad link 3', 'kdjd', 'jsj', 1, '1', 'ad->adType', '3', '', '', 1, 1, '1'),
+('62968621ab945', '2022-05-31 21:18:25', '1', 0, 0, 0, NULL, '0000-00-00 00:00:00', 'pending', 'ad link 3', 'kdjd', 'jsj', 1, '1', 'ad->adType', '3', '', '', 1, 1, '1'),
+('6296862279659', '2022-05-31 21:18:26', '1', 0, 0, 0, NULL, '0000-00-00 00:00:00', 'pending', 'ad link 3', 'kdjd', 'jsj', 1, '1', 'ad->adType', '3', '', '', 1, 1, '1');
 
 -- --------------------------------------------------------
 
@@ -347,10 +381,18 @@ INSERT INTO `ad_content` (`element_id`, `adID`, `category`, `master`, `min_value
 ('3', '1', 'hah', 0, NULL, NULL, 'jdj', 'גינה', 0, 'garden', '', '4', 0),
 ('33', '0', '32', 1, 31, NULL, '31', 'חיים', 0, 'haim', 'kke', 'mm', 0),
 ('34453', '0', '2', 1, 21, 13, '21', 'גינה', 1, 'garden', '0', '1', 0),
-('628fa5dfa9693', '628fa5dfa968b', 'all', 0, NULL, NULL, '', 'חיים', 0, 'haim', 'text', '6', 1),
-('628fa5dfa9696', '628fa5dfa968b', 'all', 0, NULL, NULL, '', 'גינה', 0, 'garden', 'text', '6', 0),
-('628fb7e629feb', '628fb7e629fd8', 'all', 0, NULL, NULL, '', 'חיים', 0, 'haim', 'text', '1', 0),
-('628fb7e629ff3', '628fb7e629fd8', 'all', 0, NULL, NULL, '', 'גינה', 0, 'garden', 'text', '1', 0);
+('629686138638e', '6296861386380', 'all', 0, NULL, NULL, '', '', 0, 'haim', 'text', '1', 0),
+('6296861386393', '6296861386380', 'all', 0, NULL, NULL, '', '', 0, 'garden', 'text', '1', 0),
+('6296861386394', '6296861386380', 'all', 0, NULL, NULL, '', '', 0, 'air_conditioner', 'text', '', 0),
+('6296861f4f341', '6296861f4f31f', 'all', 0, NULL, NULL, '', '', 0, 'haim', 'text', '1', 0),
+('6296861f4f345', '6296861f4f31f', 'all', 0, NULL, NULL, '', '', 0, 'garden', 'text', '1', 0),
+('6296861f4f346', '6296861f4f31f', 'all', 0, NULL, NULL, '', '', 0, 'air_conditioner', 'text', '', 0),
+('62968621ab95e', '62968621ab945', 'all', 0, NULL, NULL, '', '', 0, 'haim', 'text', '1', 0),
+('62968621ab966', '62968621ab945', 'all', 0, NULL, NULL, '', '', 0, 'garden', 'text', '1', 0),
+('62968621ab969', '62968621ab945', 'all', 0, NULL, NULL, '', '', 0, 'air_conditioner', 'text', '', 0),
+('6296862279672', '6296862279659', 'all', 0, NULL, NULL, '', '', 0, 'haim', 'text', '1', 0),
+('629686227967a', '6296862279659', 'all', 0, NULL, NULL, '', '', 0, 'garden', 'text', '1', 0),
+('629686227967e', '6296862279659', 'all', 0, NULL, NULL, '', '', 0, 'air_conditioner', 'text', '', 0);
 
 -- --------------------------------------------------------
 
@@ -433,6 +475,15 @@ CREATE TABLE `messages` (
   `newUpdate` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `messages`
+--
+
+INSERT INTO `messages` (`msgid`, `adId`, `sender`, `receiver`, `message`, `files`, `dateMsg`, `seen`, `received`, `delete_sender`, `delete_receiver`, `newUpdate`) VALUES
+('629633e27295f', '', '1', 'null', 'jjjjjjf', '', '2022-05-31 17:27:30', 0, 0, 0, 0, 0),
+('629633e48fa0f', '', '1', 'null', 'fjdj', '', '2022-05-31 17:27:32', 0, 0, 0, 0, 0),
+('62977dd9decdc', '', '1', 'null', 'kdfjdkdkj', '', '2022-06-01 16:55:21', 0, 0, 0, 0, 0);
+
 -- --------------------------------------------------------
 
 --
@@ -496,7 +547,11 @@ CREATE TABLE `pictures` (
 --
 
 INSERT INTO `pictures` (`pictureID`, `element_id`, `serial_number`, `picture_url`, `upload_time`, `alt`) VALUES
-('1', '1', 1, 'pics/blank_home.png', '2022-05-27 16:58:57', 'first picc');
+('1', '1', 1, 'pics/blank_home.png', '2022-05-27 16:58:57', 'first picc'),
+('pics/62960d7909f8fFinelProject-ERD.drawio (4).png', '62960d7909f70', 1, 'pics/62960d7909f8fFinelProject-ERD.drawio (4).png', '2022-05-31 15:43:37', 'pic for the ad'),
+('pics/629615ebf408eFinelProject-ERD.drawio (4).png', '629615ebf406d', 1, 'pics/629615ebf408eFinelProject-ERD.drawio (4).png', '2022-05-31 16:19:40', 'pic for the ad'),
+('pics/62965cf5e4892FinelProject-ERD.drawio (4).png', '62965cf5e4866', 1, 'pics/62965cf5e4892FinelProject-ERD.drawio (4).png', '2022-05-31 21:22:45', 'pic for the ad'),
+('pics/629675f68afdbFinelProject-ERD.drawio (4).png', '629675f68af89', 1, 'pics/629675f68afdbFinelProject-ERD.drawio (4).png', '2022-05-31 23:09:26', 'pic for the ad');
 
 -- --------------------------------------------------------
 
@@ -594,7 +649,7 @@ CREATE TABLE `users` (
   `last_seen` datetime NOT NULL DEFAULT current_timestamp(),
   `prompt` varchar(255) NOT NULL,
   `rule` varchar(255) NOT NULL,
-  `refreshToken` varchar(255) NOT NULL,
+  `refreshToken` varchar(450) NOT NULL,
   `remaining_ads` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -603,7 +658,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`uuid`, `first_name`, `last_name`, `phone`, `mail`, `create_time`, `password`, `last_seen`, `prompt`, `rule`, `refreshToken`, `remaining_ads`) VALUES
-('1', 'haim', 'mo', '01', 'haim', '2022-05-03 21:19:17', '123', '2022-05-09 21:47:14', '', 'user', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2NTM2MzQ4NzgsImp0aSI6ImdyTTMrWTdSdDBtV1l0WEpuSHFENWc9PSIsImlzcyI6ImxvY2FsaG9zdCIsIm5iZiI6MTY1MzYzNDg3OCwiZXhwIjoxNjUzNzIxMjc4LCJkYXRhIjp7InVzZXIiOiJoYWltIn19.p-Yw7_57v5l7K-YDjGw1_7oxPqSJxT0VUFEJewiS2_G3F5eMw', 0),
+('1', 'haim', 'mo', '01', 'haim', '2022-05-03 21:19:17', '123', '2022-05-09 21:47:14', '', 'user', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NTQwOTUyNzcsImp0aSI6Ik1FL0NlYWQrQlAvNHdqWXZ0TVF1V0E9PSIsImlzcyI6ImxvY2FsaG9zdCIsIm5iZiI6MTY1NDA5NTI3NywiZXhwIjoxNjU0MTgxNjc3LCJkYXRhIjp7InVzZXIiOiJoYWltIn19.t3MgQnQ_tzwfJjkfQxJFgJODvLaty9vc0cXNX9zvg00', 0),
 ('123456', 'lidor', 'ben shimol', '0542155045', 'AAA', '2022-04-06 17:52:19', 'ASdasda', '0000-00-00 00:00:00', '', '', '', 0),
 ('2222222222222222', '2222222222222222', '2222222222222222', '2222222222222222', '2222222222222222', '2022-05-08 23:08:11', '1', '0000-00-00 00:00:00', 'k', 'user', '', 0),
 ('48', '29', '22', '1', '12', '2022-05-08 23:04:51', '112', '2022-05-08 23:04:51', 'k', 'user', '', 0),
