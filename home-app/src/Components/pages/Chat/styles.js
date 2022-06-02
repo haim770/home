@@ -8,10 +8,10 @@ export const styles = {
     backgroundImage: `url(https://i.pravatar.cc/300)`,
     backgroundRepeat: "no-repeat",
     backgroundPosition: "center",
-    backgroundSize: "10rem",
+    backgroundSize: "8rem",
     // Size
-    width: "10rem",
-    height: "10rem",
+    width: "8rem",
+    height: "8rem",
     zIndex: "1000",
   },
   avatarHello: {
@@ -41,8 +41,8 @@ export const styles = {
   chatBoxWindowWrapper: {
     // Position
     position: "fixed",
-    bottom: "14.2rem",
-    right: "4.2rem",
+    bottom: "12.2rem",
+    right: "3.8rem",
     // Size
     width: "42.0rem",
     height: "53.0rem",

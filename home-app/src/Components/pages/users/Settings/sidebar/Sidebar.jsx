@@ -19,6 +19,7 @@ const Sidebar = () => {
       <hr />
       <div className="settingsCenter">
         <ul>
+          <p className="title">ראשי</p>
           <li>
             <RiDashboardLine className="icon" />
             <span>דשבורד</span>
@@ -35,6 +36,7 @@ const Sidebar = () => {
             <IoLogoWechat className="icon" />
             <span>הודעות</span>
           </li>
+          <p className="title">מודעות</p>
           <li>
             <GoHome className="icon" />
             <span>מודעות</span>
@@ -47,6 +49,7 @@ const Sidebar = () => {
             <BiPurchaseTagAlt className="icon" />
             <span>רכישות</span>
           </li>
+          <p className="title">ניהול</p>
           <li>
             <HiOutlineDocumentReport className="icon" />
             <span>דוחות</span>
