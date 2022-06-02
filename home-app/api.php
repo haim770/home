@@ -162,7 +162,6 @@ function getUserForUserId($user_id){
     $result = $db->readDBNoStoredProcedure($query, $arr);
     $arr=[];
     return $result;
-
 }
 function getAllAdContentAndAdAndUsersForArrOfAds(){
     //returns the wanted ads with all their data and user created the ad
