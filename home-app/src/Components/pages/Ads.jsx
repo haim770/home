@@ -13,6 +13,8 @@ const Ads = (props) => {
   const [ads, setAds] = useState([]);
   const [loading, setLoading] = useState(false);
   const [lastSearch, setLastSearch] = useState("");
+  const [indexStart, setindexStart] = useState(0); //index to start get ads from db
+  const [indexEnd, setindexEnd] = useState(5); //index to end get ads from db
 
   // check when we scroll down to button
   const handleScroll = (e) => {
@@ -27,7 +29,9 @@ const Ads = (props) => {
       e.target.documentElement.scrollTop + window.innerHeight
     );
     if (currentHeight + 1 >= scrollHeight) {
-      //console.log("Button");
+      console.log("Button");
+      setindexEnd(indexEnd + 10);
+      setindexStart(indexStart + 10);
     }
   };
   const getAds = async () => {
@@ -35,9 +39,10 @@ const Ads = (props) => {
       data: {
         data_type: props.search.data_type,
         params: props.search.params,
+        limitBy: { start: indexStart, end: indexEnd }, //the indexes
       },
     });
-    //console.log(result.data);
+    console.log(result.data);
     if (result.data === false) {
       //console.log("empty");
       setAds("no ads feet");
@@ -45,7 +50,9 @@ const Ads = (props) => {
       if (JSON.stringify(props.search) !== JSON.stringify(lastSearch)) {
         //console.log("changed query");
         setAds(
-          result.data.map((ad) => <AdsBlock key={ad.adID+uuidv4()} adBlock={ad} />)
+          result.data.map((ad) => (
+            <AdsBlock key={ad.adID + uuidv4()} adBlock={ad} />
+          ))
         );
       } else {
         //console.log("append");
@@ -66,7 +73,7 @@ const Ads = (props) => {
   useEffect(() => {
     getAds();
   }, [props.search]);
- 
+
   return <div className="listAds">{loading && ads}</div>;
 };
 export default Ads;
