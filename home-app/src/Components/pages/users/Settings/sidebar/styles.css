@@ -1,0 +1,16 @@
+.settingsSidebar {
+    background-color: lightcoral;
+    flex:1;
+}
+.settingsTop {
+    display: flex;
+    height: 5rem;
+}
+
+.settingsCenter{
+
+}
+
+.settingsBottom {
+
+}
