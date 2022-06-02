@@ -64,11 +64,12 @@ function getAdByLink()
 }
 function generateSearchFromBothAdContentAndAds(){
     //make a search arr from the params we got and based on adcontent and ads gets a start of the search query
+    //also consider offset request and limit.
     global $arr;
     global $DATA_OBJ;
     if(!isset($DATA_OBJ->params)||$DATA_OBJ->params==[]){
         //if there is no params
-        return "select  DISTINCT ads.adID,ads.user_id from ads";
+        return "select  DISTINCT ads.adID,ads.user_id from ads limit ".$DATA_OBJ->limitBy->end." OFFSET ".$DATA_OBJ->limitBy->start.";";
     }
     //if there is parameters to search by
     $query="select DISTINCT ads.adID,ads.user_id from ads,ad_content where ads.adID=ad_content.adID" ;
@@ -91,7 +92,12 @@ function generateSearchFromBothAdContentAndAds(){
             }
             
         }
+        if (isset($DATA_OBJ->limitBy)){
+             $query.=" ".$queryAdTableParams." ".$queryAdContentTableParams." limit ".$DATA_OBJ->limitBy->end." offset ".$DATA_OBJ->limitBy->start.";";
+        }
+        else{
         $query.=" ".$queryAdTableParams." ".$queryAdContentTableParams.";";
+    }
     }
     return $query;
 }
@@ -111,6 +117,7 @@ function getAdWithAdContentForAdId($adId,$user_id){
     global $db;
     global $DATA_OBJ;
     global $arr;
+    $arr=[];
     $arr['adID'] = $adId; //the adid
     $query = "getAdById(:adID)";
     $resultAdTable = $db->readDb($query, $arr);
