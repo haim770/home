@@ -6,6 +6,8 @@ import useView from "./ChatUseContext";
 import useAuth from "../../../Auth/useAuth";
 import instance from "../../../api/AxiosInstance";
 import MessageBlock from "./Messages/MessageBlock";
+import { AiOutlineClose } from "react-icons/ai";
+
 
 const ChatWith = () => {
   const { chatView, showContacts, chatInfo, closeWindow } = useView();
@@ -179,22 +181,24 @@ const ChatWith = () => {
             <div>{`${chatInfo.uuid}`}</div>
           </div>
           <div className="closeButton" onClick={handleClickClose}>
-            X
+            <AiOutlineClose />
           </div>
         </div>
         {/* Body, ref will use to scroll down to the last message */}
         <div className="chatWindowBody" ref={divRef}>
-          {loading ? (<div className="loader"></div>) : 
-          (chatContact.map((msg) => (
-            <>
-              {msg.map((message) => (
-                <>
-                  <MessageBlock props={message["msgData"]} />
-                </>
-              ))}
-            </>
-          )))}
-          
+          {loading ? (
+            <div className="loader"></div>
+          ) : (
+            chatContact.map((msg) => (
+              <>
+                {msg.map((message) => (
+                  <>
+                    <MessageBlock props={message["msgData"]} />
+                  </>
+                ))}
+              </>
+            ))
+          )}
         </div>
         {/* Footer */}
         <div className="chatWindowFooter">

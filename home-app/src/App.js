@@ -18,7 +18,7 @@ import Login from "./Components/pages/Login";
 import Register from "./Components/pages/Register";
 import RequireAuth from "./Auth/RequireAuth";
 import PersistLogin from "./Auth/PersistLogin";
-import Settings from "./Components/pages/Settings";
+import Settings from "./Components/pages/users/Settings";
 import TryAds from "./Components/TryAds";
 import UploadFile from "./Components/UploadFile.js";
 
@@ -50,14 +50,14 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Layout />}>
             {/* public routes */}
-            <Route path="/" element={<Main />} />
+            <Route index element={<Main />} />
             <Route path="/Login" element={<Login />} />
             <Route path="/adsWithSearch" element={<AdsWithSearch />} />
             <Route exact path=":linkAd" element={<AdFull />} />
             <Route path="/post/:postId" element={<Single />} />
             <Route
               exact
-              path="/main/packages/:packageId"
+              path="/packages/:packageId"
               element={<PackageFull />}
             />
             <Route exact path="packages" element={<PackageDisplay />} />
@@ -66,13 +66,14 @@ export default function App() {
             <Route path="unauthorized" element={<Unauthorized />} />
 
             <Route exact path="/Blog" element={<Blog />} />
+
+
             {/* we want to protect these routes */}
             <Route element={<PersistLogin />}>
               <Route
                 element={
                   <RequireAuth allowedRoles={[ROLES.User, ROLES.Admin]} />
-                }
-              >
+                }>
                 <Route path="/Settings" element={<Settings />} />
               </Route>
             </Route>
