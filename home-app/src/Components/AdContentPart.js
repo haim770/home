@@ -3,15 +3,15 @@ import { Link, NavLink, Outlet } from "react-router-dom";
 import Button from "./Button.js";
 import Parameter from "./Parameter.js";
 const AdContentPart = (props) => {
-  const [classForParamsNotDefaultPrev,setClassForParamsNotDefaultPrev]=useState("paramNotVisible");
-  const toggleDisplayParams=()=>{
-   classForParamsNotDefaultPrev === "paramNotVisible"
-     ? setClassForParamsNotDefaultPrev("paramVisible")
-     : setClassForParamsNotDefaultPrev("paramNotVisible");
-  }
+  const [classForParamsNotDefaultPrev, setClassForParamsNotDefaultPrev] =
+    useState("paramNotVisible");
+  const toggleDisplayParams = () => {
+    classForParamsNotDefaultPrev === "paramNotVisible"
+      ? setClassForParamsNotDefaultPrev("paramVisible")
+      : setClassForParamsNotDefaultPrev("paramNotVisible");
+  };
   const renderComp = () => {
     let code = [];
-  console.log(props);
     for (let index = 0; index < props.adContent.length; index++) {
       //we get array of all the ad content as props
       if (props.adContent[index].display_type === "checkBox") {
@@ -52,7 +52,7 @@ const AdContentPart = (props) => {
     <div className="adCardTitle">
       <h1>ad content part</h1>
       {props.adContent ? renderComp() : <p>no ad content</p>}
-      <Button onClick={toggleDisplayParams} content="הראה פרמטרים נוספים"/>
+      <Button onClick={toggleDisplayParams} content="הראה פרמטרים נוספים" />
     </div>
   );
 };

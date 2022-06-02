@@ -172,6 +172,11 @@ function getAllAdContentAndAdAndUsersForArrOfAds(){
     $result=[];
     // echo count($adIdsForTheSearch);
     $i=0;
+    if(gettype($adIdsForTheSearch)!="array"&&gettype($adIdsForTheSearch)!="Array"&&gettype($adIdsForTheSearch)!="Object"){
+        $arr=[];
+        return;
+    }
+    else
     foreach ($adIdsForTheSearch as $key => $value) {
         $result[$i++]=getAdWithAdContentForAdId($value->adID,$value->user_id);
     }
