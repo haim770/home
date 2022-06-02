@@ -14,7 +14,7 @@ const Ads = (props) => {
   const [loading, setLoading] = useState(false);
   const [lastSearch, setLastSearch] = useState("");
   const [indexStart, setindexStart] = useState(0); //index to start get ads from db
-  const [indexEnd, setindexEnd] = useState(5); //index to end get ads from db
+  const [indexEnd, setindexEnd] = useState(20); //index to end get ads from db
 
   // check when we scroll down to button
   const handleScroll = (e) => {

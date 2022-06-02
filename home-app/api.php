@@ -117,6 +117,7 @@ function getAdWithAdContentForAdId($adId,$user_id){
     global $db;
     global $DATA_OBJ;
     global $arr;
+    $arr=[];
     $arr['adID'] = $adId; //the adid
     $query = "getAdById(:adID)";
     $resultAdTable = $db->readDb($query, $arr);
