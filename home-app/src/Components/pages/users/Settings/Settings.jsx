@@ -5,8 +5,8 @@ import "./styles.css";
 const Settings = () => {
   return (
     <div className="settings">
-      <Sidebar />
       <div className="settingsContainer">Containter</div>
+      <Sidebar />
     </div>
   );
 };
