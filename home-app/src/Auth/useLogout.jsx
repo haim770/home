@@ -8,6 +8,7 @@ const useLogout = () => {
 
   const logout = async () => {
     cookies.remove("refreshToken");
+    cookies.remove("viewCookie");
     setAuth({});
     try {
       const response = await instance.request(

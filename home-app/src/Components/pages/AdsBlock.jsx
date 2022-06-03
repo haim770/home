@@ -1,4 +1,4 @@
-import React from "react";
+import React  from "react";
 import { Link, NavLink, Outlet } from "react-router-dom";
 import AdPart from "../AdPart.js";
 import AdContentPart from "../AdContentPart.js";
@@ -8,14 +8,14 @@ import AdUserPart from "../AdUserPart.js";
 import useView from "./Chat/ChatUseContext";
 import AdImages from "../AdImages.js";
 import { v4 as uuidv4 } from "uuid";
-import Cookies from "universal-cookie";
+
+
 
 const AdsBlock = (props) => {
   /**
    * Add function of start new chat with user ad publisher
    */
   const { startNewChat } = useView();
-
   const handleClickChatWith = () => {
     const chatWith = {
       adBlock: props.adBlock.ad[0],

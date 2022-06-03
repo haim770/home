@@ -9,8 +9,10 @@ import AdPart from "./AdPart";
 import AdContentPart from "./AdContentPart";
 import AdUserPart from "./AdUserPart.js";
 import AdImages from "./AdImages";
+import AddCookie from "./pages/Ads/addCookie";
 function AdFull(props) {
   const [dataForUrl, setDataForUrl] = useState({});
+  const [renderCookie, setRenderCookie] = useState(true);
   const location = useLocation();
   const data = location.state;
   const getAd = async () => {
@@ -28,9 +30,11 @@ function AdFull(props) {
       getAd();
     }
   }, []);
+
   return data ? (
     <section className={"ad"}>
       <ul>
+        <AddCookie adID={data.adBlock.ad} />
         <AdUserPart user={data.adBlock.user} />
         <AdImages images={data.adBlock.adImages} />
         <AdPart ad={data.adBlock.ad} className="adPartFull" />

@@ -35,6 +35,7 @@ const Ads = (props) => {
     }
   };
   const getAds = async () => {
+    
     setLoading(false);
     setNoMoreAdsForSearch(false);
     const result = await instance.request({

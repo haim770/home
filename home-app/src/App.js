@@ -82,7 +82,6 @@ export default function App() {
             <Route path="*" element={<Missing />} />
           </Route>
         </Routes>
-        <Main />
       </ViewProvidor>
       <FormAdContent />
       <Footer />
