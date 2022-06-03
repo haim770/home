@@ -20,6 +20,12 @@ $query = "getUserByMailAndPassword(:user,:password)";
 $hasValidCredentials = $db->readDB($query, $arr);
 
 if (is_array($hasValidCredentials)) {
+    // get user details
+    $arr2 = [];
+    $arr2['user'] = $username;
+    $query = "SELECT * FROM `users` WHERE `mail` =:user";
+    $foundUser = $db->readDBNoStoredProcedure($query, $arr2);
+
     $secretKey  = '9c68e1263b2a8575939dd1b29431927380dcaab2';
     $refreshKey = '291aad3e1acf2106b167fd6bce9875cb83fc6870';
     $tokenId    = base64_encode(random_bytes(16));
@@ -37,7 +43,7 @@ if (is_array($hasValidCredentials)) {
         'exp'  => $expireAccess,                      // Expire
         'data' => [                             // Data related to the signer user
             'user' => $username,            // User name
-            'role' => "2001",          // User permissions on site
+            'role' => $foundUser[0]->rule,          // User permissions on site
             ]
     ];
 
@@ -76,7 +82,7 @@ if (is_array($hasValidCredentials)) {
             array(
                 "message" => "Successful login.",
                 "accessToken" => $accessToken,
-                "roles" => "2001",
+                "roles" => $foundUser[0]->rule,
                 "refreshToken" => $refreshToken,
                 "user" => $username,
                 "expireAt" => $expireAccess,               
