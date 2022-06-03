@@ -70,16 +70,16 @@ function generateSearchFromBothAdContentAndAds1(){
       if(isset($DATA_OBJ->params->adInput)){
          foreach ($DATA_OBJ->params->adInput as $key => $value) {
            if($value!="" && $value!=null)
-           $queryAdTableParams.=" and ads.$key = '$value' ";
+           $queryAdTableParams.=" and ads.$key='$value' ";
       }
     }
 
     if(isset($DATA_OBJ->params->minPrice)){
-      $queryAdTableParams.=" and ads.price > '{$DATA_OBJ->params->minPrice}'  ";
+      $queryAdTableParams.=" and ads.price>'{$DATA_OBJ->params->minPrice}'  ";
       $arr["minPrice"]=$DATA_OBJ->params->minPrice;
     }
     if(isset($DATA_OBJ->params->maxPrice)){
-      $queryAdTableParams.=" and ads.price < '{$DATA_OBJ->params->maxPrice}' ";
+      $queryAdTableParams.=" and ads.price<'{$DATA_OBJ->params->maxPrice}' ";
       $arr["maxPrice"]=$DATA_OBJ->params->maxPrice;
     }
     if(isset($DATA_OBJ->params->adContentInput)){

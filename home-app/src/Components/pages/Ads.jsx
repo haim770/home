@@ -10,7 +10,7 @@ const Ads = (props) => {
   const [loading, setLoading] = useState(false);
   const [lastSearch, setLastSearch] = useState("");
   const [indexStart, setindexStart] = useState(0); //index to start get ads from db
-  const [indexEnd, setindexEnd] = useState(3); //index to end get ads from db
+  const [indexEnd, setindexEnd] = useState(10); //index to end get ads from db
   const [noMoreAdsForSearch, setNoMoreAdsForSearch] = useState(false); //control on weather we will scroll for more result changes to true if no more result are available
 
   // check when we scroll down to button
@@ -97,6 +97,11 @@ const Ads = (props) => {
     if (!noMoreAdsForSearch) getAds();
   }, [indexStart]);
 
-  return <div className="listAds">{loading && ads}</div>;
+  return (
+    <div className="listAds">
+      {loading && ads}
+      {noMoreAdsForSearch ? <h2>no more ads</h2> : ""}
+    </div>
+  );
 };
 export default Ads;
