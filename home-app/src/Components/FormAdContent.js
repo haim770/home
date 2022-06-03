@@ -3,10 +3,12 @@ import Button from "./Button";
 import instance from "../api/AxiosInstance";
 import { v4 as uuidv4 } from "uuid";
 import axios from "axios";
+import useAuth from "../Auth/useAuth";
 function FormAdContent(props) {
   const [masters, setMasters] = useState("");
   const [adUploadStatus, setAdUploadStatus] = useState([]);
   const [inputsAdContent, setInputsAdContent] = useState({});
+  const { auth } = useAuth();
   const [inputsAd, setInputsAd] = useState({
     user_id: 1,
     city: "",
@@ -79,9 +81,10 @@ function FormAdContent(props) {
         method: "post",
         url: "http://localhost:80/home/home-app/insertNewAdIncludePic.php",
         data: formData,
-        headers: { "Content-Type": "multipart/form-data",
-         Authorization: `Bearer ${auth.accessToken}`,},
-        
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${auth.accessToken}`,
+        },
       });
     } catch (error) {
       console.log(error);
