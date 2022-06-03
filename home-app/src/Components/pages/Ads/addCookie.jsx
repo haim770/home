@@ -12,9 +12,7 @@ const AddCookie = (props) => {
   if (!(myAdsCookie === undefined) && (props.adID[0].adID !== "undefined")) {
     myAdsCookie = myAdsCookie.concat("::", props.adID[0].adID);
     const uniq = [...new Set(myAdsCookie.split("::"))];
-      console.log(uniq);
       myAdsCookie = uniq.join("::");
-      console.log(myAdsCookie);
   }
   else{
       myAdsCookie = props.adID[0].adID;
