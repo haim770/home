@@ -3,12 +3,10 @@ import Button from "./Button";
 import instance from "../api/AxiosInstance";
 import { v4 as uuidv4 } from "uuid";
 import axios from "axios";
-import useAuth from "../Auth/useAuth";
 function FormAdContent(props) {
   const [masters, setMasters] = useState("");
-  const [formFilledBadly, setFormFilledBadly] = useState(false);
+  const [adUploadStatus, setAdUploadStatus] = useState([]);
   const [inputsAdContent, setInputsAdContent] = useState({});
-  const { auth } = useAuth();
   const [inputsAd, setInputsAd] = useState({
     user_id: 1,
     city: "",
@@ -58,16 +56,15 @@ function FormAdContent(props) {
       inputsAd.city === "" ||
       inputsAd.street === ""
     ) {
-      setFormFilledBadly(<h2>forgot to fill some required inputs</h2>);
+      setAdUploadStatus(<h2>forgot to fill some required inputs</h2>);
       return false;
     }
     return true;
   };
   const submitAd = async (e) => {
     e.preventDefault();
-
     if (!checkIfRequiredFieldsFull()) {
-      //console.log("no input good");
+      console.log("no input good");
       return;
     }
 
@@ -85,13 +82,15 @@ function FormAdContent(props) {
         headers: { "Content-Type": "multipart/form-data" },
       });
     } catch (error) {
-      //console.log(error);
+      console.log(error);
     }
-    //console.log(response.data);
+    if (response.data) {
+      setAdUploadStatus(<p>ad was uplaoded</p>);
+    }
   };
   const makeFieldsOfAdColumnsWeKnow = (code) => {
     code.push(
-      <label key={uuidv4()}>
+      <label>
         <span>עיר</span>
         <input
           type="text"
@@ -104,7 +103,7 @@ function FormAdContent(props) {
       </label>
     );
     code.push(
-      <label key={uuidv4()}>
+      <label>
         <span>רחוב</span>
         <input
           type="text"
@@ -117,7 +116,7 @@ function FormAdContent(props) {
       </label>
     );
     code.push(
-      <label key={uuidv4()}>
+      <label>
         <span>מס בניין </span>
         <input
           type="text"
@@ -130,7 +129,7 @@ function FormAdContent(props) {
       </label>
     );
     code.push(
-      <label key={uuidv4()}>
+      <label>
         <span>כניסה </span>
         <input
           type="text"
@@ -143,7 +142,7 @@ function FormAdContent(props) {
       </label>
     );
     code.push(
-      <label key={uuidv4()}>
+      <label>
         <span>דירה </span>
         <input
           type="text"
@@ -156,7 +155,7 @@ function FormAdContent(props) {
       </label>
     );
     code.push(
-      <label key={uuidv4()}>
+      <label>
         <span>זיפ קוד </span>
         <input
           type="text"
@@ -169,7 +168,7 @@ function FormAdContent(props) {
       </label>
     );
     code.push(
-      <label key={uuidv4()}>
+      <label>
         <span>מחיר </span>
         <input
           type="text"
@@ -182,7 +181,7 @@ function FormAdContent(props) {
       </label>
     );
     code.push(
-      <label key={uuidv4()}>
+      <label>
         <span> חדרים </span>
         <input
           type="text"
@@ -195,7 +194,7 @@ function FormAdContent(props) {
       </label>
     );
     code.push(
-      <label key={uuidv4()}>
+      <label>
         <span>סוג מודעה(קנייה/השכרה) </span>
         <select
           id="adType"
@@ -216,7 +215,7 @@ function FormAdContent(props) {
     for (let index = 0; index < masters.length; index++) {
       if (masters[index].display_type === "checkBox") {
         code.push(
-          <label key={uuidv4()}>
+          <label key={masters[index].name + masters[index].adID}>
             <span>{masters[index].free_text}</span>
             <input
               type="checkBox"
@@ -231,7 +230,7 @@ function FormAdContent(props) {
       } else {
         //for text
         code.push(
-          <label key={uuidv4()}>
+          <label key={masters[index].name + masters[index].adID}>
             <span>{masters[index].free_text}</span>
             <input
               type="text"
@@ -246,7 +245,7 @@ function FormAdContent(props) {
       }
     }
     code.push(
-      <label key={uuidv4()}>
+      <label>
         <span>insert pics</span>
         <input type="file" onChange={handleChangeImages} />
       </label>
@@ -256,8 +255,9 @@ function FormAdContent(props) {
 
   return (
     <form>
-      {masters || formFilledBadly ? makeFormOfAdContent() : "no good fill"}
+      {masters ? makeFormOfAdContent() : "no masters yet"}
       <Button onClick={submitAd} content="submit ad" />
+      {adUploadStatus ? adUploadStatus : ""}
     </form>
   );
 }

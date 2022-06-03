@@ -6,10 +6,6 @@ import "../../styles/Main.css";
 import "../../styles/Ads.css";
 import AdsBlock from "./AdsBlock";
 const Ads = (props) => {
-  /*
-  const [adsTop, setAdsTop] = useState(10);
-  const [adsMin, setAdsMin] = useState(0);
-  */
   const [ads, setAds] = useState([]);
   const [loading, setLoading] = useState(false);
   const [lastSearch, setLastSearch] = useState("");
@@ -37,6 +33,7 @@ const Ads = (props) => {
   const getAds = async () => {
     setLoading(false);
     setNoMoreAdsForSearch(false);
+    console.log(props.search.params);
     const result = await instance.request({
       data: {
         data_type: props.search.data_type,
