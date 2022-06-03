@@ -42,7 +42,7 @@ const Ads = (props) => {
         limitBy: { start: indexStart, end: indexEnd }, //the indexes
       },
     });
-    console.log(result.data);
+    //console.log(result.data);
     if (result.data === false) {
       //console.log("empty");
       setAds("no ads feet");
