@@ -34,7 +34,6 @@ const Ads = (props) => {
     
     setLoading(false);
     setNoMoreAdsForSearch(false);
-    console.log(props.search.params);
     const result = await instance.request({
       data: {
         data_type: props.search.data_type,
@@ -42,7 +41,7 @@ const Ads = (props) => {
         limitBy: { start: indexStart, end: indexEnd }, //the indexes
       },
     });
-    //console.log(result.data);
+    console.log(result.data);
     if (result.data === false) {
       //console.log("empty");
       setAds("no ads feet");
@@ -90,12 +89,14 @@ const Ads = (props) => {
   useEffect(() => {
     getAds();
   }, []);
-  useEffect(() => {
+  
+  useEffect(() => {;
     setNoMoreAdsForSearch(false);
     setindexEnd(10);
     setindexStart(0);
     getAds();
   }, [props.search]);
+
   useEffect(() => {
     if (!noMoreAdsForSearch) getAds();
   }, [indexStart]);

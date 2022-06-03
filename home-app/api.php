@@ -561,6 +561,11 @@ if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "searchInDbWithUnknow
     if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "refreshData") {
         include("../api/system/chat/refreshData.php");
     } else
+    // Proccess getAnalysticAdsHomePage 
+    if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "getSomeAds") {
+        include("../api/system/chat/getAnalysticAdsHomePage.php");
+    }
+     else
     // Proccess testAuth
     if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "testAuth") {
         include("../api/Authentication/authTest.php");
