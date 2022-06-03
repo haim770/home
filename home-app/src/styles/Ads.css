@@ -1,10 +1,9 @@
-
-.listAds{
-  display:flex;
+.listAds {
+  display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   flex-grow: 1;
-  border:2px solid red;
+  border: 2px solid red;
   justify-content: space-between;
   padding: 1rem;
   will-change: transform;
@@ -272,6 +271,12 @@
   background-color: #ffffff99;
 }
 
+.noMoreContentPar {
+  color: red;
+  min-width: 50%;
+  max-width: 50%;
+  size: 9rem;
+}
 
 /*  Add to favoite jss191*/
 .jss191 {

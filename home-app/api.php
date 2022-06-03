@@ -162,7 +162,6 @@ function getUserForUserId($user_id){
     $result = $db->readDBNoStoredProcedure($query, $arr);
     $arr=[];
     return $result;
-
 }
 function getAllAdContentAndAdAndUsersForArrOfAds(){
     //returns the wanted ads with all their data and user created the ad
@@ -172,6 +171,11 @@ function getAllAdContentAndAdAndUsersForArrOfAds(){
     $result=[];
     // echo count($adIdsForTheSearch);
     $i=0;
+    if(gettype($adIdsForTheSearch)!="array"&&gettype($adIdsForTheSearch)!="Array"&&gettype($adIdsForTheSearch)!="Object"){
+        $arr=[];
+        return;
+    }
+    else
     foreach ($adIdsForTheSearch as $key => $value) {
         $result[$i++]=getAdWithAdContentForAdId($value->adID,$value->user_id);
     }
