@@ -10,7 +10,7 @@ const Ads = (props) => {
   const [loading, setLoading] = useState(false);
   const [lastSearch, setLastSearch] = useState("");
   const [indexStart, setindexStart] = useState(0); //index to start get ads from db
-  const [indexEnd, setindexEnd] = useState(10); //index to end get ads from db
+  const [indexEnd, setindexEnd] = useState(3); //index to end get ads from db
   const [noMoreAdsForSearch, setNoMoreAdsForSearch] = useState(false); //control on weather we will scroll for more result changes to true if no more result are available
 
   // check when we scroll down to button
@@ -26,15 +26,13 @@ const Ads = (props) => {
       e.target.documentElement.scrollTop + window.innerHeight
     );
     if (currentHeight + 1 >= scrollHeight) {
-      setindexEnd(indexEnd + 10);
-      setindexStart(indexStart + 10);
+      setindexStart(indexStart + 3);
     }
   };
   const getAds = async () => {
-    
     setLoading(false);
     setNoMoreAdsForSearch(false);
-    console.log(props.search.params);
+    console.log(indexStart + "   " + indexEnd);
     const result = await instance.request({
       data: {
         data_type: props.search.data_type,
@@ -92,7 +90,6 @@ const Ads = (props) => {
   }, []);
   useEffect(() => {
     setNoMoreAdsForSearch(false);
-    setindexEnd(10);
     setindexStart(0);
     getAds();
   }, [props.search]);

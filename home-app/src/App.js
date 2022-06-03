@@ -75,13 +75,21 @@ export default function App() {
                 <Route path="/Settings" element={<Settings />} />
               </Route>
             </Route>
+            <Route element={<PersistLogin />}>
+              <Route
+                element={
+                  <RequireAuth allowedRoles={[ROLES.User, ROLES.Admin]} />
+                }
+              >
+                <Route path="/addAd" element={<FormAdContent />} />
+              </Route>
+            </Route>
 
             {/* catch all */}
             <Route path="*" element={<Missing />} />
           </Route>
         </Routes>
       </ViewProvidor>
-      {/* <FormAdContent /> */}
       <Footer />
     </div>
   );

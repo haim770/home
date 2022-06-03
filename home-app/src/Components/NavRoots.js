@@ -6,17 +6,20 @@ import useAuth from "../Auth/useAuth";
 import useLogout from "../Auth/useLogout";
 import UserProfile from "./pages/users/UserProfile";
 const NavRoot = () => {
-
   const { auth } = useAuth();
   const logout = useLogout();
 
   const signOut = async () => {
-        await logout();
-      };
+    await logout();
+  };
   const menuData = [
     {
       path: "/",
       name: "בית",
+    },
+    {
+      path: "/addAd",
+      name: "הוספת מודעה",
     },
 
     { path: "/AdsWithSearch", name: "מודעות" },
