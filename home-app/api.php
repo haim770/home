@@ -5,14 +5,12 @@ header("Access-Control-Allow-Origin: http://localhost:3000");
 header("Access-Control-Allow-Headers: *");
 header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
 header("Access-Control-Allow-Credentials: true");
-
 header('Content-Type: application/json');
-
-
 // use to capture the data we get from client side
 // we use this way and not with POST or GET becuse if we want to use it with POST or GET we need to 
 // format our data before sending it to the server.
 $DATA_RAW = file_get_contents("php://input");
+require_once('../api/system/Ads/searchAds.php');
 
 /**
  * json_decode(json) => PHP =  EQUAL => JSON.parse()     ==> Convert Array to Object
@@ -516,7 +514,7 @@ if(isset($DATA_OBJ->data_type)&&$DATA_OBJ->data_type=='uploadFile'){
 }
 else
 if(isset($DATA_OBJ->data_type)&&$DATA_OBJ->data_type=='getAllAdContentAndAdAndUsersForArrOfAds'){
-    getAllAdContentAndAdAndUsersForArrOfAds();
+    getAllAdContentAndAdAndUsersForArrOfAds1();
 }
 else
 if(isset($DATA_OBJ->data_type)&&$DATA_OBJ->data_type=='getAllPackages'){

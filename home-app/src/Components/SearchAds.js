@@ -6,9 +6,6 @@ import { v4 as uuidv4 } from "uuid";
 function SearchAds(props) {
   const [minPrice, setMinPrice] = useState(""); //hook for the price state
   const [maxPrice, setMaxPrice] = useState("100000000"); //hook for the price state
-  const [rooms, setRooms] = useState(0); //hook for the rooms state
-  const [city, setCity] = useState(""); //hook for the rooms state
-  const [street, setStreet] = useState(""); //hook for the rooms state
   const [masters, setMasters] = useState("");
   const [inputsAdContent, setInputsAdContent] = useState({});
   const [inputsAd, setInputsAd] = useState({
@@ -59,9 +56,18 @@ function SearchAds(props) {
       }
     }
   }, []);
+  const onChangeState = (setStateName, e) => {
+    //func that recieves setstate and the event and change value of state to the value of input
+    if (
+      e.target.name === "form_min_price" ||
+      e.target.name === "form_max_price"
+    )
+      if (isNaN(e.target.value)) return;
+    setStateName(e.target.value);
+  };
   const makeFieldsOfAdColumnsWeKnow = (code) => {
     code.push(
-      <label>
+      <label key="city">
         <span>עיר</span>
         <input
           type="text"
@@ -74,7 +80,7 @@ function SearchAds(props) {
       </label>
     );
     code.push(
-      <label>
+      <label key="street">
         <span>רחוב</span>
         <input
           type="text"
@@ -87,7 +93,7 @@ function SearchAds(props) {
       </label>
     );
     code.push(
-      <label>
+      <label key="numBuilding">
         <span>מס בניין </span>
         <input
           type="text"
@@ -100,7 +106,7 @@ function SearchAds(props) {
       </label>
     );
     code.push(
-      <label>
+      <label key="entry">
         <span>כניסה </span>
         <input
           type="text"
@@ -113,7 +119,7 @@ function SearchAds(props) {
       </label>
     );
     code.push(
-      <label>
+      <label key="apartment">
         <span>דירה </span>
         <input
           type="text"
@@ -126,7 +132,7 @@ function SearchAds(props) {
       </label>
     );
     code.push(
-      <label>
+      <label key="zip_code">
         <span>זיפ קוד </span>
         <input
           type="text"
@@ -139,20 +145,7 @@ function SearchAds(props) {
       </label>
     );
     code.push(
-      <label>
-        <span>מחיר </span>
-        <input
-          type="text"
-          name="price"
-          id="price"
-          required
-          value={inputsAd.price}
-          onChange={handleChangeAd}
-        />
-      </label>
-    );
-    code.push(
-      <label>
+      <label key="rooms">
         <span> חדרים </span>
         <input
           type="text"
@@ -165,7 +158,7 @@ function SearchAds(props) {
       </label>
     );
     code.push(
-      <label>
+      <label key="adType">
         <span>סוג מודעה(קנייה/השכרה) </span>
         <select
           id="adType"
@@ -232,22 +225,16 @@ function SearchAds(props) {
     });
     setMinPrice("0");
     setMaxPrice("100000000"); //hook for the price state
-    setRooms(2); //hook for the rooms state
-    setCity(""); //hook for the rooms state
-    setStreet(""); //hook for the rooms state
   };
   const makeObjOfAllFields = () => {
     //returns the ad from field states and save it amt return as object
     let obj = {
       data_type: "getAllAdContentAndAdAndUsersForArrOfAds",
       params: {
-        // minPrice: minPrice,
-        // Maxprice: maxPrice,
         adInput: inputsAd,
         inputsAdContent: inputsAdContent,
-        city: city,
-        street: street,
-        rooms: rooms,
+        minPrice: minPrice,
+        maxPrice: maxPrice,
       },
     };
     return obj;
@@ -261,6 +248,28 @@ function SearchAds(props) {
   };
   return (
     <form className={props.className}>
+      <label key="minPrice">
+        <span>enter min price</span>
+        <input
+          type="text"
+          name="form_max_price"
+          id="price"
+          required
+          value={minPrice}
+          onChange={(e) => onChangeState(setMinPrice, e)}
+        />
+      </label>
+      <label key="maxPrice">
+        <span>enter max price</span>
+        <input
+          type="text"
+          name="form_min_price"
+          id="price"
+          required
+          value={maxPrice}
+          onChange={(e) => onChangeState(setMaxPrice, e)}
+        />
+      </label>
       {masters ? makeFormOfAdContent() : ""}
       <p>
         <Button onClick={searchAdByParams} />

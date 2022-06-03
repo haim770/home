@@ -8,7 +8,7 @@ function FormAdContent(props) {
   const [masters, setMasters] = useState("");
   const [adUploadStatus, setAdUploadStatus] = useState([]);
   const [inputsAdContent, setInputsAdContent] = useState({});
-  const { auth } = useAuth();
+  const {auth}=useAuth();
   const [inputsAd, setInputsAd] = useState({
     user_id: 1,
     city: "",
@@ -95,7 +95,7 @@ function FormAdContent(props) {
   };
   const makeFieldsOfAdColumnsWeKnow = (code) => {
     code.push(
-      <label>
+      <label key={uuidv4()}>
         <span>עיר</span>
         <input
           type="text"
@@ -108,7 +108,7 @@ function FormAdContent(props) {
       </label>
     );
     code.push(
-      <label>
+      <label key={uuidv4()}>
         <span>רחוב</span>
         <input
           type="text"
@@ -121,7 +121,7 @@ function FormAdContent(props) {
       </label>
     );
     code.push(
-      <label>
+      <label key={uuidv4()}>
         <span>מס בניין </span>
         <input
           type="text"
@@ -134,7 +134,7 @@ function FormAdContent(props) {
       </label>
     );
     code.push(
-      <label>
+      <label key={uuidv4()}>
         <span>כניסה </span>
         <input
           type="text"
@@ -147,7 +147,7 @@ function FormAdContent(props) {
       </label>
     );
     code.push(
-      <label>
+      <label key={uuidv4()}>
         <span>דירה </span>
         <input
           type="text"
@@ -160,7 +160,7 @@ function FormAdContent(props) {
       </label>
     );
     code.push(
-      <label>
+      <label key={uuidv4()}>
         <span>זיפ קוד </span>
         <input
           type="text"
@@ -173,7 +173,7 @@ function FormAdContent(props) {
       </label>
     );
     code.push(
-      <label>
+      <label key={uuidv4()}>
         <span>מחיר </span>
         <input
           type="text"
@@ -186,7 +186,7 @@ function FormAdContent(props) {
       </label>
     );
     code.push(
-      <label>
+      <label key={uuidv4()}>
         <span> חדרים </span>
         <input
           type="text"
@@ -199,7 +199,7 @@ function FormAdContent(props) {
       </label>
     );
     code.push(
-      <label>
+      <label key={uuidv4()}>
         <span>סוג מודעה(קנייה/השכרה) </span>
         <select
           id="adType"
@@ -250,7 +250,7 @@ function FormAdContent(props) {
       }
     }
     code.push(
-      <label>
+      <label key={uuidv4()}>
         <span>insert pics</span>
         <input type="file" onChange={handleChangeImages} />
       </label>

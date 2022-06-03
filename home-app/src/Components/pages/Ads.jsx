@@ -26,14 +26,13 @@ const Ads = (props) => {
       e.target.documentElement.scrollTop + window.innerHeight
     );
     if (currentHeight + 1 >= scrollHeight) {
-      setindexEnd(indexEnd + 10);
-      setindexStart(indexStart + 10);
+      setindexStart(indexStart + 3);
     }
   };
   const getAds = async () => {
-    
     setLoading(false);
     setNoMoreAdsForSearch(false);
+    console.log(indexStart + "   " + indexEnd);
     const result = await instance.request({
       data: {
         data_type: props.search.data_type,
@@ -92,7 +91,6 @@ const Ads = (props) => {
   
   useEffect(() => {;
     setNoMoreAdsForSearch(false);
-    setindexEnd(10);
     setindexStart(0);
     getAds();
   }, [props.search]);
@@ -101,6 +99,11 @@ const Ads = (props) => {
     if (!noMoreAdsForSearch) getAds();
   }, [indexStart]);
 
-  return <div className="listAds">{loading && ads}</div>;
+  return (
+    <div className="listAds">
+      {loading && ads}
+      {noMoreAdsForSearch ? <h2>no more ads</h2> : ""}
+    </div>
+  );
 };
 export default Ads;
