@@ -67,13 +67,13 @@ export default function App() {
 
             <Route exact path="/Blog" element={<Blog />} />
 
-
             {/* we want to protect these routes */}
             <Route element={<PersistLogin />}>
               <Route
                 element={
                   <RequireAuth allowedRoles={[ROLES.User, ROLES.Admin]} />
-                }>
+                }
+              >
                 <Route path="/Settings" element={<Settings />} />
               </Route>
             </Route>

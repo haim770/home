@@ -8,6 +8,7 @@ import AdUserPart from "../AdUserPart.js";
 import useView from "./Chat/ChatUseContext";
 import AdImages from "../AdImages.js";
 import { v4 as uuidv4 } from "uuid";
+import Cookies from "universal-cookie";
 
 const AdsBlock = (props) => {
   /**

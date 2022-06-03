@@ -79,7 +79,9 @@ function FormAdContent(props) {
         method: "post",
         url: "http://localhost:80/home/home-app/insertNewAdIncludePic.php",
         data: formData,
-        headers: { "Content-Type": "multipart/form-data" },
+        headers: { "Content-Type": "multipart/form-data",
+         Authorization: `Bearer ${auth.accessToken}`,},
+        
       });
     } catch (error) {
       console.log(error);

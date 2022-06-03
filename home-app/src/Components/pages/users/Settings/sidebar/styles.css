@@ -1,4 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300&family=Rubik:wght@300&display=swap');
+
 .settingsSidebar {
+    font-family: 'Fredoka', sans-serif;
     flex:1;
     border-left: 0.5px solid lightgray;
     min-height: 100vh;
