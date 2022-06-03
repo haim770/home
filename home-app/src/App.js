@@ -19,7 +19,7 @@ import Register from "./Components/pages/Register";
 import RequireAuth from "./Auth/RequireAuth";
 import PersistLogin from "./Auth/PersistLogin";
 import Settings from "./Components/pages/users/Settings";
-import TryAds from "./Components/TryAds";
+
 import UploadFile from "./Components/UploadFile.js";
 
 // Chat
@@ -30,9 +30,7 @@ import { ViewProvidor } from "./Components/pages/Chat/ChatUseContext";
 import Blog from "./Components/pages/Blog";
 import Single from "./Components/pages/Blog/posts/Single";
 
-
 import FileUpload from "./Components/FileUpload";
-
 
 const ROLES = {
   User: 2001,
@@ -83,7 +81,7 @@ export default function App() {
           </Route>
         </Routes>
       </ViewProvidor>
-      <FormAdContent />
+      {/* <FormAdContent /> */}
       <Footer />
     </div>
   );
