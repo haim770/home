@@ -2,7 +2,6 @@
   "dependencies": {
     "react-cookie": "^4.1.1",
     "react-icons": "^4.4.0",
-    "react-select": "^5.3.2",
     "universal-cookie": "^4.0.4",
     "uuid": "^8.3.2"
   }
