@@ -561,7 +561,7 @@ if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "searchInDbWithUnknow
     } else
     // Proccess getAnalysticAdsHomePage 
     if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "getSomeAds") {
-        include("../api/system/chat/getAnalysticAdsHomePage.php");
+        include("../api/system/Ads/getAnalysticAdsHomePage.php");
     }
      else
     // Proccess testAuth

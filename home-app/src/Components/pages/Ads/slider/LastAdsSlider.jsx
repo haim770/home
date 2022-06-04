@@ -18,18 +18,26 @@ const LastAdsSlider = () => {
 
   
   const handleEnterSite = async () => {
+    const cookies = new Cookies();
+    const myCookie = cookies.get("viewCookie");
+        if (!(myCookie === undefined)) {
+            setCookie(myCookie);
+          }
+        
     try {
       const response = await instance.request({
         data: {
           data_type: "getSomeAds",
-          params: { cookie },
+          params: { myCookie },
         },
       });
+      console.log(response);
+      /*
         setAds(
           response.data.map((ad) => (
             <AdsBlock key={ad.adID + uuidv4()} adBlock={ad} />
           ))
-        );
+        );*/
     } catch (err) {
       if (!err?.response) {
         console.log("No Server Response");

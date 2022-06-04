@@ -1,0 +1,208 @@
+* {
+    direction: rtl;
+}
+.rounded-input {
+  padding:1rem;
+  border-radius:1rem;
+}
+
+input[type=text] {
+  padding:1rem;
+  border:0;
+  box-shadow:0 0 1.5rem 0.4rem rgba(0,0,0,0.06);
+}
+
+/** FORM */
+.createNewForm {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.createNewForm-container {
+  width: 130rem;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);
+  display: flex;
+  flex-direction: column;
+  margin-top: 4rem;
+  align-items: center;
+  justify-content: center;
+}
+
+ @media only screen and (max-width: 1700px) {
+	 .createNewForm-container {
+		 width: 100rem;
+	}
+}
+ @media only screen and (max-width: 1300px) {
+	 .createNewForm-container {
+		 width: 80rem;
+	}
+}
+ @media only screen and (max-width: 905px) {
+	 .createNewForm-container {
+		 width: 50rem;
+	}
+}
+ @media only screen and (max-width: 670px) {
+	 .createNewForm-container {
+		 width: 30rem;
+	}
+}
+.createNewForm-container .createNewForm-header {
+  flex: 20%;
+  display: grid;
+  place-items: center;
+}
+.createNewForm-body {
+    flex: 60%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.createNewForm-container .createNewForm-footer {
+  margin: 2rem;
+  flex: 20%;
+  display: flex;
+  justify-content: center;
+}
+
+.createNewForm-container .createNewForm-footer button {
+  margin: 0.5rem;
+  width: 14rem;
+  height: 5rem;
+  background-color: #FFFFFF;
+  border: 0;
+  border-radius: .5rem;
+  box-sizing: border-box;
+  color: #111827;
+  font-family: "Inter var",ui-sans-serif,system-ui,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+  font-size: 1.875rem;
+  font-weight: 600;
+  line-height: 1.25rem;
+  padding: .75rem 1rem;
+  text-align: center;
+  text-decoration: none #D1D5DB solid;
+  text-decoration-thickness: auto;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.createNewForm-container .createNewForm-footer button:hover {
+  background-color: rgb(249,250,251);
+}
+
+.createNewForm-container .createNewForm-footer button:focus {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+
+.createNewForm-container .createNewForm-footer button:focus-visible {
+  box-shadow: none;
+}
+
+/* PROGRESS BAR */
+.progressbarForm {
+  width: 40rem;
+  height: 1rem;
+  background-color: white;
+  direction: ltr;
+}
+
+.progressbarForm div {
+  width: 25%;
+  height: 100%;
+  background-color: rgb(98, 0, 255);
+}
+
+/**
+* STEP ONE check box
+*/
+.stepOneWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+ h2 {
+	 color: rgba(24, 25, 27, 1);
+	 margin-bottom: 2rem;
+}
+ .stepOne {
+	 display: flex;
+	 flex-flow: row wrap;
+}
+ .stepOne > div {
+	 flex: 1;
+	 padding: 0.5rem;
+    margin-bottom: 2rem;
+}
+ input[type="radio"] {
+	 display: none;
+}
+ input[type="radio"]:not(:disabled) ~ label {
+	 cursor: pointer;
+}
+ input[type="radio"]:disabled ~ label {
+	 color: rgba(188, 194, 191, 1);
+	 border-color: rgba(188, 194, 191, 1);
+	 box-shadow: none;
+	 cursor: not-allowed;
+}
+ .stepOne > div > label {
+	 height: 100%;
+	 display: block;
+	 background: white;
+	 border: 0.2rem solid rgba(32, 223, 128, 1);
+	 border-radius: 2rem;
+	 padding: 1rem;
+	 margin-bottom: 1rem;
+	 text-align: center;
+	 box-shadow: 0rem 0.3rem 1rem -0.2rem rgba(161, 170, 166, 0.5);
+	 position: relative;
+}
+ input[type="radio"]:checked + label {
+	 background: rgba(32, 223, 128, 1);
+	 color: rgba(255, 255, 255, 1);
+	 box-shadow: 0rem 0rem 2rem rgba(0, 255, 128, 0.75);
+}
+ input[type="radio"]:checked + label::after {
+	 color: rgba(61, 63, 67, 1);
+	 border: 0.2rem solid rgba(29, 201, 115, 1);
+	 content: "\2713";
+	 font-size: 3.4rem;
+     font-weight: bold;
+	 position: absolute;
+	 top: -2.5rem;
+	 left: 50%;
+	 transform: translateX(-50%);
+	 height: 5rem;
+	 width: 5rem;
+	 line-height: 5rem;
+	 text-align: center;
+	 border-radius: 50%;
+	 background: white;
+	 box-shadow: 0rem 0.2rem 0.5rem -0.2rem rgba(0, 0, 0, 0.25);
+}
+ input[type="radio"]#control_05:checked + label {
+	 background: red;
+	 border-color: red;
+}
+
+ .stepOne > div > p {
+	 font-weight: 900;
+}
+ @media only screen and (max-width: 700px) {
+	 .stepOne {
+		 flex-direction: column;
+	}
+}
+/* END STEP ONE*/

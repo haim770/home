@@ -8,7 +8,7 @@ import AdFull from "./Components/AdFull";
 import PackageFull from "./Components/PackageFull";
 import PackageDisplay from "./Components/PackageDisplay.js";
 import CreatePackage from "./Components/CreatePackage.js";
-import FormAdContent from "./Components/FormAdContent.js";
+import CreateNewAd from "./Components/pages/Ads/CreateNewAd";
 
 // NEW //
 import Unauthorized from "./Components/pages/Unauthorized";
@@ -81,7 +81,7 @@ export default function App() {
                   <RequireAuth allowedRoles={[ROLES.User, ROLES.Admin]} />
                 }
               >
-                <Route path="/addAd" element={<FormAdContent />} />
+                <Route path="/addAd" element={<CreateNewAd />} />
               </Route>
             </Route>
 

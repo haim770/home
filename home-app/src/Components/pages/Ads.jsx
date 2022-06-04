@@ -32,7 +32,7 @@ const Ads = (props) => {
   const getAds = async () => {
     setLoading(false);
     setNoMoreAdsForSearch(false);
-    console.log(indexStart + "   " + indexEnd);
+   
     const result = await instance.request({
       data: {
         data_type: props.search.data_type,
@@ -40,7 +40,7 @@ const Ads = (props) => {
         limitBy: { start: indexStart, end: indexEnd }, //the indexes
       },
     });
-    console.log(result.data);
+    
     if (result.data === false) {
       //console.log("empty");
       setAds("no ads feet");
@@ -58,7 +58,7 @@ const Ads = (props) => {
         });
       } else {
         if (JSON.stringify(props.search) !== JSON.stringify(lastSearch)) {
-          console.log("changed query");
+         
           setAds(
             result.data.map((ad) => (
               <AdsBlock key={ad.adID + uuidv4()} adBlock={ad} />

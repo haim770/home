@@ -3,7 +3,7 @@ import { useState } from "react";
 import Cookies from "universal-cookie";
 
 const AddCookie = (props) => {
-  console.log(props);
+  
   const cookies = new Cookies();
   let myAdsCookie = cookies.get("viewCookie");
   /**
