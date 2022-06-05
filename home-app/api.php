@@ -566,9 +566,13 @@ if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "searchInDbWithUnknow
     // Proccess get seclect data for ads form
     if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "getSelectData") {
         include("../api/system/Ads/Search/dataSearch.php");
+    } else
+    // Proccess get Additional Ad Contact Data
+    if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "getAdditionalAdContactData") {
+        include("../api/system/Ads/CreateNewAd/getAdContent.php");
     }
      else
-    // Proccess testAuth
+    // Proccess testAuth 
     if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "testAuth") {
         include("../api/Authentication/authTest.php");
     }
