@@ -338,14 +338,14 @@ input[type=number] {
 .result{
   min-height: 100%;
   max-height: auto;
-  width: 80%;
+  min-width: 80%;
   background-color: #272c34;
   margin-top:1rem ;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: center; 
-  
+  margin: 2rem;
 }
 
 .result img{
@@ -353,6 +353,17 @@ input[type=number] {
   height: 18rem;
   object-fit: cover;
   padding: 0.75rem;
-  
+}
+
+.imageContainer {
+  position: relative;
+  text-align: center;
+  color: white;
+}
+
+.top-right {
+  position: absolute;
+  top: 0.8rem;
+  right: 1.6rem;
 }
 /* end of step four */

@@ -25,15 +25,10 @@ const StepFour = ({
     }
   };
 
-  const renderPhotos = (source) => {
-    console.log("source: ", source);
-    return source.map((photo) => {
-      return (
-          <img src={photo} alt={`${fileName}_${photo}`} key={photo} />
-      );
-    });
-  };
-
+  const deleteImage =(e)=>{
+    const itemToRemove = e.target.getAttribute("id");
+    setFormDataImage(formDataImage.filter((item) => item !== itemToRemove));
+  }
   return (
     <div className="fileUploader">
       <input
@@ -48,7 +43,24 @@ const StepFour = ({
           <FiUploadCloud />
         </label>
       </div>
-      <div className="result">{renderPhotos(formDataImage)}</div>
+      <div className="result">
+        {
+          formDataImage.map((photo) => {
+            return (
+              <>
+                <div className="imageContainer">
+                  <button
+                    className="top-right"
+                    id={photo}
+                    onClick={deleteImage}
+                  >X</button>
+                  <img src={photo} alt={`${fileName}_${photo}`} key={photo} />
+                </div>
+              </>
+            );
+          })
+        }
+      </div>
     </div>
   );
 };

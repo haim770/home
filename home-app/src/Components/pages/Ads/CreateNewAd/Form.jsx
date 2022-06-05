@@ -8,8 +8,8 @@ import "./styles.css";
 const Form = () => {
     const [page,setPage] = useState(0);
     const [formData, setFormData] = useState({});
-    const [formDataStepThree, setFormDataStepThree] = useState([]);
-    const [formDataImage, setFormDataImage] = useState({});
+    const [formDataStepThree, setFormDataStepThree] = useState({});
+    const [formDataImage, setFormDataImage] = useState([]);
     // Page title, display accordin to our page index
     const FormTitles = ["סוג הנכס","קצת מידע על הנכס?","הפרטים הקטנים","קצת תמונות תמיד עוזר"];
 
