@@ -290,7 +290,7 @@ const StepTwo = ({ formData, setFormData }) => {
             className="rounded-input"
             placeholder="ארנונה"
             name="localTax"
-            value={formData.price || ""}
+            value={formData.localTax || ""}
             onChange={handleChange}
           />
           <input
@@ -298,7 +298,7 @@ const StepTwo = ({ formData, setFormData }) => {
             className="rounded-input"
             placeholder="ועד בית"
             name="houseTax"
-            value={formData.price || ""}
+            value={formData.houseTax || ""}
             onChange={handleChange}
           />
         </div>

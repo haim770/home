@@ -68,7 +68,7 @@ const StepThree = ({ formData, setFormData ,formDataStepThree, setFormDataStepTh
                   placeholder={element.contactData.free_text}
                   className="rounded-input"
                   name={`${element.contactData.element_id}_${element.contactData.name}`}
-                  value={""}
+                  
                   onChange={handleChange}
                 />
               </>
