@@ -8,6 +8,7 @@ import "./styles.css";
 const Form = () => {
     const [page,setPage] = useState(0);
     const [formData, setFormData] = useState({});
+    const [formDataStepThree, setFormDataStepThree] = useState([]);
     const [formDataImage, setFormDataImage] = useState({});
     // Page title, display accordin to our page index
     const FormTitles = ["סוג הנכס","קצת מידע על הנכס?","הפרטים הקטנים","קצת תמונות תמיד עוזר"];
@@ -24,7 +25,12 @@ const Form = () => {
                 );
             case 2:
                 return (
-                  <StepThree formData={formData} setFormData={setFormData} />
+                  <StepThree
+                    formData={formData}
+                    setFormData={setFormData}
+                    formDataStepThree={formDataStepThree}
+                    setFormDataStepThree={setFormDataStepThree}
+                  />
                 );
             case 3:
                 return (
