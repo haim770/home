@@ -9,7 +9,7 @@ const Form = () => {
     const [page,setPage] = useState(0);
     const [formData, setFormData] = useState({});
     // Page title, display accordin to our page index
-    const FormTitles = ["סוג הנכס","איפה הנכס נמצא?","מה תוכל לספר לנו על הנכס","קצת תמונות תמיד עוזר"];
+    const FormTitles = ["סוג הנכס","קצת מידע על הנכס?","הפרטים הקטנים","קצת תמונות תמיד עוזר"];
 
     const PageDisplay = () => {
         switch(page) {

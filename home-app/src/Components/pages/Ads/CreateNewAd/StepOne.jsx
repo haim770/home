@@ -21,10 +21,10 @@ const StepOne = ({ formData, setFormData }) => {
           <input
             type="radio"
             id="control_01"
-            name="assetType"
+            name="assetOption"
             value="buy"
             onChange={handleChange}
-            checked={"buy" === formData.assetType}
+            checked={"buy" === formData.assetOption}
           />
           <label htmlFor="control_01">
             <h3>קנייה</h3>
@@ -35,10 +35,10 @@ const StepOne = ({ formData, setFormData }) => {
           <input
             type="radio"
             id="control_02"
-            name="assetType"
+            name="assetOption"
             value="rent"
             onChange={handleChange}
-            checked={"rent" === formData.assetType}
+            checked={"rent" === formData.assetOption}
           />
           <label htmlFor="control_02">
             <h3>השכרה</h3>

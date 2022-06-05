@@ -4,10 +4,23 @@ import React from 'react'
  * After user fill the ads data, move next to fill the ads contacts detailes
  * @returns 
  */
-const StepThree = () => {
+const StepThree = ({ formData, setFormData }) => {
+
+    const handleChange = (event) => {
+      const name = event.target.name;
+      const value = event.target.value;
+      setFormData((values) => ({ ...values, [name]: value }));
+    };
   return (
-    <div>StepThree</div>
-  )
-}
+    <input
+      type="text"
+      placeholder="עיר"
+      className="rounded-input"
+      name="city"
+      value={formData.city || ""}
+      onChange={handleChange}
+    />
+  );
+};
 
 export default StepThree

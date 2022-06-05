@@ -11,7 +11,11 @@ input[type=text] {
   border:0;
   box-shadow:0 0 1.5rem 0.4rem rgba(0,0,0,0.06);
 }
-
+input[type=number] {
+  padding:1rem;
+  border:0;
+  box-shadow:0 0 1.5rem 0.4rem rgba(0,0,0,0.06);
+}
 /** FORM */
 .createNewForm {
   width: 100%;
@@ -206,3 +210,97 @@ input[type=text] {
 	}
 }
 /* END STEP ONE*/
+
+/* Step two */
+.selectStyle {
+  width: 35rem;
+  margin: 1rem;
+}
+
+ .stepTwoCheckBox {
+	 display: flex;
+	 flex-flow: row wrap;
+}
+ .stepTwoCheckBox > div {
+	 flex: 1;
+	 padding: 0.5rem;
+   margin-bottom: 2rem;
+   max-width: 15rem;
+   max-height: 8rem;
+}
+ input[type="radio"] {
+	 display: none;
+}
+ input[type="radio"]:not(:disabled) ~ label {
+	 cursor: pointer;
+}
+ input[type="radio"]:disabled ~ label {
+	 color: rgba(188, 194, 191, 1);
+	 border-color: rgba(188, 194, 191, 1);
+	 box-shadow: none;
+	 cursor: not-allowed;
+}
+ .stepTwoCheckBox > div > label {
+	 height: 100%;
+	 display: block;
+	 background: white;
+	 border: 0.2rem solid rgba(32, 223, 128, 1);
+	 border-radius: 2rem;
+	 padding: 1rem;
+	 margin-bottom: 1rem;
+	 text-align: center;
+	 box-shadow: 0rem 0.3rem 1rem -0.2rem rgba(161, 170, 166, 0.5);
+	 position: relative;
+}
+ .stepTwoCheckBox > div > label > h3 {
+   font-size: 2.5rem;
+   margin-block-start: 0.5rem;
+   margin-block-end: 0.2rem;
+ }
+  .stepTwoCheckBox > div > label > p {
+   font-size: 1.5rem;
+    margin-block-start: 0.4rem;
+    margin-block-end: 0.2rem;
+ }
+ input[type="radio"]:checked + label {
+	 background: rgba(32, 223, 128, 1);
+	 color: rgba(255, 255, 255, 1);
+	 box-shadow: 0rem 0rem 2rem rgba(0, 255, 128, 0.75);
+}
+ input[type="radio"]:checked + label::after {
+	 color: rgba(61, 63, 67, 1);
+	 border: 0.2rem solid rgba(29, 201, 115, 1);
+	 content: "\2713";
+	 font-size: 2.4rem;
+   font-weight: bold;
+	 position: absolute;
+	 top: -1.5rem;
+	 left: 50%;
+	 transform: translateX(-50%);
+	 height: 3rem;
+	 width: 3rem;
+	 line-height: 3.2rem;
+	 text-align: center;
+	 border-radius: 50%;
+	 background: white;
+	 box-shadow: 0rem 0.2rem 0.5rem -0.2rem rgba(0, 0, 0, 0.25);
+}
+
+ .stepTwoCheckBox > div > p {
+	 font-weight: 400;
+}
+ @media only screen and (max-width: 700px) {
+	 .stepTwoCheckBox {
+		 flex-direction: column;
+	}
+}
+
+.inputStyleStepTwo {
+  display: flex;
+  flex-direction: column;
+}
+.stepTwo input {
+  margin: 1rem;
+  width: fit-content;
+}
+/* end step two */
