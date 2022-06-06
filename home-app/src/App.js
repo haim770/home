@@ -20,8 +20,6 @@ import RequireAuth from "./Auth/RequireAuth";
 import PersistLogin from "./Auth/PersistLogin";
 import Settings from "./Components/pages/users/Settings";
 
-import UploadFile from "./Components/UploadFile.js";
-
 // Chat
 import Chat from "./Components/pages/Chat";
 import { ViewProvidor } from "./Components/pages/Chat/ChatUseContext";

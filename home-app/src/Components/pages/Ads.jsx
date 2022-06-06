@@ -12,6 +12,7 @@ const Ads = (props) => {
   const [indexStart, setindexStart] = useState(0); //index to start get ads from db
   const [indexEnd, setindexEnd] = useState(10); //index to end get ads from db
   const [noMoreAdsForSearch, setNoMoreAdsForSearch] = useState(false); //control on weather we will scroll for more result changes to true if no more result are available
+  const [changed, setChanged] = useState(false);
 
   // check when we scroll down to button
   const handleScroll = (e) => {
@@ -26,13 +27,11 @@ const Ads = (props) => {
       e.target.documentElement.scrollTop + window.innerHeight
     );
     if (currentHeight + 1 >= scrollHeight) {
-      setindexStart(indexStart + 3);
+      setindexStart(indexStart + 10);
     }
   };
-  const getAds = async () => {
+  const getAdScroll = async () => {
     setLoading(false);
-    setNoMoreAdsForSearch(false);
-   
     const result = await instance.request({
       data: {
         data_type: props.search.data_type,
@@ -40,43 +39,56 @@ const Ads = (props) => {
         limitBy: { start: indexStart, end: indexEnd }, //the indexes
       },
     });
-    
-    if (result.data === false) {
-      //console.log("empty");
-      setAds("no ads feet");
+    if (result.data === false || result.data === "") {
       setNoMoreAdsForSearch(true);
     } else {
-      if (typeof result.data === "string") {
-        setNoMoreAdsForSearch(true);
+      //console.log("append");
+      if (!noMoreAdsForSearch)
         setAds((prevAds) => {
           return new Set([
             ...prevAds,
-            <p key={uuidv4()} className="noMoreContentPar">
-              no more ads
-            </p>,
-          ]);
-        });
-      } else {
-        if (JSON.stringify(props.search) !== JSON.stringify(lastSearch)) {
-         
-          setAds(
             result.data.map((ad) => (
               <AdsBlock key={ad.adID + uuidv4()} adBlock={ad} />
-            ))
-          );
-        } else {
-          //console.log("append");
-          setAds((prevAds) => {
-            return new Set([
-              ...prevAds,
-              result.data.map((ad) => (
-                <AdsBlock key={ad.adID + uuidv4()} adBlock={ad} />
-              )),
-            ]);
-          });
-        }
+            )),
+          ]);
+        });
+    }
+    setLoading(true);
+  };
+  const getAds = async () => {
+    setLoading(false);
+    setNoMoreAdsForSearch(false);
+    console.log(indexStart);
+    const result = await instance.request({
+      data: {
+        data_type: props.search.data_type,
+        params: props.search.params,
+        limitBy: { start: 0, end: indexEnd }, //the indexes
+      },
+    });
+    console.log(result.data);
+    if (result.data === false || result.data === "") {
+      setNoMoreAdsForSearch(true);
+      return;
+    } else {
+      if (JSON.stringify(props.search) !== JSON.stringify(lastSearch)) {
+        setAds(
+          result.data.map((ad) => (
+            <AdsBlock key={ad.adID + uuidv4()} adBlock={ad} />
+          ))
+        );
+      } else {
+        //console.log("append");
+        setAds((prevAds) => {
+          return new Set([
+            ...prevAds,
+            result.data.map((ad) => (
+              <AdsBlock key={ad.adID + uuidv4()} adBlock={ad} />
+            )),
+          ]);
+        });
       }
-      setLastSearch(props.search);
+      setLastSearch(props.search.params);
       setLoading(true);
     }
   };
@@ -88,15 +100,16 @@ const Ads = (props) => {
   useEffect(() => {
     getAds();
   }, []);
-  
-  useEffect(() => {;
+
+  useEffect(() => {
     setNoMoreAdsForSearch(false);
-    setindexStart(0);
     getAds();
   }, [props.search]);
 
   useEffect(() => {
-    if (!noMoreAdsForSearch) getAds();
+    if (!noMoreAdsForSearch) {
+      getAdScroll();
+    }
   }, [indexStart]);
 
   return (

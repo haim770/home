@@ -5,11 +5,11 @@ import instance from "../api/AxiosInstance";
 import { v4 as uuidv4 } from "uuid";
 function SearchAds(props) {
   const [minPrice, setMinPrice] = useState(""); //hook for the price state
-  const [maxPrice, setMaxPrice] = useState("100000000"); //hook for the price state
+  const [maxPrice, setMaxPrice] = useState(""); //hook for the price state
   const [masters, setMasters] = useState("");
   const [inputsAdContent, setInputsAdContent] = useState({});
   const [inputsAd, setInputsAd] = useState({
-    user_id: 1,
+    user_id: "",
     city: "",
     street: "",
     adType: "rent",
@@ -212,7 +212,7 @@ function SearchAds(props) {
   };
   const returnStateToDefault = () => {
     setInputsAd({
-      user_id: 1,
+      user_id: "",
       city: "",
       street: "",
       adType: "rent",
@@ -223,19 +223,24 @@ function SearchAds(props) {
       building_number: "",
       entry: "",
     });
-    setMinPrice("0");
-    setMaxPrice("100000000"); //hook for the price state
+    setMinPrice("");
+    setMaxPrice(""); //hook for the price state
   };
   const makeObjOfAllFields = () => {
     //returns the ad from field states and save it amt return as object
-    let obj = {
+
+    let obj = {};
+    for (const [key, value] of Object.entries(inputsAd)) {
+      obj[key] = value;
+    }
+    for (const [key, value] of Object.entries(inputsAdContent)) {
+      obj[key] = value;
+    }
+    obj["minPrice"] = minPrice;
+    obj["maxPrice"] = maxPrice;
+    obj = {
       data_type: "getAllAdContentAndAdAndUsersForArrOfAds",
-      params: {
-        adInput: inputsAd,
-        inputsAdContent: inputsAdContent,
-        minPrice: minPrice,
-        maxPrice: maxPrice,
-      },
+      params: obj,
     };
     return obj;
   };

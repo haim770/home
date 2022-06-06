@@ -28,6 +28,19 @@ function AdFull(props) {
   useEffect(() => {
     if (!data) {
       getAd();
+      const result = instance.request({
+        data: {
+          data_type: "updateWatch",
+          params: { adID: window.location.href.split("/")[3] }, //window.location.href gets the urlline
+        },
+      });
+    } else {
+      const result = instance.request({
+        data: {
+          data_type: "updateWatch",
+          params: { adID: data.adBlock.ad[0].adID }, //window.location.href gets the urlline
+        },
+      });
     }
   }, []);
 

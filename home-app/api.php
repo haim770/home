@@ -492,12 +492,14 @@ function insertNewAd(){
     echo json_encode($result);
     $arr=[];
 }
-function uploadFile(){
+function updateWatch(){
+    global $db;
     global $DATA_OBJ;
-        var_dump($DATA_OBJ->params);
-        die;
-    
-
+    global $arr;
+    $arr=[];
+    $query="update ads set watch=watch+1 where adID ={$DATA_OBJ->params->adID}";
+    $result = $db->writeDBNotStoredProcedure($query);
+    echo json_encode($result);
 }
 if(isset($DATA_OBJ->data_type)&&$DATA_OBJ->data_type=='getAdByID'){
     if(isset($DATA_OBJ->params))
@@ -507,10 +509,8 @@ else
 if(isset($DATA_OBJ->data_type)&&$DATA_OBJ->data_type=='insertNewAd'){
     insertNewAd();
 }
-if(isset($DATA_OBJ->data_type)&&$DATA_OBJ->data_type=='uploadFile'){
-    var_dump($DATA_OBJ->params);
-    die;
-    uploadFile();
+if(isset($DATA_OBJ->data_type)&&$DATA_OBJ->data_type=='updateWatch'){
+    updateWatch();
 }
 else
 if(isset($DATA_OBJ->data_type)&&$DATA_OBJ->data_type=='getAllAdContentAndAdAndUsersForArrOfAds'){
