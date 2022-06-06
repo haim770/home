@@ -1,57 +1,77 @@
 <?php
 class users
 {
-  private string $uuid;
-  private string $mail;
-  private string $first_name;
-  private string $last_name;
-  private string $create_time;
-  private string $last_seen;
-  private string $First_name;
-  private string $password;
-  private string $prompt;
-  private string $rule;
-  protected function getUuid()
+  private string $uuid = "";
+  private string $first_name = "";
+  private string $last_name = "";
+  private string $phone = "";
+  private string $mail = "";
+  private string $create_time = "";
+  private string $password = "";
+  private string $last_seen = "";
+  private string $prompt = "";
+  private string $rule = "";
+  private string $refreshToken = "";
+  private string $remaining_ads = "";
+  private static $obj;
+  /**
+   * Return instance of the database.
+   */
+  public static function GetInstance(): users
   {
-    return $this->prompt;
+    if (self::$obj == null)
+      self::$obj = new users;
+    return self::$obj;
   }
-  protected function getRule()
+  public function getRemainingAds()
   {
-    return $this->rule;
+    return $this->remaining_ads;
   }
-  protected function getPrompt()
+  public function getRefreshToken()
+  {
+    return $this->refreshToken;
+  }
+  public function getUuid()
   {
     return $this->uuid;
   }
-  protected function getLast_name()
+  public function getRule()
+  {
+    return $this->rule;
+  }
+  public function getPrompt()
+  {
+    return $this->uuid;
+  }
+  public function getLast_name()
   {
     return $this->last_name;
   }
-  protected function getMail()
+  public function getMail()
   {
     return $this->mail;
   }
-  protected function getFirst_name()
+  public function getFirst_name()
   {
     return $this->first_name;
   }
-  protected function getPhone()
+  public function getPhone()
   {
     return $this->phone;
   }
-  protected function getCreate_time()
+  public function getCreate_time()
   {
     return $this->approval_status;
   }
-  protected function getPassword()
+  public function getPassword()
   {
     return $this->password;
   }
-  protected function getViews()
+  public function getViews()
   {
     return $this->views;
   }
-  protected function getLast_seen()
+  public function getLast_seen()
   {
     return $this->last_seen;
   }

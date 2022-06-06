@@ -167,6 +167,16 @@ const StepTwo = ({ formData, setFormData }) => {
             onChange={handleChange}
           />
         </div>
+        <div className="inputStyleStepTwo">
+          <input
+            type="text"
+            placeholder="מספר חדרים"
+            className="rounded-input"
+            name="numberOfRooms"
+            value={formData.numberOfRooms || ""}
+            onChange={handleChange}
+          />
+        </div>
       </div>
       <div>
         <h3>סוג נכס?</h3>
@@ -290,7 +300,7 @@ const StepTwo = ({ formData, setFormData }) => {
             className="rounded-input"
             placeholder="ארנונה"
             name="localTax"
-            value={formData.price || ""}
+            value={formData.localTax || ""}
             onChange={handleChange}
           />
           <input
@@ -298,7 +308,7 @@ const StepTwo = ({ formData, setFormData }) => {
             className="rounded-input"
             placeholder="ועד בית"
             name="houseTax"
-            value={formData.price || ""}
+            value={formData.houseTax || ""}
             onChange={handleChange}
           />
         </div>

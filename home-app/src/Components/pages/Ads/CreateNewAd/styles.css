@@ -337,10 +337,7 @@ input[type=number] {
 
 .result{
   min-height: 100%;
-  max-height: auto;
-  min-width: 80%;
-  background-color: #272c34;
-  margin-top:1rem ;
+  max-height: auto; 
   display: flex;
   flex-wrap: wrap;
   align-items: center;

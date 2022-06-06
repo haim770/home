@@ -1,5 +1,5 @@
 import axios from "axios";
-const BASE_URL = "http://localhost:80/home/home-app/api.php";
+const BASE_URL = "http://localhost:80/home/home-app/apiFiles.php";
 
 const instance = axios.create({
   baseURL: BASE_URL,

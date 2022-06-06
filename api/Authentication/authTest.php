@@ -12,6 +12,9 @@ require_once 'jwt/src/BeforeValidException.php';
 require_once 'jwt/src/ExpiredException.php';
 require_once 'jwt/src/JWK.php';
 
+$userPath = "../system/classes/users.php";
+include_once(dirname(__FILE__) . DIRECTORY_SEPARATOR . $userPath);
+
 use \Firebase\JWT\JWT;
 
 // checking if user login
@@ -74,3 +77,13 @@ if (
     exit;
 }
 */
+
+
+/**
+ * Generate user object, can be use in any other file that import this auth test
+ */
+$userarr = []; //for global scope var
+$query = "SELECT * from users where mail = :user";
+$userarr["user"] = $token->data->user;
+$user = users::GetInstance();
+$user = $db->readDBObj($query, $userarr, "users")[0];
