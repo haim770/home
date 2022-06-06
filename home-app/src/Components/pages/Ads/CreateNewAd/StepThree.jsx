@@ -67,8 +67,7 @@ const StepThree = ({ formData, setFormData ,formDataStepThree, setFormDataStepTh
                   type={element.contactData.display_type}
                   placeholder={element.contactData.free_text}
                   className="rounded-input"
-                  name={`${element.contactData.element_id}_${element.contactData.name}`}
-                  
+                  name={element.contactData.element_id}
                   onChange={handleChange}
                 />
               </>
@@ -79,16 +78,14 @@ const StepThree = ({ formData, setFormData ,formDataStepThree, setFormDataStepTh
                     type={element.contactData.display_type}
                     placeholder={element.contactData.free_text}
                     className="rounded-input"
-                    name={`${element.contactData.element_id}_${element.contactData.name}`}
-                    value={""}
+                    name={element.contactData.element_id}
                     onChange={handleChange}
-                    id={`${element.contactData.element_id}_${element.contactData.name}`}
+                    id={element.contactData.element_id}
                   />
-                  <label
-                    htmlFor={`${element.contactData.element_id}_${element.contactData.name}`}
-                  >
+                  <label htmlFor={element.contactData.element_id}>
                     {element.contactData.free_text}
                   </label>
+                  {handleChange()}
                 </div>
               </>
             )

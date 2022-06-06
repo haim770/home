@@ -103,12 +103,39 @@ $query = "INSERT INTO `ads`(`adID`, `user_id`, `expire_date`, `city`, `street`, 
                     VALUES (:uuid,:userId,:expire_date,:city,:street,:appartmentNumber,:appartmentEntrance,:numberOfRooms,:numberOfRooms,:price,:numberOfRooms,:assetOption,:housefloor,:maxFloor,:assetEntry,:localTax,:houseTax)";
     $db->writeDBNotStoredProcedure($query, $arr2);
 
+/**
+ * Step 3 - ad contact
+ */
+    $formDataStepThree = json_decode($DATA_OBJ["formDataStepThree"]);
+    $arr3["adUuid"] = $arr["adUuid"]; // Ad uuid
+    $arr3["assetOption"] = $arr2["assetOption"];
+    foreach ($formDataStepThree as $key => $value) {
+        // create new element id
+        $arr3["elementUuid"] = uniqid();
+        $arr3["valuee"]=$value;
+        // get master element data
+        $arr4["elementid"] = $key;
+        $query = "SELECT * FROM `ad_content` WHERE `element_id` =:elementid";
+        $elementData = $db->readDBNoStoredProcedure($query, $arr4)[0];
+        // get data from master
+        $arr3["free_text"] = $elementData->free_text;
+        $arr3["icon"] = $elementData->icon;
+        $arr3["max_value"] = $elementData->max_value;
+        $arr3["min_value"] = $elementData->min_value;
+        $arr3["namee"] = $elementData->name;
+        $arr3["prevDisplay"] = $elementData->prevDisplay;
+        $arr3["display_type"] = $elementData->display_type;
+        $arr3["requiredd"] = $elementData->required;
+        $query = "INSERT INTO `ad_content`(`element_id`, `adID`, `category`, `min_value`, `max_value`, `icon`, `free_text`, `required`, `name`, `display_type`, `value`, `prevDisplay`) VALUES (:elementUuid,:adUuid,:assetOption,:min_value,:min_value,:icon,:free_text,:requiredd,:namee,:display_type,:valuee,:prevDisplay)";
+        $db->writeDBNotStoredProcedure($query, $arr3);
+    }
 
 echo json_encode(
     array(
         "message" => "addNewForm",       
         "formData" => json_decode($DATA_OBJ["formData"]),
-        "formDataStepThree" => $DATA_OBJ["formDataStepThree"],
+        "formDataStepThree" => json_decode($DATA_OBJ["formDataStepThree"]),
+        "arr4" => $arr3,
     )
 );
 die;
