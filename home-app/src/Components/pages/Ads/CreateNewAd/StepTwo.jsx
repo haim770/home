@@ -167,6 +167,16 @@ const StepTwo = ({ formData, setFormData }) => {
             onChange={handleChange}
           />
         </div>
+        <div className="inputStyleStepTwo">
+          <input
+            type="text"
+            placeholder="מספר חדרים"
+            className="rounded-input"
+            name="numberOfRooms"
+            value={formData.numberOfRooms || ""}
+            onChange={handleChange}
+          />
+        </div>
       </div>
       <div>
         <h3>סוג נכס?</h3>
