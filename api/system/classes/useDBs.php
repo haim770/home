@@ -1,5 +1,6 @@
 <?php
-require_once('ads.php');    
+require_once('ads.php');
+require_once("users.php"); 
 class dbClass
 {
     private static $host;

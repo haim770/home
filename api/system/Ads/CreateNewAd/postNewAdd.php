@@ -52,21 +52,16 @@ if(!empty($fileNames)){
         $statusMsg = 'Please select a file to upload.'; 
     } 
 
-
-/*
-$citysNames = array();
-foreach ($_FILES["files"]["tmp_name"] as $key => $tmp_name) {
-    $file_name = $_FILES["files"]["name"][$key];
-    array_push($citysNames, $file_name);
-}
-
-*/
 //$query = "SELECT * FROM `ad_content` WHERE `category` =:type and `master` = 1;";
+
+print_r($user->getRefreshToken());
+die;
 echo json_encode(
     array(
         "message" => "addNewForm",       
         "formData" => $DATA_OBJ["formData"],
         "formDataStepThree" => $DATA_OBJ["formDataStepThree"],
+        "userName" => $user->remaining_ads(),
         //"Data" => $citysNames
     )
 );

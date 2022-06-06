@@ -11,12 +11,13 @@ header("Access-Control-Allow-Credentials: true");
 header('Content-Type: application/json');
 
 $DATA_OBJ = $_POST;
+$data_type = $DATA_OBJ["data_type"] ?? "";
 require_once('../api/system/classes/useDBs.php');
 $db = dbClass::GetInstance();
 
 
 // Proccess postNewAdd
-if (isset($DATA_OBJ["data_type"]) && $DATA_OBJ["data_type"] == "postNewAdd") {
+if ($DATA_OBJ["data_type"] == "postNewAdd") {
     include("../api/system/Ads/CreateNewAd/postNewAdd.php");
 }
 
