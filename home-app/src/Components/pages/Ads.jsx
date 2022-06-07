@@ -103,11 +103,12 @@ const Ads = (props) => {
 
   useEffect(() => {
     setNoMoreAdsForSearch(false);
+    setindexStart(0);
     getAds();
   }, [props.search]);
 
   useEffect(() => {
-    if (!noMoreAdsForSearch) {
+    if (!noMoreAdsForSearch && indexStart !== 0) {
       getAdScroll();
     }
   }, [indexStart]);
