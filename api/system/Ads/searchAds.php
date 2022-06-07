@@ -94,6 +94,14 @@ function generateSearchFromBothAdContentAndAds1(){
               $queryAdTableParams.=" and price >= '$value' ";
               continue;
             }
+            if($key=="minRooms"){
+                $queryAdTableParams.=" and rooms>= '$value' ";
+                continue;
+            }
+            if($key=="maxRooms"){
+                $queryAdTableParams.=" and rooms<= '$value' ";
+                continue;
+            }
             if($key=="create_time"||$key=="user_id"||$key=="active"||$key=="contact_counter"||$key=="watch"||$key=="close_reason"||$key=="expire_date"||$key=="approval_status"||$key=="ad_link"||$key=="city"||$key=="street"||$key=="building_number"||$key=="entry"||$key=="apartment"||$key=="zip_code"||$key=="map_X"||$key=="map_Y"||$key=="price"||$key=="rooms"||$key=="adType"||$key=="floor"||$key=="maxFloor"||$key=="houseCommittee"||$key=="propertyTaxes"||$key=="enteringDate"){
                 $queryAdTableParams.=" and $key = '$value' ";
                 $arr[$key] = $value;

@@ -113,10 +113,11 @@ const Ads = (props) => {
   }, [indexStart]);
 
   return (
-    <div className="listAds">
-      {loading && ads}
+    <section className="containerForAllAds">
+      <h1>all the wanted ads</h1>
+      <div className="listAds">{loading && ads}</div>
       {noMoreAdsForSearch ? <h2>no more ads</h2> : ""}
-    </div>
+    </section>
   );
 };
 export default Ads;
