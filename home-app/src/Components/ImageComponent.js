@@ -4,7 +4,8 @@ const ImageComponent = (props) => {
   return (
     <div key={uuidv4()}>
       <img
-        src={require("../" + props.src)}
+        //src={require("../../../api/Images/" + props.src)}
+        src="/pics/blank_home.png"
         alt={props.alt}
         className={props.className}
       />
