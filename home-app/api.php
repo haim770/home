@@ -11,6 +11,7 @@ header('Content-Type: application/json');
 // format our data before sending it to the server.
 $DATA_RAW = file_get_contents("php://input");
 require_once('../api/system/Ads/searchAds.php');
+require_once('../api/system/Ads/aproveOrDeclineAdByMangager.php');
 require_once('../api/system/packages/insertPack.php');
 
 /**
@@ -489,6 +490,9 @@ function updateWatch(){
     $query="update ads set watch=watch+1 where adID ={$DATA_OBJ->params->adID}";
     $result = $db->writeDBNotStoredProcedure($query);
     echo json_encode($result);
+}
+if(isset($DATA_OBJ->data_type)&&$DATA_OBJ->data_type=='getAllWaitingAdsForAproval'){
+    getAllWaitingAdsForAproval();
 }
 if(isset($DATA_OBJ->data_type)&&$DATA_OBJ->data_type=='insertPack'){
     insertPack();

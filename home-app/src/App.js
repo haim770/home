@@ -9,7 +9,7 @@ import PackageFull from "./Components/PackageFull";
 import PackageDisplay from "./Components/PackageDisplay.js";
 import CreatePackage from "./Components/CreatePackage.js";
 import CreateNewAd from "./Components/pages/Ads/CreateNewAd";
-import Package1 from "./Components/Package1";
+import ConfirmAdManager from "./Components/ConfirmAdManager";
 
 // NEW //
 import Unauthorized from "./Components/pages/Unauthorized";
@@ -89,6 +89,7 @@ export default function App() {
             <Route path="*" element={<Missing />} />
           </Route>
         </Routes>
+        {/* <ConfirmAdManager/> */}
       </ViewProvidor>
       <Footer />
     </div>
