@@ -11,12 +11,13 @@ function CreatePackage(props) {
   const [title, setTitle] = useState(""); //hook for parameter max value
   const [content, setContent] = useState(""); //hook for parameter min value
   const [adValue, setAdValue] = useState(""); //hook for parameter style
+  const [statusOfCreation, setStatusOfCreation] = useState(""); //the status of created pack
 
-  const onChangeState = (setStateName, e) => {
+  const onChangeState = (setStateName, event) => {
     //func that recieves setstate and the event and change value of state to the value of input
-    if (e.target.name === "price" || e.target.name === "adValue")
-      if (isNaN(e.target.value)) return;
-    setStateName(e.target.value);
+    if (event.target.name === "price" || event.target.name === "adValue")
+      if (isNaN(event.target.value) || event.target.value === "e") return;
+    setStateName(event.target.value);
   };
   const returnStateToDefault = () => {
     setContent("");
@@ -30,7 +31,7 @@ function CreatePackage(props) {
     e.preventDefault();
     const result = await instance.request({
       data: {
-        data_type: "addPackage",
+        data_type: "insertPack",
         params: {
           price: price,
           content: content,
@@ -39,60 +40,72 @@ function CreatePackage(props) {
         },
       },
     });
-    //console.log(result.data);
+    console.log(result.data);
+    setStatusOfCreation(result.data);
     returnStateToDefault();
   };
   return (
-    <form className={"createPack"}>
-      <label>
-        <span>enter price for package</span>
-        <input
-          type="number"
-          name="price"
-          id="price"
-          required
-          value={price}
-          onChange={(e) => onChangeState(setPrice, e)}
-        />
-      </label>
-      <label>
-        <span>enter title of the package</span>
-        <input
-          type="text"
-          name="title"
-          id="title"
-          required
-          value={title}
-          onChange={(e) => onChangeState(setTitle, e)}
-        />
-      </label>
-      <label>
-        <span>enter ad value of package</span>
-        <input
-          type="number"
-          name="adValue"
-          id="adValue"
-          required
-          value={adValue}
-          onChange={(e) => onChangeState(setAdValue, e)}
-        />
-      </label>
-      <label>
-        <span>enter content of package</span>
-        <textarea
-          rows="4"
-          cols="50"
-          value={content}
-          onChange={(e) => onChangeState(setContent, e)}
-          name="content"
-        >
-          Enter text here...
-        </textarea>
-      </label>
-      <p>
-        <Button onClick={submitPackage} content="create pack" />
-      </p>
-    </form>
+    <section>
+      <form className={"createPack"}>
+        <label>
+          <span>enter price for package</span>
+          <input
+            type="text"
+            pattern="[0-9]"
+            name="price"
+            id="price"
+            required
+            value={price}
+            onChange={(e) => onChangeState(setPrice, e)}
+          />
+        </label>
+        <label>
+          <span>enter title of the package</span>
+          <input
+            type="text"
+            name="title"
+            id="title"
+            required
+            value={title}
+            onChange={(e) => onChangeState(setTitle, e)}
+          />
+        </label>
+        <label>
+          <span>enter ad value of package</span>
+          <input
+            type="text"
+            pattern="[0-9]"
+            name="adValue"
+            id="adValue"
+            required
+            value={adValue}
+            onChange={(e) => onChangeState(setAdValue, e)}
+          />
+        </label>
+        <label>
+          <span>enter content of package</span>
+          <textarea
+            rows="4"
+            cols="50"
+            value={content}
+            onChange={(e) => onChangeState(setContent, e)}
+            name="content"
+          >
+            Enter text here...
+          </textarea>
+        </label>
+        <p>
+          <Button onClick={submitPackage} content="create pack" />
+        </p>
+      </form>
+      {statusOfCreation === true ? (
+        <h2>package was created</h2>
+      ) : statusOfCreation === false ? (
+        <h2>pack wasnt created maybe tiltle exists</h2>
+      ) : (
+        ""
+      )}
+    </section>
   );
 }
 CreatePackage.defaultProps = {};

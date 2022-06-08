@@ -9,6 +9,7 @@ import PackageFull from "./Components/PackageFull";
 import PackageDisplay from "./Components/PackageDisplay.js";
 import CreatePackage from "./Components/CreatePackage.js";
 import CreateNewAd from "./Components/pages/Ads/CreateNewAd";
+import Package1 from "./Components/Package1";
 
 // NEW //
 import Unauthorized from "./Components/pages/Unauthorized";
@@ -19,8 +20,6 @@ import Register from "./Components/pages/Register";
 import RequireAuth from "./Auth/RequireAuth";
 import PersistLogin from "./Auth/PersistLogin";
 import Settings from "./Components/pages/users/Settings";
-
-import UploadFile from "./Components/UploadFile.js";
 
 // Chat
 import Chat from "./Components/pages/Chat";
@@ -51,7 +50,7 @@ export default function App() {
             <Route index element={<Main />} />
             <Route path="/Login" element={<Login />} />
             <Route path="/adsWithSearch" element={<AdsWithSearch />} />
-            <Route exact path=":linkAd" element={<AdFull />} />
+            <Route exact path="/adsWithSearch/:linkAd" element={<AdFull />} />
             <Route path="/post/:postId" element={<Single />} />
             <Route
               exact
@@ -81,10 +80,11 @@ export default function App() {
                   <RequireAuth allowedRoles={[ROLES.User, ROLES.Admin]} />
                 }
               >
+                <Route path= "/createPackage" element={<CreatePackage/>}/>
+                <Route path="/packages" element={<PackageDisplay />}></Route>
                 <Route path="/addAd" element={<CreateNewAd />} />
               </Route>
             </Route>
-
             {/* catch all */}
             <Route path="*" element={<Missing />} />
           </Route>

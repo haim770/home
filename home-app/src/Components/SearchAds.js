@@ -5,15 +5,16 @@ import instance from "../api/AxiosInstance";
 import { v4 as uuidv4 } from "uuid";
 function SearchAds(props) {
   const [minPrice, setMinPrice] = useState(""); //hook for the price state
-  const [maxPrice, setMaxPrice] = useState("100000000"); //hook for the price state
+  const [maxPrice, setMaxPrice] = useState(""); //hook for the price state
   const [masters, setMasters] = useState("");
   const [inputsAdContent, setInputsAdContent] = useState({});
   const [inputsAd, setInputsAd] = useState({
-    user_id: 1,
+    user_id: "",
     city: "",
     street: "",
     adType: "rent",
-    rooms: "",
+    maxRooms: "",
+    minRooms: "",
     apartment: "",
     zip_code: "",
     price: "",
@@ -67,6 +68,20 @@ function SearchAds(props) {
   };
   const makeFieldsOfAdColumnsWeKnow = (code) => {
     code.push(
+      <label key="adType">
+        <span>סוג מודעה(קנייה/השכרה) </span>
+        <select
+          id="adType"
+          name="adType"
+          value={inputsAd.adType}
+          onChange={handleChangeAd}
+        >
+          <option>rent</option>
+          <option>buy</option>
+        </select>
+      </label>
+    );
+    code.push(
       <label key="city">
         <span>עיר</span>
         <input
@@ -93,82 +108,29 @@ function SearchAds(props) {
       </label>
     );
     code.push(
-      <label key="numBuilding">
-        <span>מס בניין </span>
+      <label key="minRooms">
+        <span> מינימום חדרים </span>
         <input
           type="text"
-          name="building_number"
-          id="building_number"
+          name="minRooms"
+          id="minRooms"
           required
-          value={inputsAd.building_number}
+          value={inputsAd.minRooms}
           onChange={handleChangeAd}
         />
       </label>
     );
     code.push(
-      <label key="entry">
-        <span>כניסה </span>
+      <label key="maxRooms">
+        <span> חדרים מקסימום</span>
         <input
           type="text"
-          name="entry"
-          id="entry"
+          name="maxRooms"
+          id="maxRooms"
           required
-          value={inputsAd.entry}
+          value={inputsAd.maxRooms}
           onChange={handleChangeAd}
         />
-      </label>
-    );
-    code.push(
-      <label key="apartment">
-        <span>דירה </span>
-        <input
-          type="text"
-          name="apartment"
-          id="apartment"
-          required
-          value={inputsAd.apartment}
-          onChange={handleChangeAd}
-        />
-      </label>
-    );
-    code.push(
-      <label key="zip_code">
-        <span>זיפ קוד </span>
-        <input
-          type="text"
-          name="zip_code"
-          id="zip_code"
-          required
-          value={inputsAd.zip_code}
-          onChange={handleChangeAd}
-        />
-      </label>
-    );
-    code.push(
-      <label key="rooms">
-        <span> חדרים </span>
-        <input
-          type="text"
-          name="rooms"
-          id="rooms"
-          required
-          value={inputsAd.rooms}
-          onChange={handleChangeAd}
-        />
-      </label>
-    );
-    code.push(
-      <label key="adType">
-        <span>סוג מודעה(קנייה/השכרה) </span>
-        <select
-          id="adType"
-          name="adType"
-          value={inputsAd.adType}
-          onChange={handleChangeAd}
-        >
-          <option>rent</option>
-          <option>buy</option>
-        </select>
       </label>
     );
   };
@@ -212,30 +174,36 @@ function SearchAds(props) {
   };
   const returnStateToDefault = () => {
     setInputsAd({
-      user_id: 1,
+      user_id: "",
       city: "",
       street: "",
       adType: "rent",
-      rooms: "",
+      maxRooms: "",
+      minRooms: "",
       apartment: "",
       zip_code: "",
       price: "",
       building_number: "",
       entry: "",
     });
-    setMinPrice("0");
-    setMaxPrice("100000000"); //hook for the price state
+    setMinPrice("");
+    setMaxPrice(""); //hook for the price state
   };
   const makeObjOfAllFields = () => {
     //returns the ad from field states and save it amt return as object
-    let obj = {
+
+    let obj = {};
+    for (const [key, value] of Object.entries(inputsAd)) {
+      obj[key] = value;
+    }
+    for (const [key, value] of Object.entries(inputsAdContent)) {
+      obj[key] = value;
+    }
+    obj["minPrice"] = minPrice;
+    obj["maxPrice"] = maxPrice;
+    obj = {
       data_type: "getAllAdContentAndAdAndUsersForArrOfAds",
-      params: {
-        adInput: inputsAd,
-        inputsAdContent: inputsAdContent,
-        minPrice: minPrice,
-        maxPrice: maxPrice,
-      },
+      params: obj,
     };
     return obj;
   };
