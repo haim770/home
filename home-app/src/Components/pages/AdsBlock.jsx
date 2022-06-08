@@ -1,4 +1,4 @@
-import React  from "react";
+import React from "react";
 import { Link, NavLink, Outlet } from "react-router-dom";
 import AdPart from "../AdPart.js";
 import AdContentPart from "../AdContentPart.js";
@@ -8,8 +8,6 @@ import AdUserPart from "../AdUserPart.js";
 import useView from "./Chat/ChatUseContext";
 import AdImages from "../AdImages.js";
 import { v4 as uuidv4 } from "uuid";
-
-
 
 const AdsBlock = (props) => {
   /**
@@ -29,7 +27,7 @@ const AdsBlock = (props) => {
   return (
     <section className="cardBlock">
       <Link
-        to={`/${props.adBlock.ad[0].adID}`}
+        to={`/adsWithSearch/${props.adBlock.ad[0].adID}`}
         key={props.adBlock.ad[0].adID}
         state={{
           adBlock: props.adBlock,

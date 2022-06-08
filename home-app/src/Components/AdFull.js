@@ -13,6 +13,7 @@ import AddCookie from "./pages/Ads/addCookie";
 function AdFull(props) {
   const [dataForUrl, setDataForUrl] = useState({});
   const [renderCookie, setRenderCookie] = useState(true);
+  let refreshTimes = 1;
   const location = useLocation();
   const data = location.state;
   const getAd = async () => {

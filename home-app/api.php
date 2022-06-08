@@ -11,6 +11,7 @@ header('Content-Type: application/json');
 // format our data before sending it to the server.
 $DATA_RAW = file_get_contents("php://input");
 require_once('../api/system/Ads/searchAds.php');
+require_once('../api/system/packages/insertPack.php');
 
 /**
  * json_decode(json) => PHP =  EQUAL => JSON.parse()     ==> Convert Array to Object
@@ -402,18 +403,6 @@ function searchAdByParameterswithAdContent(){
     print_r($DATA_OBJ->paramsForAdContent);
     die;
 }
-function insertPackage(){
-    //insert package
-    global $db;
-    global $DATA_OBJ;
-    global $arr;
-    $arr['packageId'] = uniqid();
-    generateArrayParamsFromPost();
-    $query = "insertPackage(:packageId,:price,:title,:content,:ad_value)";
-    $result = $db->writeDb($query, $arr);
-    echo json_encode($result);
-    $arr=[];
-}
 function getAllPackages(){
     global $db;
     global $DATA_OBJ;
@@ -500,6 +489,9 @@ function updateWatch(){
     $query="update ads set watch=watch+1 where adID ={$DATA_OBJ->params->adID}";
     $result = $db->writeDBNotStoredProcedure($query);
     echo json_encode($result);
+}
+if(isset($DATA_OBJ->data_type)&&$DATA_OBJ->data_type=='insertPack'){
+    insertPack();
 }
 if(isset($DATA_OBJ->data_type)&&$DATA_OBJ->data_type=='getAdByID'){
     if(isset($DATA_OBJ->params))
