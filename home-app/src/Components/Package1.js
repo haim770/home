@@ -1,7 +1,12 @@
 import React from "react";
 import { Link, NavLink, Outlet } from "react-router-dom";
 import "../styles/Package1.css";
+import Button from "./Button";
 const Package1 = (props) => {
+  const buy=(e)=>{
+    e.preventDefault();
+    console.log("buy pack go to php");
+  }
   return (
     <Link
       to={`/packages/${props.pack.packageId}`}
@@ -11,10 +16,13 @@ const Package1 = (props) => {
       }}
     >
       <div className="pack">
+        <section>
         <h1>{props.pack.title}</h1>
         <h2>{props.pack.content}</h2>
         <p>{props.pack.price} is the price</p>
         <p>{props.pack.ad_value} value ads</p>
+        </section>
+        <Button content="buy pack" onClick={buy}/>
       </div>
     </Link>
   );

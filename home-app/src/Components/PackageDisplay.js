@@ -3,7 +3,6 @@ import instance from "../api/AxiosInstance";
 import Package1 from "./Package1.js";
 import "../styles/PackageDisplay.css";
 
-
 const PackageDisplay = (props) => {
   /*
   const [adsTop, setAdsTop] = useState(10);
@@ -33,21 +32,17 @@ const PackageDisplay = (props) => {
   const getPackages = async () => {
     const result = await instance.request({
       data: {
-        data_type:"getAllPackages",
+        data_type: "getAllPackages",
       },
     });
     //console.log(result.data);
     if (result.data === false) {
       setPackages("no packages");
     } else {
-  
-        setPackages(
-          result.data.map((pack) => (
-            <Package1 pack={pack} key={pack.packageId} />
-          ))
-        );
-  
-      }
+      setPackages(
+        result.data.map((pack) => <Package1 pack={pack} key={pack.packageId} />)
+      );
+    }
     setLoading(true);
   };
 
@@ -55,12 +50,6 @@ const PackageDisplay = (props) => {
     getPackages();
   }, []);
 
-  return (
-   
-      
-        <div className="PackageDisplay">
-        {packages}
-      </div>
-  );
+  return <div className="PackageDisplay">{packages}</div>;
 };
 export default PackageDisplay;
