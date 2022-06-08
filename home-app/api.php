@@ -551,6 +551,10 @@ if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "searchInDbWithUnknow
     if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "getChat") {
         include("../api/system/chat/getChatWith.php");
     } else
+    // Proccess get Test image
+    if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "getImage") {
+        include("../api/system/Ads/getData/getImage.php");
+    } else
 // Proccess submit Message 
     if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "submitMessage") {
         include("../api/system/chat/submitMessage.php");

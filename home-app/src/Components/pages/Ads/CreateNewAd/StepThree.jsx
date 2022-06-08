@@ -41,12 +41,17 @@ const StepThree = ({ formData, setFormData ,formDataStepThree, setFormDataStepTh
                 }
               ),
             ]);
-
   };
 
   const handleChange = (event) => {
     const name = event.target.name;
     const value = event.target.value;
+    setFormDataStepThree((values) => ({ ...values, [name]: value }));
+  };
+
+  const handleChangeCheckbox = (event) => {
+    const name = event.target.name;
+    const value = event.target.checked;
     setFormDataStepThree((values) => ({ ...values, [name]: value }));
   };
 
@@ -79,14 +84,13 @@ const StepThree = ({ formData, setFormData ,formDataStepThree, setFormDataStepTh
                     placeholder={element.contactData.free_text}
                     className="rounded-input"
                     name={element.contactData.element_id}
-                    onChange={handleChange}
+                    onChange={handleChangeCheckbox}
                     id={element.contactData.element_id}
                   />
                   <label htmlFor={element.contactData.element_id}>
                     {element.contactData.free_text}
                   </label>
-                  {handleChange()}
-                </div>
+                </div> 
               </>
             )
           )}
