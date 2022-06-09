@@ -491,6 +491,12 @@ function updateWatch(){
     $result = $db->writeDBNotStoredProcedure($query);
     echo json_encode($result);
 }
+if(isset($DATA_OBJ->data_type)&&$DATA_OBJ->data_type=='declineAd'){
+    declineAd();
+}
+if(isset($DATA_OBJ->data_type)&&$DATA_OBJ->data_type=='aproveAd'){
+    aproveAd();
+}
 if(isset($DATA_OBJ->data_type)&&$DATA_OBJ->data_type=='getAllWaitingAdsForAproval'){
     getAllWaitingAdsForAproval();
 }

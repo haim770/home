@@ -76,5 +76,23 @@ function getAdWithAdContentForAdIdAproval($adId,$user_id){
     $arr = [];
     return $result;
 }
-
+function declineAd(){
+  global $db;
+  global $DATA_OBJ;
+  if(isset($DATA_OBJ->params->adID)){
+    $query="UPDATE ads SET approval_status = 'declined', active= false WHERE adID = '{$DATA_OBJ->params->adID}'";
+  $result=$db->readDBNoStoredProcedure($query);
+  echo json_encode($result);}
+  die;
+}
+function aproveAd(){
+  //aprove ad by update ad to change approval status to aproved and active to true
+ global $db;
+  global $DATA_OBJ;
+  if(isset($DATA_OBJ->params->adID)){
+    $query="UPDATE ads SET approval_status = 'aproved', active= true WHERE adID = '{$DATA_OBJ->params->adID}'";
+  $result=$db->readDBNoStoredProcedure($query);
+  echo json_encode($result);}
+  die;
+}
 ?>
