@@ -13,6 +13,7 @@ $DATA_RAW = file_get_contents("php://input");
 require_once('../api/system/Ads/searchAds.php');
 require_once('../api/system/Ads/aproveOrDeclineAdByMangager.php');
 require_once('../api/system/packages/insertPack.php');
+require_once('../api/system/packages/buyPackage.php');
 
 /**
  * json_decode(json) => PHP =  EQUAL => JSON.parse()     ==> Convert Array to Object
@@ -491,18 +492,26 @@ function updateWatch(){
     $result = $db->writeDBNotStoredProcedure($query);
     echo json_encode($result);
 }
+if(isset($DATA_OBJ->data_type)&&$DATA_OBJ->data_type=='getPackById'){
+    getPackById();
+}
+else
+if(isset($DATA_OBJ->data_type)&&$DATA_OBJ->data_type=='buyPack'){
+    buyPack();
+}
+else
 if(isset($DATA_OBJ->data_type)&&$DATA_OBJ->data_type=='declineAd'){
     declineAd();
-}
+}else
 if(isset($DATA_OBJ->data_type)&&$DATA_OBJ->data_type=='aproveAd'){
     aproveAd();
-}
+}else
 if(isset($DATA_OBJ->data_type)&&$DATA_OBJ->data_type=='getAllWaitingAdsForAproval'){
     getAllWaitingAdsForAproval();
-}
+}else
 if(isset($DATA_OBJ->data_type)&&$DATA_OBJ->data_type=='insertPack'){
     insertPack();
-}
+}else
 if(isset($DATA_OBJ->data_type)&&$DATA_OBJ->data_type=='getAdByID'){
     if(isset($DATA_OBJ->params))
     echo json_encode(getAdWithAdContentForAdId($DATA_OBJ->params->adID,$DATA_OBJ->params->user_id));
@@ -510,7 +519,7 @@ if(isset($DATA_OBJ->data_type)&&$DATA_OBJ->data_type=='getAdByID'){
 else
 if(isset($DATA_OBJ->data_type)&&$DATA_OBJ->data_type=='insertNewAd'){
     insertNewAd();
-}
+}else
 if(isset($DATA_OBJ->data_type)&&$DATA_OBJ->data_type=='updateWatch'){
     updateWatch();
 }

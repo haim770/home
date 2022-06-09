@@ -35,7 +35,7 @@ const PackageDisplay = (props) => {
         data_type: "getAllPackages",
       },
     });
-    //console.log(result.data);
+    console.log(result.data);
     if (result.data === false) {
       setPackages("no packages");
     } else {
