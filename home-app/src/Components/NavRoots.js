@@ -26,8 +26,8 @@ const NavRoot = () => {
       name: "הצגת חבילות",
     },
     {
-      path:"/createPackage",
-      name:"צור חבילה חדשה"
+      path: "/createPackage",
+      name: "צור חבילה חדשה",
     },
     { path: "/AdsWithSearch", name: "מודעות" },
     { path: "/Settings", name: "הגדרות" },

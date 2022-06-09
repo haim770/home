@@ -30,7 +30,19 @@ import Blog from "./Components/pages/Blog";
 import Single from "./Components/pages/Blog/posts/Single";
 
 import FileUpload from "./Components/FileUpload";
-
+// Settings
+import Dashbord from "./Components/pages/users/Settings/Pages/Dashbord";
+import Favorite from "./Components/pages/users/Settings/Pages/Favorite";
+import Messages from "./Components/pages/users/Settings/Pages/Messages";
+import Notifications from "./Components/pages/users/Settings/Pages/Notifications";
+import PurchaseHistory from "./Components/pages/users/Settings/Pages/PurchaseHistory";
+import Reports from "./Components/pages/users/Settings/Pages/Reports";
+import SitePurchase from "./Components/pages/users/Settings/Pages/SitePurchase";
+import SiteSales from "./Components/pages/users/Settings/Pages/SiteSales";
+import SiteUsers from "./Components/pages/users/Settings/Pages/SiteUsers";
+import UserAds from "./Components/pages/users/Settings/Pages/UserAds";
+import UserSettings from "./Components/pages/users/Settings/Pages/UserSettings";
+import SiteSettings from "./Components/pages/users/Settings/Pages/SiteSettings";
 const ROLES = {
   User: 2001,
   Admin: 5150,
@@ -71,16 +83,67 @@ export default function App() {
                   <RequireAuth allowedRoles={[ROLES.User, ROLES.Admin]} />
                 }
               >
-                <Route path="/Settings" element={<Settings />} />
+                <Route path="/Settings" element={<Settings />}>
+                  <Route path="Dashbord" element={<Dashbord />} />
+                  <Route  
+                    path="Notifications"
+                    element={<Notifications />}
+                  />
+                  <Route
+                    path="UserSettings"
+                    element={<UserSettings />}
+                  />
+                  <Route path="Messages" element={<Messages />} />
+                  <Route path="Reports" element={<Reports />} />
+                  <Route path="Ads" element={<UserAds />} />
+                  <Route path="Favorite" element={<Favorite />} />
+                  <Route
+                    path="Purchase"
+                    element={<PurchaseHistory />}
+                  />
+
+                  <Route element={<PersistLogin />}>
+                    <Route
+                      element={<RequireAuth allowedRoles={[ROLES.Admin]} />}
+                    >
+                      <Route path="Users" element={<SiteUsers />} />
+                    </Route>
+                  </Route>
+                  <Route element={<PersistLogin />}>
+                    <Route
+                      element={<RequireAuth allowedRoles={[ROLES.Admin]} />}
+                    >
+                      <Route path="Sales" element={<SiteSales />} />
+                    </Route>
+                  </Route>
+                  <Route element={<PersistLogin />}>
+                    <Route
+                      element={<RequireAuth allowedRoles={[ROLES.Admin]} />}
+                    >
+                      <Route
+                        path="SitePurchase"
+                        element={<SitePurchase />}
+                      />
+                    </Route>
+                  </Route>
+                  <Route element={<PersistLogin />}>
+                    <Route
+                      element={<RequireAuth allowedRoles={[ROLES.Admin]} />}
+                    >
+                      <Route path="SiteSettings" element={<SiteSettings />} />
+                    </Route>
+                  </Route>
+                </Route>
               </Route>
             </Route>
+
             <Route element={<PersistLogin />}>
               <Route
                 element={
                   <RequireAuth allowedRoles={[ROLES.User, ROLES.Admin]} />
                 }
               >
-                <Route path= "/createPackage" element={<CreatePackage/>}/>
+                <Route path="/createPackage" element={<CreatePackage />} />
                 <Route path="/packages" element={<PackageDisplay />}></Route>
                 <Route path="/addAd" element={<CreateNewAd />} />
               </Route>
