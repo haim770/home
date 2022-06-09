@@ -52,13 +52,13 @@ const ROLES = {
 export default function App() {
   return (
     <div className="App">
-      {/* viewprovidor let all children of this provider to use the chat */}
       <PayPalScriptProvider
         options={{
           "client-id":
             "ASXZvWdmYTGVe7D0eKiAddQjocGsHoxmtxsymlrHAvQr2_Z0uLMX9ZOOfHjMAhUrjGBrFe5o_dOCSu-Y",
         }}
       >
+        {/* viewprovidor let all children of this provider to use the chat */}
         <ViewProvidor>
           <NavRoots />
           <Chat />
@@ -152,7 +152,6 @@ export default function App() {
             </Route>
           </Routes>
         </ViewProvidor>
-        <Checkout />
       </PayPalScriptProvider>
       <Footer />
     </div>
