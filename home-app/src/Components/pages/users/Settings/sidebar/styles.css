@@ -72,8 +72,17 @@ background-color: #ece8ff;
     color: #7451f8;
 }
 
+.settingsCenter > ul > li:hover {
+    background-color: #ece8ff;
+}
 .settingsBottom {
     display: flex;
     align-items: center;
     margin: 1rem;
+}
+
+.widgets {
+    display: flex;
+    padding: 2rem;
+    gap: 2rem;
 }
