@@ -61,7 +61,13 @@ background-color: #ece8ff;
     color: #888;
     margin-left: 1rem;
 }
-.settingsCenter > ul > li > .icon {
+.settingsCenter > ul > li span {
+    font-size: 2.2rem;
+    font-weight: 600;
+    color: #888;
+    margin-left: 1rem;
+}
+.settingsCenter > ul > li .icon {
     font-size: 2.8rem;
     color: #7451f8;
 }

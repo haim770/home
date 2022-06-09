@@ -9,6 +9,7 @@ import { MdOutlineFavoriteBorder } from "react-icons/md";
 import { BiPurchaseTagAlt } from "react-icons/bi";
 import { FcSalesPerformance } from "react-icons/fc";
 import { BsClockHistory } from "react-icons/bs";
+import { Link } from 'react-router-dom';
 
 const Sidebar = () => {
   return (
@@ -21,12 +22,16 @@ const Sidebar = () => {
         <ul>
           <p className="title">ראשי</p>
           <li>
-            <RiDashboardLine className="icon" />
-            <span>דשבורד</span>
+            <Link to="/Settings/Dashbord" style={{ textDecoration: "none" }}>
+              <RiDashboardLine className="icon" />
+              <span>דשבורד</span>
+            </Link>
           </li>
           <li>
-            <FiSettings className="icon" />
-            <span>הגדרות</span>
+            <Link to="/Settings/Dashbord" style={{ textDecoration: "none" }}>
+              <FiSettings className="icon" />
+              <span>הגדרות</span>
+            </Link>
           </li>
           <li>
             <IoNotificationsOutline className="icon" />
