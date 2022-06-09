@@ -24,10 +24,9 @@ function AdFull(props) {
       },
     });
     setDataForUrl(result.data);
-    //console.log(dataForUrl);
   };
   useEffect(() => {
-    if (!data) {
+    if (!data || data === {} || data == false) {
       getAd();
       const result = instance.request({
         data: {
@@ -47,6 +46,7 @@ function AdFull(props) {
 
   return data ? (
     <section className={"ad"}>
+      {console.log(dataForUrl)}
       <ul>
         <AddCookie adID={data.adBlock.ad} />
         <AdUserPart user={data.adBlock.user} />

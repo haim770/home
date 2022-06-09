@@ -22,6 +22,10 @@ const NavRoot = () => {
       name: "הוספת מודעה",
     },
     {
+      path: "/confirmAdManager",
+      name: "אישור מודעות",
+    },
+    {
       path: "/packages",
       name: "הצגת חבילות",
     },

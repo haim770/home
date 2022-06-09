@@ -28,8 +28,9 @@ import { ViewProvidor } from "./Components/pages/Chat/ChatUseContext";
 // Blog
 import Blog from "./Components/pages/Blog";
 import Single from "./Components/pages/Blog/posts/Single";
-
-import FileUpload from "./Components/FileUpload";
+//paypal
+import { PayPalScriptProvider } from "@paypal/react-paypal-js";
+import Checkout from "./Components/Checkout.js";
 // Settings
 import Dashbord from "./Components/pages/users/Settings/Pages/Dashbord";
 import Favorite from "./Components/pages/users/Settings/Pages/Favorite";
@@ -52,108 +53,107 @@ export default function App() {
   return (
     <div className="App">
       {/* viewprovidor let all children of this provider to use the chat */}
-      <ViewProvidor>
-        <NavRoots />
-        <Chat />
-        <PersistLogin />
-        <Routes>
-          <Route path="/" element={<Layout />}>
-            {/* public routes */}
-            <Route index element={<Main />} />
-            <Route path="/Login" element={<Login />} />
-            <Route path="/adsWithSearch" element={<AdsWithSearch />} />
-            <Route exact path="/adsWithSearch/:linkAd" element={<AdFull />} />
-            <Route path="/post/:postId" element={<Single />} />
-            <Route
-              exact
-              path="/packages/:packageId"
-              element={<PackageFull />}
-            />
-            <Route exact path="packages" element={<PackageDisplay />} />
-            <Route exact path="addPack" element={<CreatePackage />} />
-            <Route path="/Register" element={<Register />} />
-            <Route path="unauthorized" element={<Unauthorized />} />
-
-            <Route exact path="/Blog" element={<Blog />} />
-
-            {/* we want to protect these routes */}
-            <Route element={<PersistLogin />}>
+      <PayPalScriptProvider
+        options={{
+          "client-id":
+            "ASXZvWdmYTGVe7D0eKiAddQjocGsHoxmtxsymlrHAvQr2_Z0uLMX9ZOOfHjMAhUrjGBrFe5o_dOCSu-Y",
+        }}
+      >
+        <ViewProvidor>
+          <NavRoots />
+          <Chat />
+          <PersistLogin />
+          <Routes>
+            <Route path="/" element={<Layout />}>
+              {/* public routes */}
+              <Route index element={<Main />} />
+              <Route path="/Login" element={<Login />} />
+              <Route path="/adsWithSearch" element={<AdsWithSearch />} />
+              <Route exact path="/adsWithSearch/:linkAd" element={<AdFull />} />
+              <Route path="/post/:postId" element={<Single />} />
               <Route
-                element={
-                  <RequireAuth allowedRoles={[ROLES.User, ROLES.Admin]} />
-                }
-              >
-                <Route path="/Settings" element={<Settings />}>
-                  <Route path="Dashbord" element={<Dashbord />} />
-                  <Route  
-                    path="Notifications"
-                    element={<Notifications />}
-                  />
-                  <Route
-                    path="UserSettings"
-                    element={<UserSettings />}
-                  />
-                  <Route path="Messages" element={<Messages />} />
-                  <Route path="Reports" element={<Reports />} />
-                  <Route path="Ads" element={<UserAds />} />
-                  <Route path="Favorite" element={<Favorite />} />
-                  <Route
-                    path="Purchase"
-                    element={<PurchaseHistory />}
-                  />
+                exact
+                path="/packages/:packageId"
+                element={<PackageFull />}
+              />
+              <Route exact path="packages" element={<PackageDisplay />} />
+              <Route exact path="addPack" element={<CreatePackage />} />
+              <Route path="/Register" element={<Register />} />
+              <Route path="unauthorized" element={<Unauthorized />} />
 
-                  <Route element={<PersistLogin />}>
-                    <Route
-                      element={<RequireAuth allowedRoles={[ROLES.Admin]} />}
-                    >
-                      <Route path="Users" element={<SiteUsers />} />
-                    </Route>
-                  </Route>
-                  <Route element={<PersistLogin />}>
-                    <Route
-                      element={<RequireAuth allowedRoles={[ROLES.Admin]} />}
-                    >
-                      <Route path="Sales" element={<SiteSales />} />
-                    </Route>
-                  </Route>
-                  <Route element={<PersistLogin />}>
-                    <Route
-                      element={<RequireAuth allowedRoles={[ROLES.Admin]} />}
-                    >
+              <Route exact path="/Blog" element={<Blog />} />
+
+              {/* we want to protect these routes */}
+              <Route element={<PersistLogin />}>
+                <Route
+                  element={
+                    <RequireAuth allowedRoles={[ROLES.User, ROLES.Admin]} />
+                  }
+                >
+                  <Route path="/Settings" element={<Settings />}>
+                    <Route path="Dashbord" element={<Dashbord />} />
+                    <Route path="Notifications" element={<Notifications />} />
+                    <Route path="UserSettings" element={<UserSettings />} />
+                    <Route path="Messages" element={<Messages />} />
+                    <Route path="Reports" element={<Reports />} />
+                    <Route path="Ads" element={<UserAds />} />
+                    <Route path="Favorite" element={<Favorite />} />
+                    <Route path="Purchase" element={<PurchaseHistory />} />
+
+                    <Route element={<PersistLogin />}>
                       <Route
-                        path="SitePurchase"
-                        element={<SitePurchase />}
-                      />
+                        element={<RequireAuth allowedRoles={[ROLES.Admin]} />}
+                      >
+                        <Route path="Users" element={<SiteUsers />} />
+                      </Route>
                     </Route>
-                  </Route>
-                  <Route element={<PersistLogin />}>
-                    <Route
-                      element={<RequireAuth allowedRoles={[ROLES.Admin]} />}
-                    >
-                      <Route path="SiteSettings" element={<SiteSettings />} />
+                    <Route element={<PersistLogin />}>
+                      <Route
+                        element={<RequireAuth allowedRoles={[ROLES.Admin]} />}
+                      >
+                        <Route path="Sales" element={<SiteSales />} />
+                      </Route>
+                    </Route>
+                    <Route element={<PersistLogin />}>
+                      <Route
+                        element={<RequireAuth allowedRoles={[ROLES.Admin]} />}
+                      >
+                        <Route path="SitePurchase" element={<SitePurchase />} />
+                      </Route>
+                    </Route>
+                    <Route element={<PersistLogin />}>
+                      <Route
+                        element={<RequireAuth allowedRoles={[ROLES.Admin]} />}
+                      >
+                        <Route path="SiteSettings" element={<SiteSettings />} />
+                      </Route>
                     </Route>
                   </Route>
                 </Route>
               </Route>
-            </Route>
 
-            <Route element={<PersistLogin />}>
-              <Route
-                element={
-                  <RequireAuth allowedRoles={[ROLES.User, ROLES.Admin]} />
-                }
-              >
-                <Route path="/createPackage" element={<CreatePackage />} />
-                <Route path="/packages" element={<PackageDisplay />}></Route>
-                <Route path="/addAd" element={<CreateNewAd />} />
+              <Route element={<PersistLogin />}>
+                <Route
+                  element={
+                    <RequireAuth allowedRoles={[ROLES.User, ROLES.Admin]} />
+                  }
+                >
+                  <Route path="/createPackage" element={<CreatePackage />} />
+                  <Route path="/packages" element={<PackageDisplay />}></Route>
+                  <Route path="/addAd" element={<CreateNewAd />} />
+                  <Route
+                    path="/confirmAdManager"
+                    element={<ConfirmAdManager />}
+                  />
+                </Route>
               </Route>
+              {/* catch all */}
+              <Route path="*" element={<Missing />} />
             </Route>
-            {/* catch all */}
-            <Route path="*" element={<Missing />} />
-          </Route>
-        </Routes>
-        {/* <ConfirmAdManager/> */}
-      </ViewProvidor>
+          </Routes>
+        </ViewProvidor>
+        <Checkout />
+      </PayPalScriptProvider>
       <Footer />
     </div>
   );
