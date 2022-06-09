@@ -492,6 +492,17 @@ function updateWatch(){
     $result = $db->writeDBNotStoredProcedure($query);
     echo json_encode($result);
 }
+function getPackById(){
+    //get package by its id
+    global $arr;
+    global $db;
+    global $DATA_OBJ;
+    $packId=$DATA_OBJ->$params->packId;
+    $query="select * from package where packageId='$packId'";
+    $result = $db->writeDBNotStoredProcedure($query);
+    echo json_encode($result);
+
+}
 if(isset($DATA_OBJ->data_type)&&$DATA_OBJ->data_type=='getPackById'){
     getPackById();
 }

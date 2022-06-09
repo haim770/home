@@ -13,16 +13,16 @@ function PackageFull(props) {
   const [dataForUrl, setDataForUrl] = useState({});
   const data = location.state;
   const getPackage = async () => {
+    const arr = window.location.href.split("/");
     const result = await instance.request({
       data: {
         data_type: "getPackage",
-        params: { adID: window.location.href.split("/")[3], user_id: 1 }, //window.location.href gets the urlline
+        params: { packId: arr[arr.length-1]}, //window.location.href gets the urlline
       },
     });
     setDataForUrl(result.data);
-    //console.log(dataForUrl);
   };
-  return (
+  return  data?(
     <section className="adFull">
       <ul>
         <Parameter paramName="price" paramValue={data.pack.price} />
@@ -30,15 +30,28 @@ function PackageFull(props) {
         <Parameter paramName="title" paramValue={data.pack.title} />
         <Parameter paramName="ad_value" paramValue={data.pack.ad_value} />
       </ul>
-      
       <Checkout
         title={data.pack.title}
         price={data.pack.price}
         packId={data.pack.packageId}
         adValue={data.pack.ad_value}
       />
-    </section>
-  );
+    </section>):(
+        <section className="adFull">
+      <ul>
+        <Parameter paramName="price" paramValue={dataForUrl.pack.price} />
+        <Parameter paramName="content" paramValue={dataForUrl.pack.content} />
+        <Parameter paramName="title" paramValue={dataForUrl.pack.title} />
+        <Parameter paramName="ad_value" paramValue={dataForUrl.pack.ad_value} />
+      </ul>
+      <Checkout
+        title={dataForUrl.pack.title}
+        price={dataForUrl.pack.price}
+        packId={dataForUrl.pack.packageId}
+        adValue={dataForUrl.pack.ad_value}
+      />
+      </section>
+    );
 }
 PackageFull.defaultProps = {};
 export default PackageFull;

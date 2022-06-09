@@ -17,21 +17,23 @@ function AdFull(props) {
   const location = useLocation();
   const data = location.state;
   const getAd = async () => {
+    const arr = window.location.href.split("/");
     const result = await instance.request({
       data: {
         data_type: "getAdByID",
-        params: { adID: window.location.href.split("/")[3], user_id: 1 }, //window.location.href gets the urlline
+        params: { adID: arr[arr.length-1], user_id: 1 }, //window.location.href gets the urlline
       },
     });
     setDataForUrl(result.data);
   };
   useEffect(() => {
+    const arr = window.location.href.split("/");
     if (!data || data === {} || data == false) {
       getAd();
       const result = instance.request({
         data: {
           data_type: "updateWatch",
-          params: { adID: window.location.href.split("/")[3] }, //window.location.href gets the urlline
+          params: { adID: arr[arr.length-1] }, //window.location.href gets the urlline
         },
       });
     } else {
