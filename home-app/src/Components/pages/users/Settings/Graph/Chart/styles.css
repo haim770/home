@@ -4,7 +4,7 @@
 	 box-shadow: 0.2rem 0.4rem 1rem 0.1rem rgba(201, 201, 201, 0.47);
 	 padding: 1rem;
 	 color: gray;
-	 display: rtl;
+	 border-radius: 1rem;
 }
  .chart .title {
 	 margin-bottom: 2rem;
