@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import Chart from "./Graph/Chart/Chart";
 import Featured from "./Graph/Featured/Featured";
 import Sidebar from "./sidebar/Sidebar";
+import Table from "./Graph/Table/Table";
 import "./styles.css";
 import Widgets from "./widgets/widgets";
 const Settings = () => {
@@ -22,6 +23,7 @@ const Settings = () => {
         </div>
         <div className="listContainer">
           <div className="listTitle">Latest Transactions</div>
+          <Table />
         </div>
       </div>
     </div>
