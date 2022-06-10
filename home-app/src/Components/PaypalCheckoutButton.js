@@ -1,22 +1,25 @@
 import { PayPalButtons } from "@paypal/react-paypal-js";
 import { React, useState } from "react";
 import instance from "../api/AxiosInstance";
+import useAuth from "../Auth/useAuth";
 const PaypalCheckoutButton = (props) => {
   const { product } = props; //must be named product for the api
-
+  const { auth } = useAuth();
   const [paidFor, setPaidFor] = useState(false);
   const [error, setError] = useState(false);
   const handleApprove = async (orderId) => {
     // Call backend function to fulfill order
     const result = await instance.request({
-    
       data: {
         data_type: "buyPack",
         params: {
           package_id: product.packId,
           price: product.price,
-          adValue:product.adValue,
+          adValue: product.adValue,
         },
+      },
+      headers: {
+        Authorization: `Bearer ${auth.accessToken}`,
       },
     });
     console.log(result);

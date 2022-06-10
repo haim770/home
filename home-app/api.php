@@ -10,16 +10,18 @@ header('Content-Type: application/json');
 // we use this way and not with POST or GET becuse if we want to use it with POST or GET we need to 
 // format our data before sending it to the server.
 $DATA_RAW = file_get_contents("php://input");
+
 require_once('../api/system/Ads/searchAds.php');
 require_once('../api/system/Ads/aproveOrDeclineAdByMangager.php');
 require_once('../api/system/packages/insertPack.php');
-require_once('../api/system/packages/buyPackage.php');
+
 
 /**
  * json_decode(json) => PHP =  EQUAL => JSON.parse()     ==> Convert Array to Object
  * json_encode(value) => PHP = EQUAL => JSON.strinfigy() ==> Convert Object to Array
  */
 $DATA_OBJ = json_decode($DATA_RAW);
+
 require_once('../api/system/classes/useDBs.php');
 $db = dbClass::GetInstance();
 $arr = [];
@@ -503,11 +505,13 @@ function getPackById(){
     echo json_encode($result);
 
 }
+
 if(isset($DATA_OBJ->data_type)&&$DATA_OBJ->data_type=='getPackById'){
     getPackById();
 }
 else
 if(isset($DATA_OBJ->data_type)&&$DATA_OBJ->data_type=='buyPack'){
+    include("../api/system/packages/buyPackage.php");
     buyPack();
 }
 else
