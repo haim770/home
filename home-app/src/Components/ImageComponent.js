@@ -2,10 +2,9 @@ import React, { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 const ImageComponent = (props) => {
   return (
-    <div key={uuidv4()}>
+    <div key={uuidv4()} className={props.className}>
       <img
-        //src={require("../../../api/Images/" + props.src)}
-        src="/pics/blank_home.png"
+        src={require("../../../api/Images/" + props.src)}
         alt={props.alt}
         className={props.className}
       />

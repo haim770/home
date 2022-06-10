@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { Link, NavLink, Outlet } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
+
 import ImageComponent from "./ImageComponent.js";
 const AdImages = (props) => {
   const renderComp = () => {
-
     let code = [];
-    if (props.numPicToDisplay === 1) {
+    //console.log(props);
+    if (props.numPicToDisplay === "1") {
       if (props.images[0]) {
         code.push(
           <ImageComponent
@@ -15,21 +16,20 @@ const AdImages = (props) => {
             alt={props.images[0].alt}
           />
         );
-
-        // code.push(
-        //   <ImageComponent
-        //     key={uuidv4()}
-        //     src="../pics/blank_home.png"
-        //     alt={props.images[0].alt}
-        //   />
-        // );
       } else {
-        <div>no pics</div>;
+        code.push(
+          <ImageComponent
+            key={uuidv4()}
+            src="../pics/blank_home.png"
+            alt={props.images[0].alt}
+          />
+        );
       }
     } else {
       for (let index = 0; index < props.images.length; index++) {
         //we get array of all the  images as props
         //we make display as checkbox
+        console.log(props.images[index]);
         code.push(
           <ImageComponent
             key={uuidv4()}

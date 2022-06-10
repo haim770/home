@@ -65,6 +65,7 @@ function getImagesForAdId1($adId){
     $query = "select * from pictures where element_id =:element_id order by serial_number";
     $result = $db->readDBNoStoredProcedure($query, $arr);
     $arr=[];
+    // print_r($result);
     return $result;
 }
 function generateSearchFromBothAdContentAndAds1(){

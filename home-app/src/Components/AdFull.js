@@ -67,6 +67,7 @@ function AdFull(props) {
     <section className={"ad"}>
       <ul>
         <AdUserPart user={dataForUrl.user} />
+        <AdImages images={dataForUrl.adImages} />
         <AdPart ad={dataForUrl.ad} />
         <AdContentPart adContent={dataForUrl.adContent} />
       </ul>
