@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import { Link, NavLink, Outlet } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
-
+import ImgCarousel from "./ImgCarousel.js";
 import ImageComponent from "./ImageComponent.js";
 const AdImages = (props) => {
   const renderComp = () => {
     let code = [];
-    //console.log(props);
     if (props.numPicToDisplay === "1") {
       if (props.images[0]) {
         code.push(
@@ -21,7 +20,7 @@ const AdImages = (props) => {
           <ImageComponent
             key={uuidv4()}
             src="../pics/blank_home.png"
-            alt={props.images[0].alt}
+            alt={"props.images[0].alt"}
           />
         );
       }
@@ -45,8 +44,13 @@ const AdImages = (props) => {
   return (
     <div>
       <h1>ad image part</h1>
-      {props.images ? (
-        renderComp()
+      {props.images !== [] ? (
+        <div>
+          {props.images?
+          <ImgCarousel images={props.images} />
+        :<ImgCarousel/>}
+          {/* {renderComp()} */}
+        </div>
       ) : (
         <div>
           <img
@@ -59,6 +63,9 @@ const AdImages = (props) => {
       )}
     </div>
   );
+};
+AdImages.defaultProps = {
+  images: [{ picture_url: "blank_home.png", alt: "no pic" }],
 };
 
 export default AdImages;

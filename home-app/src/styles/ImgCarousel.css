@@ -1,0 +1,30 @@
+.carousel {
+  display: flex;
+  flex-direction: column;
+}
+
+.left {
+  color: blue;
+  align-self: flex-end;
+  font-size: 2rem;
+  padding: 1rem;
+  margin-left: auto;
+}
+
+.right {
+  color: blue;
+  align-self: flex-start;
+
+  padding: 1rem;
+  font-size: 2rem;
+}
+
+.center {
+  align-self: center;
+  color: yellow;
+}
+
+.navArrows {
+  display: flex;
+  border: 2px solid red;
+}
