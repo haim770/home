@@ -28,8 +28,6 @@ import { ViewProvidor } from "./Components/pages/Chat/ChatUseContext";
 // Blog
 import Blog from "./Components/pages/Blog";
 import Single from "./Components/pages/Blog/posts/Single";
-//paypal
-import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 import Checkout from "./Components/Checkout.js";
 // Settings
 import Dashbord from "./Components/pages/users/Settings/Pages/Dashbord";
@@ -53,12 +51,7 @@ export default function App() {
   return (
     <div className="App">
       {/* viewprovidor let all children of this provider to use the chat */}
-      <PayPalScriptProvider
-        options={{
-          "client-id":
-            "ASXZvWdmYTGVe7D0eKiAddQjocGsHoxmtxsymlrHAvQr2_Z0uLMX9ZOOfHjMAhUrjGBrFe5o_dOCSu-Y",
-        }}
-      >
+     
         <ViewProvidor>
           <NavRoots />
           <Chat />
@@ -152,8 +145,6 @@ export default function App() {
             </Route>
           </Routes>
         </ViewProvidor>
-        <Checkout />
-      </PayPalScriptProvider>
       <Footer />
     </div>
   );

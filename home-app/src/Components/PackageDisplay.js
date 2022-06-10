@@ -2,12 +2,13 @@ import React, { useState, useEffect, useMemo } from "react";
 import instance from "../api/AxiosInstance";
 import Package1 from "./Package1.js";
 import "../styles/PackageDisplay.css";
-
+import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 const PackageDisplay = (props) => {
   /*
   const [adsTop, setAdsTop] = useState(10);
   const [adsMin, setAdsMin] = useState(0);
   */
+ 
   const [packages, setPackages] = useState([]);
   const [loading, setLoading] = useState(false);
   const [lastSearch, setLastSearch] = useState("");
@@ -50,6 +51,15 @@ const PackageDisplay = (props) => {
     getPackages();
   }, []);
 
-  return <div className="PackageDisplay">{packages}</div>;
+  return (
+    <PayPalScriptProvider
+      options={{
+        "client-id":
+          "ASXZvWdmYTGVe7D0eKiAddQjocGsHoxmtxsymlrHAvQr2_Z0uLMX9ZOOfHjMAhUrjGBrFe5o_dOCSu-Y",
+      }}
+    >
+      <div className="PackageDisplay">{packages}</div>
+    </PayPalScriptProvider>
+  );
 };
 export default PackageDisplay;
