@@ -494,20 +494,21 @@ function updateWatch(){
     $result = $db->writeDBNotStoredProcedure($query);
     echo json_encode($result);
 }
+/*
 function getPackById(){
     //get package by its id
     global $arr;
     global $db;
     global $DATA_OBJ;
-    $packId=$DATA_OBJ->$params->packId;
+   // $packId=$DATA_OBJ->$params->packId;
     $query="select * from package where packageId='$packId'";
     $result = $db->writeDBNotStoredProcedure($query);
     echo json_encode($result);
 
-}
+}*/
 
 if(isset($DATA_OBJ->data_type)&&$DATA_OBJ->data_type=='getPackById'){
-    getPackById();
+   // getPackById();
 }
 else
 if(isset($DATA_OBJ->data_type)&&$DATA_OBJ->data_type=='buyPack'){
@@ -548,7 +549,7 @@ if(isset($DATA_OBJ->data_type)&&$DATA_OBJ->data_type=='getAllPackages'){
 }
 else
 if(isset($DATA_OBJ->data_type)&&$DATA_OBJ->data_type=='addPackage'){
-    insertPackage();
+    //insertPackage();
 }
 else
 if(isset($DATA_OBJ->data_type)&&$DATA_OBJ->data_type=='getAllMasters'){
@@ -573,6 +574,11 @@ if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "searchInDbWithUnknow
     if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "getContacts") {
         include("../api/system/chat/getContacts.php");
     } else
+    // Proccess get user updates
+    if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "getNewUpdates") {
+        include("../api/system/user/getNewUpdates.php");
+    } else
+
     // Proccess get user Chat
     if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "getChat") {
         include("../api/system/chat/getChatWith.php");

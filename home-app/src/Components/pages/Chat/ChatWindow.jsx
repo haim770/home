@@ -4,6 +4,7 @@ import "./styles.css";
 import useView from "./ChatUseContext";
 import ChatContant from "./ChatContant";
 import ChatWith from "./ChatWith";
+
 const ChatWindow = () => {
   const { contactView, chatView, chatWindow  } = useView();
 
