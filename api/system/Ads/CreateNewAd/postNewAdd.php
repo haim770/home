@@ -132,7 +132,7 @@ $query = "INSERT INTO `ads`(`adID`, `user_id`, `expire_date`, `city`, `street`, 
 
 echo json_encode(
     array(
-        "message" => "addNewForm",       
+        "message" => "success",       
         "formData" => json_decode($DATA_OBJ["formData"]),
         "formDataStepThree" => json_decode($DATA_OBJ["formDataStepThree"]),
         "arr4" => $arr3,

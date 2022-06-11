@@ -42,6 +42,7 @@ import SiteUsers from "./Components/pages/users/Settings/Pages/SiteUsers";
 import UserAds from "./Components/pages/users/Settings/Pages/UserAds";
 import UserSettings from "./Components/pages/users/Settings/Pages/UserSettings";
 import SiteSettings from "./Components/pages/users/Settings/Pages/SiteSettings";
+import Sidebar from "./Components/pages/users/Settings/sidebar/Sidebar";
 const ROLES = {
   User: 2001,
   Admin: 5150,
@@ -84,6 +85,7 @@ export default function App() {
                 }
               >
                 <Route path="/Settings" element={<Settings />}>
+                  <Route index element={<Dashbord />} />
                   <Route path="Dashbord" element={<Dashbord />} />
                   <Route path="Notifications" element={<Notifications />} />
                   <Route path="UserSettings" element={<UserSettings />} />
