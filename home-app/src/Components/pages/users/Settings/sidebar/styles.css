@@ -43,7 +43,7 @@ padding-left: 1rem;
     margin-bottom: 0.5rem;
 }
 .settingsCenter > ul > p {
-    font-size: 2.0rem;
+    font-size: 1.8rem;
 }
 .settingsCenter > ul > li {
     display: flex;
@@ -56,13 +56,13 @@ background-color: #ece8ff;
 }
 
 .settingsCenter > ul > li > span {
-    font-size: 2.2rem;
+    font-size: 1.6rem;
     font-weight: 600;
     color: #888;
     margin-left: 1rem;
 }
 .settingsCenter > ul > li span {
-    font-size: 2.2rem;
+    font-size: 1.6rem;
     font-weight: 600;
     color: #888;
     margin-left: 1rem;

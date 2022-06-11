@@ -5,7 +5,7 @@ import { IoPersonOutline } from "react-icons/io5";
 import { FiShoppingCart } from "react-icons/fi";
 import { MdOutlineMonetizationOn } from "react-icons/md";
 import { MdAccountBalanceWallet } from "react-icons/md";
-
+import ReactTooltip from "react-tooltip"; // https://www.npmjs.com/package/react-tooltip
 const Widgets = ({type}) => {
   let data;
 
@@ -84,7 +84,12 @@ const Widgets = ({type}) => {
   return (
     <div className="widget">
       <div className="left">
-        <div className="percentage positive">
+        <div
+          data-tip="hello world"
+          data-delay-hide="1000"
+          className="percentage positive"
+        >
+          <ReactTooltip place="bottom" type="info" />
           <IoIosArrowUp />
           {diff} %
         </div>

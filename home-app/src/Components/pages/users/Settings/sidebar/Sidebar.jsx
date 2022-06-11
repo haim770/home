@@ -14,10 +14,6 @@ import { Link } from 'react-router-dom';
 const Sidebar = () => {
   return (
     <div className="settingsSidebar">
-      <div className="settingsTop">
-        <span className="logo">Home</span>
-      </div>
-      <hr />
       <div className="settingsCenter">
         <ul>
           <p className="title">ראשי</p>
@@ -28,48 +24,75 @@ const Sidebar = () => {
             </Link>
           </li>
           <li>
-            <Link to="/Settings/Dashbord" style={{ textDecoration: "none" }}>
+            <Link
+              to="/Settings/UserSettings"
+              style={{ textDecoration: "none" }}
+            >
               <FiSettings className="icon" />
               <span>הגדרות</span>
             </Link>
           </li>
           <li>
-            <IoNotificationsOutline className="icon" />
-            <span>התראות</span>
+            <Link
+              to="/Settings/Notifications"
+              style={{ textDecoration: "none" }}
+            >
+              <IoNotificationsOutline className="icon" />
+              <span>התראות</span>
+            </Link>
           </li>
           <li>
-            <IoLogoWechat className="icon" />
-            <span>הודעות</span>
+            <Link to="/Settings/Messages" style={{ textDecoration: "none" }}>
+              <IoLogoWechat className="icon" />
+              <span>הודעות</span>
+            </Link>
+          </li>
+          <li>
+            <Link to="/Settings/Reports" style={{ textDecoration: "none" }}>
+              <HiOutlineDocumentReport className="icon" />
+              <span>דוחות</span>
+            </Link>
           </li>
           <p className="title">מודעות</p>
           <li>
-            <GoHome className="icon" />
-            <span>מודעות</span>
+            <Link to="/Settings/Ads" style={{ textDecoration: "none" }}>
+              <GoHome className="icon" />
+              <span>מודעות</span>
+            </Link>
           </li>
           <li>
-            <MdOutlineFavoriteBorder className="icon" />
-            <span>מועדפים</span>
+            <Link to="/Settings/Favorite" style={{ textDecoration: "none" }}>
+              <MdOutlineFavoriteBorder className="icon" />
+              <span>מועדפים</span>
+            </Link>
           </li>
           <li>
-            <BiPurchaseTagAlt className="icon" />
-            <span>רכישות</span>
+            <Link to="/Settings/Purchase" style={{ textDecoration: "none" }}>
+              <BiPurchaseTagAlt className="icon" />
+              <span>רכישות</span>
+            </Link>
           </li>
           <p className="title">ניהול</p>
           <li>
-            <HiOutlineDocumentReport className="icon" />
-            <span>דוחות</span>
+            <Link to="/Settings/Users" style={{ textDecoration: "none" }}>
+              <FiUsers className="icon" />
+              <span>משתמשים</span>
+            </Link>
           </li>
           <li>
-            <FiUsers className="icon" />
-            <span>משתמשים</span>
+            <Link to="/Settings/Sales" style={{ textDecoration: "none" }}>
+              <FcSalesPerformance className="icon" />
+              <span>מכירות</span>
+            </Link>
           </li>
           <li>
-            <FcSalesPerformance className="icon" />
-            <span>מכירות</span>
-          </li>
-          <li>
-            <BsClockHistory className="icon" />
-            <span>היסטורית רכישות</span>
+            <Link
+              to="/Settings/SitePurchase"
+              style={{ textDecoration: "none" }}
+            >
+              <BsClockHistory className="icon" />
+              <span>היסטורית רכישות</span>
+            </Link>
           </li>
         </ul>
       </div>

@@ -85,7 +85,7 @@ export default function App() {
                 }
               >
                 <Route path="/Settings" element={<Settings />}>
-                
+                  <Route index element={<Dashbord />} />
                   <Route path="Dashbord" element={<Dashbord />} />
                   <Route path="Notifications" element={<Notifications />} />
                   <Route path="UserSettings" element={<UserSettings />} />
