@@ -6,6 +6,7 @@ import StepOne from './StepOne';
 import StepThree from './StepThree';
 import StepTwo from './StepTwo';
 import "./styles.css";
+import toast, { Toaster } from "react-hot-toast"; // https://react-hot-toast.com/docs && https://react-hot-toast.com/
 
 const Form = () => {
   const [page, setPage] = useState(0);
@@ -26,6 +27,7 @@ const Form = () => {
    *Post form to server
    */
   const postNewAdd = async () => {
+    toast.loading("מפרסם...");
     /**
      * Build the post data
      */
@@ -45,7 +47,19 @@ const Form = () => {
         Authorization: `Bearer ${auth.accessToken}`,
       },
     });
-    console.log(result.data);
+      if (result?.data.message == "success") {
+        toast.dismiss(); // remove loading toast
+        toast.success('המודעה פורסמה בהצלחה!');
+      }
+      else{
+        toast.dismiss(); // remove loading toast
+        toast.error("אוי לא, משהו השתבש בדרך והמודעה לא פורסמה!");
+      }
+
+      // reload this compnent after 4 second
+        setTimeout(function () {
+            window.location.reload(false);
+          }, 4000);
   };
 
   const PageDisplay = () => {
@@ -122,6 +136,7 @@ const Form = () => {
           </button>
         </div>
       </div>
+      <Toaster />
     </div>
   );
 }
