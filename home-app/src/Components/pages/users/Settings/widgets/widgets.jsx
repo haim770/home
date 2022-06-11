@@ -83,19 +83,16 @@ const Widgets = ({type}) => {
   }
   return (
     <div className="widget">
-      <div className="left">
-        <div
-          data-tip="hello world"
-          data-delay-hide="1000"
-          className="percentage positive"
-        >
-          <ReactTooltip place="bottom" type="info" />
+      <div className="widgetLeft">
+        <div data-tip="hello world" className="percentage positive">
           <IoIosArrowUp />
           {diff} %
         </div>
         {data.icon}
       </div>
-      <div className="right">
+      <ReactTooltip place="bottom" type="info" />
+
+      <div className="widgetRight">
         <span className="title">{data.title}</span>
         <span className="counter">
           {data.isMoney && "$"} {amount}
