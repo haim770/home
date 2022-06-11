@@ -25,6 +25,9 @@ function AdFull(props) {
       },
     });
     setDataForUrl(result.data);
+    console.log(result.data);
+      console.log(dataForUrl);
+    
   };
   useEffect(() => {
     const arr = window.location.href.split("/");
@@ -47,8 +50,8 @@ function AdFull(props) {
   }, []);
 
   return data ? (
+     
     <section className={"ad"}>
-      {console.log(dataForUrl)}
       <ul>
         <AddCookie adID={data.adBlock.ad} />
         <AdUserPart user={data.adBlock.user} />

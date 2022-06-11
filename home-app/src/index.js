@@ -10,15 +10,14 @@ import { CookiesProvider } from "react-cookie";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   //router for app first component which wil include another components asterix is a joker
-  <React.StrictMode>
-    <CookiesProvider>
-      <BrowserRouter>
-        <AuthProvider>
-          <Routes>
-            <Route path="/*" element={<App />} />
-          </Routes>
-        </AuthProvider>
-      </BrowserRouter>
-    </CookiesProvider>
-  </React.StrictMode>
+
+  <CookiesProvider>
+    <BrowserRouter>
+      <AuthProvider>
+        <Routes>
+          <Route path="/*" element={<App />} />
+        </Routes>
+      </AuthProvider>
+    </BrowserRouter>
+  </CookiesProvider>
 );

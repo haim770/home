@@ -1,13 +1,9 @@
 import React from "react";
+import ImgCarousel from "./ImgCarousel";
 import LastAdsSlider from "./pages/Ads/slider/LastAdsSlider";
-import SwipeableTextMobileStepper from "./SwipeableTextMobileStepper.js";
 
 const Home = () => {
-  return (
-    <div>
-      <SwipeableTextMobileStepper />
-    </div>
-  );
+  return <div></div>;
 };
 
 export default Home;
