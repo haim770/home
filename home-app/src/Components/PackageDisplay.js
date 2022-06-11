@@ -8,7 +8,7 @@ const PackageDisplay = (props) => {
   const [adsTop, setAdsTop] = useState(10);
   const [adsMin, setAdsMin] = useState(0);
   */
- 
+
   const [packages, setPackages] = useState([]);
   const [loading, setLoading] = useState(false);
   const [lastSearch, setLastSearch] = useState("");
@@ -55,7 +55,7 @@ const PackageDisplay = (props) => {
     <PayPalScriptProvider
       options={{
         "client-id":
-          "ASXZvWdmYTGVe7D0eKiAddQjocGsHoxmtxsymlrHAvQr2_Z0uLMX9ZOOfHjMAhUrjGBrFe5o_dOCSu-Y",
+          "AdgO-pnLLUhoSXJgNejKhsq0C6tvbiDga5MhbBihFzu4ReNQTMotssi3LDOEYXrBWuC8MUs_fHYImfCI",
       }}
     >
       <div className="PackageDisplay">{packages}</div>
