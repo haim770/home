@@ -1,13 +1,59 @@
 import React , { useEffect } from 'react'
 import useLogout from "../../../Auth/useLogout";
-import toast, { Toaster } from "react-hot-toast"; // https://react-hot-toast.com/docs && https://react-hot-toast.com/
+import toast, { Toaster, useToaster } from "react-hot-toast"; // https://react-hot-toast.com/docs && https://react-hot-toast.com/
 import useView from '../Chat/ChatUseContext';
 import useAuth from '../../../Auth/useAuth';
 import instance from '../../../api/AxiosInstance';
 
+const Notifications = () => {
+  const { toasts, handlers } = useToaster();
+  const { startPause, endPause, calculateOffset, updateHeight } = handlers;
+  return (
+    <div
+      style={{
+        position: "fixed",
+        top: 8,
+        left: 8,
+      }}
+      onMouseEnter={startPause}
+      onMouseLeave={endPause}
+    >
+      {toasts.map((toast) => {
+        const offset = calculateOffset(toast.id, {
+          reverseOrder: false,
+          margin: 8,
+        });
+        const ref = (el) => {
+          if (el && !toast.height) {
+            const height = el.getBoundingClientRect().height;
+            updateHeight(toast.id, height);
+          }
+        };
+        return (
+          <div
+            key={toast.id}
+            ref={ref}
+            style={{
+              position: "absolute",
+              width: "200px",
+              transition: "all 0.5s ease-out",
+              opacity: toast.visible ? 1 : 0,
+              transform: `translateY(${offset}px)`,
+            }}
+          >
+            {toast.message}
+          </div>
+        );
+      })}
+    </div>
+  );
+};
 
 const UserProfile = () => {
   const { chatView, showContacts, chatInfo, closeWindow } = useView();
+  const { toasts, handlers } = useToaster();
+  const { startPause, endPause, calculateOffset, updateHeight } = handlers;
+
   const logout = useLogout();
   const { auth } = useAuth();
 
@@ -35,17 +81,23 @@ const UserProfile = () => {
       console.log(result.data);
       if (result?.data?.chatMessages) {
         Object.values(result.data.chatMessages).map((anObjectMapped, index) => {
-           toast(anObjectMapped.message, {
-            icon: "👏",
-            id: "userMessages",
-            style: {
-              borderRadius: "10px",
-              background: "#333",
-              color: "#fff",
-            },
-            position: "bottom-right",
-            
-          });
+           toast(
+             <div>
+              <div>קיבלת הודעה חדשה מאת</div>
+               <div>{`${anObjectMapped.first_name} ${anObjectMapped.last_name}`}</div>
+               <span>{anObjectMapped.message}</span>
+             </div>,
+             {
+               position: "bottom-right",
+               duration: 6000,
+               icon: "💬",
+               style: {
+                 borderRadius: "10px",
+                 background: "#333",
+                 color: "#fff",
+               },
+             }
+           );
         });
       }
     }
@@ -71,7 +123,9 @@ const UserProfile = () => {
   return (
     <div>
       <button onClick={signOut}>Sign Out</button>
-      <Toaster reverseOrder={false}/>
+
+      {/*Toast maker */}
+      <Notifications />
     </div>
   );
 }
