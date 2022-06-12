@@ -50,7 +50,7 @@ const Notifications = () => {
 };
 
 const UserProfile = () => {
-  const { chatView, showContacts, chatInfo, closeWindow } = useView();
+  const { chatView, chatInfo, chatWindow } = useView();
   const { toasts, handlers } = useToaster();
   const { startPause, endPause, calculateOffset, updateHeight } = handlers;
 
@@ -72,32 +72,28 @@ const UserProfile = () => {
     });
 
     // check if we got new data from server or any response
-    /*
-                              key: anObjectMapped["msgid"],
-                          msgData: anObjectMapped,
-                          
-    */
     if (result?.data) {
-      console.log(result.data);
+      //console.log(result.data);
+      // Handle messages
       if (result?.data?.chatMessages) {
         Object.values(result.data.chatMessages).map((anObjectMapped, index) => {
-           toast(
-             <div>
-              <div>קיבלת הודעה חדשה מאת</div>
-               <div>{`${anObjectMapped.first_name} ${anObjectMapped.last_name}`}</div>
-               <span>{anObjectMapped.message}</span>
-             </div>,
-             {
-               position: "bottom-right",
-               duration: 6000,
-               icon: "💬",
-               style: {
-                 borderRadius: "10px",
-                 background: "#333",
-                 color: "#fff",
-               },
-             }
-           );
+            toast(
+              <div>
+                <div>קיבלת הודעה חדשה מאת</div>
+                <div>{`${anObjectMapped.first_name} ${anObjectMapped.last_name}`}</div>
+                <span>{anObjectMapped.message}</span>
+              </div>,
+              {
+                position: "bottom-right",
+                duration: 4000,
+                icon: "💬",
+                style: {
+                  borderRadius: "1rem",
+                  background: "#333",
+                  color: "#fff",
+                },
+              }
+            );
         });
       }
     }
