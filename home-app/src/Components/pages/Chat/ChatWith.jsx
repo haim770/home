@@ -52,7 +52,7 @@ const ChatWith = () => {
       }
 
       if (result?.data?.newMessageUpdate > 0) {
-        console.log(result.data);
+        //console.log(result.data);
       }
     }
     // after finish load all data stop loading
@@ -126,7 +126,7 @@ const ChatWith = () => {
           Authorization: `Bearer ${auth.accessToken}`,
         },
       });
-      console.log(result.data);
+     // console.log(result.data);
       // check if we got new data from server or any response
       if (result?.data) {
           if (result?.data?.chatMessages) {
