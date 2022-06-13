@@ -3,21 +3,22 @@ import { Link, NavLink, Outlet } from "react-router-dom";
 import Parameter from "./Parameter.js";
 const AdUserPart = (props) => {
   const renderComp = () => {
-    let code = 
-    <div>
-          <Parameter
+    let code = (
+      <div>
+        {/* <Parameter
             key={props.user.uuid}
             paramName="id of user is"
             paramValue={props.user[0].uuid}
-          />
-            <Parameter
-              key={props.user[0].first_name}
-              paramName="first name of user is"
-              paramValue={props.user[0].first_name}
-            />
-          </div>;
-            return code;
-  }
+          /> */}
+        <Parameter
+          key={props.user[0].first_name}
+          paramName="שם מעלה המודעה הוא :"
+          paramValue={props.user[0].first_name}
+        />
+      </div>
+    );
+    return code;
+  };
 
   return (
     <div>

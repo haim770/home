@@ -32,25 +32,26 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-export default function RecipeReviewCard(props) {
+export default function RecipeReviewCardUrl(props) {
   const [expanded, setExpanded] = React.useState(false);
   const addToFavorites = async (e) => {
     e.preventDefault();
     const result = await instance.request({
       data: {
         data_type: "addToFavorites",
-        params: { adID: props.adBlock.ad[0].adID,
-          user_id:props.adBlock.ad[0].user_id,
+        params: {
+          adID: props.adBlock.ad.adID,
+          user_id: props.adBlock.ad.user_id,
         },
       },
     });
     console.log(result.data);
     console.log("add to favorites");
   };
-  const shareWhatsapp=(e)=>{
-e.preventDefault();
-console.log("share link in whatsapp");
-  }
+  const shareWhatsapp = (e) => {
+    e.preventDefault();
+    console.log("share link in whatsapp");
+  };
   const handleExpandClick = (e) => {
     e.preventDefault();
     setExpanded(!expanded);
@@ -60,12 +61,8 @@ console.log("share link in whatsapp");
     <Card sx={{ maxWidth: props.maxSize }}>
       <CardHeader
         title={<AdUserPart key={uuidv4()} user={props.adBlock.user} />}
-        subheader={
-          <Parameter
-            paramName="תאריך יצירת המודעה "
-            paramValue={props.adBlock.ad[0].create_time}
-          />
-        }
+        subheader="<Parameter paramName=תאריך יצירת המודעה
+            paramValue=props.adBlock.ad.create_time/> "
       />
       <AdImages
         key={uuidv4()}
@@ -88,7 +85,7 @@ console.log("share link in whatsapp");
           aria-expanded={expanded}
           aria-label="show more"
         >
-          <ExpandMoreIcon fontSize={"large"} />
+          <ExpandMoreIcon />
         </ExpandMore>
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>

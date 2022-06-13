@@ -11,6 +11,7 @@ import AdUserPart from "./AdUserPart.js";
 import AdImages from "./AdImages";
 import AddCookie from "./pages/Ads/addCookie";
 import RecipeReviewCard from "./RecipeReviewCard";
+import RecipeReviewCardUrl from "./RecipeReviewCardUrl";
 function AdFull(props) {
   const [dataForUrl, setDataForUrl] = useState({});
   const [renderCookie, setRenderCookie] = useState(true);
@@ -51,7 +52,7 @@ function AdFull(props) {
 
   return data ? (
     <section className={"ad"}>
-      <RecipeReviewCard adBlock={data.adBlock} maxSize ="800"/>
+      <RecipeReviewCard adBlock={data.adBlock} maxSize="800" />
       <ul>
         <AddCookie adID={data.adBlock.ad} />
         {/* <AdUserPart user={data.adBlock.user} />
@@ -62,18 +63,16 @@ function AdFull(props) {
           className="adContentPartFull"
         /> */}
       </ul>
-      <p>
-        <Button content="contact seller" onclick={props.onclick} />
-      </p>
     </section>
   ) : (
     <section className={"ad"}>
-      <ul>
+      <RecipeReviewCardUrl adBlock={dataForUrl} maxSize="800" />
+      {/* <ul>
         <AdUserPart user={dataForUrl.user} />
         <AdImages images={dataForUrl.adImages} />
         <AdPart ad={dataForUrl.ad} />
         <AdContentPart adContent={dataForUrl.adContent} />
-      </ul>
+      </ul> */}
       <p>
         <Button content="contact seller" onclick={props.onclick} />
       </p>

@@ -9,10 +9,10 @@
   max-height: 100vw;
   border: 2px solid blue;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 50% 50%;
 }
 .adPart{
   display:grid;
-   grid-template-columns: 1fr 1fr;
+   grid-template-columns: 50% 50%;
 
 }

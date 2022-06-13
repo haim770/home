@@ -4,7 +4,7 @@ import Button from "./Button.js";
 import Parameter from "./Parameter.js";
 const AdContentPart = (props) => {
   const [classForParamsNotDefaultPrev, setClassForParamsNotDefaultPrev] =
-    useState("paramNotVisible");
+    useState("paramVisible");
   const toggleDisplayParams = () => {
     classForParamsNotDefaultPrev === "paramNotVisible"
       ? setClassForParamsNotDefaultPrev("paramVisible")
@@ -52,7 +52,7 @@ const AdContentPart = (props) => {
     <div className="adCardTitle">
       <h1>ad content part</h1>
       {props.adContent ? renderComp() : <p>no ad content</p>}
-      <Button onClick={toggleDisplayParams} content="הראה פרמטרים נוספים" />
+      {/* <Button onClick={toggleDisplayParams} content="הראה פרמטרים נוספים" /> */}
     </div>
   );
 };

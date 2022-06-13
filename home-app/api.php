@@ -507,6 +507,10 @@ function getPackById(){
 
 }*/
 
+if (isset ($DATA_OBJ->data_type)&&$DATA_OBJ->data_type=="addToFavorites"){
+    include("../api/system/ads/favorites.php");
+    addToFavorites();
+}
 if(isset($DATA_OBJ->data_type)&&$DATA_OBJ->data_type=='getPackById'){
    // getPackById();
 }
