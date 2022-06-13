@@ -8,6 +8,7 @@ import AdUserPart from "../AdUserPart.js";
 import useView from "./Chat/ChatUseContext";
 import AdImages from "../AdImages.js";
 import { v4 as uuidv4 } from "uuid";
+import RecipeReviewCard from "../RecipeReviewCard.js";
 
 const AdsBlock = (props) => {
   /**
@@ -64,13 +65,14 @@ const AdsBlock = (props) => {
           </header>
 
           {/* This will hold the main assets image */}
-          <AdImages
+          <RecipeReviewCard adBlock={props.adBlock}maxWidth="350"/>
+          {/* <AdImages
             key={uuidv4()}
             images={props.adBlock.adImages}
             numPicToDisplay="1"
-          />
+          /> */}
           {/** This will contain the Ad details */}
-          <div className="adCardTitle">
+          {/* <div className="adCardTitle">
             <h4>
               <AdUserPart key={uuidv4()} user={props.adBlock.user} />
               <AdPart
@@ -80,13 +82,14 @@ const AdsBlock = (props) => {
               />
             </h4>
           </div>
+        </div> */}
         </div>
       </Link>
-      <AdContentPart
+      {/* <AdContentPart
         key={uuidv4()}
         adContent={props.adBlock.adContent}
         className="adContentPartList"
-      />
+      /> */}
       {/** This will contain the Ad footer wrapper  */}
       <div className="jss185 jss181">
         {/** This will contain the Ad footer inner wrapper  */}

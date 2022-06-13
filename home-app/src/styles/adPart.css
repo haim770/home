@@ -4,11 +4,15 @@
   flex-direction: column;
   justify-content: center;
   align-content: flex-start;
-  
 }
 .adPartFull{
   max-height: 100vw;
   border: 2px solid blue;
   display: grid;
   grid-template-columns: 1fr 1fr;
+}
+.adPart{
+  display:grid;
+   grid-template-columns: 1fr 1fr;
+
 }
