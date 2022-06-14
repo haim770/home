@@ -21,6 +21,7 @@ import Parameter from "./Parameter.js";
 import { v4 as uuidv4 } from "uuid";
 import instance from "../api/AxiosInstance";
 import useAuth from "../Auth/useAuth";
+import "../styles/RecipeReviewCard.css";
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
   return <IconButton {...other} />;
@@ -35,19 +36,40 @@ const ExpandMore = styled((props) => {
 export default function RecipeReviewCard(props) {
   const { auth } = useAuth();
   const [expanded, setExpanded] = React.useState(false);
-  const addToFavorites = async (e) => {
+
+  const addOrRemoveToFavorites = async (e) => {
     e.preventDefault();
-    const result = await instance.request({
-      data: {
-        data_type: "addToFavorites",
-        params: {
-          adID: props.adBlock.ad[0].adID,
-          user_id: props.adBlock.ad[0].user_id,
+    if (props.isFavorite) {
+      const result = await instance.request({
+        data: {
+          data_type: "removeFromFavorites",
+          params: {
+            adID: props.adBlock.ad[0].adID,
+            user_id: props.adBlock.ad[0].user_id,
+          },
         },
-      },
-    });
-    console.log(result.data);
-    console.log("add to favorites");
+      });
+      console.log(result.data);
+      if (result.data === false) {
+        props.setFavorite(false);
+      }
+      console.log("remove to favorites");
+    } else {
+      const result = await instance.request({
+        data: {
+          data_type: "addToFavorites",
+          params: {
+            adID: props.adBlock.ad[0].adID,
+            user_id: props.adBlock.ad[0].user_id,
+          },
+        },
+      });
+      console.log(result.data);
+      if (result.data === false) {
+        props.setFavorite(true);
+      }
+      console.log("add to favorites");
+    }
   };
   const shareWhatsapp = (e) => {
     e.preventDefault();
@@ -79,8 +101,11 @@ export default function RecipeReviewCard(props) {
       </CardContent>
       <CardActions disableSpacing>
         {auth.roles ? (
-          <IconButton aria-label="add to favorites" onClick={addToFavorites}>
-            <FavoriteIcon />
+          <IconButton
+            aria-label="add to favorites"
+            onClick={addOrRemoveToFavorites}
+          >
+            <FavoriteIcon color={props.isFavorite ? "success" : ""} />
           </IconButton>
         ) : (
           ""

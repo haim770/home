@@ -20,6 +20,7 @@ import Register from "./Components/pages/Register";
 import RequireAuth from "./Auth/RequireAuth";
 import PersistLogin from "./Auth/PersistLogin";
 import Settings from "./Components/pages/users/Settings";
+import Favorites from "./Components/Favorites.js";
 
 // Chat
 import Chat from "./Components/pages/Chat";
@@ -107,6 +108,13 @@ export default function App() {
                       element={<RequireAuth allowedRoles={[ROLES.Admin]} />}
                     >
                       <Route path="Sales" element={<SiteSales />} />
+                    </Route>
+                  </Route>
+                  <Route element={<PersistLogin />}>
+                    <Route
+                      element={<RequireAuth allowedRoles={[ROLES.Admin]} />}
+                    >
+                      <Route path="Favorites" element={<Favorites />} />
                     </Route>
                   </Route>
                   <Route element={<PersistLogin />}>

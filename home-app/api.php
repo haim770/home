@@ -507,6 +507,10 @@ function getPackById(){
 
 }*/
 
+if (isset ($DATA_OBJ->data_type)&&$DATA_OBJ->data_type=="removeFromFavorites"){
+    include("../api/system/ads/favorites.php");
+    removeFromFavorites();
+}
 if (isset ($DATA_OBJ->data_type)&&$DATA_OBJ->data_type=="getFavoritesForUserId"){
     include("../api/system/ads/favorites.php");
     getFavoritesForUserId();

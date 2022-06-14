@@ -11,22 +11,6 @@ const Ads = (props) => {
   const [noMoreAdsForSearch, setNoMoreAdsForSearch] = useState(false); //control on weather we will scroll for more result changes to true if no more result are available
   const [changed, setChanged] = useState(false);
 
-  // check when we scroll down to button
-  // const handleScroll = (e) => {
-  //   // this is the inner height of the HTML page
-  //   const innerHeight = window.innerHeight;
-  //   // get the current Scroll hheight
-  //   const scrollPosition = e.target.documentElement.scrollTop;
-  //   // get full page scrolling height
-  //   const scrollHeight = e.target.documentElement.scrollHeight;
-
-  //   const currentHeight = Math.ceil(
-  //     e.target.documentElement.scrollTop + window.innerHeight
-  //   );
-  //   if (currentHeight + 1 >= scrollHeight) {
-  //     setindexStart(indexStart + 10);
-  //   }
-  // };
   const getAds = async () => {
     setLoading(false);
     setNoMoreAdsForSearch(false);
@@ -42,7 +26,7 @@ const Ads = (props) => {
     } else {
       setAds(
         result.data.map((ad) => (
-          <AdsBlock key={ad.adID + uuidv4()} adBlock={ad} />
+          <AdsBlock key={ad.adID + uuidv4()} adBlock={ad} isFavorite={true} />
         ))
       );
     }
@@ -59,9 +43,9 @@ const Ads = (props) => {
 
   return (
     <section className="containerForAllAds">
-      <h1>all the wanted ads</h1>
+      <h1>כל המועדפים</h1>
       <div className="listAds">{loading && ads}</div>
-      {noMoreAdsForSearch ? <h2>no more ads</h2> : ""}
+      {noMoreAdsForSearch ? <h2>אין מועדפים</h2> : ""}
     </section>
   );
 };

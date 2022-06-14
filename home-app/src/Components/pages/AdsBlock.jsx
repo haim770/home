@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, NavLink, Outlet } from "react-router-dom";
 import AdPart from "../AdPart.js";
 import AdContentPart from "../AdContentPart.js";
@@ -14,6 +14,7 @@ const AdsBlock = (props) => {
   /**
    * Add function of start new chat with user ad publisher
    */
+  const [isFavorite,setIsFavorite]=useState(props.isFavorite);
   const { startNewChat } = useView();
   const handleClickChatWith = () => {
     const chatWith = {
@@ -65,7 +66,12 @@ const AdsBlock = (props) => {
           </header>
 
           {/* This will hold the main assets image */}
-          <RecipeReviewCard adBlock={props.adBlock}maxWidth="350"/>
+          <RecipeReviewCard
+            adBlock={props.adBlock}
+            maxWidth="350"
+            isFavorite={isFavorite}
+            setFavorite={setIsFavorite}
+          />
           {/* <AdImages
             key={uuidv4()}
             images={props.adBlock.adImages}
@@ -114,5 +120,7 @@ const AdsBlock = (props) => {
     </section>
   );
 };
-
+AdsBlock.defaultProps = {
+  isFavorite: false,
+};
 export default AdsBlock;

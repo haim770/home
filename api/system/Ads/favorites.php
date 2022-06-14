@@ -15,6 +15,20 @@ function addToFavorites(){
   echo json_encode($result);
   die;
 }
+function removeFromFavorites(){
+  //remove favorite
+   global $db;
+  global $DATA_OBJ;
+  global $arr;
+  $arr=[];
+  $favorite_id=uniqid();
+  $userId=1;
+  $adID=$DATA_OBJ->params->adID;
+  $query="DELETE from favorites where userId='$userId' and AdId= '$adID'";
+  $result=$db->readDBNoStoredProcedure($query);
+  echo json_encode($result);
+  die;
+}
 function getAllFavorites($userId){
   //get all favorites for user
   global $db;
