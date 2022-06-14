@@ -20,7 +20,7 @@ import AdUserPart from "./AdUserPart.js";
 import Parameter from "./Parameter.js";
 import { v4 as uuidv4 } from "uuid";
 import instance from "../api/AxiosInstance";
-
+import useAuth from "../Auth/useAuth";
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
   return <IconButton {...other} />;
@@ -33,24 +33,27 @@ const ExpandMore = styled((props) => {
 }));
 
 export default function RecipeReviewCard(props) {
+  const { auth } = useAuth();
+  console.log(auth);
   const [expanded, setExpanded] = React.useState(false);
   const addToFavorites = async (e) => {
     e.preventDefault();
     const result = await instance.request({
       data: {
         data_type: "addToFavorites",
-        params: { adID: props.adBlock.ad[0].adID,
-          user_id:props.adBlock.ad[0].user_id,
+        params: {
+          adID: props.adBlock.ad[0].adID,
+          user_id: props.adBlock.ad[0].user_id,
         },
       },
     });
     console.log(result.data);
     console.log("add to favorites");
   };
-  const shareWhatsapp=(e)=>{
-e.preventDefault();
-console.log("share link in whatsapp");
-  }
+  const shareWhatsapp = (e) => {
+    e.preventDefault();
+    console.log("share link in whatsapp");
+  };
   const handleExpandClick = (e) => {
     e.preventDefault();
     setExpanded(!expanded);
@@ -76,9 +79,13 @@ console.log("share link in whatsapp");
         <AdPart ad={props.adBlock.ad} className="adPart" />
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites" onClick={addToFavorites}>
-          <FavoriteIcon />
-        </IconButton>
+        {auth.roles ? (
+          <IconButton aria-label="add to favorites" onClick={addToFavorites}>
+            <FavoriteIcon />
+          </IconButton>
+        ) : (
+          ""
+        )}
         <IconButton aria-label="share" onClick={shareWhatsapp}>
           <ShareIcon />
         </IconButton>

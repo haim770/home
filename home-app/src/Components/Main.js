@@ -1,10 +1,12 @@
+import Favorite from "@mui/icons-material/Favorite";
 import React from "react";
 import ImgCarousel from "./ImgCarousel";
-import RecipeReviewCard from "./RecipeReviewCard.js";
+import Favorites from "./Favorites.js";
 
 const Home = () => {
   return (
     <div>
+      <Favorites/>
     </div>
   );
 };

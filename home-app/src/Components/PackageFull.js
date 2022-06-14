@@ -52,7 +52,7 @@ function PackageFull(props) {
           "ASXZvWdmYTGVe7D0eKiAddQjocGsHoxmtxsymlrHAvQr2_Z0uLMX9ZOOfHjMAhUrjGBrFe5o_dOCSu-Y",
       }}
     >
-      <section className="adFull">
+      <section className="packFull">
         <ul>
           <Parameter paramName="price" paramValue={dataForUrl.pack.price} />
           <Parameter paramName="content" paramValue={dataForUrl.pack.content} />
