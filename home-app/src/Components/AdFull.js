@@ -10,6 +10,8 @@ import AdContentPart from "./AdContentPart";
 import AdUserPart from "./AdUserPart.js";
 import AdImages from "./AdImages";
 import AddCookie from "./pages/Ads/addCookie";
+import RecipeReviewCard from "./RecipeReviewCard";
+import RecipeReviewCardUrl from "./RecipeReviewCardUrl";
 function AdFull(props) {
   const [dataForUrl, setDataForUrl] = useState({});
   const [renderCookie, setRenderCookie] = useState(true);
@@ -21,13 +23,12 @@ function AdFull(props) {
     const result = await instance.request({
       data: {
         data_type: "getAdByID",
-        params: { adID: arr[arr.length-1], user_id: 1 }, //window.location.href gets the urlline
+        params: { adID: arr[arr.length - 1], user_id: 1 }, //window.location.href gets the urlline
       },
     });
     setDataForUrl(result.data);
     console.log(result.data);
-      console.log(dataForUrl);
-    
+    console.log(dataForUrl);
   };
   useEffect(() => {
     const arr = window.location.href.split("/");
@@ -36,7 +37,7 @@ function AdFull(props) {
       const result = instance.request({
         data: {
           data_type: "updateWatch",
-          params: { adID: arr[arr.length-1] }, //window.location.href gets the urlline
+          params: { adID: arr[arr.length - 1] }, //window.location.href gets the urlline
         },
       });
     } else {
@@ -50,30 +51,28 @@ function AdFull(props) {
   }, []);
 
   return data ? (
-     
     <section className={"ad"}>
+      <RecipeReviewCard adBlock={data.adBlock} maxSize="800" />
       <ul>
         <AddCookie adID={data.adBlock.ad} />
-        <AdUserPart user={data.adBlock.user} />
+        {/* <AdUserPart user={data.adBlock.user} />
         <AdImages images={data.adBlock.adImages} />
         <AdPart ad={data.adBlock.ad} className="adPartFull" />
         <AdContentPart
           adContent={data.adBlock.adContent}
           className="adContentPartFull"
-        />
+        /> */}
       </ul>
-      <p>
-        <Button content="contact seller" onclick={props.onclick} />
-      </p>
     </section>
   ) : (
     <section className={"ad"}>
-      <ul>
+      <RecipeReviewCardUrl adBlock={dataForUrl} maxSize="800" />
+      {/* <ul>
         <AdUserPart user={dataForUrl.user} />
         <AdImages images={dataForUrl.adImages} />
         <AdPart ad={dataForUrl.ad} />
         <AdContentPart adContent={dataForUrl.adContent} />
-      </ul>
+      </ul> */}
       <p>
         <Button content="contact seller" onclick={props.onclick} />
       </p>

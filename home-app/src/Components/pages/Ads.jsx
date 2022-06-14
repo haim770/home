@@ -66,6 +66,7 @@ const Ads = (props) => {
         limitBy: { start: 0, end: indexEnd }, //the indexes
       },
     });
+    //console.log(result.data[0]);
     if (result.data === false || result.data === "") {
       setNoMoreAdsForSearch(true);
       return;

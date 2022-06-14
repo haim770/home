@@ -1,9 +1,12 @@
 import React from "react";
 import ImgCarousel from "./ImgCarousel";
-import LastAdsSlider from "./pages/Ads/slider/LastAdsSlider";
+import RecipeReviewCard from "./RecipeReviewCard.js";
 
 const Home = () => {
-  return <div></div>;
+  return (
+    <div>
+    </div>
+  );
 };
 
 export default Home;
