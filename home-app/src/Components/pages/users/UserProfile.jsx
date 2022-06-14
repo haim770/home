@@ -121,7 +121,8 @@ const UserProfile = () => {
       <button onClick={signOut}>Sign Out</button>
 
       {/*Toast maker */}
-      <Notifications />
+      {/*<Notifications /> */}
+      <Toaster />
     </div>
   );
 }
