@@ -34,7 +34,6 @@ const ExpandMore = styled((props) => {
 
 export default function RecipeReviewCard(props) {
   const { auth } = useAuth();
-  console.log(auth);
   const [expanded, setExpanded] = React.useState(false);
   const addToFavorites = async (e) => {
     e.preventDefault();
