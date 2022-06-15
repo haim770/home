@@ -48,6 +48,9 @@ export default function RecipeReviewCard(props) {
             user_id: props.adBlock.ad[0].user_id,
           },
         },
+        headers: {
+          Authorization: `Bearer ${auth.accessToken}`,
+        },
       });
       console.log(result.data);
       if (result.data === false) {
@@ -62,6 +65,9 @@ export default function RecipeReviewCard(props) {
             adID: props.adBlock.ad[0].adID,
             user_id: props.adBlock.ad[0].user_id,
           },
+        },
+        headers: {
+          Authorization: `Bearer ${auth.accessToken}`,
         },
       });
       console.log(result.data);

@@ -1,14 +1,15 @@
 <?php
-// $authPath = "../../Authentication/authTest.php";
-// include_once(dirname(__FILE__) . DIRECTORY_SEPARATOR . $authPath);
+ $authPath = "../../Authentication/authTest.php";
+ include_once(dirname(__FILE__) . DIRECTORY_SEPARATOR . $authPath);
 require_once("searchAds.php");
 function addToFavorites(){
+  global $user;
   global $db;
   global $DATA_OBJ;
   global $arr;
   $arr=[];
   $favorite_id=uniqid();
-  $userId=1;
+  $userId= $user->getUuid();
   $adID=$DATA_OBJ->params->adID;
   $query="INSERT INTO favorites (favorite_id,userId,AdId) VALUES ('$favorite_id', '$userId', '$adID') ";
   $result=$db->readDBNoStoredProcedure($query);
@@ -17,12 +18,13 @@ function addToFavorites(){
 }
 function removeFromFavorites(){
   //remove favorite
+  global $user;
    global $db;
   global $DATA_OBJ;
   global $arr;
   $arr=[];
   $favorite_id=uniqid();
-  $userId=1;
+  $userId = $user->getUuid();
   $adID=$DATA_OBJ->params->adID;
   $query="DELETE from favorites where userId='$userId' and AdId= '$adID'";
   $result=$db->readDBNoStoredProcedure($query);
@@ -41,6 +43,7 @@ function getImagesForAdIdFav($adID){
 global $db;
     global $DATA_OBJ;
     global $arr;
+  global $user;
     $arr=[];
     $arr['element_id'] = $adID; //the adid
     $query = "select * from pictures where element_id =:element_id order by serial_number";
@@ -95,8 +98,9 @@ function getFavoritesForUserId(){
 global $db;
 global $DATA_OBJ;
 global $arr;
+global $user;
 $arr=[];
-$user_id=1;
+$user_id = $user->getUuid();
 $arrOfAds=getAllFavorites($user_id);
 if(gettype($arrOfAds)!="array"&&gettype($arrOfAds)!="Array"&&gettype($arrOfAds)!="Object"){
         $arr=[];
