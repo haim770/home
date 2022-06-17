@@ -17,7 +17,8 @@ import "./Styles/collapsTableStyle.css"
 import useAuth from "../../../../../Auth/useAuth";
 import instance from "../../../../../api/AxiosInstance";
 
-function createData(uuid, userEmail, userName, userRole, userLastSeen, price) {
+function createData(uuid, userEmail, userName, userRole, userLastSeen, price,ads,purchase ) {
+  console.log(price);
   return {
     uuid,
     userEmail,
@@ -193,16 +194,20 @@ export default function CollapsibleTable() {
     // check if we got new data from server or any response
     if (result?.data) {
       console.log(result.data.result);
-      setRows(Object.values(result.data.result).map((objM, index) => 
-        createData(
-          objM.uuid,
-          objM.mail,
-          `${objM.first_name} ${objM.last_name}`,
-          objM.rule,
-          objM.last_seen,
-          11.1
+      setRows(
+        Object.values(result.data.result).map((objM, index) =>
+          createData(
+            objM["0"].uuid,
+            objM["0"].mail,
+            `${objM["0"].first_name} ${objM["0"].last_name}`,
+            objM["0"].rule,
+            objM["0"].last_seen,
+            1,
+            objM.ads,
+            objM.purchase,
+          )
         )
-      ));
+      );
     }
   };
   /**
