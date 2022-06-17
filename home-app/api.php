@@ -510,15 +510,20 @@ function getPackById(){
 if (isset ($DATA_OBJ->data_type)&&$DATA_OBJ->data_type=="removeFromFavorites"){
     include("../api/system/ads/favorites.php");
     removeFromFavorites();
+} else
+// get all users from server, use for manager settings
+if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "getSettingsUsers") {
+    include("../api/system/user/settingsUsers.php");
 }
+else
 if (isset ($DATA_OBJ->data_type)&&$DATA_OBJ->data_type=="getFavoritesForUserId"){
     include("../api/system/ads/favorites.php");
     getFavoritesForUserId();
-}
+} else
 if (isset ($DATA_OBJ->data_type)&&$DATA_OBJ->data_type=="addToFavorites"){
     include("../api/system/ads/favorites.php");
     addToFavorites();
-}
+} else
 if(isset($DATA_OBJ->data_type)&&$DATA_OBJ->data_type=='getPackById'){
    // getPackById();
 }
