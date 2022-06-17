@@ -14,6 +14,7 @@ import RecipeReviewCard from "./RecipeReviewCard";
 import RecipeReviewCardUrl from "./RecipeReviewCardUrl";
 function AdFull(props) {
   const [dataForUrl, setDataForUrl] = useState({});
+  const [isFavorite, setIsFavorite] = useState(props.isFavorite);
   const [renderCookie, setRenderCookie] = useState(true);
   let refreshTimes = 1;
   const location = useLocation();
@@ -52,7 +53,12 @@ function AdFull(props) {
 
   return data ? (
     <section className={"ad"}>
-      <RecipeReviewCard adBlock={data.adBlock} maxSize="800" />
+      <RecipeReviewCard
+        adBlock={data.adBlock}
+        maxSize="800"
+        isFavorite={isFavorite}
+        setFavorite={setIsFavorite}
+      />
       <ul>
         <AddCookie adID={data.adBlock.ad} />
         {/* <AdUserPart user={data.adBlock.user} />
@@ -66,7 +72,12 @@ function AdFull(props) {
     </section>
   ) : (
     <section className={"ad"}>
-      <RecipeReviewCardUrl adBlock={dataForUrl} maxSize="800" />
+      <RecipeReviewCardUrl
+        adBlock={dataForUrl}
+        maxSize="800"
+        isFavorite={isFavorite}
+        setFavorite={setIsFavorite}
+      />
       {/* <ul>
         <AdUserPart user={dataForUrl.user} />
         <AdImages images={dataForUrl.adImages} />
