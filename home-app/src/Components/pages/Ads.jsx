@@ -9,8 +9,6 @@ const Ads = (props) => {
   const [ads, setAds] = useState([]);
   const [loading, setLoading] = useState(false);
   const [lastSearch, setLastSearch] = useState("");
-  const [indexStart, setindexStart] = useState(0); //index to start get ads from db
-  const [indexEnd, setindexEnd] = useState(10); //index to end get ads from db
   const [noMoreAdsForSearch, setNoMoreAdsForSearch] = useState(false); //control on weather we will scroll for more result changes to true if no more result are available
   const [changed, setChanged] = useState(false);
 
@@ -27,7 +25,7 @@ const Ads = (props) => {
       e.target.documentElement.scrollTop + window.innerHeight
     );
     if (currentHeight + 1 >= scrollHeight) {
-      setindexStart(indexStart + 10);
+      props.setindexStart(props.indexStart + 10);
     }
   };
   const getAdScroll = async () => {
@@ -36,7 +34,7 @@ const Ads = (props) => {
       data: {
         data_type: props.search.data_type,
         params: props.search.params,
-        limitBy: { start: indexStart, end: indexEnd }, //the indexes
+        limitBy: { start: props.indexStart, end: props.indexEnd }, //the indexes
       },
     });
     if (result.data === false || result.data === "") {
@@ -58,15 +56,16 @@ const Ads = (props) => {
   const getAds = async () => {
     setLoading(false);
     setNoMoreAdsForSearch(false);
-    console.log(indexStart);
+    console.log(props.indexStart);
+    console.log(props.search);
     const result = await instance.request({
       data: {
         data_type: props.search.data_type,
         params: props.search.params,
-        limitBy: { start: 0, end: indexEnd }, //the indexes
+        limitBy: { start: 0, end: props.indexEnd }, //the indexes
       },
     });
-    //console.log(result.data[0]);
+    console.log(result.data);
     if (result.data === false || result.data === "") {
       setNoMoreAdsForSearch(true);
       return;
@@ -103,15 +102,14 @@ const Ads = (props) => {
 
   useEffect(() => {
     setNoMoreAdsForSearch(false);
-    setindexStart(0);
     getAds();
   }, [props.search]);
 
   useEffect(() => {
-    if (!noMoreAdsForSearch && indexStart !== 0) {
+    if (!noMoreAdsForSearch && props.indexStart !== 0) {
       getAdScroll();
     }
-  }, [indexStart]);
+  }, [props.indexStart]);
 
   return (
     <section className="containerForAllAds">

@@ -29,6 +29,10 @@ function SearchAds(props) {
     }
     setInputsAd({ ...inputsAd, [name]: value });
   };
+  const handleChangeAdContentCheckBox = (event) => {
+    const name = event.target.name;
+    setInputsAdContent({ ...inputsAdContent, [name]: event.target.checked });
+  };
   const handleChangeAdContent = (event) => {
     const name = event.target.name;
     const value = event.target.value;
@@ -149,7 +153,8 @@ function SearchAds(props) {
               id={masters[index].name}
               required={masters[index].required}
               value={inputsAdContent.name}
-              onChange={handleChangeAdContent}
+              onChange={handleChangeAdContentCheckBox}
+              // checked={inputsAdContent.name?false:true}
             />
           </label>
         );
@@ -210,6 +215,8 @@ function SearchAds(props) {
   const searchAdByParams = (e) => {
     //add ad to the db, returns true/false
     e.preventDefault();
+    props.setindexStart(0);
+    props.setindexEnd(10);
     const obj = makeObjOfAllFields();
     props.setSearchParams(obj);
     returnStateToDefault();

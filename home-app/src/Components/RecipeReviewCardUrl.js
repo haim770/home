@@ -20,6 +20,7 @@ import AdUserPart from "./AdUserPart.js";
 import Parameter from "./Parameter.js";
 import { v4 as uuidv4 } from "uuid";
 import instance from "../api/AxiosInstance";
+import useAuth from "../Auth/useAuth";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -34,19 +35,47 @@ const ExpandMore = styled((props) => {
 
 export default function RecipeReviewCardUrl(props) {
   const [expanded, setExpanded] = React.useState(false);
-  const addToFavorites = async (e) => {
+  const { auth } = useAuth();
+  const [Favorite, setFavorite] = React.useState(false);
+  const addOrRemoveToFavorites = async (e) => {
     e.preventDefault();
-    const result = await instance.request({
-      data: {
-        data_type: "addToFavorites",
-        params: {
-          adID: props.adBlock.ad.adID,
-          user_id: props.adBlock.ad.user_id,
+    if (props.isFavorite) {
+      const result = await instance.request({
+        data: {
+          data_type: "removeFromFavorites",
+          params: {
+            adID: props.adBlock.ad[0].adID,
+            user_id: props.adBlock.ad[0].user_id,
+          },
         },
-      },
-    });
-    console.log(result.data);
-    console.log("add to favorites");
+        headers: {
+          Authorization: `Bearer ${auth.accessToken}`,
+        },
+      });
+      console.log(result.data);
+      if (result.data === false) {
+        props.setFavorite(false);
+      }
+      console.log("remove to favorites");
+    } else {
+      const result = await instance.request({
+        data: {
+          data_type: "addToFavorites",
+          params: {
+            adID: props.adBlock.ad[0].adID,
+            user_id: props.adBlock.ad[0].user_id,
+          },
+        },
+        headers: {
+          Authorization: `Bearer ${auth.accessToken}`,
+        },
+      });
+      console.log(result.data);
+      if (result.data === false) {
+        props.setFavorite(true);
+      }
+      console.log("add to favorites");
+    }
   };
   const shareWhatsapp = (e) => {
     e.preventDefault();
@@ -73,7 +102,11 @@ export default function RecipeReviewCardUrl(props) {
         <AdPart ad={props.adBlock.ad} className="adPart" />
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites" onClick={addToFavorites}>
+        <IconButton
+          aria-label="add to favorites"
+          color={props.isFavorite ? "success" : ""}
+          onClick={addOrRemoveToFavorites}
+        >
           <FavoriteIcon />
         </IconButton>
         <IconButton aria-label="share" onClick={shareWhatsapp}>

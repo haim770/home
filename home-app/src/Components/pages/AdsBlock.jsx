@@ -14,7 +14,7 @@ const AdsBlock = (props) => {
   /**
    * Add function of start new chat with user ad publisher
    */
-  const [isFavorite,setIsFavorite]=useState(props.isFavorite);
+  const [isFavorite, setIsFavorite] = useState(props.isFavorite);
   const { startNewChat } = useView();
   const handleClickChatWith = () => {
     const chatWith = {
@@ -32,6 +32,7 @@ const AdsBlock = (props) => {
         to={`/adsWithSearch/${props.adBlock.ad[0].adID}`}
         key={props.adBlock.ad[0].adID}
         state={{
+          isfavorite: isFavorite,
           adBlock: props.adBlock,
         }}
       >

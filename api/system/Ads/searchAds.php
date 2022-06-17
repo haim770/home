@@ -30,7 +30,8 @@ function getAdsIdAndUserIdThatFeetSearch1(){
     global $arr;
      $query = generateSearchFromBothAdContentAndAds1();
     $result = $db->readDBNoStoredProcedure($query,[]);
-    
+    // echo json_encode($result);
+    // die;
     $arr=[];
     return $result;
 }
@@ -73,15 +74,16 @@ function generateSearchFromBothAdContentAndAds1(){
     //also consider offset request and limit.
     global $arr;
     global $DATA_OBJ;
+    $hasAdContentAtSearch=false;
     if(!isset($DATA_OBJ->params)||$DATA_OBJ->params==[]){
         //if there is no params
         return "select  DISTINCT ads.adID,ads.user_id from ads limit ".$DATA_OBJ->limitBy->end." OFFSET ".$DATA_OBJ->limitBy->start.";";
     }
     //if there is parameters to search by
     $query="select DISTINCT ads.adID,ads.user_id from ads,ad_content where ads.adID=ad_content.adID" ;
+    $queryWithoutAdContentParams="select DISTINCT ads.adID,ads.user_id from ads where 1=1" ;
     $queryAdTableParams="";//the part for querying ads table
     $queryAdContentTableParams="";//the part for querying adcontent
-    
     if (isset($DATA_OBJ->params)) {
         foreach ($DATA_OBJ->params as $key => $value) {
             if ($value=="") {
@@ -109,19 +111,25 @@ function generateSearchFromBothAdContentAndAds1(){
 
             }
             else{
-               $queryAdContentTableParams.="and EXISTS(select 1 from ad_content where ad_content.name = '$key' and ad_content.value ='$value')"; 
+                $hasAdContentAtSearch=true;
+               $queryAdContentTableParams.="and ad_content.name = '$key' and ad_content.value ='$value'"; 
                $arr[$key] = $key;
                $arr[$value] = $value;
             }
             
         }
         if (isset($DATA_OBJ->limitBy)){
+            if(!$hasAdContentAtSearch){
+                $query=$queryWithoutAdContentParams;
+            }
              $query.=" ".$queryAdTableParams." ".$queryAdContentTableParams." limit ".$DATA_OBJ->limitBy->end." offset ".$DATA_OBJ->limitBy->start.";";
+             
         }
         else{
         $query.=" ".$queryAdTableParams." ".$queryAdContentTableParams.";";
     }
     }
+    
     return $query;
 }
 function getUserForUserId1($user_id){
