@@ -9,6 +9,8 @@ import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
+import TablePagination from "@mui/material/TablePagination";
+import TableFooter from "@mui/material/TableFooter";
 import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
@@ -17,8 +19,34 @@ import "./Styles/collapsTableStyle.css"
 import useAuth from "../../../../../Auth/useAuth";
 import instance from "../../../../../api/AxiosInstance";
 
+
 function createData(uuid, userEmail, userName, userRole, userLastSeen, price,ads,purchase ) {
-  console.log(price);
+let adss;
+let purchases;
+  if(ads) adss = ads;
+  else
+  adss = [
+    {
+      adId: "",
+      active: "",
+      approval_status: "",
+      create_time: "",
+      expire_date: "",
+      watch: "",
+      user_id: "",
+    },
+  ];
+  if (purchase) purchases = purchase;
+  else
+    purchases = [
+      {
+        purchase_id: "",
+        packageId: "",
+        userId: "",
+        purchase_time: "",
+        price: "",
+      },
+    ];
   return {
     uuid,
     userEmail,
@@ -26,6 +54,8 @@ function createData(uuid, userEmail, userName, userRole, userLastSeen, price,ads
     userRole,
     userLastSeen,
     price,
+    adss,
+    purchases,
     history: [  
       {
         date: "2020-01-05",
@@ -89,22 +119,26 @@ function Row(props) {
               <Table size="medium" aria-label="ads">
                 <TableHead>
                   <TableRow>
-                    <TableCell>Date</TableCell>
-                    <TableCell>Customer</TableCell>
-                    <TableCell align="right">Amount</TableCell>
-                    <TableCell align="right">Total price ($)</TableCell>
+                    <TableCell align="right">מזהה מודעה</TableCell>
+                    <TableCell align="right">זמן יצירה</TableCell>
+                    <TableCell align="right">תוקף</TableCell>
+                    <TableCell align="right">פעיל?</TableCell>
+                    <TableCell align="right">מספר צפיות</TableCell>
+                    <TableCell align="right">סטאטוס מודעה</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {row.history.map((historyRow) => (
-                    <TableRow key={historyRow.date}>
-                      <TableCell component="th" scope="row">
-                        {historyRow.date}
+                  {row.adss.map((adsRow, index) => (
+                    <TableRow key={index}>
+                      <TableCell component="th" scope="row" align="right">
+                        {adsRow.adID}
                       </TableCell>
-                      <TableCell>{historyRow.customerId}</TableCell>
-                      <TableCell align="right">{historyRow.amount}</TableCell>
+                      <TableCell align="right">{adsRow.create_time}</TableCell>
+                      <TableCell align="right">{adsRow.expire_date}</TableCell>
+                      <TableCell align="right">{adsRow.active}</TableCell>
+                      <TableCell align="right">{adsRow.watch}</TableCell>
                       <TableCell align="right">
-                        {Math.round(historyRow.amount * row.price * 100) / 100}
+                        {adsRow.approval_status}
                       </TableCell>
                     </TableRow>
                   ))}
@@ -137,23 +171,25 @@ function Row(props) {
               <Table size="medium" aria-label="purchases">
                 <TableHead>
                   <TableRow>
-                    <TableCell>Date</TableCell>
-                    <TableCell>Customer</TableCell>
-                    <TableCell align="right">Amount</TableCell>
-                    <TableCell align="right">Total price ($)</TableCell>
+                    <TableCell align="right">מזהה רכישה</TableCell>
+                    <TableCell align="right">מזהה חבילה</TableCell>
+                    <TableCell align="right">תאריך רכישה</TableCell>
+                    <TableCell align="right">סכום (₪)</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {row.history.map((historyRow) => (
-                    <TableRow key={historyRow.date}>
-                      <TableCell component="th" scope="row">
-                        {historyRow.date}
+                  {row.purchases.map((purchaseRow, index) => (
+                    <TableRow key={index}>
+                      <TableCell component="th" scope="row" align="right">
+                        {purchaseRow.purchase_id}
                       </TableCell>
-                      <TableCell>{historyRow.customerId}</TableCell>
-                      <TableCell align="right">{historyRow.amount}</TableCell>
                       <TableCell align="right">
-                        {Math.round(historyRow.amount * row.price * 100) / 100}
+                        {purchaseRow.packageId}
                       </TableCell>
+                      <TableCell align="right">
+                        {purchaseRow.purchase_time}
+                      </TableCell>
+                      <TableCell align="right">{purchaseRow.price}</TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
@@ -177,7 +213,10 @@ function Row(props) {
 
 export default function CollapsibleTable() {
   const [rows, setRows] = useState([]);
+  const [totalRows, setTotalRows] = useState(0);
+  const [page, setPage] = useState(0);
   const { auth } = useAuth();
+
   /**
    * Get Chat from server
    */
@@ -193,7 +232,7 @@ export default function CollapsibleTable() {
     });
     // check if we got new data from server or any response
     if (result?.data) {
-      console.log(result.data.result);
+      setTotalRows(Object.values(result.data.result).length);
       setRows(
         Object.values(result.data.result).map((objM, index) =>
           createData(
@@ -239,6 +278,16 @@ export default function CollapsibleTable() {
               <Row key={row.uuid} row={row} />
             ))}
           </TableBody>
+          <TableFooter>
+            <TableRow>
+              <TablePagination
+                rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
+                count={totalRows}
+                rowsPerPage={5}
+                page={page}
+              />
+            </TableRow>
+          </TableFooter>
         </Table>
       </TableContainer>
     </div>
