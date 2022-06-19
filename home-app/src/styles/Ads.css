@@ -277,7 +277,15 @@
   max-width: 50%;
   size: 9rem;
 }
-.containerForAllAds{display:flex;flex-direction: column;max-width: 80%;justify-content: center;text-align: center;}
+
+.containerForAllAds {
+  display: flex;
+  flex-direction: column;
+  max-width: 80%;
+  justify-content: center;
+  text-align: center;
+}
+
 /*  Add to favoite jss191*/
 .jss191 {
   top: 16px;
@@ -285,7 +293,12 @@
   z-index: 2;
   position: absolute;
 }
-
+.showList{
+  display:flex;
+}
+.notShowList{display: none;}
+.showFull{display:block};
+.notShowFull{display: none;}
 /* Add to Favorite circle 
 MuiButtonBase-root MuiFab-root jss2248 */
 

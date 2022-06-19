@@ -5,12 +5,16 @@ import { v4 as uuidv4 } from "uuid";
 import "../../styles/Main.css";
 import "../../styles/Ads.css";
 import AdsBlock from "./AdsBlock";
+import AdFullForProps from "../AdFullForProps";
 const Ads = (props) => {
   const [ads, setAds] = useState([]);
   const [loading, setLoading] = useState(false);
   const [lastSearch, setLastSearch] = useState("");
   const [noMoreAdsForSearch, setNoMoreAdsForSearch] = useState(false); //control on weather we will scroll for more result changes to true if no more result are available
   const [changed, setChanged] = useState(false);
+  const [listShow, setListShow] = useState("showList");
+  const [fullShow, setFullShow] = useState("notShowFull");
+  const [adFull, setAdFull] = useState({});
 
   // check when we scroll down to button
   const handleScroll = (e) => {
@@ -56,8 +60,6 @@ const Ads = (props) => {
   const getAds = async () => {
     setLoading(false);
     setNoMoreAdsForSearch(false);
-    console.log(props.indexStart);
-    console.log(props.search);
     const result = await instance.request({
       data: {
         data_type: props.search.data_type,
@@ -65,7 +67,7 @@ const Ads = (props) => {
         limitBy: { start: 0, end: props.indexEnd }, //the indexes
       },
     });
-    console.log(result.data);
+    //console.log(result.data);
     if (result.data === false || result.data === "") {
       setNoMoreAdsForSearch(true);
       return;
@@ -73,7 +75,14 @@ const Ads = (props) => {
       if (JSON.stringify(props.search) !== JSON.stringify(lastSearch)) {
         setAds(
           result.data.map((ad) => (
-            <AdsBlock key={ad.adID + uuidv4()} adBlock={ad} />
+            <AdsBlock
+              key={ad.adID + uuidv4()}
+              className={listShow}
+              adBlock={ad}
+              setAdFull={setAdFull}
+              setFullShow={setFullShow}
+              setListShow={setListShow}
+            />
           ))
         );
       } else {
@@ -82,7 +91,14 @@ const Ads = (props) => {
           return new Set([
             ...prevAds,
             result.data.map((ad) => (
-              <AdsBlock key={ad.adID + uuidv4()} adBlock={ad} />
+              <AdsBlock
+                key={ad.adID + uuidv4()}
+                className={listShow}
+                adBlock={ad}
+                setAdFull={setAdFull}
+                setFullShow={setFullShow}
+                setListShow={setListShow}
+              />
             )),
           ]);
         });
@@ -113,8 +129,20 @@ const Ads = (props) => {
 
   return (
     <section className="containerForAllAds">
+      {console.log(adFull)}
       <h1>all the wanted ads</h1>
-      <div className="listAds">{loading && ads}</div>
+      <div className="listAds">{loading && listShow === "showList" && ads}</div>
+      {fullShow === "showFull" && adFull != {} ? (
+        <AdFullForProps
+          className={fullShow}
+          adBlock={adFull}
+          setAdFull={setAdFull}
+          setFullShow={setFullShow}
+          setListShow={setListShow}
+        />
+      ) : (
+        ""
+      )}
       {noMoreAdsForSearch ? <h2>no more ads</h2> : ""}
     </section>
   );

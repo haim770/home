@@ -1,18 +1,19 @@
-.cardBlock{
-   display:flex;
-   flex-direction: column;
-   border:2px solid yellow;
-   padding: 1rem;
-   max-width: 40%;
-   
-   direction: rtl;
-   font-size: 1rem;
-   border-radius: 30px;
+.cardBlock {
+  display: flex;
+  flex-direction: column;
+  border: 2px solid yellow;
+  padding: 1rem;
+  max-width: 40%;
+  direction: rtl;
+  font-size: 1rem;
+  border-radius: 30px;
   background-color: #fff;
   margin-bottom: 1rem;
 }
+
+
 .headerOnTheTop {
-  color:blue;
+  color: blue;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
