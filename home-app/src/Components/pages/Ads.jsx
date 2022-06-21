@@ -50,7 +50,14 @@ const Ads = (props) => {
           return new Set([
             ...prevAds,
             result.data.map((ad) => (
-              <AdsBlock key={ad.adID + uuidv4()} adBlock={ad} />
+              <AdsBlock
+                key={ad.adID + uuidv4()}
+                adBlock={ad}
+                setAdFull={setAdFull}
+                className={props.listShow}
+                setFullShow={props.setFullShow}
+                setListShow={props.setListShow}
+              />
             )),
           ]);
         });
@@ -77,11 +84,11 @@ const Ads = (props) => {
           result.data.map((ad) => (
             <AdsBlock
               key={ad.adID + uuidv4()}
-              className={listShow}
+              className={props.listShow}
               adBlock={ad}
               setAdFull={setAdFull}
-              setFullShow={setFullShow}
-              setListShow={setListShow}
+              setFullShow={props.setFullShow}
+              setListShow={props.setListShow}
             />
           ))
         );
@@ -93,11 +100,11 @@ const Ads = (props) => {
             result.data.map((ad) => (
               <AdsBlock
                 key={ad.adID + uuidv4()}
-                className={listShow}
+                className={props.listShow}
                 adBlock={ad}
                 setAdFull={setAdFull}
-                setFullShow={setFullShow}
-                setListShow={setListShow}
+                setFullShow={props.setFullShow}
+                setListShow={props.setListShow}
               />
             )),
           ]);
@@ -131,14 +138,16 @@ const Ads = (props) => {
     <section className="containerForAllAds">
       {console.log(adFull)}
       <h1>all the wanted ads</h1>
-      <div className="listAds">{loading && listShow === "showList" && ads}</div>
-      {fullShow === "showFull" && adFull != {} ? (
+      <div className="listAds">
+        {loading && props.listShow === "showList" && ads}
+      </div>
+      {props.fullShow === "showFull" && adFull != {} ? (
         <AdFullForProps
-          className={fullShow}
+          className={props.fullShow}
           adBlock={adFull}
           setAdFull={setAdFull}
-          setFullShow={setFullShow}
-          setListShow={setListShow}
+          setFullShow={props.setFullShow}
+          setListShow={props.setListShow}
         />
       ) : (
         ""

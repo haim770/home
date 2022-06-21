@@ -215,6 +215,8 @@ function SearchAds(props) {
   const searchAdByParams = (e) => {
     //add ad to the db, returns true/false
     e.preventDefault();
+    props.setListShow("showList");
+    props.setFullShow("notShowFull");
     props.setindexStart(0);
     props.setindexEnd(10);
     const obj = makeObjOfAllFields();
@@ -247,7 +249,7 @@ function SearchAds(props) {
       </label>
       {masters ? makeFormOfAdContent() : ""}
       <p>
-        <Button onClick={searchAdByParams} />
+        <Button onClick={searchAdByParams} content="חפש" />
       </p>
     </form>
   );

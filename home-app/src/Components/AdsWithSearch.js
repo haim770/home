@@ -8,6 +8,8 @@ function AdsWithSearch(props) {
   const [indexStart, setindexStart] = useState(0); //index to start get ads from db
   const [indexEnd, setindexEnd] = useState(10); //index to end get ads from db
   const [lastSearch, setLastSearch] = useState("");
+  const [listShow, setListShow] = useState("showList");
+  const [fullShow, setFullShow] = useState("notShowFull");
   const [searchAd, setSearchAd] = useState({
     data_type: "getAllAdContentAndAdAndUsersForArrOfAds",
     params: [],
@@ -23,6 +25,8 @@ function AdsWithSearch(props) {
           indexStart={indexStart}
           indexEnd={indexEnd}
           setindexEnd={setindexEnd}
+          setFullShow={setFullShow}
+          setListShow={setListShow}
         />
         <Ads
           search={searchAd}
@@ -30,6 +34,10 @@ function AdsWithSearch(props) {
           indexStart={indexStart}
           indexEnd={indexEnd}
           setindexEnd={setindexEnd}
+          setFullShow={setFullShow}
+          setListShow={setListShow}
+          listShow={listShow}
+          fullShow={fullShow}
         />
       </section>
     );
