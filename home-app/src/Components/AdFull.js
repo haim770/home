@@ -17,8 +17,6 @@ function AdFull(props) {
   const [isFavorite, setIsFavorite] = useState(props.isFavorite);
   const [renderCookie, setRenderCookie] = useState(true);
   let refreshTimes = 1;
-  const location = useLocation();
-  const data = location.state;
   const getAd = async () => {
     const arr = window.location.href.split("/");
     const result = await instance.request({
@@ -33,57 +31,30 @@ function AdFull(props) {
   };
   useEffect(() => {
     const arr = window.location.href.split("/");
-    if (!data || data === {} || data == false) {
-      getAd();
-      const result = instance.request({
-        data: {
-          data_type: "updateWatch",
-          params: { adID: arr[arr.length - 1] }, //window.location.href gets the urlline
-        },
-      });
-    } else {
-      const result = instance.request({
-        data: {
-          data_type: "updateWatch",
-          params: { adID: data.adBlock.ad[0].adID }, //window.location.href gets the urlline
-        },
-      });
-    }
+    getAd();
+    const result = instance.request({
+      data: {
+        data_type: "updateWatch",
+        params: { adID: arr[arr.length - 1] }, //window.location.href gets the urlline
+      },
+    });
   }, []);
 
-  return data ? (
+  return (
     <section className={"ad"}>
-      <RecipeReviewCard
-        adBlock={data.adBlock}
-        maxSize="800"
-        isFavorite={isFavorite}
-        setFavorite={setIsFavorite}
-      />
-      <ul>
-        <AddCookie adID={data.adBlock.ad} />
-        {/* <AdUserPart user={data.adBlock.user} />
-        <AdImages images={data.adBlock.adImages} />
-        <AdPart ad={data.adBlock.ad} className="adPartFull" />
-        <AdContentPart
-          adContent={data.adBlock.adContent}
-          className="adContentPartFull"
-        /> */}
-      </ul>
-    </section>
-  ) : (
-    <section className={"ad"}>
-      <RecipeReviewCardUrl
+      {/* <AddCookie adID={dataForUrl.ad.adID} /> */}
+      {/* <RecipeReviewCardUrl
         adBlock={dataForUrl}
         maxSize="800"
         isFavorite={isFavorite}
         setFavorite={setIsFavorite}
-      />
-      {/* <ul>
+      /> */}
+      <ul>
         <AdUserPart user={dataForUrl.user} />
         <AdImages images={dataForUrl.adImages} />
         <AdPart ad={dataForUrl.ad} />
         <AdContentPart adContent={dataForUrl.adContent} />
-      </ul> */}
+      </ul>
       <p>
         <Button content="contact seller" onclick={props.onclick} />
       </p>

@@ -133,9 +133,16 @@ const Ads = (props) => {
       getAdScroll();
     }
   }, [props.indexStart]);
-
+  const getOutOfFullMode = (e) => {
+    //when clicking outside the full ad it will close
+    e.stopPropagation();
+    if (props.fullShow === "showFull") {
+      props.setFullShow("notShowFull");
+      props.setListShow("showList");
+    }
+  };
   return (
-    <section className="containerForAllAds">
+    <section className="containerForAllAds" onClick={getOutOfFullMode}>
       {console.log(adFull)}
       <h1>all the wanted ads</h1>
       <div className="listAds">
