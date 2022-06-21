@@ -12,7 +12,7 @@ function SearchAds(props) {
     user_id: "",
     city: "",
     street: "",
-    adType: "rent",
+    adType: "השכרה",
     maxRooms: "",
     minRooms: "",
     apartment: "",
@@ -73,15 +73,15 @@ function SearchAds(props) {
   const makeFieldsOfAdColumnsWeKnow = (code) => {
     code.push(
       <label key="adType">
-        <span>סוג מודעה(קנייה/השכרה) </span>
+        <span>סוג מודעה</span>
         <select
           id="adType"
           name="adType"
           value={inputsAd.adType}
           onChange={handleChangeAd}
         >
-          <option>rent</option>
-          <option>buy</option>
+          <option>השכרה</option>
+          <option>קנייה</option>
         </select>
       </label>
     );
@@ -182,7 +182,7 @@ function SearchAds(props) {
       user_id: "",
       city: "",
       street: "",
-      adType: "rent",
+      adType: "השכרה",
       maxRooms: "",
       minRooms: "",
       apartment: "",
@@ -221,12 +221,11 @@ function SearchAds(props) {
     props.setindexEnd(10);
     const obj = makeObjOfAllFields();
     props.setSearchParams(obj);
-    returnStateToDefault();
   };
   return (
     <form className={props.className}>
       <label key="minPrice">
-        <span>enter min price</span>
+        <span>מחיר מינימום</span>
         <input
           type="text"
           name="form_max_price"
@@ -237,7 +236,7 @@ function SearchAds(props) {
         />
       </label>
       <label key="maxPrice">
-        <span>enter max price</span>
+        <span>מחיר מקסימום</span>
         <input
           type="text"
           name="form_min_price"

@@ -27,20 +27,14 @@ const AdsBlock = (props) => {
   };
   const changeViewToFull = (e) => {
     e.preventDefault();
-    props.setListShow("notShowList");
-    props.setFullShow("showFull");
-    props.setAdFull(props.adBlock);
+    if (e.currentTarget === e.target) {
+      props.setListShow("notShowList");
+      props.setFullShow("showFull");
+      props.setAdFull(props.adBlock);
+    }
   };
   return (
     <section className="cardBlock" onClick={changeViewToFull}>
-      {/* <Link
-        to={`/adsWithSearch/${props.adBlock.ad[0].adID}`}
-        key={props.adBlock.ad[0].adID}
-        state={{
-          isfavorite: isFavorite,
-          adBlock: props.adBlock,
-        }}
-      > */}
       <div>
         <header className="headerOnTheTop">
           {/* This div will contain data like how many days the add on the site */}

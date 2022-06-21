@@ -45,7 +45,7 @@ const Ads = (props) => {
       setNoMoreAdsForSearch(true);
     } else {
       //console.log("append");
-      if (!noMoreAdsForSearch)
+      if (!noMoreAdsForSearch) {
         setAds((prevAds) => {
           return new Set([
             ...prevAds,
@@ -61,6 +61,7 @@ const Ads = (props) => {
             )),
           ]);
         });
+      }
     }
     setLoading(true);
   };
@@ -74,7 +75,7 @@ const Ads = (props) => {
         limitBy: { start: 0, end: props.indexEnd }, //the indexes
       },
     });
-    //console.log(result.data);
+    console.log(result.data);
     if (result.data === false || result.data === "") {
       setNoMoreAdsForSearch(true);
       return;
@@ -136,18 +137,28 @@ const Ads = (props) => {
   const getOutOfFullMode = (e) => {
     //when clicking outside the full ad it will close
     e.stopPropagation();
-    if (props.fullShow === "showFull") {
+    e.preventDefault();
+
+    if (props.fullShow === "showFull" && e.target.id === "containerForAd") {
+      console.log(e.target.id === "cont");
       props.setFullShow("notShowFull");
       props.setListShow("showList");
     }
   };
   return (
-    <section className="containerForAllAds" onClick={getOutOfFullMode}>
-      {console.log(adFull)}
-      <h1>all the wanted ads</h1>
-      <div className="listAds">
-        {loading && props.listShow === "showList" && ads}
-      </div>
+    <section
+      className="containerForAllAds"
+      id="containerForAd"
+      onClick={getOutOfFullMode}
+    >
+      <h1>תצוגת מודעות</h1>
+      {loading && props.listShow === "showList" ? (
+        <div className="listAds">
+          {loading && props.listShow === "showList" && ads}
+        </div>
+      ) : (
+        ""
+      )}
       {props.fullShow === "showFull" && adFull != {} ? (
         <AdFullForProps
           className={props.fullShow}
@@ -159,7 +170,7 @@ const Ads = (props) => {
       ) : (
         ""
       )}
-      {noMoreAdsForSearch ? <h2>no more ads</h2> : ""}
+      {noMoreAdsForSearch ? <h2>אין מודעות נוספות</h2> : ""}
     </section>
   );
 };

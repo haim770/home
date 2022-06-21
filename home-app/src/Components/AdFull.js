@@ -6,6 +6,7 @@ import "../styles/Ad.css";
 import { useParams } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import AdPart from "./AdPart";
+import AdsWithSearch from "./AdsWithSearch";
 import AdContentPart from "./AdContentPart";
 import AdUserPart from "./AdUserPart.js";
 import AdImages from "./AdImages";
@@ -32,15 +33,17 @@ function AdFull(props) {
   useEffect(() => {
     const arr = window.location.href.split("/");
     getAd();
-    const result = instance.request({
-      data: {
-        data_type: "updateWatch",
-        params: { adID: arr[arr.length - 1] }, //window.location.href gets the urlline
-      },
-    });
+    if (dataForUrl.ad !== false) {
+      const result = instance.request({
+        data: {
+          data_type: "updateWatch",
+          params: { adID: arr[arr.length - 1] }, //window.location.href gets the urlline
+        },
+      });
+    }
   }, []);
 
-  return (
+  return dataForUrl.ad !== false ? (
     <section className={"ad"}>
       {/* <AddCookie adID={dataForUrl.ad.adID} /> */}
       {/* <RecipeReviewCardUrl
@@ -58,6 +61,11 @@ function AdFull(props) {
       <p>
         <Button content="contact seller" onclick={props.onclick} />
       </p>
+    </section>
+  ) : (
+    <section>
+      {alert("המודעה המבוקשת לא נמצאה")}
+      <AdsWithSearch/>
     </section>
   );
 }
