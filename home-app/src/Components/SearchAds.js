@@ -5,6 +5,7 @@ import instance from "../api/AxiosInstance";
 import { v4 as uuidv4 } from "uuid";
 import Select from "react-select";
 function SearchAds(props) {
+  const [adContentClass, setAdContentClass] = useState("notVisible");
   const [minPrice, setMinPrice] = useState(""); //hook for the price state
   const [maxPrice, setMaxPrice] = useState(""); //hook for the price state
   const [masters, setMasters] = useState("");
@@ -50,6 +51,12 @@ function SearchAds(props) {
   ///
 
   //////////////////////////////////
+  const showExtraParams = (e) => {
+    e.preventDefault();
+    if (adContentClass === "notVisible") {
+      setAdContentClass("paramVisible");
+    } else setAdContentClass("notVisible");
+  };
   useLayoutEffect(() => {
     if (selectedOption === null) {
       setSearchMethod("city");
@@ -213,7 +220,10 @@ function SearchAds(props) {
     for (let index = 0; index < masters.length; index++) {
       if (masters[index].display_type === "checkBox") {
         code.push(
-          <label key={masters[index].name + masters[index].adID}>
+          <label
+            key={masters[index].name + masters[index].adID}
+            className={adContentClass}
+          >
             <span>{masters[index].free_text}</span>
             <input
               type="checkBox"
@@ -229,7 +239,10 @@ function SearchAds(props) {
       } else {
         //for text
         code.push(
-          <label key={masters[index].name + masters[index].adID}>
+          <label
+            key={masters[index].name + masters[index].adID}
+            className={adContentClass}
+          >
             <span>{masters[index].free_text}</span>
             <input
               type="text"
@@ -315,8 +328,11 @@ function SearchAds(props) {
         />
       </label>
       {masters ? makeFormOfAdContent() : ""}
+      <button className="moreParams" onClick={showExtraParams}>
+        {adContentClass==="notVisible"?"הראה פרמטרים נוספים":"הסתר פרמטרים נוספים"}
+      </button>
       <p>
-        <Button onClick={searchAdByParams} content="חפש" />
+        <button onClick={searchAdByParams}>חפש</button>
       </p>
     </form>
   );
