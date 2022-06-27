@@ -315,23 +315,7 @@ function setLastSeen()
         echo "you are logged in";
     }
 }
-function register()
-{
-    global $db;
-    global $arr;
-    global $DATA_OBJ;
-    $arr=[];
-    $arr['first_name'] =$DATA_OBJ->params->first_name;
-    $arr['mail'] =$DATA_OBJ->params->mail;
-    $arr['password'] = password_hash($DATA_OBJ->params->password, PASSWORD_DEFAULT);
-    $arr['uuid'] = uniqid();
-    $arr['last_name'] = $DATA_OBJ->params->last_name;
-    $arr['phone'] = $DATA_OBJ->params->phone;
-    $query = "register(:uuid,:first_name,:last_name,:phone,:mail,:password)";
-    $result = $db->writeDB($query, $arr);
-    echo json_encode($result);
-    $arr = [];
-}
+
 function addParameterAds()
 {
     //adding columns to ads table
@@ -509,7 +493,7 @@ function getPackById(){
 }*/
 
 if (isset ($DATA_OBJ->data_type)&&$DATA_OBJ->data_type=="register"){
-    register();
+    include_once("../api/system/user/register.php");
 } else
 if (isset ($DATA_OBJ->data_type)&&$DATA_OBJ->data_type=="removeFromFavorites"){
     include("../api/system/ads/favorites.php");
