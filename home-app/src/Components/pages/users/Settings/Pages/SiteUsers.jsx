@@ -18,6 +18,8 @@ import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import "./Styles/collapsTableStyle.css"
 import useAuth from "../../../../../Auth/useAuth";
 import instance from "../../../../../api/AxiosInstance";
+import usePopupAd from "../useContextReducer/PopupAdsContext";
+import PopupModal from "./PopupModal";
 
 
 function createData(uuid, userEmail, userName, userRole, userLastSeen, price,ads,purchase ) {
@@ -74,7 +76,12 @@ let purchases;
 function Row(props) {
   const { row } = props;
   const [open, setOpen] = React.useState(false);
+  const {popAd} = usePopupAd();
 
+ function handleClick(adID) {
+  console.log(typeof popAd);
+   //popAd(adID);
+ }
 
   return (
     <React.Fragment>
@@ -131,7 +138,13 @@ function Row(props) {
                   {row.adss.map((adsRow, index) => (
                     <TableRow key={index}>
                       <TableCell component="th" scope="row" align="right">
-                        {adsRow.adID}
+                        <div
+                          onClick={function () {
+                            handleClick(adsRow.adID);
+                          }}
+                        >
+                          {adsRow.adID}
+                        </div>
                       </TableCell>
                       <TableCell align="right">{adsRow.create_time}</TableCell>
                       <TableCell align="right">{adsRow.expire_date}</TableCell>
@@ -203,18 +216,11 @@ function Row(props) {
   );
 }
 
-// const rows = [
-//   createData("Frozen yoghurt", 159, 6.0, 24, 4.0, 3.99),
-//   createData("Ice cream sandwich", 237, 9.0, 37, 4.3, 4.99),
-//   createData("Eclair", 262, 16.0, 24, 6.0, 3.79),
-//   createData("Cupcake", 305, 3.7, 67, 4.3, 2.5),
-//   createData("Gingerbread", 356, 16.0, 49, 3.9, 1.5),
-// ];
-
 export default function CollapsibleTable() {
   const [rows, setRows] = useState([]);
   const [totalRows, setTotalRows] = useState(0);
   const [page, setPage] = useState(0);
+  const { modalOpen } = usePopupAd();
   const { auth } = useAuth();
 
   /**
@@ -289,7 +295,8 @@ export default function CollapsibleTable() {
             </TableRow>
           </TableFooter>
         </Table>
-      </TableContainer>
+      </TableContainer>{" "}
+      && {modalOpen && <PopupModal />}
     </div>
   );
 }
