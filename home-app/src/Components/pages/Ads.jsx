@@ -125,7 +125,7 @@ const Ads = (props) => {
   }, []);
 
   useEffect(() => {
-    setAds("");
+    setAds([]);
     setNoMoreAdsForSearch(false);
     getAds();
   }, [props.search]);

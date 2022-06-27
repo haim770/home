@@ -99,7 +99,6 @@ function AddParameterToAds(props) {
           <option>TEXT</option>
         </select>
       </label>
-
       <p>
         <Button onClick={submitParameter} />
       </p>

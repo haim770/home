@@ -319,13 +319,14 @@ function register()
 {
     global $db;
     global $arr;
-    $arr['first_name'] = $_POST['first_name'];
-    $arr['mail'] = $_POST['mail'];
-    $arr['password'] = password_hash($_POST['password'], PASSWORD_DEFAULT);
+    global $DATA_OBJ;
+    $arr=[];
+    $arr['first_name'] =$DATA_OBJ->params->first_name;
+    $arr['mail'] =$DATA_OBJ->params->mail;
+    $arr['password'] = password_hash($DATA_OBJ->params->password, PASSWORD_DEFAULT);
     $arr['uuid'] = uniqid();
-    $arr['last_name'] = $_POST['last_name'];
-    $arr['phone'] = $_POST['phone'];
-
+    $arr['last_name'] = $DATA_OBJ->params->last_name;
+    $arr['phone'] = $DATA_OBJ->params->phone;
     $query = "register(:uuid,:first_name,:last_name,:phone,:mail,:password)";
     $result = $db->writeDB($query, $arr);
     echo json_encode($result);
@@ -507,6 +508,9 @@ function getPackById(){
 
 }*/
 
+if (isset ($DATA_OBJ->data_type)&&$DATA_OBJ->data_type=="register"){
+    register();
+} else
 if (isset ($DATA_OBJ->data_type)&&$DATA_OBJ->data_type=="removeFromFavorites"){
     include("../api/system/ads/favorites.php");
     removeFromFavorites();
