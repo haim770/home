@@ -12,6 +12,7 @@ function Register(props) {
   const [mail, setMail] = useState(""); //hook for parameter min value
   const [password, setPassword] = useState(""); //hook for parameter style
   const [phone, setPhone] = useState(""); //hook for parameter style
+  const [prompt,setPrompt]=useState("");
 
   const onChangeState = (setStateName, e) => {
     //func that recieves setstate and the event and change value of state to the value of input
@@ -46,6 +47,8 @@ function Register(props) {
           password: password,
           first_name: first_name,
           last_name: last_name,
+          prompt:prompt,
+          rule:"2500",
         },
       },
     });
@@ -109,7 +112,17 @@ function Register(props) {
           onChange={(e) => onChangeState(setPassword, e)}
         />
       </label>
-
+      <label>
+        <span>enter prompt</span>
+        <input
+          type="text"
+          name="prompt"
+          id="prompt"
+          required
+          value={prompt}
+          onChange={(e) => onChangeState(setPrompt, e)}
+        />
+      </label>
       <p>
         <Button onClick={register} content="register" />
       </p>
