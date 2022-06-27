@@ -31,7 +31,6 @@ const AdPart = (props) => {
 
   return (
     <ul className={props.className}>
-      <h1>adPart</h1>
       {props.ad ? renderComp() : <li>no ad</li>}
     </ul>
   );

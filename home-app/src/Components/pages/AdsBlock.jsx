@@ -27,11 +27,16 @@ const AdsBlock = (props) => {
   };
   const changeViewToFull = (e) => {
     e.preventDefault();
-    if (e.currentTarget === e.target) {
-      props.setListShow("notShowList");
-      props.setFullShow("showFull");
-      props.setAdFull(props.adBlock);
-    }
+    if (
+      e.target.tagName === "svg" ||
+      e.target.tagName === "BUTTON" ||
+      e.target.tagName === "path"
+    )
+      //if the child is doing something in clicking we wont fire the view change
+      return;
+    props.setListShow("notShowList");
+    props.setFullShow("showFull");
+    props.setAdFull(props.adBlock);
   };
   return (
     <section className="cardBlock" onClick={changeViewToFull}>
@@ -72,30 +77,7 @@ const AdsBlock = (props) => {
           isFavorite={isFavorite}
           setFavorite={setIsFavorite}
         />
-        {/* <AdImages
-            key={uuidv4()}
-            images={props.adBlock.adImages}
-            numPicToDisplay="1"
-          /> */}
-        {/** This will contain the Ad details */}
-        {/* <div className="adCardTitle">
-            <h4>
-              <AdUserPart key={uuidv4()} user={props.adBlock.user} />
-              <AdPart
-                key={uuidv4()}
-                ad={props.adBlock.ad}
-                className="adPartList"
-              />
-            </h4>
-          </div>
-        </div> */}
       </div>
-      {/* </Link> */}
-      {/* <AdContentPart
-        key={uuidv4()}
-        adContent={props.adBlock.adContent}
-        className="adContentPartList"
-      /> */}
       {/** This will contain the Ad footer wrapper  */}
       <div className="jss185 jss181">
         {/** This will contain the Ad footer inner wrapper  */}

@@ -5,11 +5,6 @@ const AdUserPart = (props) => {
   const renderComp = () => {
     let code = (
       <div>
-        {/* <Parameter
-            key={props.user.uuid}
-            paramName="id of user is"
-            paramValue={props.user[0].uuid}
-          /> */}
         <Parameter
           key={props.user[0].first_name}
           paramName="שם מעלה המודעה הוא :"
@@ -22,7 +17,6 @@ const AdUserPart = (props) => {
 
   return (
     <div>
-      <h1>user info</h1>
       {props.user ? renderComp() : <p>no user content</p>}
     </div>
   );

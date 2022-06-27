@@ -3,9 +3,13 @@
   flex-direction: column;
 
   min-height: 100vh;
-   font-size: calc(1rem + 2vmin);
+  font-size: calc(1rem + 2vmin);
 }
-a{text-decoration: none;}
+
+a {
+  text-decoration: none;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -26,6 +30,7 @@ a{text-decoration: none;}
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }

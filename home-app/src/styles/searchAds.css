@@ -5,3 +5,6 @@
   border: 2px solid black;
   justify-content: flex-start;
 }
+.selectStyle{
+  max-width: 80%;
+}

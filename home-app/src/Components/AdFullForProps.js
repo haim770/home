@@ -21,7 +21,7 @@ function AdFullForProps(props) {
   };
   return (
     <section className={"ad"}>
-      <button onClick={changeToListView}>x</button>
+      <button className="closeWindow"onClick={changeToListView}>x</button>
       <RecipeReviewCard
         adBlock={props.adBlock}
         maxSize="800"

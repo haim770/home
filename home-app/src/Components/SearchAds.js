@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useLayoutEffect } from "react";
 import Button from "./Button";
 import "../styles/searchAds.css";
 import instance from "../api/AxiosInstance";
 import { v4 as uuidv4 } from "uuid";
+import Select from "react-select";
 function SearchAds(props) {
   const [minPrice, setMinPrice] = useState(""); //hook for the price state
   const [maxPrice, setMaxPrice] = useState(""); //hook for the price state
@@ -21,6 +22,70 @@ function SearchAds(props) {
     building_number: "",
     entry: "",
   });
+
+  //////////////////////////////////////////
+
+  //
+
+  /**
+   * useState for city option
+   */
+  const [options, setOptions] = useState([{}]);
+  const [selectedOption, setSelectedOption] = useState(
+    { value: inputsAd.city, label: inputsAd.city } || null
+  );
+
+  /**
+   * useState for street option
+   */
+  const [streetOptions, setStreetOptions] = useState([{}]);
+  const [streetSelectedOption, setStreetSelectedOption] = useState(
+    { value: inputsAd.street, label: inputsAd.street } || null
+  );
+  /**
+   * search method, city or street
+   */
+  const [searchMethod, setSearchMethod] = useState("city");
+
+  ///
+
+  //////////////////////////////////
+  useLayoutEffect(() => {
+    if (selectedOption === null) {
+      setSearchMethod("city");
+    } else {
+      setStreetSelectedOption(null);
+      setSearchMethod("street");
+    }
+    getSearchOprions();
+  }, [selectedOption]);
+
+  const getSearchOprions = async () => {
+    console.log("d");
+    const result = await instance.request({
+      data: {
+        data_type: "getSelectData",
+        params: {
+          selected: searchMethod,
+          cityName: inputsAd.city || "",
+        },
+      },
+    });
+    console.log(result.data);
+    if (searchMethod === "city") setOptions(result.data.searchOption);
+    else setStreetOptions(result.data.searchOption);
+  };
+  const handleChangeCity = (event) => {
+    const value = event.label;
+    const enCity = event.value;
+    setInputsAd((values) => ({ ...values, city: value }));
+    setSelectedOption(event);
+  };
+  const handleChangeStreet = (event) => {
+    const value = event.label;
+    setInputsAd((values) => ({ ...values, street: value }));
+    setStreetSelectedOption(event);
+  };
   const handleChangeAd = (event) => {
     const name = event.target.name;
     const value = event.target.value;
@@ -88,26 +153,29 @@ function SearchAds(props) {
     code.push(
       <label key="city">
         <span>עיר</span>
-        <input
-          type="text"
+        <Select
+          className="selectStyle"
           name="city"
-          id="city"
-          required
-          value={inputsAd.city}
-          onChange={handleChangeAd}
+          value={selectedOption}
+          onChange={handleChangeCity}
+          options={options}
+          autoFocus={true}
+          aria-label="שם עיר"
+          captureMenuScroll={true} // When the user reaches the top/bottom of the menu, prevent scroll on the scroll-parent
         />
       </label>
     );
     code.push(
       <label key="street">
         <span>רחוב</span>
-        <input
-          type="text"
+        <Select
+          className="selectStyle"
           name="street"
-          id="street"
-          required
-          value={inputsAd.street}
-          onChange={handleChangeAd}
+          value={streetSelectedOption}
+          onChange={handleChangeStreet}
+          options={streetOptions}
+          aria-label="שם רחוב"
+          captureMenuScroll={true} // When the user reaches the top/bottom of the menu, prevent scroll on the scroll-parent
         />
       </label>
     );

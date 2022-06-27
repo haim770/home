@@ -50,7 +50,6 @@ const AdContentPart = (props) => {
 
   return (
     <div className="adCardTitle">
-      <h1>ad content part</h1>
       {props.adContent ? renderComp() : <p>no ad content</p>}
       {/* <Button onClick={toggleDisplayParams} content="הראה פרמטרים נוספים" /> */}
     </div>

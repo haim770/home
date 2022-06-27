@@ -43,12 +43,13 @@ const AdImages = (props) => {
 
   return (
     <div>
-      <h1>ad image part</h1>
       {props.images !== [] ? (
         <div>
-          {props.images?
-          <ImgCarousel images={props.images} />
-        :<ImgCarousel/>}
+          {props.images ? (
+            <ImgCarousel images={props.images} />
+          ) : (
+            <ImgCarousel />
+          )}
           {/* {renderComp()} */}
         </div>
       ) : (
