@@ -30,7 +30,7 @@ function Register(props) {
   const checkForValidFields = () => {
     if (!(mail && password)) {
       console.log("no value at mail/password");
-      alert("שם משתמש או סיסמא לא הוכנסו כראוי")
+      alert("שם משתמש או סיסמא לא הוכנסו כראוי");
       return false;
     }
     return true;
@@ -51,7 +51,7 @@ function Register(props) {
           first_name: first_name,
           last_name: last_name,
           prompt: prompt,
-          rule: "2500",
+          rule: "2001",
         },
       },
     });
@@ -64,6 +64,29 @@ function Register(props) {
     <section className="section_form ">
       <h1>הרשמה לאתר</h1>
       <form className={"register_form"}>
+        <label>
+          <span>enter mail</span>
+          <input
+            type="email"
+            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+            name="mail"
+            id="mail"
+            required
+            value={mail}
+            onChange={(e) => onChangeState(setMail, e)}
+          />
+        </label>
+        <label>
+          <span>enter password</span>
+          <input
+            type="password"
+            name="password"
+            id="password"
+            required
+            value={password}
+            onChange={(e) => onChangeState(setPassword, e)}
+          />
+        </label>
         <label>
           <span>enter first_name</span>
           <input
@@ -87,18 +110,6 @@ function Register(props) {
           />
         </label>
         <label>
-          <span>enter mail</span>
-          <input
-            type="email"
-            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
-            name="mail"
-            id="mail"
-            required
-            value={mail}
-            onChange={(e) => onChangeState(setMail, e)}
-          />
-        </label>
-        <label>
           <span>enter phone</span>
           <input
             type="text"
@@ -107,17 +118,6 @@ function Register(props) {
             required
             value={phone}
             onChange={(e) => onChangeState(setPhone, e)}
-          />
-        </label>
-        <label>
-          <span>enter password</span>
-          <input
-            type="pass"
-            name="password"
-            id="password"
-            required
-            value={password}
-            onChange={(e) => onChangeState(setPassword, e)}
           />
         </label>
         <label>
@@ -132,7 +132,7 @@ function Register(props) {
           />
         </label>
         <p>
-          <Button onClick={register} content="register" />
+          <button onClick={register}>הרשמה</button>
         </p>
         {console.log(registerStatus)}
         <p className={registerStatus}>

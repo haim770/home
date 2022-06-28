@@ -26,7 +26,7 @@
 
 input[type=text],
 input[type=email],
-input[type=pass],
+input[type=password],
 select {
   padding: 12px 20px;
   margin: 8px 0;
