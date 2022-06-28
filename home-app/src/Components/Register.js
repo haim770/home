@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Button from "./Button";
 import Address from "./Address";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import Parameter from "./Parameter";
 import "../styles/Register.css";
 import Api from "../api/Api";
@@ -12,7 +13,8 @@ function Register(props) {
   const [mail, setMail] = useState(""); //hook for parameter min value
   const [password, setPassword] = useState(""); //hook for parameter style
   const [phone, setPhone] = useState(""); //hook for parameter style
-  const [prompt,setPrompt]=useState("");
+  const [prompt, setPrompt] = useState("");
+  const [registerStatus, setRegisterStatus] = useState("not"); //user registration status
 
   const onChangeState = (setStateName, e) => {
     //func that recieves setstate and the event and change value of state to the value of input
@@ -47,14 +49,18 @@ function Register(props) {
           password: password,
           first_name: first_name,
           last_name: last_name,
-          prompt:prompt,
-          rule:"2500",
+          prompt: prompt,
+          rule: "2500",
         },
       },
     });
+    if (result) {
+      setRegisterStatus("yes");
+    }
     console.log(result);
   };
   return (
+    // registerStatus=="no"?
     <form className={"register_form"}>
       <label>
         <span>enter first_name</span>
@@ -125,6 +131,11 @@ function Register(props) {
       </label>
       <p>
         <Button onClick={register} content="register" />
+      </p>
+      {console.log(registerStatus)}
+      <p className={registerStatus}>
+        רישום הצליח
+        <Link to="/Login">לחץ להתחברות</Link>
       </p>
     </form>
   );

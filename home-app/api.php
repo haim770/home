@@ -46,9 +46,6 @@ if (isset($_POST['data'])) {
     if ($dataType == 'addParameterAds') {
         addParameterAds();
     }
-    if ($dataType == 'login') {
-        login();
-    }
     if ($dataType == 'getAdByLink') {
         getAdByLink();
     }
