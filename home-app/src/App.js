@@ -16,7 +16,7 @@ import Unauthorized from "./Components/pages/Unauthorized";
 import Missing from "./Components/pages/Missing";
 import Layout from "./Components/pages/Layout";
 import Login from "./Components/pages/Login";
-import Register from "./Components/pages/Register";
+import Register from "./Components/Register";
 import RequireAuth from "./Auth/RequireAuth";
 import PersistLogin from "./Auth/PersistLogin";
 import Settings from "./Components/pages/users/Settings";

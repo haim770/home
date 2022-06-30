@@ -111,8 +111,7 @@ const Login = () => {
         צריך חשבון?
         <br />
         <span className="line">
-          <Link to="/register">הירשם</Link>
-        </span>
+          <Link to= "/register">הירשם</Link>        </span>
       </p>
     </section>
   );

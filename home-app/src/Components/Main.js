@@ -4,11 +4,7 @@ import ImgCarousel from "./ImgCarousel";
 import Register from "./Register";
 
 const Home = () => {
-  return (
-    <div>
-      <Register />
-    </div>
-  );
+  return <div></div>;
 };
 
 export default Home;

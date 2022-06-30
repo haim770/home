@@ -9,12 +9,15 @@ import useView from "./Chat/ChatUseContext";
 import AdImages from "../AdImages.js";
 import { v4 as uuidv4 } from "uuid";
 import RecipeReviewCard from "../RecipeReviewCard.js";
+import instance from "../../api/AxiosInstance.jsx";
 
 const AdsBlock = (props) => {
   /**
    * Add function of start new chat with user ad publisher
    */
+  const [adBlock, setAdBlock] = useState(props.adBlock);
   const [isFavorite, setIsFavorite] = useState(props.isFavorite);
+  const [didWatch, setDidWatch] = useState(0);
   const { startNewChat } = useView();
   const handleClickChatWith = () => {
     const chatWith = {
@@ -25,7 +28,7 @@ const AdsBlock = (props) => {
     };
     startNewChat(chatWith);
   };
-  const changeViewToFull = (e) => {
+  const changeViewToFull = async (e) => {
     e.preventDefault();
     if (
       e.target.tagName === "svg" ||
@@ -34,6 +37,15 @@ const AdsBlock = (props) => {
     )
       //if the child is doing something in clicking we wont fire the view change
       return;
+    const res = await instance.request({
+      data: {
+        data_type: "updateWatch",
+        params: { adID: props.adBlock.ad[0].adID }, //window.location.href gets the urlline
+      },
+    });
+    if (res) {
+      //setDidWatch((didWatch) => didWatch + 1);
+    }
     props.setListShow("notShowList");
     props.setFullShow("showFull");
     props.setAdFull(props.adBlock);
@@ -76,6 +88,7 @@ const AdsBlock = (props) => {
           maxWidth="350"
           isFavorite={isFavorite}
           setFavorite={setIsFavorite}
+          didWatchd={didWatch}
         />
       </div>
       {/** This will contain the Ad footer wrapper  */}
@@ -104,5 +117,6 @@ const AdsBlock = (props) => {
 };
 AdsBlock.defaultProps = {
   isFavorite: false,
+  didWatch: 0,
 };
 export default AdsBlock;

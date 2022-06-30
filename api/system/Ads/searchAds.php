@@ -77,11 +77,11 @@ function generateSearchFromBothAdContentAndAds1(){
     $hasAdContentAtSearch=false;
     if(!isset($DATA_OBJ->params)||$DATA_OBJ->params==[]){
         //if there is no params
-        return "select  DISTINCT ads.adID,ads.user_id from ads limit ".$DATA_OBJ->limitBy->end." OFFSET ".$DATA_OBJ->limitBy->start.";";
+        return "select  DISTINCT ads.adID,ads.user_id from ads where ads.active =1 limit ".$DATA_OBJ->limitBy->end." OFFSET ".$DATA_OBJ->limitBy->start.";";
     }
     //if there is parameters to search by
-    $query="select DISTINCT ads.adID,ads.user_id from ads,ad_content where ads.adID=ad_content.adID" ;
-    $queryWithoutAdContentParams="select DISTINCT ads.adID,ads.user_id from ads where 1=1" ;
+    $query="select DISTINCT ads.adID,ads.user_id from ads,ad_content where ads.adID=ad_content.adID and active =1" ;
+    $queryWithoutAdContentParams="select DISTINCT ads.adID,ads.user_id from ads where 1=1 and ads.active =1" ;
     $queryAdTableParams="";//the part for querying ads table
     $queryAdContentTableParams="";//the part for querying adcontent
     if (isset($DATA_OBJ->params)) {

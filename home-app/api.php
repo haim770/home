@@ -46,9 +46,6 @@ if (isset($_POST['data'])) {
     if ($dataType == 'addParameterAds') {
         addParameterAds();
     }
-    if ($dataType == 'login') {
-        login();
-    }
     if ($dataType == 'getAdByLink') {
         getAdByLink();
     }
@@ -239,8 +236,6 @@ function searchInDbWithUnknownParamsAndTable($table)
     $paramsName = generateKeysFromKeyValueArray();
     generateArrayParamsFromPost();
     $query = "select * from {$table} where $paramsName";
-    //  echo $query;
-    //  die;
     $result = $db->readDBNoStoredProcedure($query, $arr);
     $arr = [];
     echo json_encode($result);
@@ -491,7 +486,19 @@ function getPackById(){
     echo json_encode($result);
 
 }*/
+function getAllUsers(){
+    global $db;
+    global $DATA_OBJ;
+    global $arr;
+    $arr=[];
+    $query="select * from users";
+    $result=$db->readDBNoStoredProcedure($query);
+    echo json_encode($result);
+}
 
+if (isset ($DATA_OBJ->data_type)&&$DATA_OBJ->data_type=="getAllUsers"){
+    getAllUsers();
+} else
 if (isset ($DATA_OBJ->data_type)&&$DATA_OBJ->data_type=="register"){
     include_once("../api/system/user/register.php");
 } else
