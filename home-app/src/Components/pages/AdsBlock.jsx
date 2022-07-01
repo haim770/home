@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { FaEye } from "react-icons/fa";
+import { FcSms } from "react-icons/fc";
 import { Link, NavLink, Outlet } from "react-router-dom";
 import AdPart from "../AdPart.js";
 import AdContentPart from "../AdContentPart.js";
@@ -10,11 +12,14 @@ import AdImages from "../AdImages.js";
 import { v4 as uuidv4 } from "uuid";
 import RecipeReviewCard from "../RecipeReviewCard.js";
 import instance from "../../api/AxiosInstance.jsx";
+import Parameter from "../Parameter.js";
 
 const AdsBlock = (props) => {
   /**
    * Add function of start new chat with user ad publisher
    */
+  const [phone,setPhone]=useState(props.adBlock.user[0]?props.adBlock.user[0].phone:0);
+  const [togglePhone,setTogglePhone]=useState("הצג טלפון");
   const [adBlock, setAdBlock] = useState(props.adBlock);
   const [isFavorite, setIsFavorite] = useState(props.isFavorite);
   const [didWatch, setDidWatch] = useState(0);
@@ -28,35 +33,47 @@ const AdsBlock = (props) => {
     };
     startNewChat(chatWith);
   };
-  const changeViewToFull = async (e) => {
-    e.preventDefault();
-    if (
-      e.target.tagName === "svg" ||
-      e.target.tagName === "BUTTON" ||
-      e.target.tagName === "path"
-    )
-      //if the child is doing something in clicking we wont fire the view change
-      return;
+  const updateWatch = async () => {
     const res = await instance.request({
       data: {
         data_type: "updateWatch",
         params: { adID: props.adBlock.ad[0].adID }, //window.location.href gets the urlline
       },
     });
-    if (res) {
-      //setDidWatch((didWatch) => didWatch + 1);
-    }
+  };
+  const changeViewToFull = async (e) => {
+    e.preventDefault();
+    if (
+      e.target.tagName === "svg" ||
+      e.target.tagName === "BUTTON" ||
+      e.target.tagName === "path"||
+      e.target.tagName==="button"
+    )
+      //if the child is doing something in clicking we wont fire the view change
+      return;
+    await updateWatch();
+    setDidWatch((didWatch) => didWatch + 1);
     props.setListShow("notShowList");
     props.setFullShow("showFull");
     props.setAdFull(props.adBlock);
   };
+
   return (
     <section className="cardBlock" onClick={changeViewToFull}>
       <div>
         <header className="headerOnTheTop">
           {/* This div will contain data like how many days the add on the site */}
           <div>
-            <h3>Some data</h3>
+            <h3 className="iconsAtTop">
+              <Parameter
+                paramName={<FaEye />}
+                paramValue={props.adBlock.ad[0].watch}
+              />
+              <Parameter
+                paramName={<FcSms />}
+                paramValue={props.adBlock.ad[0].contact_counter}
+              />
+            </h3>
           </div>
           {/* This div will contain add to favorite */}
           <div className="jss191">
@@ -108,7 +125,17 @@ const AdsBlock = (props) => {
           </div>
           {/** This will contain the Ad footer Left button  */}
           <div className="jss1061">
-            <div className="jss142">WHATSAPP</div>
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                console.log(e.target.tagName);
+                setTogglePhone(
+                  togglePhone === "הצג טלפון" ? "הסתר טלפון" : "הצג טלפון"
+                );
+              }}
+            >
+              {togglePhone==="הצג טלפון"?""+togglePhone+" "+phone:togglePhone}
+            </button>
           </div>
         </div>
       </div>
