@@ -22,7 +22,7 @@ function AdById(props) {
     const result = await instance.request({
       data: {
         data_type: "getAdByID",
-        params: { adID: props.adId, user_id: props.user_id }, //window.location.href gets the urlline
+        params: { adID: props.adID, user_id: props.user_id }, //window.location.href gets the urlline
       },
     });
     setData(result.data);

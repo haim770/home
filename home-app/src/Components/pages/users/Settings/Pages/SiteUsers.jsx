@@ -78,8 +78,8 @@ function Row(props) {
   const [open, setOpen] = React.useState(false);
   const {popAd} = usePopupAd();
 
- function handleClick(adID) {
-   popAd(adID);
+ function handleClick(adID, userid) {
+   popAd(adID, userid);
  }
 
   return (
@@ -139,7 +139,7 @@ function Row(props) {
                       <TableCell component="th" scope="row" align="right">
                         <div
                           onClick={function () {
-                            handleClick(adsRow.adID, row.uuid);
+                            handleClick(adsRow.adID, adsRow.user_id);
                           }}
                         >
                           {adsRow.adID}
