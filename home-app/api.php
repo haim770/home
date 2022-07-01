@@ -322,16 +322,15 @@ function addNewMasterToAdContentTable()
     $elementId=uniqid();
     $query="";
     if ($arr['paramType'] == "VARCHAR")
-    $query="INSERT into ad_content (element_id, adID,category,master,min_value,max_value,name,value) VALUES(
-        '$elementId','0','{$DATA_OBJ->params->category}','1','{$DATA_OBJ->params->minValue}','{$DATA_OBJ->params->maxValue}','{$DATA_OBJ->params->paramName}','1233')";
+    $query="INSERT into ad_content (element_id, adID,category,master,required,name,value,prevDisplay) VALUES(
+        '$elementId','0','{$DATA_OBJ->params->category}','1','0','{$DATA_OBJ->params->paramName}','master','0')";
     if ($arr['paramType'] == "INT")
-        $query = "ALTER TABLE ads ADD `{$arr['paramName']}` int";
-    if ($arr['paramType'] == "TEXT")
-        $query = "ALTER TABLE ads ADD `{$arr['paramName']}` TEXT";
+        $query ="INSERT into ad_content (element_id, adID,category,master,min_value,max_value,required,name,value,prevDisplay) VALUES(
+        '$elementId','0','{$DATA_OBJ->params->category}','1','{$DATA_OBJ->params->minValue}','{$DATA_OBJ->params->maxValue}','0','{$DATA_OBJ->params->paramName}','master','0')";
+   
     if ($arr['paramType'] == "DOUBLE")
-        $query = "ALTER TABLE ads ADD `{$arr['paramName']}` double";
-    if ($arr['paramType'] == "date")
-        $query = "ALTER TABLE ads ADD `{$arr['paramName']}` dateTime";
+        $query="INSERT into ad_content (element_id, adID,category,master,min_value,max_value,required,name,value,prevDisplay) VALUES(
+        '$elementId','0','{$DATA_OBJ->params->category}','1','{$DATA_OBJ->params->minValue}','{$DATA_OBJ->params->maxValue}','0','{$DATA_OBJ->params->paramName}','master','0')";
     $result = $db->writeDBNotStoredProcedure($query);
     $arr = [];
     echo json_encode($result);

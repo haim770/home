@@ -5,6 +5,14 @@
   border: 2px solid black;
   justify-content: flex-start;
 }
+.notDisplayRent{
+  display:none;
+}
+.displayRent{
+  display: block;
+}
+.displayBuy{display: block;}
+.notDisplayBuy{display: none;}
 .search *{max-width: 90%;}
 .selectStyle{
   /* max-width: 80%; */

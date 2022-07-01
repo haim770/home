@@ -4,12 +4,15 @@ import "../styles/searchAds.css";
 import instance from "../api/AxiosInstance";
 import { v4 as uuidv4 } from "uuid";
 import Select from "react-select";
+
 function SearchAds(props) {
   const [adContentClass, setAdContentClass] = useState("notVisible");
   const [minPrice, setMinPrice] = useState(""); //hook for the price state
   const [maxPrice, setMaxPrice] = useState(""); //hook for the price state
   const [masters, setMasters] = useState("");
   const [inputsAdContent, setInputsAdContent] = useState({});
+  const [notdisplayRent, setNotDisplayRent] = useState("notDisplayRent");
+  const [notdisplayBuy, setNotDisplayBuy] = useState("notDisplayBuy");
   const [inputsAd, setInputsAd] = useState({
     user_id: "",
     city: "",
@@ -47,15 +50,20 @@ function SearchAds(props) {
    * search method, city or street
    */
   const [searchMethod, setSearchMethod] = useState("city");
-
-  ///
-
-  //////////////////////////////////
   const showExtraParams = (e) => {
     e.preventDefault();
     if (adContentClass === "notVisible") {
       setAdContentClass("paramVisible");
-    } else setAdContentClass("notVisible");
+      if (inputsAd.adType === "השכרה") {
+        setNotDisplayRent("displayRent");
+      } else {
+        setNotDisplayBuy("displayBuy");
+      }
+    } else {
+      setAdContentClass("notVisible");
+      setNotDisplayBuy("notDisplayBuy");
+      setNotDisplayRent("notDisplayRent");
+    }
   };
   useLayoutEffect(() => {
     if (selectedOption === null) {
@@ -218,41 +226,80 @@ function SearchAds(props) {
     makeFieldsOfAdColumnsWeKnow(code);
     for (let index = 0; index < masters.length; index++) {
       if (masters[index].display_type === "checkBox") {
-        code.push(
-          <label
-            key={masters[index].name + masters[index].adID}
-            className={adContentClass}
-          >
-            <span>{masters[index].free_text}</span>
-            <input
-              type="checkBox"
-              name={masters[index].name}
-              id={masters[index].name}
-              required={masters[index].required}
-              value={inputsAdContent.name}
-              onChange={handleChangeAdContentCheckBox}
-              // checked={inputsAdContent.name?false:true}
-            />
-          </label>
-        );
+        if (masters[index].category === "השכרה") {
+          code.push(
+            <label
+              key={masters[index].name + masters[index].adID}
+              className={notdisplayRent}
+            >
+              <span>{masters[index].free_text}</span>
+              <input
+                type="checkBox"
+                name={masters[index].name}
+                id={masters[index].name}
+                required={masters[index].required}
+                value={inputsAdContent.name}
+                onChange={handleChangeAdContentCheckBox}
+                // checked={inputsAdContent.name?false:true}
+              />
+            </label>
+          );
+        } else {
+          code.push(
+            <label
+              key={masters[index].name + masters[index].adID}
+              className={notdisplayBuy}
+            >
+              <span>{masters[index].free_text}</span>
+              <input
+                type="checkBox"
+                name={masters[index].name}
+                id={masters[index].name}
+                required={masters[index].required}
+                value={inputsAdContent.name}
+                onChange={handleChangeAdContentCheckBox}
+                // checked={inputsAdContent.name?false:true}
+              />
+            </label>
+          );
+        }
       } else {
         //for text
-        code.push(
-          <label
-            key={masters[index].name + masters[index].adID}
-            className={adContentClass}
-          >
-            <span>{masters[index].free_text}</span>
-            <input
-              type="text"
-              name={masters[index].name}
-              id={masters[index].name}
-              required
-              value={inputsAdContent.name}
-              onChange={handleChangeAdContent}
-            />
-          </label>
-        );
+        if (masters[index].category === "השכרה") {
+          code.push(
+            <label
+              key={masters[index].name + masters[index].adID}
+              className={notdisplayRent}
+            >
+              <span>{masters[index].free_text}</span>
+              <input
+                type="text"
+                name={masters[index].name}
+                id={masters[index].name}
+                required
+                value={inputsAdContent.name}
+                onChange={handleChangeAdContent}
+              />
+            </label>
+          );
+        } else {
+          code.push(
+            <label
+              key={masters[index].name + masters[index].adID}
+              className={notdisplayBuy}
+            >
+              <span>{masters[index].free_text}</span>
+              <input
+                type="text"
+                name={masters[index].name}
+                id={masters[index].name}
+                required
+                value={inputsAdContent.name}
+                onChange={handleChangeAdContent}
+              />
+            </label>
+          );
+        }
       }
     }
     return code;
