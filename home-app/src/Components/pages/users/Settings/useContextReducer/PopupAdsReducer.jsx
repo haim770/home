@@ -1,7 +1,7 @@
 // initial the view states
 export const initialState = {
   modalOpen: false,
-  openModalAdId: "2",
+  openModalAdId: "629e3ba00dd5a",
 };
 
 const PopupAdReducer = (state, action) => {

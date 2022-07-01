@@ -266,6 +266,7 @@ export default function CollapsibleTable() {
   }, []);
   return (
     <div className="tableContainer">
+      {modalOpen && <PopupModal />}
       <TableContainer component={Paper}>
         <Table aria-label="collapsible table">
           <TableHead>
@@ -296,7 +297,6 @@ export default function CollapsibleTable() {
           </TableFooter>
         </Table>
       </TableContainer>{" "}
-      && {modalOpen && <PopupModal />}
     </div>
   );
 }
