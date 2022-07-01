@@ -20,7 +20,7 @@ function PopupModal() {
           <h1>האם ברצונך לאשר את המודעה?</h1>
         </div>
         <div className="body">
-          <p>The next page looks amazing. Hope you want to go there!</p>
+          
           <p>{openModalAdId}</p>
         </div>
         <div className="footer">
