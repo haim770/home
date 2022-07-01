@@ -40,8 +40,9 @@ const AdsBlock = (props) => {
         params: { adID: props.adBlock.ad[0].adID }, //window.location.href gets the urlline
       },
     });
+    console.log(res.data);
   };
-  const changeViewToFull = async (e) => {
+  const changeViewToFull =  async(e) => {
     e.preventDefault();
     if (
       e.target.tagName === "svg" ||
@@ -51,7 +52,7 @@ const AdsBlock = (props) => {
     )
       //if the child is doing something in clicking we wont fire the view change
       return;
-    await updateWatch();
+     await updateWatch();
     setDidWatch((didWatch) => didWatch + 1);
     props.setListShow("notShowList");
     props.setFullShow("showFull");

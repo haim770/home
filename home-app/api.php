@@ -467,11 +467,13 @@ function insertNewAd(){
     $arr=[];
 }
 function updateWatch(){
+    
     global $db;
     global $DATA_OBJ;
     global $arr;
     $arr=[];
-    $query="update ads set watch=watch+1 where adID ={$DATA_OBJ->params->adID}";
+    
+    $query="update ads set watch=watch+1 where adID ='{$DATA_OBJ->params->adID}'";
     $result = $db->writeDBNotStoredProcedure($query);
     echo json_encode($result);
 }
