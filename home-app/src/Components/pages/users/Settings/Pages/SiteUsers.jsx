@@ -139,7 +139,7 @@ function Row(props) {
                       <TableCell component="th" scope="row" align="right">
                         <div
                           onClick={function () {
-                            handleClick(adsRow.adID);
+                            handleClick(adsRow.adID, row.uuid);
                           }}
                         >
                           {adsRow.adID}

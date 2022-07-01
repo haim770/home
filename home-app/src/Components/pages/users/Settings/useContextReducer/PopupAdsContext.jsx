@@ -7,13 +7,14 @@ export const PopupAdProvidor = ({ children }) => {
   const [state, dispatch] = useReducer(PopupAdReducer, initialState);
 
   // Show popup ad
-  const popAd = (adId) => {
+  const popAd = (adId, userId) => {
     const updateAdID = adId;
     dispatch({
       type: "OPEN_POPUP",
       payload: {
         modalOpen: true,
         openModalAdId: updateAdID,
+        openModalUserId: userId,
       },
     });
   };
@@ -25,6 +26,7 @@ export const PopupAdProvidor = ({ children }) => {
       payload: {
         modalOpen: false,
         openModalAdId: "",
+        openModalUserId: "",
       },
     });
   };
@@ -33,6 +35,7 @@ export const PopupAdProvidor = ({ children }) => {
   const value = {
     modalOpen: state.modalOpen,
     openModalAdId: state.openModalAdId,
+    openModalUserId: state.openModalUserId,
     closePopAd,
     popAd,
   };

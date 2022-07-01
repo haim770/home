@@ -1,9 +1,10 @@
 import React from "react";
 import usePopupAd from "../useContextReducer/PopupAdsContext";
 import "./Styles/PopupModal.css";
-
+import AdById from "../../../../AdById";
 function PopupModal() {
-    const { modalOpen, openModalAdId, popAd, closePopAd } = usePopupAd();
+    const { modalOpen, openModalAdId, popAd, closePopAd, openModalUserId } =
+      usePopupAd();
   return (
     <div className="modalBackground">
       <div className="modalContainer">
@@ -20,13 +21,13 @@ function PopupModal() {
           <h1>האם ברצונך לאשר את המודעה?</h1>
         </div>
         <div className="body">
-          
-          <p>{openModalAdId}</p>
+          <AdById adID={openModalAdId} user_id={openModalUserId} />
+        
         </div>
         <div className="footer">
           <button
             onClick={() => {
-               closePopAd();
+              closePopAd();
             }}
             id="cancelBtn"
           >

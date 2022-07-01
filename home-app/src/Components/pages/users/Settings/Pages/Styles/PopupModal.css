@@ -41,8 +41,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 1.7rem;
+  font-size: 1.1rem;
   text-align: center;
+  overflow: scroll;
 }
 
 .modalContainer .footer {

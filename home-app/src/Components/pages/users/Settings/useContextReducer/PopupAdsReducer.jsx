@@ -1,7 +1,8 @@
 // initial the view states
 export const initialState = {
   modalOpen: false,
-  openModalAdId: "629e3ba00dd5a",
+  openModalAdId: "",
+  openModalUserId: "",
 };
 
 const PopupAdReducer = (state, action) => {
@@ -13,6 +14,7 @@ const PopupAdReducer = (state, action) => {
         ...state,
         modalOpen: payload.modalOpen,
         openModalAdId: payload.openModalAdId,
+        openModalUserId: payload.openModalUserId,
       };
 
     case "CLOSE_POPUP":
@@ -20,6 +22,7 @@ const PopupAdReducer = (state, action) => {
         ...state,
         modalOpen: payload.modalOpen,
         openModalAdId: payload.openModalAdId,
+        openModalUserId: payload.openModalUserId,
       };
 
     default:
