@@ -21,7 +21,9 @@ function AdFullForProps(props) {
   };
   return (
     <section className={"ad"}>
-      <button className="closeWindow"onClick={changeToListView}>x</button>
+      <button className="closeWindow" onClick={changeToListView}>
+        x
+      </button>
       <RecipeReviewCard
         adBlock={props.adBlock}
         maxSize="800"
@@ -35,6 +37,7 @@ function AdFullForProps(props) {
   );
 }
 AdFullForProps.defaultProps = {
+  didWatch:0,
   sellerName: "seller",
   price: "0",
   createTime: "00/00/00",

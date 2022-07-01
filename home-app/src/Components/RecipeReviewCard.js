@@ -103,7 +103,7 @@ export default function RecipeReviewCard(props) {
         numPicToDisplay="1"
       />
       <CardContent>
-        <AdPart ad={props.adBlock.ad} className="adPart" />
+        <AdPart ad={props.adBlock.ad} className="adPart" watch={props.didWatch} />
       </CardContent>
       <CardActions disableSpacing>
         {auth.roles ? (
@@ -135,4 +135,7 @@ export default function RecipeReviewCard(props) {
       </Collapse>
     </Card>
   );
+}
+RecipeReviewCard.defaultProps={
+  didWatch:0,
 }

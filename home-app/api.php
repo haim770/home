@@ -43,9 +43,7 @@ if (isset($_POST['data'])) {
     if ($dataType == 'insertAd') {
         insertAd();
     }
-    if ($dataType == 'addParameterAds') {
-        addParameterAds();
-    }
+   
     if ($dataType == 'getAdByLink') {
         getAdByLink();
     }
@@ -311,15 +309,21 @@ function setLastSeen()
     }
 }
 
-function addParameterAds()
+function addNewMasterToAdContentTable()
 {
-    //adding columns to ads table
+    //add master parameter to adContent table its for manager only and will add new master
+    //for adid 0
     global $db;
     global $arr;
-    $arr['paramName'] = $_POST['paramName'];
-    $arr['paramType'] = $_POST['paramType'];
+    $arr=[];
+    global $DATA_OBJ;
+    $arr['paramName'] = $DATA_OBJ->params->paramName;
+    $arr['paramType'] = $DATA_OBJ->params->paramType;
+    $elementId=uniqid();
+    $query="";
     if ($arr['paramType'] == "VARCHAR")
-        $query = "ALTER TABLE ads ADD `{$arr['paramName']}`  varchar(255) NULL";
+    $query="INSERT into ad_content (element_id, adID,category,master,min_value,max_value,name,value) VALUES(
+        '$elementId','0','{$DATA_OBJ->params->category}','1','{$DATA_OBJ->params->minValue}','{$DATA_OBJ->params->maxValue}','{$DATA_OBJ->params->paramName}','1233')";
     if ($arr['paramType'] == "INT")
         $query = "ALTER TABLE ads ADD `{$arr['paramName']}` int";
     if ($arr['paramType'] == "TEXT")
@@ -328,9 +332,6 @@ function addParameterAds()
         $query = "ALTER TABLE ads ADD `{$arr['paramName']}` double";
     if ($arr['paramType'] == "date")
         $query = "ALTER TABLE ads ADD `{$arr['paramName']}` dateTime";
-
-
-
     $result = $db->writeDBNotStoredProcedure($query);
     $arr = [];
     echo json_encode($result);
@@ -510,6 +511,12 @@ if (isset ($DATA_OBJ->data_type)&&$DATA_OBJ->data_type=="removeFromFavorites"){
 if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "getSettingsUsers") {
     include("../api/system/user/settingsUsers.php");
 }
+
+else
+if (isset ($DATA_OBJ->data_type)&&$DATA_OBJ->data_type=="addNewMasterToAdContentTable"){
+    addNewMasterToAdContentTable();
+}
+
 else
 if (isset ($DATA_OBJ->data_type)&&$DATA_OBJ->data_type=="getFavoritesForUserId"){
     include("../api/system/ads/favorites.php");
@@ -652,26 +659,5 @@ if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "Regist") {
          else // proccess the data - Contact
             if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "TEST2") {
                 getAllAds();
-            } else // proccess the data - Contact
-                if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "SetNewParams") {
-
-                    //element_Id,ad_Id,category_name,master_id,min_value_id,
-                    //max_value_id,icon_id,free_text_id,required_id,name_id
-                    global $db;
-                    $arr = [];
-                    $arr['element_Id'] = uniqid();
-                    $arr['ad_Id'] = '0';
-                    $arr['category_name'] = $DATA_OBJ->params->category_name ?? "null";
-                    $arr['master_id'] = '1';
-                    $arr['min_value_id'] = $DATA_OBJ->params->min_value_id ?? "0";
-                    $arr['max_value_id'] = $DATA_OBJ->params->max_value_id ?? "0";
-                    $arr['icon_id'] = $DATA_OBJ->params->icon_id ?? "null";
-                    $arr['free_text_id'] = $DATA_OBJ->params->free_text_id ?? "null";
-                    $arr['required_id'] = $DATA_OBJ->params->required_id ?? "0";
-                    $arr['name_id'] = $DATA_OBJ->params->name_id ?? "null";
-                    $query = "addMasterAdsParams(:element_Id,:ad_Id,:category_name,:master_id,:min_value_id,:max_value_id
-                        ,:icon_id,:free_text_id,:required_id,:name_id)";
-                    $result = $db->writeDB($query, $arr);
-                    echo json_encode($result);
-                }
+            }
 ?>

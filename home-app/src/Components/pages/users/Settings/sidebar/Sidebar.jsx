@@ -10,7 +10,6 @@ import { BiPurchaseTagAlt } from "react-icons/bi";
 import { FcSalesPerformance } from "react-icons/fc";
 import { BsClockHistory } from "react-icons/bs";
 import { Link } from 'react-router-dom';
-
 const Sidebar = () => {
   return (
     <div className="settingsSidebar">
@@ -77,6 +76,11 @@ const Sidebar = () => {
             <Link to="/Settings/Users" style={{ textDecoration: "none" }}>
               <FiUsers className="icon" />
               <span>משתמשים</span>
+            </Link>
+          </li>
+          <li>
+            <Link to="/haim" style={{ textDecoration: "none" }}>
+              <span> הוספת פרמטרים למודעות</span>
             </Link>
           </li>
           <li>

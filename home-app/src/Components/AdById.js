@@ -22,7 +22,7 @@ function AdFull(props) {
     const result = await instance.request({
       data: {
         data_type: "getAdByID",
-        params: { adID: props.id }, //window.location.href gets the urlline
+        params: { adID: props.adId, user_id: props.user_id }, //window.location.href gets the urlline
       },
     });
     setData(result.data);
@@ -43,6 +43,7 @@ function AdFull(props) {
 
   return data.ad !== false ? (
     <section className={"ad"}>
+      {console.log(props.id)}
       {/* <AddCookie adID={dataForUrl.ad.adID} /> */}
       {/* <RecipeReviewCardUrl
         adBlock={dataForUrl}
@@ -69,6 +70,7 @@ function AdFull(props) {
 }
 AdFull.defaultProps = {
   sellerName: "seller",
+  id: "0",
   price: "0",
   createTime: "00/00/00",
   adLink: "null",

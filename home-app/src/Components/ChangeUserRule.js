@@ -7,15 +7,16 @@ import "../styles/Register.css";
 import Api from "../api/Api";
 import { v4 as uuidv4 } from "uuid";
 import instance from "../api/AxiosInstance";
+import Select from "react-select";
 function ChangeUserRule(props) {
   const [first_name, setfirst_name] = useState(""); //hook for parameter name
   const [last_name, setLast_name] = useState(""); //hook for parameter max value
   const [mail, setMail] = useState(""); //hook for parameter min value
   const [password, setPassword] = useState(""); //hook for parameter style
   const [phone, setPhone] = useState(""); //hook for parameter style
-  const [mailSelected, setMailSelected] = useState("");
-  const [users, setUsers] = useState([]); //user registration status
-  
+  const [mailSelected, setMailSelected] = useState(null);//mail selected
+  const[mailOptions,setMailOptions]=useState({});
+  const [users, setUsers] = useState(""); //user info
 
   const onChangeState = (setStateName, e) => {
     //func that recieves setstate and the event and change value of state to the value of input
@@ -30,31 +31,47 @@ function ChangeUserRule(props) {
       },
     });
     if (result) {
-      setUsers(result.data.map((user) => <option>{user.mail}</option>));
+      setUsers(result.data);
+      result.data.forEach(element => {
+        setMailOptions((mailOptions)=>[...mailOptions,element.mail]);
+      });
+    // setMailOptions(result.data.map());
+     
     }
-    console.log(result);
+    console.log(result.data);
   };
   useEffect(() => {
     getAllUsers();
   }, []);
-  const handleMailSelect=(e)=>{
+  const handleMailSelect = (e) => {
     e.preventDefault();
-  }
+  };
+  const handleChangeMail = (event) => {
+    event.preventDefault();
+    const value = event.label;
+    setMailSelected(value);
+  };
   return (
     <section className="section_form ">
       <h1>שנה הרשאות למשתמש</h1>
       <label key="mails">
         <span>users mails</span>
-        <select
+        <Select
           className=""
           name="mails"
           value={mailSelected}
-          onChange={handleMailSelect}
-          aria-label="users">
-            {users}
-        </select>
+          onClick={handleChangeMail}
+          options={mailOptions}
+          onChange={handleChangeMail}
+          aria-label="users"
+        />
       </label>
-      {users != [] ? <p>{console.log(users)}</p> : <p>"no users"</p>}
+      {mailSelected != [] && mailSelected !== <option>no user</option> ? (
+        <p>there is a mail</p>
+      ) : (
+        <p>"no mail selected"</p>
+      )}
+      {users != [] ? <p></p> : <p>"no users"</p>}
     </section>
   );
 }

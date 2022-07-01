@@ -68,7 +68,6 @@ function SearchAds(props) {
   }, [selectedOption]);
 
   const getSearchOprions = async () => {
-    console.log("d");
     const result = await instance.request({
       data: {
         data_type: "getSelectData",
@@ -329,7 +328,9 @@ function SearchAds(props) {
       </label>
       {masters ? makeFormOfAdContent() : ""}
       <button className="moreParams" onClick={showExtraParams}>
-        {adContentClass==="notVisible"?"הראה פרמטרים נוספים":"הסתר פרמטרים נוספים"}
+        {adContentClass === "notVisible"
+          ? "הראה פרמטרים נוספים"
+          : "הסתר פרמטרים נוספים"}
       </button>
       <p>
         <button onClick={searchAdByParams}>חפש</button>
