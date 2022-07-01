@@ -3,8 +3,8 @@ import PopupAdReducer, { initialState } from "./PopupAdsReducer";
 
 const PopupAdContext = createContext(initialState);
 
-export const PopupAdProvider = ({ children }) => {
-  const {state, dispatch} = useReducer(PopupAdReducer, initialState);
+export const PopupAdProvidor = ({ children }) => {
+  const [state, dispatch] = useReducer(PopupAdReducer, initialState);
 
   // Show popup ad
   const popAd = (adId) => {
@@ -36,9 +36,8 @@ export const PopupAdProvider = ({ children }) => {
     closePopAd,
     popAd,
   };
-  return (
-    <PopupAdContext.Provider value={value}>{children}</PopupAdContext.Provider>
-  );
+  return <PopupAdContext.Provider value={value}>{children}</PopupAdContext.Provider>
+  ;
 };
 
 const usePopupAd = () => {

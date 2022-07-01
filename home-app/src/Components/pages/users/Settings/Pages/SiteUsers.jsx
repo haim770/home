@@ -79,8 +79,7 @@ function Row(props) {
   const {popAd} = usePopupAd();
 
  function handleClick(adID) {
-  console.log(typeof popAd);
-   //popAd(adID);
+   popAd(adID);
  }
 
   return (
@@ -267,36 +266,38 @@ export default function CollapsibleTable() {
   return (
     <div className="tableContainer">
       {modalOpen && <PopupModal />}
-      <TableContainer component={Paper}>
-        <Table aria-label="collapsible table">
-          <TableHead>
-            <TableRow>
-              <TableCell align="right">מזהה משתמש</TableCell>
-              <TableCell align="right">שם משתמש</TableCell>
-              <TableCell align="right">שם</TableCell>
-              <TableCell align="right">הרשאות</TableCell>
-              <TableCell align="right">נראה לאחרונה</TableCell>
-              <TableCell align="right">פעולות</TableCell>
-              <TableCell />
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {rows.map((row) => (
-              <Row key={row.uuid} row={row} />
-            ))}
-          </TableBody>
-          <TableFooter>
-            <TableRow>
-              <TablePagination
-                rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
-                count={totalRows}
-                rowsPerPage={5}
-                page={page}
-              />
-            </TableRow>
-          </TableFooter>
-        </Table>
-      </TableContainer>{" "}
+      <div>
+        <TableContainer component={Paper}>
+          <Table aria-label="collapsible table">
+            <TableHead>
+              <TableRow>
+                <TableCell align="right">מזהה משתמש</TableCell>
+                <TableCell align="right">שם משתמש</TableCell>
+                <TableCell align="right">שם</TableCell>
+                <TableCell align="right">הרשאות</TableCell>
+                <TableCell align="right">נראה לאחרונה</TableCell>
+                <TableCell align="right">פעולות</TableCell>
+                <TableCell />
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {rows.map((row) => (
+                <Row key={row.uuid} row={row} />
+              ))}
+            </TableBody>
+            <TableFooter>
+              <TableRow>
+                <TablePagination
+                  rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
+                  count={totalRows}
+                  rowsPerPage={5}
+                  page={page}
+                />
+              </TableRow>
+            </TableFooter>
+          </Table>
+        </TableContainer>{" "}
+      </div>
     </div>
   );
 }
