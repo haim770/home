@@ -13,7 +13,7 @@ import AdImages from "./AdImages";
 import AddCookie from "./pages/Ads/addCookie";
 import RecipeReviewCard from "./RecipeReviewCard";
 import RecipeReviewCardUrl from "./RecipeReviewCardUrl";
-function AdFull(props) {
+function AdById(props) {
   const [data, setData] = useState({});
   const [isFavorite, setIsFavorite] = useState(props.isFavorite);
   const [renderCookie, setRenderCookie] = useState(true);
@@ -68,7 +68,7 @@ function AdFull(props) {
     </section>
   );
 }
-AdFull.defaultProps = {
+AdById.defaultProps = {
   sellerName: "seller",
   id: "0",
   price: "0",
@@ -79,4 +79,4 @@ AdFull.defaultProps = {
   number: "45",
   rooms: "3",
 };
-export default AdFull;
+export default AdById;
