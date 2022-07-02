@@ -129,7 +129,7 @@ function AddParameterToAds(props) {
       </label>
 
       <p>
-        <Button onClick={submitParameter} />
+        <Button onClick={submitParameter} content="הוספה" />
       </p>
     </form>
   );

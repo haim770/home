@@ -10,7 +10,9 @@ function SearchAds(props) {
   const [minPrice, setMinPrice] = useState(""); //hook for the price state
   const [maxPrice, setMaxPrice] = useState(""); //hook for the price state
   const [masters, setMasters] = useState("");
-  const [inputsAdContent, setInputsAdContent] = useState({});
+  const [inputsAdContentBuy, setInputsAdContentBuy] = useState({});
+  const [inputAdConentRent, setInputAdConentRent] = useState({});
+  const [mastersName, setMastersName] = useState([]);
   const [notdisplayRent, setNotDisplayRent] = useState("notDisplayRent");
   const [notdisplayBuy, setNotDisplayBuy] = useState("notDisplayBuy");
   const [inputsAd, setInputsAd] = useState({
@@ -103,19 +105,36 @@ function SearchAds(props) {
   const handleChangeAd = (event) => {
     const name = event.target.name;
     const value = event.target.value;
+    if (name === "adType") {
+    }
     if (name === "price" || name === "rooms" || name === "building_number") {
       if (isNaN(value)) return;
     }
     setInputsAd({ ...inputsAd, [name]: value });
   };
-  const handleChangeAdContentCheckBox = (event) => {
+  const handleChangeAdContentBuyCheckBox = (event) => {
     const name = event.target.name;
-    setInputsAdContent({ ...inputsAdContent, [name]: event.target.checked });
+    setInputsAdContentBuy({
+      ...inputsAdContentBuy,
+      [name]: event.target.checked,
+    });
   };
-  const handleChangeAdContent = (event) => {
+  const handleChangeAdContentBuy = (event) => {
     const name = event.target.name;
     const value = event.target.value;
-    setInputsAdContent({ ...inputsAdContent, [name]: value });
+    setInputsAdContentBuy({ ...inputsAdContentBuy, [name]: value });
+  };
+  const handleChangeAdContentRentCheckBox = (event) => {
+    const name = event.target.name;
+    setInputAdConentRent({
+      ...inputAdConentRent,
+      [name]: event.target.checked,
+    });
+  };
+  const handleChangeAdRentContent = (event) => {
+    const name = event.target.name;
+    const value = event.target.value;
+    setInputAdConentRent({ ...inputAdConentRent, [name]: value });
   };
   const getMasters = async () => {
     const result = await instance.request({
@@ -129,14 +148,25 @@ function SearchAds(props) {
     getMasters();
     if (masters !== "") {
       for (let index = 0; index < masters.length; index++) {
-        setInputsAdContent({
-          ...inputsAdContent,
-          [masters[index].name]: false,
-        });
-        setInputsAdContent({
-          ...inputsAdContent,
-          [masters[index].name]: "",
-        });
+        if (masters[index].category === "השכרה") {
+          setInputAdConentRent({
+            ...inputAdConentRent,
+            [masters[index].name]: false,
+          });
+          setInputAdConentRent({
+            ...inputAdConentRent,
+            [masters[index].name]: "",
+          });
+        } else {
+          setInputsAdContentBuy({
+            ...inputsAdContentBuy,
+            [masters[index].name]: false,
+          });
+          setInputsAdContentBuy({
+            ...inputsAdContentBuy,
+            [masters[index].name]: "",
+          });
+        }
       }
     }
   }, []);
@@ -225,6 +255,7 @@ function SearchAds(props) {
     let code = [];
     makeFieldsOfAdColumnsWeKnow(code);
     for (let index = 0; index < masters.length; index++) {
+      mastersName.push(masters[index].name);
       if (masters[index].display_type === "checkBox") {
         if (masters[index].category === "השכרה") {
           code.push(
@@ -238,8 +269,8 @@ function SearchAds(props) {
                 name={masters[index].name}
                 id={masters[index].name}
                 required={masters[index].required}
-                value={inputsAdContent.name}
-                onChange={handleChangeAdContentCheckBox}
+                value={inputAdConentRent.name}
+                onChange={handleChangeAdContentRentCheckBox}
                 // checked={inputsAdContent.name?false:true}
               />
             </label>
@@ -256,9 +287,8 @@ function SearchAds(props) {
                 name={masters[index].name}
                 id={masters[index].name}
                 required={masters[index].required}
-                value={inputsAdContent.name}
-                onChange={handleChangeAdContentCheckBox}
-                // checked={inputsAdContent.name?false:true}
+                value={inputsAdContentBuy.name}
+                onChange={handleChangeAdContentBuyCheckBox}
               />
             </label>
           );
@@ -277,8 +307,8 @@ function SearchAds(props) {
                 name={masters[index].name}
                 id={masters[index].name}
                 required
-                value={inputsAdContent.name}
-                onChange={handleChangeAdContent}
+                value={inputAdConentRent.name}
+                onChange={handleChangeAdRentContent}
               />
             </label>
           );
@@ -294,8 +324,8 @@ function SearchAds(props) {
                 name={masters[index].name}
                 id={masters[index].name}
                 required
-                value={inputsAdContent.name}
-                onChange={handleChangeAdContent}
+                value={inputsAdContentBuy.name}
+                onChange={handleChangeAdContentBuy}
               />
             </label>
           );
@@ -328,8 +358,14 @@ function SearchAds(props) {
     for (const [key, value] of Object.entries(inputsAd)) {
       obj[key] = value;
     }
-    for (const [key, value] of Object.entries(inputsAdContent)) {
-      obj[key] = value;
+    if (inputsAd.adType === "השכרה") {
+      for (const [key, value] of Object.entries(inputAdConentRent)) {
+        obj[key] = value;
+      }
+    } else {
+      for (const [key, value] of Object.entries(inputsAdContentBuy)) {
+        obj[key] = value;
+      }
     }
     obj["minPrice"] = minPrice;
     obj["maxPrice"] = maxPrice;
@@ -347,6 +383,7 @@ function SearchAds(props) {
     props.setindexStart(0);
     props.setindexEnd(10);
     const obj = makeObjOfAllFields();
+    console.log(obj);
     props.setSearchParams(obj);
   };
   return (
