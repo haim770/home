@@ -18,7 +18,41 @@ function Register(props) {
 
   const onChangeState = (setStateName, e) => {
     //func that recieves setstate and the event and change value of state to the value of input
+    if (e.target.name === "phone") {
+      if (isNaN(e.target.value) || e.target.value.length > 10) {
+        return;
+      }
+    }
     setStateName(e.target.value);
+  };
+  const loseFocusOnMailChecker = (e) => {
+    if (e.target.value.length < 6) {
+      alert("minimum mail contains 6 chars");
+      return;
+    }
+    if (
+      e.target.value.substring(
+        e.target.value.length - 4,
+        e.target.value.length
+      ) !== ".com"
+    ) {
+      alert("no .com");
+      return;
+    }
+    console.log(e.target.value.charAt(e.target.value.length - 4));
+    if (
+      e.target.value.substring(
+        e.target.value.length - 5,
+        e.target.value.length
+      ) === "@.com"
+    ) {
+      alert("@ in last place b4 .com");
+      return;
+    }
+    if (!e.target.value.includes("@")) {
+      alert("no @");
+      return;
+    }
   };
   const returnStateToDefault = () => {
     setLast_name("");
@@ -73,6 +107,7 @@ function Register(props) {
             id="mail"
             required
             value={mail}
+            onBlur={loseFocusOnMailChecker}
             onChange={(e) => onChangeState(setMail, e)}
           />
         </label>
