@@ -25,7 +25,6 @@ function AdsWithSearch(props) {
       },
     });
     setParameters(result.data);
-    console.log(result.data.length);
   };
   useEffect(() => {
     getParameters();

@@ -87,7 +87,6 @@ function SearchAds(props) {
         },
       },
     });
-    console.log(result.data);
     if (searchMethod === "city") setOptions(result.data.searchOption);
     else setStreetOptions(result.data.searchOption);
   };
@@ -339,14 +338,12 @@ function SearchAds(props) {
 
     for (let index = 0; index < masters.length; index++) {
       mastersName.push(masters[index].name);
-      //  console.log(masters[index].minValue);
 
       if (
         masters[index].min_value !== null &&
         masters[index].max_value !== null
       ) {
         if (masters[index].category === "השכרה") {
-          console.log(masters[index].name);
           code.push(
             <label
               key={masters[index].name + masters[index].adID}
