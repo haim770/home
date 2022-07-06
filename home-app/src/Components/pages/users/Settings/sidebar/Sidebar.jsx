@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 import "./styles.css";
 import { RiDashboardLine } from "react-icons/ri";
 import { FiSettings, FiUsers } from "react-icons/fi";
@@ -9,7 +9,7 @@ import { MdOutlineFavoriteBorder } from "react-icons/md";
 import { BiPurchaseTagAlt } from "react-icons/bi";
 import { FcSalesPerformance } from "react-icons/fc";
 import { BsClockHistory } from "react-icons/bs";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 const Sidebar = () => {
   return (
     <div className="settingsSidebar">
@@ -79,7 +79,10 @@ const Sidebar = () => {
             </Link>
           </li>
           <li>
-            <Link to="/haim" style={{ textDecoration: "none" }}>
+            <Link
+              to="/Settings/addParameterToAds"
+              style={{ textDecoration: "none" }}
+            >
               <span> הוספת פרמטרים למודעות</span>
             </Link>
           </li>
@@ -103,6 +106,6 @@ const Sidebar = () => {
       <div className="settingsBottom">Colors</div>
     </div>
   );
-}
+};
 
-export default Sidebar
+export default Sidebar;

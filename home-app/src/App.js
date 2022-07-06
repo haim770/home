@@ -45,6 +45,7 @@ import UserSettings from "./Components/pages/users/Settings/Pages/UserSettings";
 import SiteSettings from "./Components/pages/users/Settings/Pages/SiteSettings";
 import Sidebar from "./Components/pages/users/Settings/sidebar/Sidebar";
 import { PopupAdProvidor } from "./Components/pages/users/Settings/useContextReducer/PopupAdsContext";
+import AddParameterToAds from "./Components/AddParameterToAds";
 const ROLES = {
   User: 2001,
   Admin: 5150,
@@ -103,6 +104,16 @@ export default function App() {
                         element={<RequireAuth allowedRoles={[ROLES.Admin]} />}
                       >
                         <Route path="Users" element={<SiteUsers />} />
+                      </Route>
+                    </Route>
+                    <Route element={<PersistLogin />}>
+                      <Route
+                        element={<RequireAuth allowedRoles={[ROLES.Admin]} />}
+                      >
+                        <Route
+                          path="addParameterToAds"
+                          element={<AddParameterToAds />}
+                        />
                       </Route>
                     </Route>
                     <Route element={<PersistLogin />}>

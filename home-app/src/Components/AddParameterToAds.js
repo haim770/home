@@ -4,10 +4,12 @@ import Address from "./Address";
 import Parameter from "./Parameter";
 import "../styles/AddParameterMaster.css";
 import Api from "../api/Api";
+import useAuth from "../Auth/useAuth";
 import { v4 as uuidv4 } from "uuid";
 import instance from "../api/AxiosInstance";
 import { display } from "@mui/system";
 function AddParameterToAds(props) {
+  const { setAuth } = useAuth();
   const [paramName, setParamName] = useState(""); //hook for parameter name
   const [maxValue, setMaxVlue] = useState(""); //hook for parameter max value
   const [minValue, setMinValue] = useState(""); //hook for parameter min value
