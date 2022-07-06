@@ -93,7 +93,6 @@ function SearchAds(props) {
   };
   const handleChangeCity = (event) => {
     const value = event.label;
-    const enCity = event.value;
     setInputsAd((values) => ({ ...values, city: value }));
     setSelectedOption(event);
   };
@@ -106,6 +105,9 @@ function SearchAds(props) {
     const name = event.target.name;
     const value = event.target.value;
     if (name === "adType") {
+      setAdContentClass("notVisible");
+      setNotDisplayBuy("notDisplayBuy");
+      setNotDisplayRent("notDisplayRent");
     }
     if (name === "price" || name === "rooms" || name === "building_number") {
       if (isNaN(value)) return;
@@ -119,10 +121,46 @@ function SearchAds(props) {
       [name]: event.target.checked,
     });
   };
-  const handleChangeAdContentBuy = (event) => {
-    const name = event.target.name;
-    const value = event.target.value;
-    setInputsAdContentBuy({ ...inputsAdContentBuy, [name]: value });
+  const handleChangeAdContentBuy = (e) => {
+    let num = e.target.value.replace(/\D/g, "");
+    const name = e.target.name;
+    const value = e.target.value;
+    if (e.target.min || e.target.max) {
+      if (isNaN(e.target.value) === true) {
+        //value is not a number
+        setInputsAdContentBuy({ ...inputsAdContentBuy, [name]: num });
+        document.getElementById(e.target.name).value = num;
+        return;
+      } else {
+        if (e.target.max) {
+          if (parseInt(e.target.value) > parseInt(e.target.max)) {
+            //we are passing the max value
+            setInputsAdContentBuy({
+              ...inputsAdContentBuy,
+              [name]: e.target.max,
+            });
+            document.getElementById(e.target.name).value = e.target.max; //we put max value inside if user inserted bigger
+            alert("מקסימום לשדה " + e.target.name + " הוא " + e.target.max);
+
+            return;
+          } else {
+            setInputsAdContentBuy({
+              ...inputsAdContentBuy,
+              [name]: e.target.value,
+            });
+            return;
+          }
+        } else {
+          setInputsAdContentBuy({
+            ...inputsAdContentBuy,
+            [name]: e.target.value,
+          });
+        }
+      }
+    } else {
+      //not having min/max
+      setInputsAdContentBuy({ ...inputsAdContentBuy, [name]: e.target.value });
+    }
   };
   const handleChangeAdContentRentCheckBox = (event) => {
     const name = event.target.name;
@@ -131,10 +169,62 @@ function SearchAds(props) {
       [name]: event.target.checked,
     });
   };
-  const handleChangeAdRentContent = (event) => {
-    const name = event.target.name;
-    const value = event.target.value;
-    setInputAdConentRent({ ...inputAdConentRent, [name]: value });
+  const handleOnFocusLost = (e, typeOfParam) => {
+    //func gets rent/buy and the event and check if smaller then min
+    if (e.target.min) {
+      if (parseInt(e.target.value) < e.target.min) {
+        console.log(
+          "ערך מינימום לשדה " + e.target.name + " הוא " + e.target.min
+        );
+        if (typeOfParam === "rent")
+          setInputAdConentRent({ ...inputAdConentRent, [e.target.name]: "" });
+        else {
+          setInputsAdContentBuy({ ...inputsAdContentBuy, [e.target.name]: "" });
+        }
+      }
+    }
+  };
+  const handleChangeAdRentContent = (e) => {
+    let num = e.target.value.replace(/\D/g, "");
+    const name = e.target.name;
+    const value = e.target.value;
+    if (e.target.min || e.target.max) {
+      if (isNaN(e.target.value) === true) {
+        //value is not a number
+        setInputAdConentRent({ ...inputAdConentRent, [name]: num });
+        document.getElementById(e.target.name).value = num;
+        return;
+      } else {
+        if (e.target.max) {
+          if (parseInt(e.target.value) > parseInt(e.target.max)) {
+            //we are passing the max value
+            setInputAdConentRent({
+              ...inputAdConentRent,
+              [name]: e.target.max,
+            });
+            document.getElementById(e.target.name).value = e.target.max; //we put max value inside if user inserted bigger
+            console.log(
+              "מקסימום לשדה " + e.target.name + " הוא " + e.target.max
+            );
+            return;
+          } else {
+            setInputAdConentRent({
+              ...inputAdConentRent,
+              [name]: e.target.value,
+            });
+            return;
+          }
+        } else {
+          setInputAdConentRent({
+            ...inputAdConentRent,
+            [name]: e.target.value,
+          });
+        }
+      }
+    } else {
+      //not having min/max
+      setInputAdConentRent({ ...inputAdConentRent, [name]: e.target.value });
+    }
   };
   const getMasters = async () => {
     const result = await instance.request({
@@ -144,24 +234,16 @@ function SearchAds(props) {
     });
     setMasters(result.data);
   };
-  useEffect(() => {
+  useLayoutEffect(() => {
     getMasters();
     if (masters !== "") {
       for (let index = 0; index < masters.length; index++) {
         if (masters[index].category === "השכרה") {
           setInputAdConentRent({
             ...inputAdConentRent,
-            [masters[index].name]: false,
-          });
-          setInputAdConentRent({
-            ...inputAdConentRent,
-            [masters[index].name]: "",
+            [masters[index].name]: "haim",
           });
         } else {
-          setInputsAdContentBuy({
-            ...inputsAdContentBuy,
-            [masters[index].name]: false,
-          });
           setInputsAdContentBuy({
             ...inputsAdContentBuy,
             [masters[index].name]: "",
@@ -254,60 +336,32 @@ function SearchAds(props) {
     //form of the adcontent masters we have
     let code = [];
     makeFieldsOfAdColumnsWeKnow(code);
+
     for (let index = 0; index < masters.length; index++) {
       mastersName.push(masters[index].name);
-      if (masters[index].display_type === "checkBox") {
+      //  console.log(masters[index].minValue);
+
+      if (
+        masters[index].min_value !== null &&
+        masters[index].max_value !== null
+      ) {
         if (masters[index].category === "השכרה") {
+          console.log(masters[index].name);
           code.push(
             <label
               key={masters[index].name + masters[index].adID}
               className={notdisplayRent}
             >
-              <span>{masters[index].free_text}</span>
-              <input
-                type="checkBox"
-                name={masters[index].name}
-                id={masters[index].name}
-                required={masters[index].required}
-                value={inputAdConentRent.name}
-                onChange={handleChangeAdContentRentCheckBox}
-                // checked={inputsAdContent.name?false:true}
-              />
-            </label>
-          );
-        } else {
-          code.push(
-            <label
-              key={masters[index].name + masters[index].adID}
-              className={notdisplayBuy}
-            >
-              <span>{masters[index].free_text}</span>
-              <input
-                type="checkBox"
-                name={masters[index].name}
-                id={masters[index].name}
-                required={masters[index].required}
-                value={inputsAdContentBuy.name}
-                onChange={handleChangeAdContentBuyCheckBox}
-              />
-            </label>
-          );
-        }
-      } else {
-        //for text
-        if (masters[index].category === "השכרה") {
-          code.push(
-            <label
-              key={masters[index].name + masters[index].adID}
-              className={notdisplayRent}
-            >
-              <span>{masters[index].free_text}</span>
+              <span>{masters[index].name}</span>
               <input
                 type="text"
                 name={masters[index].name}
+                min={masters[index].min_value}
+                max={masters[index].max_value}
                 id={masters[index].name}
-                required
+                required={masters[index].required}
                 value={inputAdConentRent.name}
+                onBlur={(e) => handleOnFocusLost(e, "rent")}
                 onChange={handleChangeAdRentContent}
               />
             </label>
@@ -318,17 +372,94 @@ function SearchAds(props) {
               key={masters[index].name + masters[index].adID}
               className={notdisplayBuy}
             >
-              <span>{masters[index].free_text}</span>
+              <span>{masters[index].name}</span>
               <input
                 type="text"
                 name={masters[index].name}
                 id={masters[index].name}
-                required
+                min={masters[index].min_value}
+                max={masters[index].max_value}
+                required={masters[index].required}
                 value={inputsAdContentBuy.name}
+                onBlur={(e) => handleOnFocusLost(e, "buy")}
                 onChange={handleChangeAdContentBuy}
               />
             </label>
           );
+        }
+      } else {
+        if (masters[index].display_type === "checkBox") {
+          if (masters[index].category === "השכרה") {
+            code.push(
+              <label
+                key={masters[index].name + masters[index].adID}
+                className={notdisplayRent}
+              >
+                <span>{masters[index].name}</span>
+                <input
+                  type="checkBox"
+                  name={masters[index].name}
+                  id={masters[index].name}
+                  required={masters[index].required}
+                  value={inputAdConentRent.name}
+                  onChange={handleChangeAdContentRentCheckBox}
+                  // checked={inputsAdContent.name?false:true}
+                />
+              </label>
+            );
+          } else {
+            code.push(
+              <label
+                key={masters[index].name + masters[index].adID}
+                className={notdisplayBuy}
+              >
+                <span>{masters[index].name}</span>
+                <input
+                  type="checkBox"
+                  name={masters[index].name}
+                  id={masters[index].name}
+                  required={masters[index].required}
+                  value={inputsAdContentBuy.name}
+                  onChange={handleChangeAdContentBuyCheckBox}
+                />
+              </label>
+            );
+          }
+        } else {
+          //for text
+          if (masters[index].category === "השכרה") {
+            code.push(
+              <label
+                key={masters[index].name + masters[index].adID}
+                className={notdisplayRent}
+              >
+                <span>{masters[index].name}</span>
+                <input
+                  type="text"
+                  name={masters[index].name}
+                  id={masters[index].name}
+                  value={inputAdConentRent.name}
+                  onChange={handleChangeAdRentContent}
+                />
+              </label>
+            );
+          } else {
+            code.push(
+              <label
+                key={masters[index].name + masters[index].adID}
+                className={notdisplayBuy}
+              >
+                <span>{masters[index].free_text}</span>
+                <input
+                  type="text"
+                  name={masters[index].name}
+                  id={masters[index].name}
+                  value={inputsAdContentBuy.name}
+                  onChange={handleChangeAdContentBuy}
+                />
+              </label>
+            );
+          }
         }
       }
     }
