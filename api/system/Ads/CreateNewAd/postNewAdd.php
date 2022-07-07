@@ -6,7 +6,7 @@ include_once(dirname(__FILE__) . DIRECTORY_SEPARATOR . $authPath);
 /**
  * Check if user got enoght ads to publish or user is admin, if user is admin he can publish as much as he want
  */
-if($user->getRemainingAds()>0 || $user->getRule() == "5150") {
+if((int) $user->getRemainingAds()>0 || $user->getRule() == "5150") {
 $arr = []; //for global scope var
 $arr["adUuid"] = uniqid(); // will be use for all our data storage
 // File upload configuration 
