@@ -33,8 +33,6 @@ if (isset($_POST['data'])) {
     }
     if ($dataType == "ads")
         getAllAds();
-    if ($dataType == "register")
-        register();
     if (
         $dataType == "getSelectedAdByIdAndCity"
     ) {

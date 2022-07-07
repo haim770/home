@@ -1,20 +1,23 @@
 import React, { useState } from "react";
 import Button from "./Button";
 import Address from "./Address";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import {
+  Link,useNavigate,useLocation,Navigate} from "react-router-dom";
 import Parameter from "./Parameter";
 import "../styles/Register.css";
 import Api from "../api/Api";
 import { v4 as uuidv4 } from "uuid";
 import instance from "../api/AxiosInstance";
 function Register(props) {
+   const location = useLocation();
   const [first_name, setfirst_name] = useState(""); //hook for parameter name
   const [last_name, setLast_name] = useState(""); //hook for parameter max value
   const [mail, setMail] = useState(""); //hook for parameter min value
   const [password, setPassword] = useState(""); //hook for parameter style
   const [phone, setPhone] = useState(""); //hook for parameter style
   const [prompt, setPrompt] = useState("");
-  const [registerStatus, setRegisterStatus] = useState("not"); //user registration status
+  const [registerStatusDisplay, setRegisterStatusDisplay] = useState("not"); //user registration status for display or not
+  const [registerStatus, setRegisterStatus] = useState("");
 
   const onChangeState = (setStateName, e) => {
     //func that recieves setstate and the event and change value of state to the value of input
@@ -25,34 +28,27 @@ function Register(props) {
     }
     setStateName(e.target.value);
   };
-  const loseFocusOnMailChecker = (e) => {
-    if (e.target.value.length < 6) {
+  const mailChecker = (userMail) => {
+    if (userMail.length < 6) {
       alert("minimum mail contains 6 chars");
-      return;
+      return false;
     }
-    if (
-      e.target.value.substring(
-        e.target.value.length - 4,
-        e.target.value.length
-      ) !== ".com"
-    ) {
+    if (userMail.substring(userMail.length - 4, userMail.length) !== ".com") {
       alert("no .com");
-      return;
+      return false;
     }
-    console.log(e.target.value.charAt(e.target.value.length - 4));
-    if (
-      e.target.value.substring(
-        e.target.value.length - 5,
-        e.target.value.length
-      ) === "@.com"
-    ) {
+    if (userMail.substring(userMail.length - 5, userMail.length) === "@.com") {
       alert("@ in last place b4 .com");
-      return;
+      return false;
     }
-    if (!e.target.value.includes("@")) {
+    if (!userMail.includes("@")) {
       alert("no @");
-      return;
+      return false;
     }
+    return true;
+  };
+  const loseFocusOnMailChecker = (e) => {
+    mailChecker(e.target.value);
   };
   const returnStateToDefault = () => {
     setLast_name("");
@@ -60,6 +56,17 @@ function Register(props) {
     setPassword("");
     setPhone("");
     setfirst_name("");
+  };
+  const checkPasswordValidity = (pass) => {
+    console.log(
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/.test("ldkd")
+    );
+    if (pass.length > 5) {
+      return true;
+    } else {
+      alert("password not valid at least 1 num and 1 letter and 8 chars min");
+      return false;
+    }
   };
   const checkForValidFields = () => {
     if (!(mail && password)) {
@@ -72,27 +79,38 @@ function Register(props) {
   const register = async (e) => {
     //add ad to the db, returns true/false
     e.preventDefault();
-    if (!checkForValidFields()) {
+    if (
+      !checkForValidFields() ||
+      !mailChecker(mail) ||
+      !checkPasswordValidity(password)
+    ) {
       return;
-    }
-    const result = await instance.request({
-      data: {
-        data_type: "register",
-        params: {
-          phone: phone,
-          mail: mail,
-          password: password,
-          first_name: first_name,
-          last_name: last_name,
-          prompt: prompt,
-          rule: "2001",
+    } else {
+      const result = await instance.request({
+        data: {
+          data_type: "register",
+          params: {
+            phone: phone,
+            mail: mail,
+            password: password,
+            first_name: first_name,
+            last_name: last_name,
+            prompt: prompt,
+            rule: "2001",
+          },
         },
-      },
-    });
-    if (result) {
-      setRegisterStatus("yes");
+      });
+      if (result) {
+        if (result.data === "mail exist") {
+          setRegisterStatus("מייל קיים במערכת");
+          setRegisterStatusDisplay("yes");
+          return;
+        }
+        setRegisterStatusDisplay("yes");
+        setRegisterStatus("ההרשמה נקלטה במערכת");
+      }
+      console.log(result);
     }
-    console.log(result);
   };
   return (
     <section className="section_form ">
@@ -169,10 +187,19 @@ function Register(props) {
         <p>
           <button onClick={register}>הרשמה</button>
         </p>
-        {console.log(registerStatus)}
-        <p className={registerStatus}>
-          רישום הצליח
-          <Link to="/Login">לחץ להתחברות</Link>
+        <p
+          className={registerStatusDisplay}
+          style={{
+            color: registerStatus === "ההרשמה נקלטה במערכת" ? "green" : "red",
+          }}
+        >
+          {registerStatus}
+          <br></br>
+          {registerStatus === "ההרשמה נקלטה במערכת" ? (
+            <Navigate to="/login" state={{ from: location,act:"registerSucceeds" }} replace />
+          ) : (
+            ""
+          )}
         </p>
       </form>
     </section>
