@@ -12,7 +12,6 @@ const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
-
   const userRef = useRef();
   const errRef = useRef();
 
@@ -35,12 +34,12 @@ const Login = () => {
     e.preventDefault();
 
     try {
-        const response = await instance.request({
-          data: {
-            data_type: "Login",
-            params: { user, pwd },
-          },
-        });
+      const response = await instance.request({
+        data: {
+          data_type: "Login",
+          params: { user, pwd },
+        },
+      });
 
       const accessToken = response?.data?.accessToken;
       const refreshTokenCookie = response?.data?.refreshToken;
@@ -69,6 +68,9 @@ const Login = () => {
 
   return (
     <section className="logRegBox">
+      <h2>
+        {location?.state?.act === "registerSucceeds" ? "נרשמת בהצלחה" : ""}
+      </h2>
       <p
         ref={errRef}
         className={errMsg ? "errmsg" : "offscreen"}
@@ -111,7 +113,8 @@ const Login = () => {
         צריך חשבון?
         <br />
         <span className="line">
-          <Link to= "/register">הירשם</Link>        </span>
+          <Link to="/register">הירשם</Link>{" "}
+        </span>
       </p>
     </section>
   );

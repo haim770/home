@@ -1,0 +1,13 @@
+.formAddAd {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  margin: 2rem;
+}
+
+.notNumeric{
+display: none;
+}
+.numeric{
+  display:block;
+}

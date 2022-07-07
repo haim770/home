@@ -2,32 +2,40 @@ import React, { useState } from "react";
 import Button from "./Button";
 import Address from "./Address";
 import Parameter from "./Parameter";
-import "../styles/AddAdForm.css";
+import "../styles/AddParameterMaster.css";
 import Api from "../api/Api";
+import useAuth from "../Auth/useAuth";
 import { v4 as uuidv4 } from "uuid";
 import instance from "../api/AxiosInstance";
+import { display } from "@mui/system";
 function AddParameterToAds(props) {
+  const { setAuth } = useAuth();
   const [paramName, setParamName] = useState(""); //hook for parameter name
   const [maxValue, setMaxVlue] = useState(""); //hook for parameter max value
   const [minValue, setMinValue] = useState(""); //hook for parameter min value
-  const [paramStyle, setParamStyle] = useState(""); //hook for parameter style
+  const [paramStyle, setParamStyle] = useState("input"); //hook for parameter style
   const [dataType, setDataType] = useState(""); //hook for parameter style
-  const [category, setCataegory] = useState("");
+  const [category, setCataegory] = useState("השכרה");
+  const [numericParameterClass, setNumericParameterClass] =
+    useState("not numeric");
+  const [isCheckBox, setIsCheckBox] = useState(false); //determine if checkbox
 
   const onChangeState = (setStateName, e) => {
     //func that recieves setstate and the event and change value of state to the value of input
-    if (e.target.name === "form_price") if (isNaN(e.target.value)) return;
+    if (e.target.name === "")
+      if (e.target.name === "form_price") if (isNaN(e.target.value)) return;
     setStateName(e.target.value);
   };
   const returnStateToDefault = () => {
     setMaxVlue("");
     setMinValue("");
     setParamName("");
-    setParamStyle("");
-    setDataType("");
+    setParamStyle("input");
+    setDataType("השכרה");
   };
   const submitParameter = async (e) => {
     //add ad to the db, returns true/false
+    e.preventDefault();
     const result = await instance.request({
       data: {
         data_type: "addNewMasterToAdContentTable",
@@ -47,15 +55,24 @@ function AddParameterToAds(props) {
   return (
     <form className={props.className}>
       <label>
-        <span>enter category</span>
-        <select value={category} onChange={(e) => setCataegory(e.target.value)}>
-          <option>all</option>
-          <option>rent</option>
-          <option>buy</option>
+        <span>סוג תצוגה של פרמטר</span>
+        <select
+          value={paramStyle}
+          onChange={(e) => setParamStyle(e.target.value)}
+        >
+          <option>input</option>
+          <option>checkBox</option>
         </select>
       </label>
       <label>
-        <span>enter name of parameter</span>
+        <span>קטגוריה</span>
+        <select value={category} onChange={(e) => setCataegory(e.target.value)}>
+          <option>השכרה</option>
+          <option>קנייה</option>
+        </select>
+      </label>
+      <label>
+        <span>הכנס שם פרמטר</span>
         <input
           type="text"
           name="paramName"
@@ -65,17 +82,30 @@ function AddParameterToAds(props) {
           onChange={(e) => onChangeState(setParamName, e)}
         />
       </label>
-      <label>
-        <span>enter data type</span>
-        <select value={dataType} onChange={(e) => setDataType(e.target.value)}>
+      <label style={{ display: paramStyle === "checkBox" ? "none" : "block" }}>
+        <span>הכנס טיפוס של תכונה</span>
+        <select
+          value={dataType}
+          onChange={(e) => {
+            console.log(e.target.value);
+            if (e.target.value === "VARCHAR") {
+              setNumericParameterClass("notNumeric");
+            } else {
+              setNumericParameterClass("numeric");
+            }
+            setDataType(e.target.value);
+          }}
+        >
           <option>INT</option>
           <option>DOUBLE</option>
           <option>VARCHAR</option>
         </select>
       </label>
-      {/* <label {dataType ==="VARCHAR"?style={display:"none"}:style={display:"block"}}> */}
-      <label>
-        <span>enter parameter maximum</span>
+      <label
+        style={{ display: paramStyle === "checkBox" ? "none" : "" }}
+        className={numericParameterClass}
+      >
+        <span>הכנס ערך מקסימום</span>
         <input
           type="text"
           name="maxValue"
@@ -85,8 +115,11 @@ function AddParameterToAds(props) {
           onChange={(e) => onChangeState(setMaxVlue, e)}
         />
       </label>
-      <label>
-        <span>enter minimum value</span>
+      <label
+        style={{ display: paramStyle === "checkBox" ? "none" : "" }}
+        className={numericParameterClass}
+      >
+        <span>הכנס ערך מינימום</span>
         <input
           type="text"
           name="minValue"
@@ -96,19 +129,9 @@ function AddParameterToAds(props) {
           onChange={(e) => onChangeState(setMinValue, e)}
         />
       </label>
-      <label>
-        <span>enter parameter style</span>
-        <select
-          value={paramStyle}
-          onChange={(e) => setParamStyle(e.target.value)}
-        >
-          <option>input</option>
-          <option>checkBox</option>
-        </select>
-      </label>
 
       <p>
-        <Button onClick={submitParameter} />
+        <Button onClick={submitParameter} content="הוספה" />
       </p>
     </form>
   );

@@ -18,8 +18,10 @@ const AdsBlock = (props) => {
   /**
    * Add function of start new chat with user ad publisher
    */
-  const [phone,setPhone]=useState(props.adBlock.user[0]?props.adBlock.user[0].phone:0);
-  const [togglePhone,setTogglePhone]=useState("הצג טלפון");
+  const [phone, setPhone] = useState(
+    props.adBlock.user[0] ? props.adBlock.user[0].phone : 0
+  );
+  const [togglePhone, setTogglePhone] = useState("הצג טלפון");
   const [adBlock, setAdBlock] = useState(props.adBlock);
   const [isFavorite, setIsFavorite] = useState(props.isFavorite);
   const [didWatch, setDidWatch] = useState(0);
@@ -42,17 +44,17 @@ const AdsBlock = (props) => {
     });
     console.log(res.data);
   };
-  const changeViewToFull =  async(e) => {
+  const changeViewToFull = async (e) => {
     e.preventDefault();
     if (
       e.target.tagName === "svg" ||
       e.target.tagName === "BUTTON" ||
-      e.target.tagName === "path"||
-      e.target.tagName==="button"
+      e.target.tagName === "path" ||
+      e.target.tagName === "button"
     )
       //if the child is doing something in clicking we wont fire the view change
       return;
-     await updateWatch();
+    await updateWatch();
     setDidWatch((didWatch) => didWatch + 1);
     props.setListShow("notShowList");
     props.setFullShow("showFull");
@@ -135,7 +137,9 @@ const AdsBlock = (props) => {
                 );
               }}
             >
-              {togglePhone==="הצג טלפון"?""+togglePhone+" "+phone:togglePhone}
+              {togglePhone === "הצג טלפון"
+                ? "" + togglePhone + " " + phone
+                : togglePhone}
             </button>
           </div>
         </div>
