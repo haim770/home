@@ -1,10 +1,10 @@
-import React, {useState} from 'react'
+import React, { useState } from "react";
 import instance from "../../../../api/AxiosInstanceFormData";
-import useAuth from '../../../../Auth/useAuth';
-import StepFour from './StepFour';
-import StepOne from './StepOne';
-import StepThree from './StepThree';
-import StepTwo from './StepTwo';
+import useAuth from "../../../../Auth/useAuth";
+import StepFour from "./StepFour";
+import StepOne from "./StepOne";
+import StepThree from "./StepThree";
+import StepTwo from "./StepTwo";
 import "./styles.css";
 import toast, { Toaster } from "react-hot-toast"; // https://react-hot-toast.com/docs && https://react-hot-toast.com/
 
@@ -47,19 +47,18 @@ const Form = () => {
         Authorization: `Bearer ${auth.accessToken}`,
       },
     });
-      if (result?.data.message == "success") {
-        toast.dismiss(); // remove loading toast
-        toast.success('המודעה פורסמה בהצלחה!');
-      }
-      else{
-        toast.dismiss(); // remove loading toast
-        toast.error("אוי לא, משהו השתבש בדרך והמודעה לא פורסמה!");
-      }
+    if (result?.data.message == "success") {
+      toast.dismiss(); // remove loading toast
+      toast.success("המודעה פורסמה בהצלחה!");
+    } else {
+      toast.dismiss(); // remove loading toast
+      toast.error("אוי לא, משהו השתבש בדרך והמודעה לא פורסמה!");
+    }
 
-      // reload this compnent after 4 second
-        setTimeout(function () {
-            window.location.reload(false);
-          }, 4000);
+    // reload this compnent after 4 second
+    setTimeout(function () {
+      window.location.reload(false);
+    }, 4000);
   };
 
   const PageDisplay = () => {
@@ -139,6 +138,6 @@ const Form = () => {
       <Toaster />
     </div>
   );
-}
+};
 
-export default Form
+export default Form;

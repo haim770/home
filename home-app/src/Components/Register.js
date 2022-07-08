@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import Button from "./Button";
 import Address from "./Address";
-import {
-  Link,useNavigate,useLocation,Navigate} from "react-router-dom";
+import { Link, useNavigate, useLocation, Navigate } from "react-router-dom";
 import Parameter from "./Parameter";
-import "../styles/Register.css";
+import "../styles/Register.module.css";
 import Api from "../api/Api";
 import { v4 as uuidv4 } from "uuid";
 import instance from "../api/AxiosInstance";
+import toast, { Toaster } from "react-hot-toast";
 function Register(props) {
-   const location = useLocation();
+  const location = useLocation();
   const [first_name, setfirst_name] = useState(""); //hook for parameter name
   const [last_name, setLast_name] = useState(""); //hook for parameter max value
   const [mail, setMail] = useState(""); //hook for parameter min value
@@ -23,6 +23,8 @@ function Register(props) {
     //func that recieves setstate and the event and change value of state to the value of input
     if (e.target.name === "phone") {
       if (isNaN(e.target.value) || e.target.value.length > 10) {
+        toast.dismiss();
+        toast.error(" טלפון מכיל עד 10 תווים מספריים");
         return;
       }
     }
@@ -30,19 +32,24 @@ function Register(props) {
   };
   const mailChecker = (userMail) => {
     if (userMail.length < 6) {
-      alert("minimum mail contains 6 chars");
+      toast.dismiss();
+      toast.error("מייל חייב להכיל מינימום 6 תווים");
       return false;
     }
     if (userMail.substring(userMail.length - 4, userMail.length) !== ".com") {
-      alert("no .com");
+      toast.dismiss();
+      toast.error("אין סיומת נכונה");
       return false;
     }
     if (userMail.substring(userMail.length - 5, userMail.length) === "@.com") {
-      alert("@ in last place b4 .com");
+      toast.dismiss();
+      toast.error("מייל חייב  להכיל תוכן בין @ לסיומת");
       return false;
     }
     if (!userMail.includes("@")) {
-      alert("no @");
+      toast.dismiss();
+      toast.error("אין @");
+
       return false;
     }
     return true;
@@ -64,14 +71,17 @@ function Register(props) {
     if (pass.length > 5) {
       return true;
     } else {
-      alert("password not valid at least 1 num and 1 letter and 8 chars min");
+      toast.dismiss();
+      toast.error(
+        "סיסמא חייבת להיות עד 8 תווים ולהכיל לפחות אות אחת ומספר אחד"
+      );
       return false;
     }
   };
   const checkForValidFields = () => {
     if (!(mail && password)) {
-      console.log("no value at mail/password");
-      alert("שם משתמש או סיסמא לא הוכנסו כראוי");
+      toast.dismiss();
+      toast.error("שם משתמש או סיסמא לא הוכנסו כראוי");
       return false;
     }
     return true;
@@ -102,12 +112,15 @@ function Register(props) {
       });
       if (result) {
         if (result.data === "mail exist") {
+          toast.dismiss();
+          toast.error("מייל קיים כבר במערכת");
           setRegisterStatus("מייל קיים במערכת");
           setRegisterStatusDisplay("yes");
           return;
         }
         setRegisterStatusDisplay("yes");
         setRegisterStatus("ההרשמה נקלטה במערכת");
+        toast.dismiss();
       }
       console.log(result);
     }
@@ -196,12 +209,17 @@ function Register(props) {
           {registerStatus}
           <br></br>
           {registerStatus === "ההרשמה נקלטה במערכת" ? (
-            <Navigate to="/login" state={{ from: location,act:"registerSucceeds" }} replace />
+            <Navigate
+              to="/login"
+              state={{ from: location, act: "registerSucceeds" }}
+              replace
+            />
           ) : (
             ""
           )}
         </p>
       </form>
+      <Toaster />
     </section>
   );
 }
