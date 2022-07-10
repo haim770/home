@@ -496,6 +496,9 @@ function getAllUsers(){
     echo json_encode($result);
 }
 
+if (isset ($DATA_OBJ->data_type)&&$DATA_OBJ->data_type=="changeRemainingAdsInDb"){
+    include_once("../api/system/user/deleteOrRestoreUserAndChangeRule.php");
+} else
 if (isset ($DATA_OBJ->data_type)&&$DATA_OBJ->data_type=="changeUserRule"){
 
     include_once("../api/system/user/deleteOrRestoreUserAndChangeRule.php");

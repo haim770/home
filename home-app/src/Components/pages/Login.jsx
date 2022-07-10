@@ -5,6 +5,7 @@ import useInput from "../../Auth/useInput";
 import useToggle from "../../Auth/useInput";
 import instance from "../../api/AxiosInstance";
 import Cookies from "universal-cookie";
+import toast, { Toaster } from "react-hot-toast";
 
 const Login = () => {
   const { setAuth } = useAuth();
@@ -68,9 +69,9 @@ const Login = () => {
 
   return (
     <section className="logRegBox">
-      <h2>
-        {location?.state?.act === "registerSucceeds" ? "נרשמת בהצלחה" : ""}
-      </h2>
+      {location?.state?.act === "registerSucceeds"
+        ? toast.success("ההרשמה הצליחה התחבר בבקשה")
+        : ""}
       <p
         ref={errRef}
         className={errMsg ? "errmsg" : "offscreen"}
@@ -116,6 +117,7 @@ const Login = () => {
           <Link to="/register">הירשם</Link>{" "}
         </span>
       </p>
+      <Toaster/>
     </section>
   );
 };

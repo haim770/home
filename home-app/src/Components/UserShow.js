@@ -31,33 +31,61 @@ function UserShow(props) {
       console.log("failed");
     }
   };
-   const changeUserRule = async () => {
-     //add ad to the db, returns true/false
-     const result = await instance.request({
-       data: {
-         data_type: "changeUserRule",
-         params: { mail: props.user.mail, rule: props.user.rule },
-       },
-     });
-     console.log(result.data);
-     if (result) {
-       if (result.data === "changed active status") console.log("succeeds");
-     } else {
-       console.log("failed");
-     }
-   };
-  const deleteOrRestore =  (e) => {
+  const changeUserRule = async () => {
+    //add ad to the db, returns true/false
+    if (props.act === "nothing") {
+      return;
+    }
+    const result = await instance.request({
+      data: {
+        data_type: "changeUserRule",
+        params: { mail: props.user.mail, rule: props.user.rule },
+      },
+    });
+    console.log(result.data);
+    if (result) {
+      if (result.data === "changed active status") console.log("succeeds");
+    } else {
+      console.log("failed");
+    }
+  };
+  const changeRemainingAdsInDb = async () => {
+    //add ad to the db, returns true/false
+    if (props.act === "nothing") {
+      return;
+    }
+    const result = await instance.request({
+      data: {
+        data_type: "changeRemainingAdsInDb",
+        params: { mail: props.user.mail, remainingAds: valueRemainingInput },
+      },
+    });
+    console.log(result.data);
+    if (result) {
+      if (result.data === "changed remaining ads") console.log("succeeds");
+    } 
+    else {
+      console.log("failed");
+    }
+  };
+  const deleteOrRestore = (e) => {
     e.preventDefault();
-    deleteOrRestoreUser();
+    console.log(props.user);
+    if (props.user === []) {
+      return;
+    } else {
+      deleteOrRestoreUser();
+    }
   };
   const changeRemainingAds = (e) => {
+    //change remainng ads to whatever user puts in
     e.preventDefault();
-    console.log("D");
     if (showRemainingAdsInput === "notShowInput") {
       setShowRemainingAdsInput("showInput");
 
       return;
     } else {
+      changeRemainingAdsInDb();
     }
   };
   const changeRule = (e) => {
@@ -67,11 +95,10 @@ function UserShow(props) {
   };
   const handleChangeRemainingAds = (e) => {
     e.preventDefault();
-    // console.log(isNaN(e.target.value));
-    // if (isNaN(e.target.value) === true) {
-    //   console.log(e.target.value);
-    //   return;
-    // }
+    if (isNaN(e.target.value) === true) {
+      console.log(e.target.value);
+      return;
+    }
     setValueRemainingInput(e.target.value);
   };
   return (
@@ -103,38 +130,19 @@ function UserShow(props) {
       </p>
       <p>
         <label
-          key={uuidv4()}
           style={{
             display:
               showRemainingAdsInput === "notShowInput" ? "none" : "block",
           }}
+          key="remainingAdsInput"
         >
-          <span>מודעות שנותרו</span>
+          <span>הכנס כמות מודעות מעודכנת למשתמש</span>
           <input
             type="text"
             name="remainingAds"
             id="remainingAds"
             value={valueRemainingInput}
-            required
             onChange={handleChangeRemainingAds}
-          />
-        </label>
-        <label
-          key={uuidv4()}
-          style={{
-            display:
-              showRemainingAdsInput === "notShowInput" ? "none" : "block",
-          }}
-        >
-          <span>מודעות שנותרו</span>
-          <input
-            type="text"
-            name="remainingA2ds"
-            id="remainingAds1"
-            value={valueRemainingInput1}
-            onChange={(e) => {
-              setValueRemainingInput1(e.target.value);
-            }}
           />
         </label>
       </p>

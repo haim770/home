@@ -171,7 +171,11 @@ const Ads = (props) => {
       ) : (
         ""
       )}
-      {noMoreAdsForSearch ? <h2>אין מודעות נוספות</h2> : ""}
+      {noMoreAdsForSearch && props.listShow === "showList" ? (
+        <h2>אין מודעות נוספות</h2>
+      ) : (
+        ""
+      )}
     </section>
   );
 };

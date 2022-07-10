@@ -73,7 +73,7 @@ function ChangeUserRule(props) {
         <p>"no mail selected"</p>
       )}
       {users != [] ? <p></p> : <p>"no users"</p>}
-      <UserShow user={UserSelected} />
+      <UserShow user={UserSelected?UserSelected:[]} act="userIsIn" />
     </section>
   );
 }

@@ -1,4 +1,21 @@
 <?php
+function changeRemainingAdsInDb(){
+  global $db;
+  global $DATA_OBJ;
+
+    $query="UPDATE users SET remaining_ads = '{$DATA_OBJ->params->remainingAds}' WHERE  mail = '{$DATA_OBJ->params->mail}'";
+
+  
+  $result=$db->readDBNoStoredProcedure($query);
+  $query=$query="select remaining_ads from users WHERE  mail = '{$DATA_OBJ->params->mail}'";
+  $result=$db->readDBNoStoredProcedure($query);
+  if($result[0]->remaining_ads==$DATA_OBJ->params->remainingAds){
+echo json_encode("changed remaining ads");
+die;
+}
+echo json_encode("failed changed remaining ads");
+die;
+}
 function changeRule(){
   //change rule of user
   global $db;
@@ -44,6 +61,11 @@ deleteOrRestoreUser();
 else{
   if($DATA_OBJ->data_type=="changeUserRule"){
     changeRule();
+  }
+  else{
+    if($DATA_OBJ->data_type=="changeRemainingAdsInDb"){
+      changeRemainingAdsInDb();
+    }
   }
 }
 ?>

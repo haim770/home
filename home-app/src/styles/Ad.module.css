@@ -1,0 +1,21 @@
+.ad {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  margin: 2rem;
+  border: 2px blue solid;
+  justify-content: center;
+  border-radius: 20px;
+  padding: 1rem;
+}
+
+.adNotVisible {
+  visibility: hidden;
+}
+
+.closeWindow {
+  max-width: 4%;
+  margin: 0.5rem;
+  opacity: 0.9;
+  border-radius: 5px;
+}
