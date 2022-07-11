@@ -108,7 +108,12 @@ function SearchAds(props) {
       setNotDisplayBuy("notDisplayBuy");
       setNotDisplayRent("notDisplayRent");
     }
-    if (name === "price" || name === "rooms" || name === "building_number") {
+    if (
+      name === "price" ||
+      name === "minRooms" ||
+      name === "maxRooms" ||
+      name === "building_number"
+    ) {
       if (isNaN(value)) return;
     }
     setInputsAd({ ...inputsAd, [name]: value });
