@@ -8,11 +8,12 @@ import Api from "../api/Api";
 import { v4 as uuidv4 } from "uuid";
 import instance from "../api/AxiosInstance";
 import Select from "react-select";
-
+import useAuth from "../Auth/useAuth";
 function UserShow(props) {
   const [showRemainingAdsInput, setShowRemainingAdsInput] =
     useState("notShowInput");
   const [valueRemainingInput, setValueRemainingInput] = useState("0");
+   const { auth } = useAuth();
   const [valueRemainingInput1, setValueRemainingInput1] = useState(
     props.user.remaining_ads
   );
@@ -22,6 +23,9 @@ function UserShow(props) {
       data: {
         data_type: "deleteOrRestoreUser",
         params: { mail: props.user.mail, active: props.user.active },
+      },
+      headers: {
+        Authorization: `Bearer ${auth.accessToken}`,
       },
     });
     console.log(result.data);
@@ -41,6 +45,9 @@ function UserShow(props) {
         data_type: "changeUserRule",
         params: { mail: props.user.mail, rule: props.user.rule },
       },
+      headers: {
+        Authorization: `Bearer ${auth.accessToken}`,
+      },
     });
     console.log(result.data);
     if (result) {
@@ -58,6 +65,9 @@ function UserShow(props) {
       data: {
         data_type: "changeRemainingAdsInDb",
         params: { mail: props.user.mail, remainingAds: valueRemainingInput },
+      },
+      headers: {
+        Authorization: `Bearer ${auth.accessToken}`,
       },
     });
     console.log(result.data);

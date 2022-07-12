@@ -86,6 +86,15 @@ const Sidebar = () => {
               <span> הוספת פרמטרים למודעות</span>
             </Link>
           </li>
+
+          <li>
+            <Link
+              to="/Settings/ChangeUserRule"
+              style={{ textDecoration: "none" }}
+            >
+              <span> נהל משתמשים </span>
+            </Link>
+          </li>
           <li>
             <Link to="/Settings/Sales" style={{ textDecoration: "none" }}>
               <FcSalesPerformance className="icon" />

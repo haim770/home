@@ -1,4 +1,5 @@
 <?php
+
 function changeRemainingAdsInDb(){
   global $db;
   global $DATA_OBJ;
@@ -56,6 +57,9 @@ die;
 echo json_encode("failed changed active status");
 die;
 }
+$authPath = "../../Authentication/authTest.php";
+include_once(dirname(__FILE__) . DIRECTORY_SEPARATOR . $authPath);
+if($user->getRule() == "5150"){
 if($DATA_OBJ->data_type=="deleteOrRestoreUser")
 deleteOrRestoreUser();
 else{
@@ -67,5 +71,15 @@ else{
       changeRemainingAdsInDb();
     }
   }
+}
+}
+else {
+    echo json_encode(
+        array(
+            "message" => "Error",
+            "result" => "You got no permission to get this data",
+        )
+    );
+    die;
 }
 ?>

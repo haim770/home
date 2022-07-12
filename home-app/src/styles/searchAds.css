@@ -4,6 +4,10 @@
   max-width: 30%;
   border: 2px solid black;
   justify-content: flex-start;
+  /* align-self: flex-start;
+  position: sticky;
+  top: 0;
+  z-index: 100000; */
 }
 .notDisplayRent{
   display:none;

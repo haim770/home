@@ -7,7 +7,7 @@ import AddParameterToAds from "./AddParameterToAds";
 const Home = () => {
   return (
     <div>
-      <ChangeUserRule />
+      {/* <ChangeUserRule /> */}
     </div>
   );
 };

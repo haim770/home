@@ -8,6 +8,7 @@ import "../styles/Register.css";
 import Api from "../api/Api";
 import { v4 as uuidv4 } from "uuid";
 import instance from "../api/AxiosInstance";
+import useAuth from "../Auth/useAuth";
 import Select from "react-select";
 function ChangeUserRule(props) {
   const [first_name, setfirst_name] = useState(""); //hook for parameter name
@@ -20,7 +21,7 @@ function ChangeUserRule(props) {
   const [mailSelected, setMailSelected] = useState({});
   const [users, setUsers] = useState(""); //user info
   const [filter, setFilter] = useState("");
-
+  const { auth } = useAuth();
   const onChangeState = (setStateName, e) => {
     //func that recieves setstate and the event and change value of state to the value of input
     setStateName(e.target.value);
@@ -31,6 +32,9 @@ function ChangeUserRule(props) {
       data: {
         data_type: "getAllUsers",
         params: {},
+      },
+      headers: {
+        Authorization: `Bearer ${auth.accessToken}`,
       },
     });
     if (result) {
