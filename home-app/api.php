@@ -495,7 +495,10 @@ function getAllUsers(){
     $result=$db->readDBNoStoredProcedure($query);
     echo json_encode($result);
 }
-
+if (isset ($DATA_OBJ->data_type)&&$DATA_OBJ->data_type=="showFavoritesAds"){
+    include_once("../api/system/ads/showFavoritesAds.php");
+} 
+else
 if (isset ($DATA_OBJ->data_type)&&$DATA_OBJ->data_type=="changeRemainingAdsInDb"){
     include_once("../api/system/user/deleteOrRestoreUserAndChangeRule.php");
 } else
@@ -514,7 +517,7 @@ if (isset ($DATA_OBJ->data_type)&&$DATA_OBJ->data_type=="register"){
     include_once("../api/system/user/register.php");
 } else
 if (isset ($DATA_OBJ->data_type)&&$DATA_OBJ->data_type=="removeFromFavorites"){
-    include("../api/system/ads/favorites.php");
+    include_once("../api/system/ads/favorites.php");
     removeFromFavorites();
 } else
 // get all users from server, use for manager settings
