@@ -109,22 +109,17 @@ const FavoritesAds = (props) => {
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
   });
-
-  useEffect(() => {
-    getAds();
-  }, []);
-
   useEffect(() => {
     setAds([]);
     setNoMoreAdsForSearch(false);
     getAds();
-  }, [props.search]);
+  }, []);
 
   useEffect(() => {
-    if (!noMoreAdsForSearch && props.indexStart !== 0) {
+    if (!noMoreAdsForSearch && indexStart !== 0) {
       getAdScroll();
     }
-  }, [props.indexStart]);
+  }, [indexStart]);
   const getOutOfFullMode = (e) => {
     //when clicking outside the full ad it will close
     e.stopPropagation();
@@ -142,7 +137,7 @@ const FavoritesAds = (props) => {
       id="containerForAd"
       onClick={getOutOfFullMode}
     >
-      <h1>תצוגת מודעות</h1>
+      <h1>תצוגת מועדפים</h1>
       {loading && listShow === "showList" ? (
         <div className="listAds">
           {loading && listShow === "showList" && ads}
@@ -162,7 +157,7 @@ const FavoritesAds = (props) => {
         ""
       )}
       {noMoreAdsForSearch && listShow === "showList" ? (
-        <h2>אין מודעות נוספות</h2>
+        <h2>אין מועדפים נוספות</h2>
       ) : (
         ""
       )}

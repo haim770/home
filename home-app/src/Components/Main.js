@@ -8,7 +8,7 @@ import FavoritesAds from "./FavoritesAds";
 const Home = () => {
   return (
     <div>
-      <FavoritesAds/>
+      {/* <FavoritesAds/> */}
       {/* <ChangeUserRule /> */}
     </div>
   );

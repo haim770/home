@@ -48,6 +48,7 @@ import { PopupAdProvidor } from "./Components/pages/users/Settings/useContextRed
 import AddParameterToAds from "./Components/AddParameterToAds";
 import ChangeUserRule from "./Components/ChangeUserRule";
 import UserShow from "./Components/UserShow";
+import FavoritesAds from "./Components/FavoritesAds";
 const ROLES = {
   User: 2001,
   Admin: 5150,
@@ -132,10 +133,14 @@ export default function App() {
                       <Route
                         element={<RequireAuth allowedRoles={[ROLES.Admin]} />}
                       >
-                        <Route
-                          path="userShow"
-                          element={<UserShow />}
-                        />
+                        <Route path="favorites" element={<FavoritesAds />} />
+                      </Route>
+                    </Route>
+                    <Route element={<PersistLogin />}>
+                      <Route
+                        element={<RequireAuth allowedRoles={[ROLES.Admin]} />}
+                      >
+                        <Route path="userShow" element={<UserShow />} />
                       </Route>
                     </Route>
 
@@ -144,13 +149,6 @@ export default function App() {
                         element={<RequireAuth allowedRoles={[ROLES.Admin]} />}
                       >
                         <Route path="Sales" element={<SiteSales />} />
-                      </Route>
-                    </Route>
-                    <Route element={<PersistLogin />}>
-                      <Route
-                        element={<RequireAuth allowedRoles={[ROLES.Admin]} />}
-                      >
-                        <Route path="Favorites" element={<Favorites />} />
                       </Route>
                     </Route>
                     <Route element={<PersistLogin />}>

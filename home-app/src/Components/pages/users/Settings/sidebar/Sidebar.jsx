@@ -60,7 +60,7 @@ const Sidebar = () => {
             </Link>
           </li>
           <li>
-            <Link to="/Settings/Favorite" style={{ textDecoration: "none" }}>
+            <Link to="/Settings/Favorites" style={{ textDecoration: "none" }}>
               <MdOutlineFavoriteBorder className="icon" />
               <span>מועדפים</span>
             </Link>

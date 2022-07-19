@@ -3,10 +3,9 @@ $authPath = "../../Authentication/authTest.php";
 include_once(dirname(__FILE__) . DIRECTORY_SEPARATOR . $authPath);
 $arr = array();
 // test if user is admin
-if($user->getRule() == "5150"){
-  getAllAdContentAndAdAndUsersForArrOfAdsFavorites();
+if($user->getRule() == "5150"||$user->getRule() == "2001"){
+  
 function getAllAdContentAndAdAndUsersForArrOfAdsFavorites(){
-   
     //returns the wanted ads with all their data and user created the ad
     $arr=[];
     $adIdsForTheSearch=getAdsIdAndUserIdThatFeetSearchFavorites();
@@ -32,10 +31,10 @@ function getAdsIdAndUserIdThatFeetSearchFavorites(){
     global $db;
     global $DATA_OBJ;
     global $arr;
-    $query = "select  DISTINCT ads.adID,ads.user_id from ads,favorites where ads.adID = favorites.adId and ads.active =1 limit ".$DATA_OBJ->limitBy->end." OFFSET ".$DATA_OBJ->limitBy->start.";";
+    global $user;
+    $userId=$user->getUuid();
+    $query = "select  DISTINCT ads.adID,ads.user_id from ads,favorites where  ads.adID = favorites.adId and ads.active =1 and favorites.userId ='$userId' limit ".$DATA_OBJ->limitBy->end." OFFSET ".$DATA_OBJ->limitBy->start.";";
     $result = $db->readDBNoStoredProcedure($query,[]);
-    // echo json_encode($result);
-    // die;
     $arr=[];
     return $result;
 }
@@ -85,6 +84,7 @@ function getUserForUserIdFavorites($user_id){
     $arr=[];
     return $result;
 }
+getAllAdContentAndAdAndUsersForArrOfAdsFavorites();
 }
 else {
   echo "kkdkd";
