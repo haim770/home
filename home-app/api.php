@@ -11,7 +11,7 @@ header('Content-Type: application/json');
 // format our data before sending it to the server.
 $DATA_RAW = file_get_contents("php://input");
 
-require_once('../api/system/Ads/searchAds.php');
+
 require_once('../api/system/Ads/aproveOrDeclineAdByMangager.php');
 require_once('../api/system/packages/insertPack.php');
 
@@ -158,36 +158,6 @@ function getUserForUserId($user_id){
     $result = $db->readDBNoStoredProcedure($query, $arr);
     $arr=[];
     return $result;
-}
-function getAllAdContentAndAdAndUsersForArrOfAds(){
-    //returns the wanted ads with all their data and user created the ad
-    $arr=[];
-    $adIdsForTheSearch=getAdsIdAndUserIdThatFeetSearch();
-    // $adIdsForTheSearch= json_decode(json_encode($adIdsForTheSearch));
-    $result=[];
-    // echo count($adIdsForTheSearch);
-    $i=0;
-    if(gettype($adIdsForTheSearch)!="array"&&gettype($adIdsForTheSearch)!="Array"&&gettype($adIdsForTheSearch)!="Object"){
-        $arr=[];
-        return;
-    }
-    else
-    foreach ($adIdsForTheSearch as $key => $value) {
-        $result[$i++]=getAdWithAdContentForAdId($value->adID,$value->user_id);
-    }
-    echo json_encode($result);
-    $arr=[];
-}
-function getAllMasters(){
-    //get masters from adcontent table
-     global $db;
-    global $DATA_OBJ;
-    global $arr;
-    $query = "getAllMasters()";
- $result = $db->readDb($query, $arr);
- $arr=[];
- echo json_encode($result);
-
 }
 function getAdsAndAdContentForAd()
 {
@@ -495,6 +465,17 @@ function getAllUsers(){
     $result=$db->readDBNoStoredProcedure($query);
     echo json_encode($result);
 }
+
+function seeWhatInAuth(){
+    echo "dd";
+    $authPath = "../../Authentication/authTest.php";
+include_once(dirname(__FILE__) . DIRECTORY_SEPARATOR . $authPath);
+    die;
+}
+if (isset ($DATA_OBJ->data_type)&&$DATA_OBJ->data_type=="seeWhatInAuth"){
+    seeWhatInAuth();
+} 
+else
 if (isset ($DATA_OBJ->data_type)&&$DATA_OBJ->data_type=="showFavoritesAds"){
     include_once("../api/system/ads/showFavoritesAds.php");
 } 
@@ -573,7 +554,7 @@ if(isset($DATA_OBJ->data_type)&&$DATA_OBJ->data_type=='updateWatch'){
 }
 else
 if(isset($DATA_OBJ->data_type)&&$DATA_OBJ->data_type=='getAllAdContentAndAdAndUsersForArrOfAds'){
-    getAllAdContentAndAdAndUsersForArrOfAds1();
+    include_once('../api/system/Ads/searchAds.php');
 }
 else
 if(isset($DATA_OBJ->data_type)&&$DATA_OBJ->data_type=='getAllPackages'){

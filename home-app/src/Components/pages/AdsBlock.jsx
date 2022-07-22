@@ -23,7 +23,7 @@ const AdsBlock = (props) => {
   );
   const [togglePhone, setTogglePhone] = useState("הצג טלפון");
   const [adBlock, setAdBlock] = useState(props.adBlock);
-  const [isFavorite, setIsFavorite] = useState(props.isFavorite);
+  const [isFavorite, setIsFavorite] = useState(props.adBlock.favorite);
   const [didWatch, setDidWatch] = useState(0);
   const { startNewChat } = useView();
   const handleClickChatWith = () => {
@@ -107,8 +107,9 @@ const AdsBlock = (props) => {
           adBlock={props.adBlock}
           maxWidth="350"
           isFavorite={isFavorite}
-          setFavorite={setIsFavorite}
+          setIsFavorite={setIsFavorite}
           didWatchd={didWatch}
+          auth={props.auth}
         />
       </div>
       {/** This will contain the Ad footer wrapper  */}

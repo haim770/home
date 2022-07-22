@@ -1,7 +1,6 @@
 <?php
  $authPath = "../../Authentication/authTest.php";
  include_once(dirname(__FILE__) . DIRECTORY_SEPARATOR . $authPath);
-require_once("searchAds.php");
 function addToFavorites(){
   global $user;
   global $db;

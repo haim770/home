@@ -36,7 +36,6 @@ const ExpandMore = styled((props) => {
 export default function RecipeReviewCard(props) {
   const { auth } = useAuth();
   const [expanded, setExpanded] = React.useState(false);
-
   const addOrRemoveToFavorites = async (e) => {
     e.preventDefault();
     if (props.isFavorite) {
@@ -54,7 +53,7 @@ export default function RecipeReviewCard(props) {
       });
       console.log(result.data);
       if (result.data === false) {
-        props.setFavorite(false);
+        props.setIsFavorite(false);
       }
       console.log("remove to favorites");
     } else {
@@ -72,7 +71,7 @@ export default function RecipeReviewCard(props) {
       });
       console.log(result.data);
       if (result.data === false) {
-        props.setFavorite(true);
+        props.setIsFavorite(true);
       }
       console.log("add to favorites");
     }
@@ -111,7 +110,7 @@ export default function RecipeReviewCard(props) {
             aria-label="add to favorites"
             onClick={addOrRemoveToFavorites}
           >
-            <FavoriteIcon color={props.isFavorite ? "success" : ""} />
+            <FavoriteIcon display={auth.accessToken != undefined?"block":"none"} color={props.isFavorite ? "success" : ""} />
           </IconButton>
         ) : (
           ""

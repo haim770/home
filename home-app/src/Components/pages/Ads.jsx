@@ -6,6 +6,7 @@ import "../../styles/Main.css";
 import "../../styles/Ads.css";
 import AdsBlock from "./AdsBlock";
 import AdFullForProps from "../AdFullForProps";
+import useAuth from "../../Auth/useAuth";
 const Ads = (props) => {
   const [ads, setAds] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -15,6 +16,7 @@ const Ads = (props) => {
   const [listShow, setListShow] = useState("showList");
   const [fullShow, setFullShow] = useState("notShowFull");
   const [adFull, setAdFull] = useState({});
+  const { auth } = useAuth();
 
   // check when we scroll down to button
   const handleScroll = (e) => {
@@ -38,7 +40,11 @@ const Ads = (props) => {
       data: {
         data_type: props.search.data_type,
         params: props.search.params,
+        guest: auth.accessToken != undefined ? "registered" : "guest",
         limitBy: { start: props.indexStart, end: props.indexEnd }, //the indexes
+      },
+      headers: {
+        Authorization: `Bearer ${auth.accessToken}`,
       },
     });
     if (result.data === false || result.data === "") {
@@ -57,6 +63,7 @@ const Ads = (props) => {
                 className={props.listShow}
                 setFullShow={props.setFullShow}
                 setListShow={props.setListShow}
+                auth={auth}
               />
             )),
           ]);
@@ -68,11 +75,16 @@ const Ads = (props) => {
   const getAds = async () => {
     setLoading(false);
     setNoMoreAdsForSearch(false);
+    console.log(auth.accessToken);
     const result = await instance.request({
       data: {
         data_type: props.search.data_type,
         params: props.search.params,
+        guest: auth.accessToken != undefined ? "registered" : "guest",
         limitBy: { start: 0, end: props.indexEnd }, //the indexes
+      },
+      headers: {
+        Authorization: `Bearer ${auth.accessToken}`,
       },
     });
     console.log(result.data);
@@ -90,6 +102,7 @@ const Ads = (props) => {
               setAdFull={setAdFull}
               setFullShow={props.setFullShow}
               setListShow={props.setListShow}
+              auth={auth}
             />
           ))
         );
@@ -106,6 +119,7 @@ const Ads = (props) => {
                 setAdFull={setAdFull}
                 setFullShow={props.setFullShow}
                 setListShow={props.setListShow}
+                auth={auth}
               />
             )),
           ]);
@@ -167,6 +181,7 @@ const Ads = (props) => {
           setAdFull={setAdFull}
           setFullShow={props.setFullShow}
           setListShow={props.setListShow}
+          auth={auth}
         />
       ) : (
         ""

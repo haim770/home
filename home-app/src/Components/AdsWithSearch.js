@@ -4,7 +4,6 @@ import SearchAds from "./SearchAds.js";
 import "../styles/AdsWithSearch.css";
 import instance from "../api/AxiosInstance";
 import Ads from "./pages/Ads.jsx";
-import Try from "./try.js";
 function AdsWithSearch(props) {
   const [indexStart, setindexStart] = useState(0); //index to start get ads from db
   const [indexEnd, setindexEnd] = useState(10); //index to end get ads from db

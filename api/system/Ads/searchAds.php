@@ -1,8 +1,20 @@
 <?php
 // require_once('../../home-app/api.php');
 // require_once('../classes.useDBs.php');
-function getAllAdContentAndAdAndUsersForArrOfAds1(){
-   
+$userType="";//guest or registered
+if($DATA_OBJ->guest=="guest"){
+    $userType="guest";
+    }
+else{
+        //now we will populate the user object with the user that signed in
+     $authPath = "../../Authentication/authTest.php";
+     include_once(dirname(__FILE__) . DIRECTORY_SEPARATOR . $authPath);
+    $userType= "registered";
+}
+global $user;
+function getAllAdContentAndAdAndUsersForArrOfAds(){
+    global $userType;
+    global $user;
     //returns the wanted ads with all their data and user created the ad
     $arr=[];
     $adIdsForTheSearch=getAdsIdAndUserIdThatFeetSearch1();
@@ -22,6 +34,21 @@ function getAllAdContentAndAdAndUsersForArrOfAds1(){
    
     echo json_encode($result);
     $arr=[];
+}
+function checkIfAdIsFavoriteForUser($adId){
+    //check if ad is favorite for the user
+    global $userType;
+    global $user;
+    global $db;
+    global $DATA_OBJ;
+    if($userType=="guest")
+        return false;
+    else{
+    $userId=$user->getUUID(); 
+    $query="SELECT 1 where EXISTS(SELECT * from favorites WHERE adId= '$adId' and favorites.userId ='$userId');";
+    $result = $db->readDBNoStoredProcedure($query,[]);
+    return $result;
+    }
 }
 function getAdsIdAndUserIdThatFeetSearch1(){
     //we search in ads and in adcontent and get adid and user id desired ad return them
@@ -53,6 +80,7 @@ function getAdWithAdContentForAdId1($adId,$user_id){
     $result["adContent"] = $resultAdContentTable;
     $result["user"]=$resultUserForTheAd;
     $result["adImages"]=$resultImagesForAdId;
+    $result["favorite"]=checkIfAdIsFavoriteForUser($adId);
     $arr = [];
     return $result;
 }
@@ -144,4 +172,5 @@ function getUserForUserId1($user_id){
     $arr=[];
     return $result;
 }
+getAllAdContentAndAdAndUsersForArrOfAds();
 ?>
