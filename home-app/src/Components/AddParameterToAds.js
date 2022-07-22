@@ -36,6 +36,10 @@ function AddParameterToAds(props) {
   const submitParameter = async (e) => {
     //add ad to the db, returns true/false
     e.preventDefault();
+    if(paramStyle===""||paramName.trim()===""||dataType===""){
+      alert("fill the fields");
+      return;
+    }
     const result = await instance.request({
       data: {
         data_type: "addNewMasterToAdContentTable",
@@ -53,8 +57,8 @@ function AddParameterToAds(props) {
     returnStateToDefault();
   };
   return (
-    <form className={props.className}>
-      <label>
+    <form className="formAddParameter">
+      <label className="labelParamAdd">
         <span>סוג תצוגה של פרמטר</span>
         <select
           value={paramStyle}
@@ -64,14 +68,14 @@ function AddParameterToAds(props) {
           <option>checkBox</option>
         </select>
       </label>
-      <label>
+      <label className="labelParamAdd">
         <span>קטגוריה</span>
         <select value={category} onChange={(e) => setCataegory(e.target.value)}>
           <option>השכרה</option>
           <option>קנייה</option>
         </select>
       </label>
-      <label>
+      <label className="labelParamAdd">
         <span>הכנס שם פרמטר</span>
         <input
           type="text"
@@ -82,7 +86,10 @@ function AddParameterToAds(props) {
           onChange={(e) => onChangeState(setParamName, e)}
         />
       </label>
-      <label style={{ display: paramStyle === "checkBox" ? "none" : "block" }}>
+      <label
+        style={{ display: paramStyle === "checkBox" ? "none" : "block" }}
+        className="labelParamAdd"
+      >
         <span>הכנס טיפוס של תכונה</span>
         <select
           value={dataType}
@@ -103,7 +110,7 @@ function AddParameterToAds(props) {
       </label>
       <label
         style={{ display: paramStyle === "checkBox" ? "none" : "" }}
-        className={numericParameterClass}
+        className={numericParameterClass + " labelParamAdd"}
       >
         <span>הכנס ערך מקסימום</span>
         <input
@@ -117,7 +124,7 @@ function AddParameterToAds(props) {
       </label>
       <label
         style={{ display: paramStyle === "checkBox" ? "none" : "" }}
-        className={numericParameterClass}
+        className={numericParameterClass + " labelParamAdd"}
       >
         <span>הכנס ערך מינימום</span>
         <input
@@ -130,8 +137,8 @@ function AddParameterToAds(props) {
         />
       </label>
 
-      <p>
-        <Button onClick={submitParameter} content="הוספה" />
+      <p className="labelParamAdd">
+        <button onClick={submitParameter}>הוספה</button>
       </p>
     </form>
   );

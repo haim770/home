@@ -1,10 +1,10 @@
-.formAddAd {
+.formAddParameter {
   display: flex;
   flex-direction: column;
   flex-grow: 1;
   margin: 2rem;
 }
-
+.labelParamAdd{display: grid;grid-template-columns: 1fr 1fr;}
 .notNumeric{
 display: none;
 }
