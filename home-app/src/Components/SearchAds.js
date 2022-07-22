@@ -350,10 +350,8 @@ function SearchAds(props) {
       ) {
         if (masters[index].category === "השכרה") {
           code.push(
-            <label
-              key={masters[index].name + masters[index].adID}
-              className={notdisplayRent}
-            >
+            <label key={masters[index].element_id}
+             className={notdisplayRent}>
               <span>{masters[index].name}</span>
               <input
                 type="text"
@@ -371,7 +369,7 @@ function SearchAds(props) {
         } else {
           code.push(
             <label
-              key={masters[index].name + masters[index].adID}
+              key={masters[index].element_id}
               className={notdisplayBuy}
             >
               <span>{masters[index].name}</span>
@@ -393,10 +391,8 @@ function SearchAds(props) {
         if (masters[index].display_type === "checkBox") {
           if (masters[index].category === "השכרה") {
             code.push(
-              <label
-                key={masters[index].name + masters[index].adID}
-                className={notdisplayRent}
-              >
+              <label key={masters[index].element_id}
+               className={notdisplayRent}>
                 <span>{masters[index].name}</span>
                 <input
                   type="checkBox"
@@ -411,10 +407,8 @@ function SearchAds(props) {
             );
           } else {
             code.push(
-              <label
-                key={masters[index].name + masters[index].adID}
-                className={notdisplayBuy}
-              >
+              <label key={masters[index].element_id}
+               className={notdisplayBuy}>
                 <span>{masters[index].name}</span>
                 <input
                   type="checkBox"
@@ -431,10 +425,8 @@ function SearchAds(props) {
           //for text
           if (masters[index].category === "השכרה") {
             code.push(
-              <label
-                key={masters[index].name + masters[index].adID}
-                className={notdisplayRent}
-              >
+              <label key={masters[index].element_id}
+               className={notdisplayRent}>
                 <span>{masters[index].name}</span>
                 <input
                   type="text"
@@ -447,10 +439,8 @@ function SearchAds(props) {
             );
           } else {
             code.push(
-              <label
-                key={masters[index].name + masters[index].adID}
-                className={notdisplayBuy}
-              >
+              <label key={masters[index].element_id}
+               className={notdisplayBuy}>
                 <span>{masters[index].free_text}</span>
                 <input
                   type="text"
@@ -516,7 +506,6 @@ function SearchAds(props) {
     props.setindexStart(0);
     props.setindexEnd(10);
     const obj = makeObjOfAllFields();
-    console.log(obj);
     props.setSearchParams(obj);
   };
   return (

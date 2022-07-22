@@ -47,6 +47,17 @@ if (isset($_POST['data'])) {
     }
     
 }
+function getAllMasters(){
+     //get masters from adcontent table
+      global $db;
+     global $DATA_OBJ;
+     global $arr;
+     $query = "getAllMasters()";
+    $result = $db->readDb($query, $arr);
+    $arr=[];
+    echo json_encode($result);
+ 
+ }
 function getAdByLink()
 {
     global $db;
