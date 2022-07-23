@@ -1,0 +1,44 @@
+.Icon-inside {
+  position: relative;
+  display:flex;
+  flex-direction: column;
+  
+}
+
+section{
+    margin: 1rem;
+}
+.sameLineLable{
+    display: flex;
+    align-items: center;
+}
+
+.Icon-inside  p {
+    font-size: 1.4rem;
+    width: 35%;
+}
+
+.rounded-input {
+  padding: 1rem;
+  border-radius: 1rem;
+}
+
+input[type="text"] {
+  padding: 1rem;
+  border: 0;
+  box-shadow: 0 0 1.5rem 0.4rem rgba(0, 0, 0, 0.06);
+  width: 35%;
+}
+
+input[type="password"] {
+  padding: 1rem;
+  border: 0;
+  box-shadow: 0 0 1.5rem 0.4rem rgba(0, 0, 0, 0.06);
+  width: 35%;
+}
+input[type="number"] {
+  padding: 1rem;
+  border: 0;
+  box-shadow: 0 0 1.5rem 0.4rem rgba(0, 0, 0, 0.06);
+  width: 35%;
+}
