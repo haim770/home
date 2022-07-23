@@ -1,13 +1,7 @@
 import React, { useState } from "react";
-import Button from "./Button";
-import Address from "./Address";
-import Parameter from "./Parameter";
-import "../styles/AddParameterMaster.css";
-import Api from "../api/Api";
-import useAuth from "../Auth/useAuth";
-import { v4 as uuidv4 } from "uuid";
-import instance from "../api/AxiosInstance";
-import { display } from "@mui/system";
+import "./Styles/AddParameterMaster.css";
+import useAuth from "../../../../../Auth/useAuth";
+import instance from "../../../../../api/AxiosInstance";
 function AddParameterToAds(props) {
   const { setAuth } = useAuth();
   const [paramName, setParamName] = useState(""); //hook for parameter name
@@ -16,8 +10,7 @@ function AddParameterToAds(props) {
   const [paramStyle, setParamStyle] = useState("input"); //hook for parameter style
   const [dataType, setDataType] = useState(""); //hook for parameter style
   const [category, setCataegory] = useState("השכרה");
-  const [numericParameterClass, setNumericParameterClass] =
-    useState("not numeric");
+  const [numericParameterClass, setNumericParameterClass] = useState("not numeric");
   const [isCheckBox, setIsCheckBox] = useState(false); //determine if checkbox
 
   const onChangeState = (setStateName, e) => {

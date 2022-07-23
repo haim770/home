@@ -45,7 +45,7 @@ import UserSettings from "./Components/pages/users/Settings/Pages/UserSettings";
 import SiteSettings from "./Components/pages/users/Settings/Pages/SiteSettings";
 import Sidebar from "./Components/pages/users/Settings/sidebar/Sidebar";
 import { PopupAdProvidor } from "./Components/pages/users/Settings/useContextReducer/PopupAdsContext";
-import AddParameterToAds from "./Components/AddParameterToAds";
+import AddParameterToAds from "./Components/pages/users/Settings/Pages/AddParameterToAds";
 import ChangeUserRule from "./Components/ChangeUserRule";
 import UserShow from "./Components/UserShow";
 import FavoritesAds from "./Components/FavoritesAds";
