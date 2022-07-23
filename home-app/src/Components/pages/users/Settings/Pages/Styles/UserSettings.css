@@ -28,6 +28,7 @@ input[type="text"] {
   border: 0;
   box-shadow: 0 0 1.5rem 0.4rem rgba(0, 0, 0, 0.06);
   width: 35%;
+  border-radius: 1rem;
 }
 
 input[type="password"] {
@@ -35,10 +36,25 @@ input[type="password"] {
   border: 0;
   box-shadow: 0 0 1.5rem 0.4rem rgba(0, 0, 0, 0.06);
   width: 35%;
+  border-radius: 1rem;
 }
 input[type="number"] {
   padding: 1rem;
   border: 0;
   box-shadow: 0 0 1.5rem 0.4rem rgba(0, 0, 0, 0.06);
   width: 35%;
+  border-radius: 1rem;
+}
+
+
+.headerH3 {
+display: flex;
+flex-direction: row;
+max-width: 70%;
+}
+
+.headerH3 > h3 {
+    flex:1 1 auto;
+    text-align:center;
+    margin:0.5rem;  /* and that, will result in a 10px gap */
 }

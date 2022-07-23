@@ -13,9 +13,13 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import IconButton from "@mui/material/IconButton";
 
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
+// minimum 2 chars , only letters.
+const NAME_REGEX =
+  /^[\u0590-\u05fe][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{1,}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
-const PHONE_REGEX = /\(?([0-9]{3})\)?([ .-]?)([0-9]{3})\2([0-9]{4})/;
-
+//const PHONE_REGEX = /\(?([0-9]{3})\)?([ .-]?)([0-9]{3})\2?([ .-]?)([0-9]{4})/;
+const PHONE_REGEX = 
+/^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$/;
 const Register = () => {
   const userRef = useRef();
   const errRef = useRef();
@@ -23,6 +27,18 @@ const Register = () => {
   const [user, setUser] = useState("");
   const [validName, setValidName] = useState(false);
   const [userFocus, setUserFocus] = useState(false);
+
+  const [firstName, setFirstName] = useState("");
+  const [validFirstName, setValidFirstName] = useState(false);
+  const [firstNameFocus, setFirstNameFocus] = useState(false);
+
+  const [lastName, setLastName] = useState("");
+  const [validLastName, setValidLastName] = useState(false);
+  const [lastNameFocus, setLastNameFocus] = useState(false);
+
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [validPhoneNumber, setValidPhoneNumber] = useState(false);
+  const [phoneNumberFocus, setPhoneNumberFocus] = useState(false);
 
   const [showPassword, setShowPassword] = useState(false);
   const [pwd, setPwd] = useState("");
@@ -36,12 +52,12 @@ const Register = () => {
   const [errMsg, setErrMsg] = useState("");
   const [success, setSuccess] = useState(false);
 
-    const handleClickShowPassword = () => {
-      setShowPassword((current) => !current);
-    };
-      const handleMouseDownPassword = (event) => {
-        event.preventDefault();
-      };
+  const handleClickShowPassword = () => {
+    setShowPassword((current) => !current);
+  };
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
 
   useEffect(() => {
     userRef.current.focus();
@@ -50,6 +66,18 @@ const Register = () => {
   useEffect(() => {
     setValidName(USER_REGEX.test(user));
   }, [user]);
+
+  useEffect(() => {
+    setValidPhoneNumber(PHONE_REGEX.test(phoneNumber));
+  }, [phoneNumber]);
+
+  useEffect(() => {
+    setValidFirstName(NAME_REGEX.test(firstName));
+  }, [firstName]);
+
+  useEffect(() => {
+    setValidLastName(NAME_REGEX.test(lastName));
+  }, [lastName]);
 
   useEffect(() => {
     setValidPwd(PWD_REGEX.test(pwd));
@@ -72,7 +100,7 @@ const Register = () => {
     try {
       const response = await instance.request({
         data: {
-          data_type: "Regist",
+          data_type: "updateSettings",
           params: { user, pwd },
         },
       });
@@ -104,6 +132,10 @@ const Register = () => {
         {errMsg}
       </p>
       <h1>הגדרות משתמש</h1>
+      <div className="headerH3">
+        <h3>user rule</h3>
+        <h3>יתרת מודעות לפרסום: </h3>
+      </div>
       <form onSubmit={handleSubmit}>
         <div className="Icon-inside">
           <label htmlFor="username">
@@ -121,97 +153,116 @@ const Register = () => {
             type="text"
             id="username"
             ref={userRef}
-            autoComplete="off"
-            onChange={(e) => setUser(e.target.value)}
             value={user}
-            required
-            aria-invalid={validName ? "false" : "true"}
             aria-describedby="uidnote"
-            onFocus={() => setUserFocus(true)}
-            onBlur={() => setUserFocus(false)}
+            disabled
           />
         </div>
 
         <div className="Icon-inside">
-          <label htmlFor="username">
+          <label htmlFor="userfirstname">
             שם פרטי:
             <FontAwesomeIcon
               icon={faCheck}
-              className={validName ? "valid" : "hide"}
+              className={validFirstName ? "valid" : "hide"}
             />
             <FontAwesomeIcon
               icon={faTimes}
-              className={validName || !user ? "hide" : "invalid"}
+              className={validFirstName || !firstName ? "hide" : "invalid"}
             />
           </label>
           <input
             type="text"
-            id="username"
+            id="userfirstname"
             ref={userRef}
             autoComplete="off"
-            onChange={(e) => setUser(e.target.value)}
-            value={user}
+            onChange={(e) => setFirstName(e.target.value)}
+            value={firstName}
             required
             aria-invalid={validName ? "false" : "true"}
             aria-describedby="uidnote"
-            onFocus={() => setUserFocus(true)}
-            onBlur={() => setUserFocus(false)}
+            onFocus={() => setFirstNameFocus(true)}
+            onBlur={() => setFirstNameFocus(false)}
           />
         </div>
         <div className="Icon-inside">
-          <label htmlFor="username">
+          <label htmlFor="userlastname">
             שם משפחה:
             <FontAwesomeIcon
               icon={faCheck}
-              className={validName ? "valid" : "hide"}
+              className={validLastName ? "valid" : "hide"}
             />
             <FontAwesomeIcon
               icon={faTimes}
-              className={validName || !user ? "hide" : "invalid"}
+              className={validLastName || !lastName ? "hide" : "invalid"}
             />
           </label>
           <input
             type="text"
-            id="username"
+            id="userlastname"
             ref={userRef}
             autoComplete="off"
-            onChange={(e) => setUser(e.target.value)}
-            value={user}
+            onChange={(e) => setLastName(e.target.value)}
+            value={lastName}
             required
-            aria-invalid={validName ? "false" : "true"}
+            aria-invalid={validLastName ? "false" : "true"}
             aria-describedby="uidnote"
-            onFocus={() => setUserFocus(true)}
-            onBlur={() => setUserFocus(false)}
+            onFocus={() => setLastNameFocus(true)}
+            onBlur={() => setLastNameFocus(false)}
           />
         </div>
 
         <div className="Icon-inside">
-          <label htmlFor="username">
+          <label htmlFor="userphonenumber">
             מספר פלאפון:
             <FontAwesomeIcon
               icon={faCheck}
-              className={validName ? "valid" : "hide"}
+              className={validPhoneNumber ? "valid" : "hide"}
             />
             <FontAwesomeIcon
               icon={faTimes}
-              className={validName || !user ? "hide" : "invalid"}
+              className={validPhoneNumber || !phoneNumber ? "hide" : "invalid"}
             />
           </label>
           <input
             type="text"
-            id="username"
+            id="userphonenumber"
             ref={userRef}
             autoComplete="off"
-            onChange={(e) => setUser(e.target.value)}
-            value={user}
+            onChange={(e) => setPhoneNumber(e.target.value)}
+            value={phoneNumber}
             required
-            aria-invalid={validName ? "false" : "true"}
+            aria-invalid={validPhoneNumber ? "false" : "true"}
             aria-describedby="uidnote"
-            onFocus={() => setUserFocus(true)}
-            onBlur={() => setUserFocus(false)}
+            onFocus={() => setPhoneNumberFocus(true)}
+            onBlur={() => setPhoneNumberFocus(false)}
           />
+          <p
+            id="pwdnote"
+            className={
+              phoneNumberFocus && !validPhoneNumber
+                ? "instructions"
+                : "offscreen"
+            }
+          >
+            <FontAwesomeIcon icon={faInfoCircle} />
+            10 ספרות, ניתן לרשום קידומת מדינה אם נדרש.
+            <br />
+            ניתן לרשום בפורמט הבא:
+            <br /> {/* &#x200E; needed for numbers to be write currect */}
+            <span aria-label="bracket space">&#x200E;(123) 456 7899</span>{" "}
+            <span aria-label="bracket dots">&#x200E;(123).456.7899</span>{" "}
+            <span aria-label="bracket dash format">&#x200E;(123)-456-7899</span>
+            <br />
+            <span aria-label="one dash format">&#x200E;123-4567899</span>{" "}
+            <span aria-label="dash format">&#x200E;123-456-7899</span>{" "}
+            <span aria-label="space format">&#x200E;123 456 7899</span> <br />
+            <span aria-label="standart format">&#x200E;1234567899</span>{" "}
+            <span aria-label="extention space format">
+              &#x200E;+972 123 456 7899
+            </span>
+          </p>
         </div>
-
 
         <div className="Icon-inside">
           <label htmlFor="password" className="sameLineLable">
