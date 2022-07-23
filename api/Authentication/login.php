@@ -14,20 +14,12 @@ $pass = $DATA_OBJ->params->pwd;
 // ...
 // For the purposes of this example, we'll assume that they're valid
 $arr = [];
-
 $arr['password'] = $pass;
 $arr['user'] = $username;
-//lidor's
 $query = "getUserByMailAndPassword(:user,:password)";
 $hasValidCredentials = $db->readDB($query, $arr);
-//end of lidors
-//my take to make it work with hash
-$arr=[];
-$arr['mail']=$username;
-$query="select * from users where mail = '{$arr['mail']}'";
-$hasValidCredentials = $db->readDBNoStoredProcedure($query);
-//need to ask lidor if thinks it is good
-if (is_array($hasValidCredentials)&&password_verify($pass,$hasValidCredentials[0]->password)) {
+
+if (is_array($hasValidCredentials)) {
     // get user details
     $arr2 = [];
     $arr2['user'] = $username;
@@ -102,6 +94,3 @@ else {
     , 
 "pass" => $arr['password']));
 }
-
-
-?>
