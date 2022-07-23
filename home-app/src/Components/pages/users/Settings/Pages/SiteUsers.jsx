@@ -223,7 +223,7 @@ export default function CollapsibleTable() {
   const { auth } = useAuth();
 
   /**
-   * Get Chat from server
+   * Get Data from server
    */
   const getUsers = async () => {
     const result = await instance.request({
