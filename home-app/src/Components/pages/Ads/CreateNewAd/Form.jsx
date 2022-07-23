@@ -47,7 +47,7 @@ const Form = () => {
         Authorization: `Bearer ${auth.accessToken}`,
       },
     });
-    if (result?.data.message == "success") {
+    if (result?.data.message === "success") {
       toast.dismiss(); // remove loading toast
       toast.success("המודעה פורסמה בהצלחה!");
     } else {
