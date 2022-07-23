@@ -646,7 +646,7 @@ if (isset($DATA_OBJ->data_type)) {
             break;
 
         case "getSettingsUserPurchase":
-            include("getSettingsUserPurchase.php");
+            include("../api/system/user/getSettingsUserPurchase.php");
             break;
     }
 }
