@@ -5,6 +5,7 @@ import { Link, NavLink, Outlet } from "react-router-dom";
 import AdPart from "../AdPart.js";
 import AdContentPart from "../AdContentPart.js";
 import "../../styles/AdBlock.css";
+import "../../styles/Report.css";
 import AdUserPart from "../AdUserPart.js";
 // view component for the chat
 import useView from "./Chat/ChatUseContext";
@@ -13,6 +14,7 @@ import { v4 as uuidv4 } from "uuid";
 import RecipeReviewCard from "../RecipeReviewCard.js";
 import instance from "../../api/AxiosInstance.jsx";
 import Parameter from "../Parameter.js";
+import Report from "../Report.js";
 
 const AdsBlock = (props) => {
   /**
@@ -25,6 +27,7 @@ const AdsBlock = (props) => {
   const [adBlock, setAdBlock] = useState(props.adBlock);
   const [isFavorite, setIsFavorite] = useState(props.adBlock.favorite);
   const [didWatch, setDidWatch] = useState(0);
+  const [showReport, setReportShow] = useState("notShowReport");
   const { startNewChat } = useView();
   const handleClickChatWith = () => {
     const chatWith = {
@@ -50,7 +53,11 @@ const AdsBlock = (props) => {
       e.target.tagName === "svg" ||
       e.target.tagName === "BUTTON" ||
       e.target.tagName === "path" ||
-      e.target.tagName === "button"
+      e.target.tagName === "button" ||
+      e.target.parentElement.className === "showReport" ||
+      e.target.parentElement.parentElement.className === "showReport" ||
+      e.target.parentElement.parentElement.parentElement.className ===
+        "showReport"
     )
       //if the child is doing something in clicking we wont fire the view change
       return;
@@ -60,7 +67,11 @@ const AdsBlock = (props) => {
     props.setFullShow("showFull");
     props.setAdFull(props.adBlock);
   };
-
+  const reportOnAd = (e) => {
+    //report on ad
+    e.preventDefault();
+    setReportShow("showReport");
+  };
   return (
     <section className="cardBlock" onClick={changeViewToFull}>
       <div>
@@ -142,7 +153,11 @@ const AdsBlock = (props) => {
                 ? "" + togglePhone + " " + phone
                 : togglePhone}
             </button>
+            <button onClick={reportOnAd}>דווח על מודעה</button>
           </div>
+        </div>
+        <div>
+          <Report className={showReport} setClassName={setReportShow} adBlock={props.adBlock} auth={props.auth} />
         </div>
       </div>
     </section>
