@@ -5,24 +5,26 @@ import {
   faInfoCircle,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Link } from "react-router-dom";
 import instance from "../../../../../api/AxiosInstance";
 import "./Styles/UserSettings.css";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import IconButton from "@mui/material/IconButton";
+import useAuth from "../../../../../Auth/useAuth";
 
-const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
+const USER_REGEX = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
 // minimum 2 chars , only letters.
 const NAME_REGEX =
-  /^[\u0590-\u05fe][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{1,}$/;
+  /^[\u0590-\u05fea-zA-Z][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{1,}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 //const PHONE_REGEX = /\(?([0-9]{3})\)?([ .-]?)([0-9]{3})\2?([ .-]?)([0-9]{4})/;
 const PHONE_REGEX = 
 /^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$/;
-const Register = () => {
+const UserSettings = () => {
   const userRef = useRef();
   const errRef = useRef();
+  const [loading, setLoading] = useState(true);
+  const { auth } = useAuth();
 
   const [user, setUser] = useState("");
   const [validName, setValidName] = useState(false);
@@ -52,6 +54,14 @@ const Register = () => {
   const [errMsg, setErrMsg] = useState("");
   const [success, setSuccess] = useState(false);
 
+  const [userRule, setUserRule] = useState("משתמש");
+  const [userRemainAds, setUserRemainAds] = useState(0);
+
+  const [confirmOldPass, setConfirmOldPass] = useState("");
+  const [validOldPass, setValidOldPass] = useState(false);
+  const [changePassword,setChangePassword] = useState(false);
+
+
   const handleClickShowPassword = () => {
     setShowPassword((current) => !current);
   };
@@ -60,8 +70,8 @@ const Register = () => {
   };
 
   useEffect(() => {
-    userRef.current.focus();
-  }, []);
+    if (!loading) userRef.current.focus();
+  }, [loading]);
 
   useEffect(() => {
     setValidName(USER_REGEX.test(user));
@@ -79,9 +89,14 @@ const Register = () => {
     setValidLastName(NAME_REGEX.test(lastName));
   }, [lastName]);
 
+    useEffect(() => {
+      setValidOldPass(confirmOldPass != null && confirmOldPass !== "");
+    }, [confirmOldPass]);
+
   useEffect(() => {
     setValidPwd(PWD_REGEX.test(pwd));
     setValidMatch(pwd === matchPwd);
+    setChangePassword(pwd != null && pwd !== "");
   }, [pwd, matchPwd]);
 
   useEffect(() => {
@@ -91,9 +106,12 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     // if button enabled with JS hack
-    const v1 = USER_REGEX.test(user);
     const v2 = PWD_REGEX.test(pwd);
-    if (!v1 || !v2) {
+    const v3 = PHONE_REGEX.test(phoneNumber);
+    const v4 = NAME_REGEX.test(firstName);
+    const v5 = NAME_REGEX.test(lastName);
+    const v1 = pwd === matchPwd;
+    if (!v1 || !v2 || !v3 || !v4 || !v5 ) {
       setErrMsg("Invalid Entry");
       return;
     }
@@ -101,13 +119,15 @@ const Register = () => {
       const response = await instance.request({
         data: {
           data_type: "updateSettings",
-          params: { user, pwd },
+          params: { user, pwd, matchPwd, validOldPass, firstName, lastName, phoneNumber },
         },
+      headers: {
+        Authorization: `Bearer ${auth.accessToken}`,
+      },
       });
-      //console.log(response);
       setSuccess(true);
       //clear state and controlled inputs
-      setUser("");
+      getUserData();
       setPwd("");
       setMatchPwd("");
     } catch (err) {
@@ -116,13 +136,59 @@ const Register = () => {
       } else if (err.response?.status === 409) {
         setErrMsg("Username Taken");
       } else {
-        setErrMsg("Registration Failed");
+        setErrMsg("Update Failed");
       }
       errRef.current.focus();
     }
   };
 
-  return (
+  /**
+   * Get user data from server
+   */
+  const getUserData = async () => {
+    const result = await instance.request({
+      data: {
+        data_type: "getUserDataForSettings",
+        params: "",
+      },
+      headers: {
+        Authorization: `Bearer ${auth.accessToken}`,
+      },
+    });
+
+    // check if we got new data from server or any response
+    if (result?.data) {
+      /**
+       * After we load all user data we want to set it in form
+       */
+      if (result?.data?.userdata) {
+        console.log(result?.data?.userdata);
+        const userData = result?.data?.userdata;
+        setFirstName(userData[0].first_name);
+        setUser(userData[0].mail);
+        setLastName(userData[0].last_name);
+        setPhoneNumber(userData[0].phone);
+        setUserRemainAds(userData[0].remaining_ads);
+        if (userData[0].rule === "5150") setUserRule("מנהל");
+      }
+    }
+    // after finish load all data stop loading
+    setLoading(false);
+  };
+
+  /**
+   * This use effect will render only once when the component loaded,
+   * when we close the contacts it will end the interval.
+   * Will refesh contacts every 1 second.
+   */
+  useEffect(() => {
+    getUserData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  return loading ? (
+    <div className="loader"></div>
+  ) : (
     <section>
       <p
         ref={errRef}
@@ -133,8 +199,8 @@ const Register = () => {
       </p>
       <h1>הגדרות משתמש</h1>
       <div className="headerH3">
-        <h3>user rule</h3>
-        <h3>יתרת מודעות לפרסום: </h3>
+        <h3>{userRule}</h3>
+        <h3>יתרת מודעות לפרסום: {userRemainAds}</h3>
       </div>
       <form onSubmit={handleSubmit}>
         <div className="Icon-inside">
@@ -200,7 +266,6 @@ const Register = () => {
           <input
             type="text"
             id="userlastname"
-            ref={userRef}
             autoComplete="off"
             onChange={(e) => setLastName(e.target.value)}
             value={lastName}
@@ -227,7 +292,6 @@ const Register = () => {
           <input
             type="text"
             id="userphonenumber"
-            ref={userRef}
             autoComplete="off"
             onChange={(e) => setPhoneNumber(e.target.value)}
             value={phoneNumber}
@@ -359,38 +423,51 @@ const Register = () => {
             חייב לתאום את הסיסמה הקודמת.
           </p>
         </div>
+
+        <div className="Icon-inside">
+          <label htmlFor="confirm_pwd" className="sameLineLable">
+            הזן סיסמה ישנה לאישור:
+          </label>
+          <div className="iconInput">
+            <input
+              type={showPassword ? "text" : "password"}
+              id="confirm_old_password"
+              onChange={(e) => setConfirmOldPass(e.target.value)}
+              value={confirmOldPass}
+              required
+              aria-invalid={validMatch ? "false" : "true"}
+              aria-describedby="confirmnote"
+              onFocus={() => setMatchFocus(true)}
+              onBlur={() => setMatchFocus(false)}
+            />
+            <span>
+              <IconButton
+                className="IconButton"
+                aria-label="toggle password visibility"
+                onClick={handleClickShowPassword}
+                onMouseDown={handleMouseDownPassword}
+                edge="end"
+              >
+                {showPassword ? <VisibilityOff /> : <Visibility />}
+              </IconButton>
+            </span>
+          </div>
+        </div>
+
         <button
-          disabled={!validName || !validPwd || !validMatch ? true : false}
+          disabled={
+            !validName ||
+            !validOldPass || (changePassword && (!validPwd || !validMatch))
+              ? true
+              : false
+          }
         >
-          הירשם
+          עדכן פרטים
         </button>
       </form>
-      <p>
-        כבר רשום?
-        <br />
-        <span className="line">
-          <Link to="/">התחבר</Link>
-        </span>
-      </p>
     </section>
   );
 };
 
-export default Register;
+export default UserSettings;
 
-/*
- first name
-last name
-phone number
-mail - not to be change
-password
-prompt
-site rule - view only
-remaining ads - add link to purchase new ads
-
-*/
-const UserSettings = () => {
-  return <div></div>;
-};
-
-//export default UserSettings
