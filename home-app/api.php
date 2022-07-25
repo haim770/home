@@ -652,6 +652,12 @@ if (isset($DATA_OBJ->data_type)) {
         case "getUserDataForSettings":
             include("../api/system/user/getUserDataForSettings.php");
             break;
+
+        case "updateUserSettings":
+            include("../api/system/user/updateUserSettings.php");
+            break;
+
+            
     }
 }
 

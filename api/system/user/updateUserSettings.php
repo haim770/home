@@ -29,12 +29,6 @@ $hasValidCredentials = $db->readDBNoStoredProcedure($query,$arr);
 // check if we have response and our password match
 if (!(is_array($hasValidCredentials) && password_verify($validOldPass, $hasValidCredentials[0]->password)))
 {
-    echo json_encode(
-        array(
-            "err" => "Old password wrong",
-            "type" => "Incorrect permissions"
-        )
-        );    
     header('HTTP/1.1 401 Unauthorized');
     exit;
 }
@@ -43,35 +37,17 @@ if (!(is_array($hasValidCredentials) && password_verify($validOldPass, $hasValid
 if (!(strlen($pwd) === 0 && empty($pwd))) {
     // test regex
     if(!preg_match($PWD_REGEX, $pwd)){
-    echo json_encode(
-        array(
-            "err" => "Password does not meet the criteria of the site",
-            "type" => "I'm a teapot"
-        )
-    );
     header('HTTP/1.0 412 Precondition Failed');
     exit;
     }
     // test match passwords
     if ($pwd !== $matchPwd) {
-        echo json_encode(
-            array(
-                "err" => "Password not match",
-                "type" => "I'm a teapot"
-            )
-        );
         header('HTTP/1.0 412 Precondition Failed');
         exit;
     }
 }
 // check first name, last name, phone number
 if((!preg_match($NAME_REGEX, $firstName)) || (!preg_match($NAME_REGEX, $lastName)) || (!preg_match($PHONE_REGEX, $phoneNumber))){
-    echo json_encode(
-        array(
-            "err" => "User info wrong",
-            "type" => "I'm a teapot"
-        )
-    );
     header('HTTP/1.0 412 Precondition Failed');
     exit;
 }
