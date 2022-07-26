@@ -18,8 +18,8 @@ const NAME_REGEX =
   /^[\u0590-\u05fea-zA-Z][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{1,}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 //const PHONE_REGEX = /\(?([0-9]{3})\)?([ .-]?)([0-9]{3})\2?([ .-]?)([0-9]{4})/;
-const PHONE_REGEX = 
-/^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$/;
+const PHONE_REGEX =
+  /^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$/;
 const UserSettings = () => {
   const userRef = useRef();
   const errRef = useRef();
@@ -59,8 +59,7 @@ const UserSettings = () => {
 
   const [confirmOldPass, setConfirmOldPass] = useState("");
   const [validOldPass, setValidOldPass] = useState(false);
-  const [changePassword,setChangePassword] = useState(false);
-
+  const [changePassword, setChangePassword] = useState(false);
 
   const handleClickShowPassword = () => {
     setShowPassword((current) => !current);
@@ -89,9 +88,9 @@ const UserSettings = () => {
     setValidLastName(NAME_REGEX.test(lastName));
   }, [lastName]);
 
-    useEffect(() => {
-      setValidOldPass(confirmOldPass != null && confirmOldPass !== "");
-    }, [confirmOldPass]);
+  useEffect(() => {
+    setValidOldPass(confirmOldPass != null && confirmOldPass !== "");
+  }, [confirmOldPass]);
 
   useEffect(() => {
     setValidPwd(PWD_REGEX.test(pwd));
@@ -106,35 +105,52 @@ const UserSettings = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     // if button enabled with JS hack
-    const v2 = PWD_REGEX.test(pwd);
+    const v2 = PWD_REGEX.test(pwd) || !changePassword;
     const v3 = PHONE_REGEX.test(phoneNumber);
     const v4 = NAME_REGEX.test(firstName);
     const v5 = NAME_REGEX.test(lastName);
     const v1 = pwd === matchPwd;
-    if (!v1 || !v2 || !v3 || !v4 || !v5 ) {
+    if (!v1 || !v2 || !v3 || !v4 || !v5) {
       setErrMsg("Invalid Entry");
       return;
     }
     try {
       const response = await instance.request({
         data: {
-          data_type: "updateSettings",
-          params: { user, pwd, matchPwd, validOldPass, firstName, lastName, phoneNumber },
+          data_type: "updateUserSettings",
+          params: {
+            user,
+            pwd,
+            matchPwd,
+            confirmOldPass,
+            firstName,
+            lastName,
+            phoneNumber,
+          },
         },
-      headers: {
-        Authorization: `Bearer ${auth.accessToken}`,
-      },
+        headers: {
+          Authorization: `Bearer ${auth.accessToken}`,
+        },
       });
+      // check if we got new data from server or any response
+      if (response?.data) {
+        console.log(response.data);
+      }
       setSuccess(true);
       //clear state and controlled inputs
       getUserData();
       setPwd("");
       setMatchPwd("");
+      setConfirmOldPass("");
     } catch (err) {
       if (!err?.response) {
         setErrMsg("No Server Response");
-      } else if (err.response?.status === 409) {
-        setErrMsg("Username Taken");
+      } else if (err.response?.status === 412) {
+        setErrMsg("I'm a teapot");
+      } else if (err.response?.status === 401) {
+        setErrMsg("Incorrect permissions");
+      } else if (err.response?.status === 400) {
+        setErrMsg("Bad request");
       } else {
         setErrMsg("Update Failed");
       }
@@ -346,7 +362,6 @@ const UserSettings = () => {
               id="password"
               onChange={(e) => setPwd(e.target.value)}
               value={pwd}
-              required
               aria-invalid={validPwd ? "false" : "true"}
               aria-describedby="pwdnote"
               onFocus={() => setPwdFocus(true)}
@@ -397,7 +412,6 @@ const UserSettings = () => {
               id="confirm_pwd"
               onChange={(e) => setMatchPwd(e.target.value)}
               value={matchPwd}
-              required
               aria-invalid={validMatch ? "false" : "true"}
               aria-describedby="confirmnote"
               onFocus={() => setMatchFocus(true)}
@@ -457,7 +471,8 @@ const UserSettings = () => {
         <button
           disabled={
             !validName ||
-            !validOldPass || (changePassword && (!validPwd || !validMatch))
+            !validOldPass ||
+            (changePassword && (!validPwd || !validMatch))
               ? true
               : false
           }
@@ -470,4 +485,3 @@ const UserSettings = () => {
 };
 
 export default UserSettings;
-
