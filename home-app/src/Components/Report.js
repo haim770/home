@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Button from "./Button";
 import Address from "./Address";
 import { Link, useNavigate, useLocation, Navigate } from "react-router-dom";
 import Parameter from "./Parameter";
 import "../styles/Register.module.css";
+import useAuth from "../Auth/useAuth";
 import Api from "../api/Api";
 import { v4 as uuidv4 } from "uuid";
 import instance from "../api/AxiosInstance";
@@ -11,70 +12,55 @@ import toast, { Toaster } from "react-hot-toast";
 function Report(props) {
   const location = useLocation();
   const [reportType, setReportType] = useState(""); //hook for report type e.g language abuse
+  const [reportReasons, setReportReasons] = useState([]);
+  const [reportOptionsElement, setReportOptionsElement] = useState([
+    <option key={uuidv4()}></option>,
+  ]);
   const [freeText, setFreeText] = useState(""); //hook for free text for user to explain the report
   const [title, setTitle] = useState(""); //hook for report title
-
+    const { auth } = useAuth();
+  useEffect(() => {
+    getReasonsForReports();
+  }, []);
+  const getReasonsForReports = async () => {
+    //get all the report reasons for the type of element
+    const res = await instance.request({
+      data: {
+        data_type: "getAllReportReasons",
+        params: { elementType: props.elementType, guest: "guest" }, //window.location.href gets the urlline
+      },
+      headers: {
+        Authorization: `Bearer ${auth.accessToken}`,
+      },
+    });
+    setReportReasons(res.data);
+    setReportOptionsElement((reasons) => {
+      return new Set([
+        ...reasons,
+        res.data.map((reason) => (
+          <option key={uuidv4()}>{reason.reason_name}</option>
+        )),
+      ]);
+    });
+  };
+  const cancelReport = (e) => {
+    e.preventDefault();
+    props.setClassName("notShowReport");
+    props.setAdForTheReport({});
+  };
   const onChangeState = (setStateName, e) => {
     //func that recieves setstate and the event and change value of state to the value of input
-    if (e.target.name === "phone") {
-      if (isNaN(e.target.value) || e.target.value.length > 10) {
-        toast.dismiss();
-        toast.error(" טלפון מכיל עד 10 תווים מספריים");
-        return;
-      }
-    }
     setStateName(e.target.value);
   };
-  const mailChecker = (userMail) => {
-    if (userMail.length < 6) {
-      toast.dismiss();
-      toast.error("מייל חייב להכיל מינימום 6 תווים");
-      return false;
-    }
-    if (userMail.substring(userMail.length - 4, userMail.length) !== ".com") {
-      toast.dismiss();
-      toast.error("אין סיומת נכונה");
-      return false;
-    }
-    if (userMail.substring(userMail.length - 5, userMail.length) === "@.com") {
-      toast.dismiss();
-      toast.error("מייל חייב  להכיל תוכן בין @ לסיומת");
-      return false;
-    }
-    if (!userMail.includes("@")) {
-      toast.dismiss();
-      toast.error("אין @");
-
-      return false;
-    }
-    return true;
-  };
-  const loseFocusOnMailChecker = (e) => {
-    mailChecker(e.target.value);
-  };
   const returnStateToDefault = () => {
-   setFreeText("");
-   setReportType("");
-   setTitle("");
-  };
-  const checkPasswordValidity = (pass) => {
-    console.log(
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/.test("ldkd")
-    );
-    if (pass.length > 5) {
-      return true;
-    } else {
-      toast.dismiss();
-      toast.error(
-        "סיסמא חייבת להיות עד 8 תווים ולהכיל לפחות אות אחת ומספר אחד"
-      );
-      return false;
-    }
+    setFreeText("");
+    setReportType("");
+    setTitle("");
   };
   const checkForValidFields = () => {
-    if (!(reportType)) {
+    if (!reportType) {
       toast.dismiss();
-      toast.error("שם משתמש או סיסמא לא הוכנסו כראוי");
+      toast.error("אין סוג דוח");
       return false;
     }
     return true;
@@ -82,21 +68,22 @@ function Report(props) {
   const submitReport = async (e) => {
     //add ad to the db, returns true/false
     e.preventDefault();
-    if (
-      reportType==""
-    ) {
+    if (!checkForValidFields()) {
       return;
     } else {
       const result = await instance.request({
         data: {
           data_type: "reportOnElement",
           params: {
-            guest: props.auth.accessToken != undefined ? "registered" : "guest",
+            guest: auth.accessToken != undefined ? "registered" : "guest",
             freeText: freeText,
             title: title,
             reportType: reportType,
             elementId: props.adBlock.ad[0].adID,
           },
+        },
+        headers: {
+          Authorization: `Bearer ${auth.accessToken}`,
         },
       });
       if (result) {
@@ -112,26 +99,24 @@ function Report(props) {
         props.setClassName("notShowReport");
       }
       console.log(result);
+      returnStateToDefault();
     }
   };
   return (
     <section className={props.className}>
-      <h1>הרשמה לאתר</h1>
-      <form className={props.className}>
+      <form className="formReport">
+        <h1> דיווח על {props.elementType === "ad" ? "מודעה" : "בלוג"}</h1>
         <label>
-          <span>enter report type</span>
+          <span className="reportLabel">סוג דוח</span>
           <select
             value={reportType}
             onChange={(e) => setReportType(e.target.value)}
           >
-            <option></option>
-            <option>שפה לא נאותה</option>
-            <option>מודעה מזוייפת</option>
-            <option>אחר</option>
+            {reportOptionsElement}
           </select>
         </label>
-        <label>
-          <span>enter title</span>
+        <label className="reportLabel">
+          <span>כותרת</span>
           <input
             type="text"
             name="title"
@@ -140,9 +125,10 @@ function Report(props) {
             onChange={(e) => onChangeState(setTitle, e)}
           />
         </label>
-        <label>
-          <span>enter free text</span>
+        <label className="reportLabel">
+          <span>הכנס סיבת דיווח</span>
           <textarea
+           rows="4"
             type="text"
             name="freeText"
             id="freeText"
@@ -152,6 +138,7 @@ function Report(props) {
         </label>
         <p>
           <button onClick={submitReport}>שלח דיווח</button>
+          <button onClick={cancelReport}>בטל</button>
         </p>
       </form>
       <Toaster />

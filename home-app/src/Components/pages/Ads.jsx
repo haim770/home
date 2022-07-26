@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo } from "react";
 import instance from "../../api/AxiosInstance";
 import { v4 as uuidv4 } from "uuid";
-
+import Report from "../Report.js";
 import "../../styles/Main.css";
 import "../../styles/Ads.css";
 import AdsBlock from "./AdsBlock";
@@ -15,6 +15,8 @@ const Ads = (props) => {
   const [changed, setChanged] = useState(false);
   const [listShow, setListShow] = useState("showList");
   const [fullShow, setFullShow] = useState("notShowFull");
+  const [showReport, setReportShow] = useState("notShowReport");
+  const [adForTheReport, setAdForTheReport] = useState({});
   const [adFull, setAdFull] = useState({});
   const { auth } = useAuth();
 
@@ -63,6 +65,10 @@ const Ads = (props) => {
                 className={props.listShow}
                 setFullShow={props.setFullShow}
                 setListShow={props.setListShow}
+                showReport={showReport}
+                setReportShow={setReportShow}
+                adForTheReport={adForTheReport}
+                setAdForTheReport={setAdForTheReport}
                 auth={auth}
               />
             )),
@@ -75,7 +81,7 @@ const Ads = (props) => {
   const getAds = async () => {
     setLoading(false);
     setNoMoreAdsForSearch(false);
-    console.log(auth.accessToken);
+    console.log(auth);
     const result = await instance.request({
       data: {
         data_type: props.search.data_type,
@@ -102,6 +108,10 @@ const Ads = (props) => {
               setAdFull={setAdFull}
               setFullShow={props.setFullShow}
               setListShow={props.setListShow}
+              showReport={showReport}
+              setReportShow={setReportShow}
+              adForTheReport={adForTheReport}
+              setAdForTheReport={setAdForTheReport}
               auth={auth}
             />
           ))
@@ -119,6 +129,10 @@ const Ads = (props) => {
                 setAdFull={setAdFull}
                 setFullShow={props.setFullShow}
                 setListShow={props.setListShow}
+                showReport={showReport}
+                setReportShow={setReportShow}
+                adForTheReport={adForTheReport}
+                setAdForTheReport={setAdForTheReport}
                 auth={auth}
               />
             )),
@@ -166,6 +180,13 @@ const Ads = (props) => {
       id="containerForAd"
       onClick={getOutOfFullMode}
     >
+      <Report
+        className={showReport}
+        setClassName={setReportShow}
+        adBlock={adForTheReport}
+        setAdForTheReport={setAdForTheReport}
+        elementType="ad"
+      />
       <h1>תצוגת מודעות</h1>
       {loading && props.listShow === "showList" ? (
         <div className="listAds">
@@ -181,6 +202,10 @@ const Ads = (props) => {
           setAdFull={setAdFull}
           setFullShow={props.setFullShow}
           setListShow={props.setListShow}
+          // showReport={showReport}
+          // setReportShow={setReportShow}
+          // adForTheReport={adForTheReport}
+          // setAdForTheReport={setAdForTheReport}
           auth={auth}
         />
       ) : (

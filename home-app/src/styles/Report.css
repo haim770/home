@@ -1,2 +1,45 @@
-.notShowReport{display: none;}
-.showReport{display:flex;}
+.notShowReport {
+  display: none;
+}
+
+/* The popup form - hidden by default */
+.showReport {
+  display: flex;
+  position: sticky;
+  top: 20vh;
+    align-self: center;
+  border: 3px solid #f1f1f1;
+  z-index: 1;
+}
+
+/* Add styles to the form container */
+.formReport {
+  /* max-width: 300px; */
+  display: flex;
+  padding: 1rem;
+  background-color: gray;
+  flex-grow: 1;
+
+}
+
+.reportlabel {
+  display: contents;
+}
+
+
+/* Full-width input fields */
+.formReport input[type=text],
+.formReport input[type=password] {
+  width: 100%;
+  padding: 1rem;
+  margin: 1rem;
+  border: none;
+  background: #f1f1f1;
+}
+
+/* When the inputs get focus, do something */
+.formReport input[type=text]:focus,
+.formReport input[type=password]:focus {
+  background-color: #ddd;
+  outline: none;
+}

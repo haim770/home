@@ -14,7 +14,7 @@ import { v4 as uuidv4 } from "uuid";
 import RecipeReviewCard from "../RecipeReviewCard.js";
 import instance from "../../api/AxiosInstance.jsx";
 import Parameter from "../Parameter.js";
-import Report from "../Report.js";
+import useAuth from "../../Auth/useAuth";
 
 const AdsBlock = (props) => {
   /**
@@ -28,6 +28,7 @@ const AdsBlock = (props) => {
   const [isFavorite, setIsFavorite] = useState(props.adBlock.favorite);
   const [didWatch, setDidWatch] = useState(0);
   const [showReport, setReportShow] = useState("notShowReport");
+  const { auth } = useAuth();
   const { startNewChat } = useView();
   const handleClickChatWith = () => {
     const chatWith = {
@@ -70,7 +71,8 @@ const AdsBlock = (props) => {
   const reportOnAd = (e) => {
     //report on ad
     e.preventDefault();
-    setReportShow("showReport");
+    props.setReportShow("showReport");
+    props.setAdForTheReport(props.adBlock);
   };
   return (
     <section className="cardBlock" onClick={changeViewToFull}>
@@ -120,7 +122,7 @@ const AdsBlock = (props) => {
           isFavorite={isFavorite}
           setIsFavorite={setIsFavorite}
           didWatchd={didWatch}
-          auth={props.auth}
+          auth={auth}
         />
       </div>
       {/** This will contain the Ad footer wrapper  */}
@@ -156,9 +158,7 @@ const AdsBlock = (props) => {
             <button onClick={reportOnAd}>דווח על מודעה</button>
           </div>
         </div>
-        <div>
-          <Report className={showReport} setClassName={setReportShow} adBlock={props.adBlock} auth={props.auth} />
-        </div>
+        <div></div>
       </div>
     </section>
   );

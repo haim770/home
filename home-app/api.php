@@ -576,6 +576,10 @@ if (isset($DATA_OBJ->data_type)) {
         case "searchInDbWithUnknownParamsAndTable":
             searchInDbWithUnknownParamsAndTable("ads");
             break;
+        case "getAllReportReasons":
+            //get all reports reasons
+            include_once('../api/system/Ads/reports.php');
+            break;
         case "reportOnElement":
             //report on ad
             include_once('../api/system/Ads/reports.php');
