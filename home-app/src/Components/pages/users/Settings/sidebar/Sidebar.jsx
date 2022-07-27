@@ -47,7 +47,7 @@ const Sidebar = () => {
             </Link>
           </li>
           <li>
-            <Link to="/Settings/Reports" style={{ textDecoration: "none" }}>
+            <Link to="/Settings/ManageReports" style={{ textDecoration: "none" }}>
               <HiOutlineDocumentReport className="icon" />
               <span>דוחות</span>
             </Link>

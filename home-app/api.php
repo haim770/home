@@ -580,6 +580,8 @@ if (isset($DATA_OBJ->data_type)) {
             //get all reports reasons
             include_once('../api/system/Ads/reports.php');
             break;
+        case "getAllReports":
+            include_once('../api/system/Ads/reports.php');
         case "reportOnElement":
             //report on ad
             include_once('../api/system/Ads/reports.php');

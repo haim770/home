@@ -18,7 +18,7 @@ function Report(props) {
   ]);
   const [freeText, setFreeText] = useState(""); //hook for free text for user to explain the report
   const [title, setTitle] = useState(""); //hook for report title
-    const { auth } = useAuth();
+  const { auth } = useAuth();
   useEffect(() => {
     getReasonsForReports();
   }, []);
@@ -80,6 +80,7 @@ function Report(props) {
             title: title,
             reportType: reportType,
             elementId: props.adBlock.ad[0].adID,
+            element_type: props.elementType,
           },
         },
         headers: {
@@ -128,7 +129,7 @@ function Report(props) {
         <label className="reportLabel">
           <span>הכנס סיבת דיווח</span>
           <textarea
-           rows="4"
+            rows="4"
             type="text"
             name="freeText"
             id="freeText"

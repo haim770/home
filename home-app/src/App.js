@@ -36,7 +36,7 @@ import Favorite from "./Components/pages/users/Settings/Pages/Favorite";
 import Messages from "./Components/pages/users/Settings/Pages/Messages";
 import Notifications from "./Components/pages/users/Settings/Pages/Notifications";
 import PurchaseHistory from "./Components/pages/users/Settings/Pages/PurchaseHistory";
-import Reports from "./Components/pages/users/Settings/Pages/Reports";
+import ManageReports from "./Components/pages/users/Settings/Pages/ManageReports.js";
 import SitePurchase from "./Components/pages/users/Settings/Pages/SitePurchase";
 import SiteSales from "./Components/pages/users/Settings/Pages/SiteSales";
 import SiteUsers from "./Components/pages/users/Settings/Pages/SiteUsers";
@@ -97,11 +97,19 @@ export default function App() {
                     <Route path="Notifications" element={<Notifications />} />
                     <Route path="UserSettings" element={<UserSettings />} />
                     <Route path="Messages" element={<Messages />} />
-                    <Route path="Reports" element={<Reports />} />
                     <Route path="Ads" element={<UserAds />} />
                     <Route path="Favorite" element={<Favorite />} />
                     <Route path="Purchase" element={<PurchaseHistory />} />
-
+                    <Route element={<PersistLogin />}>
+                      <Route
+                        element={<RequireAuth allowedRoles={[ROLES.Admin]} />}
+                      >
+                        <Route
+                          path="ManageReports"
+                          element={<ManageReports />}
+                        />
+                      </Route>
+                    </Route>
                     <Route element={<PersistLogin />}>
                       <Route
                         element={<RequireAuth allowedRoles={[ROLES.Admin]} />}
