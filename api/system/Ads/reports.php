@@ -54,6 +54,43 @@ function getAllReports(){
     die;
   }
 }
+function changeReportStatus(){
+  //get report active field by what we got at dataObj object
+  global $user;
+  if($user->getRule()!="5150"){
+    //not manager
+    echo "not authorized";
+    die;
+  }
+  else{
+    global $db;
+    global $DATA_OBJ;
+    $active=$DATA_OBJ->params->active;
+    $query="UPDATE user_reports SET active = '$active' WHERE id = '{$DATA_OBJ->params->id}'";
+    $result=$db->readDBNoStoredProcedure($query);
+    echo json_encode($result);
+    die;
+  }
+}
+function changeReportManagerFeedback(){
+    //update manager feedback for report we got at dataObj
+  global $user;
+  if($user->getRule()!="5150"){
+    //not manager
+    echo "not authorized";
+    die;
+  }
+  else{
+    global $db;
+    global $DATA_OBJ;
+    $manager_feedback=$DATA_OBJ->params->manager_feedback;
+    $query="UPDATE user_reports SET manage_feedback = '$manager_feedback' WHERE id = '{$DATA_OBJ->params->id}'";
+    $result=$db->readDBNoStoredProcedure($query);
+    echo json_encode($result);
+    die;
+  }
+
+}
 if($DATA_OBJ->data_type=="reportOnElement"){
 createReportOnAd();
 }
@@ -64,6 +101,16 @@ else{
   else{
     if($DATA_OBJ->data_type=="getAllReports"){
       getAllReports();
+    }
+    else{
+      if($DATA_OBJ->data_type=="changeReportStatus"){
+        changeReportStatus();
+      }
+      else{
+        if($DATA_OBJ->data_type=="changeReportManagerFeedback"){
+          changeReportManagerFeedback();
+        }
+      }
     }
   }
 }

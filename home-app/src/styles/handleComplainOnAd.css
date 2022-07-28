@@ -1,0 +1,3 @@
+.notShowSelected{display: none;}
+.showSelected{display:flex;flex-direction: column;}
+.makeTwoElementSideBySide{display: grid;grid-template-columns: 1fr 1fr;}

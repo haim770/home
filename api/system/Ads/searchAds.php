@@ -172,5 +172,42 @@ function getUserForUserId1($user_id){
     $arr=[];
     return $result;
 }
-getAllAdContentAndAdAndUsersForArrOfAds();
+function getAdByAdId(){
+    //returns the ad for the id we got in dataObj
+    global $db;
+    global $DATA_OBJ;
+    global $arr;
+    $adId=$DATA_OBJ->params->adId;
+    $query = "select * from ads where adID= '$adId'";
+    $result = $db->readDBNoStoredProcedure($query,[]);
+    $result=getAdWithAdContentForAdId1($result[0]->adID,$result[0]->user_id);
+    echo json_encode($result);
+    $arr=[];
+    die;
+}
+function deleteAdById(){
+    global $userType;
+    global $user;
+    global $db;
+    global $DATA_OBJ;
+if($userType!="registered"||$user->getRule()!="5150"){
+    echo "not authorized";
+    die;
+}
+else{
+    $query="UPDATE ads SET active = '0', approval_status = 'reject' WHERE adID = '{$DATA_OBJ->params->adID}'";
+    $result=$db->readDBNoStoredProcedure($query);
+}
+}
+
+if($DATA_OBJ->data_type=="getAdByAdId"){
+    getAdByAdId();
+}
+else{
+    if($DATA_OBJ->data_type=="deleteAdById"){
+        deleteAdById();
+    }
+    else{
+        getAllAdContentAndAdAndUsersForArrOfAds();}
+    }
 ?>

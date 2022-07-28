@@ -1,0 +1,15 @@
+.showTable {
+  display: block;
+}
+
+.notShowTable {
+  display: none;
+}
+
+.showSelectedReport {
+  display: flex;
+}
+
+.notShoSelectedReport {
+  display: none;
+}
