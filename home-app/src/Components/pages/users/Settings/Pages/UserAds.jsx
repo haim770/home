@@ -21,6 +21,11 @@ const UserAds = (props) => {
   const [indexEnd, setIndexEnd] = useState("10");
   const [adFull, setAdFull] = useState({});
   const { auth } = useAuth();
+  const options = [
+    { label: "כל המודעות שלי", value: "getAllOfMyAds" },
+    { label: "המודעות הפעילות שלי", value: "getAllOfMyActiveAds" },
+    { label: " המודעות הלא פעילות שלי", value: "getAllOfMyNotActiveAds" },
+  ];
 
   // check when we scroll down to button
   const handleScroll = (e) => {
@@ -170,21 +175,12 @@ const UserAds = (props) => {
           <select
             value={lastSearch}
             onChange={(e) => {
-              setLastSearch(
-                e.target.value === "כל המודעות שלי"
-                  ? "getAllOfMyAds"
-                  : e.target.value === "המודעות הפעילות שלי"
-                  ? "getAllOfMyActiveAds"
-                  : e.target.value === "המודעות הלא פעילות שלי"
-                  ? "getAllOfMyNotActiveAds"
-                  : ""
-              );
+              setLastSearch(e.target.value);
             }}
           >
-            <option></option>
-            <option>כל המודעות שלי</option>
-            <option>המודעות הפעילות שלי</option>
-            <option>המודעות הלא פעילות שלי</option>
+            {options.map((option) => {
+              return <option value={option.value}>{option.label}</option>;
+            })}
           </select>
         </label>
       </div>

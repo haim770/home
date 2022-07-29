@@ -152,6 +152,9 @@ function Report(props) {
     });
     console.log(result.data);
   };
+  const sendFeedbackToOWnerOfTheAd=()=>{
+
+  }
   return (
     <section className={props.className}>
       <div className="parameterShowReport">
@@ -199,6 +202,11 @@ function Report(props) {
           <ul>
             <li>
               <button onClick={confirmChangeManagerFeedback}>אישור</button>
+            </li>
+            <li>
+              <button onClick={sendFeedbackToOWnerOfTheAd}>
+                שלח משוב על המודעה לבעל המודעה
+              </button>
             </li>
             <li>
               <button onClick={cancelChangeManagerFeedback}>בטל פעולה</button>
