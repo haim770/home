@@ -2,30 +2,49 @@ import * as React from "react";
 import { useLayoutEffect, useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import "./Styles/collapsTableStyle.css";
+import "./Styles/ManageReports.css";
 import useAuth from "../../../../../Auth/useAuth";
 import instance from "../../../../../api/AxiosInstance";
+import HandleComplainOnAd from "./HandleComplainOnAd.js";
 
 const columns = [
-  { field: "id", headerName: "מס סידורי", width: 180 },
-  { field: "report_id", headerName: "מס דוח ", width: 180 },
-  { field: "element_id", headerName: "מספר אלמנט", width: 180 },
-  { field: "userId", headerName: "תאריך תלונה", width: 130 },
-  { field: "create_time", headerName: "סטטוס תלונה", width: 130 },
-  { field: "active", headerName: "סטטוס תלונה", width: 130 },
-  { field: "content", headerName: "סטטוס תלונה", width: 130 },
-  { field: "title", headerName: "סטטוס תלונה", width: 130 },
-  { field: "manage_feedback", headerName: "סטטוס תלונה", width: 130 },
-  { field: "report_reason ", headerName: "סטטוס תלונה", width: 130 },
-  { field: "element_type", headerName: "סטטוס תלונה", width: 130 },
+  { field: "id", headerName: "מס תלונה" },
+  { field: "element_id", headerName: "מספר אלמנט" },
+  { field: "userId", headerName: "משתמש שהתלונן" },
+  { field: "create_time", headerName: "תאריך" },
+  { field: "active", headerName: "סטטוס תלונה" },
+  { field: "content", headerName: "תוכן תלונה" },
+  { field: "title", headerName: "כותרת תלונה" },
+  { field: "manage_feedback", headerName: "תגובת מנהל לתלונה" },
+  { field: "report_reason", headerName: "סיבת תלונה" },
+  { field: "element_type", headerName: "סוג אלמנט" },
 ];
 
 const ManageReports = () => {
   const { auth } = useAuth();
   const [rows, setRows] = useState([]);
+  const [tableClassName, setTableClassName] = useState("showTable");
+  const [showSelected, setShowSelected] = useState("notShowSelected");
+  const [selectedReport, setSelectedReport] = useState({});
+  const [selectedAd, setSelectedAd] = useState({});
 
   /**
    * Get Data from server
    */
+  const getSelectedAd = async (row) => {
+    let result = await instance.request({
+      data: {
+        data_type: "getAdByAdId",
+        params: { adId: row.element_id },
+        guest: "guest",
+      },
+      headers: {
+        Authorization: `Bearer ${auth.accessToken}`,
+      },
+    });
+    console.log(result.data);
+    setSelectedAd(result.data);
+  };
   const getAllReports = async () => {
     //get all reports
     const result = await instance.request({
@@ -43,9 +62,9 @@ const ManageReports = () => {
         alert("not authorized");
         return;
       }
-      
-        console.log(result.data);
-      
+
+      console.log(result.data);
+
       setRows(result.data);
     }
     console.log(result.data);
@@ -61,16 +80,36 @@ const ManageReports = () => {
   }, []);
 
   return (
-    <div className="tableContainer">
-      <div style={{ height: 700, width: "100%" }}>
+    <div className="tableContainer ">
+      <div style={{ height: 700, width: "100%" }} className={tableClassName}>
         <DataGrid
           rows={rows}
           columns={columns}
           pageSize={15}
           rowsPerPageOptions={[15]}
           checkboxSelection={false}
+          onRowClick={async (e) => {
+            setSelectedReport(e.row);
+            setTableClassName("notShowTable");
+            await getSelectedAd(e.row);
+            setShowSelected("showSelected");
+            console.log(e.row);
+          }}
         />
       </div>
+      {showSelected === "showSelected" ? (
+        <HandleComplainOnAd
+          className={showSelected}
+          setClassName={setShowSelected}
+          setTableClassName={setTableClassName}
+          selectedReport={selectedReport}
+          selectedAd={selectedAd}
+          setSelectedAd={setSelectedAd}
+          setSelectedReport={setSelectedReport}
+        />
+      ) : (
+        ""
+      )}
     </div>
   );
 };

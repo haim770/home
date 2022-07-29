@@ -21,7 +21,7 @@ function AdById(props) {
   const getAd = async () => {
     const result = await instance.request({
       data: {
-        data_type: "getAdByID",
+        data_type: "getAdByIDAndUserId",
         params: { adID: props.adID, user_id: props.user_id }, //window.location.href gets the urlline
       },
     });

@@ -116,7 +116,7 @@ function getAdsIdAndUserIdThatFeetSearch()
     $arr = [];
     return $result;
 }
-function getAdWithAdContentForAdId($adId, $user_id)
+function getAdWithAdContentForAdIdAndUserId($adId, $user_id)
 {
     //get adcontent+ad for adid
     global $db;
@@ -548,9 +548,12 @@ if (isset($DATA_OBJ->data_type)) {
         case "insertPack":
             insertPack();
             break;
-        case "getAdByID":
+        case "getAdByAdId":
+                include_once('../api/system/Ads/searchAds.php');
+                break;
+        case "getAdByIDAndUserId":
             if (isset($DATA_OBJ->params))
-                echo json_encode(getAdWithAdContentForAdId($DATA_OBJ->params->adID, $DATA_OBJ->params->user_id));
+                echo json_encode(getAdWithAdContentForAdIdAndUserId($DATA_OBJ->params->adID, $DATA_OBJ->params->user_id));
             break;
         case "insertNewAd":
             insertNewAd();
@@ -559,6 +562,10 @@ if (isset($DATA_OBJ->data_type)) {
             updateWatch();
             break;
         case "getAllAdContentAndAdAndUsersForArrOfAds":
+            include_once('../api/system/Ads/searchAds.php');
+            break;
+        case "deleteAdById":
+            //delete ad by id we got in dataObj params must be manager
             include_once('../api/system/Ads/searchAds.php');
             break;
         case "getAllPackages":
@@ -582,6 +589,14 @@ if (isset($DATA_OBJ->data_type)) {
             break;
         case "getAllReports":
             include_once('../api/system/Ads/reports.php');
+        case "changeReportStatus":
+            //update the active field on report 
+            include_once('../api/system/Ads/reports.php');
+            break;
+        case "changeReportManagerFeedback":
+            //update the manager feedback field on report 
+            include_once('../api/system/Ads/reports.php');
+            break;
         case "reportOnElement":
             //report on ad
             include_once('../api/system/Ads/reports.php');
