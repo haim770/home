@@ -20,7 +20,7 @@ function Report(props) {
   const { auth } = useAuth();
   const [showManagerResponse, setShowInputManagerResponse] = useState(false);
   const [managerResponse, setManagerResponse] = useState(
-    props.report.manager_feedback
+    props.report.manager_feedback || ""
   );
   const [reportStatus, setReportStatus] = useState(props.report.active);
   // useEffect(() => {
@@ -185,7 +185,7 @@ function Report(props) {
         >
           ערוך תגובת מנהל
         </button>
-        <p style={{ display: showManagerResponse ? "block" : "none" }}>
+        <div style={{ display: showManagerResponse ? "block" : "none" }}>
           <label>
             <span>תגובת מנהל </span>
             <input
@@ -196,11 +196,15 @@ function Report(props) {
               }}
             />
           </label>
-          <nav>
-            <button onClick={confirmChangeManagerFeedback}>אישור</button>
-            <button onClick={cancelChangeManagerFeedback}>בטל פעולה</button>
-          </nav>
-        </p>
+          <ul>
+            <li>
+              <button onClick={confirmChangeManagerFeedback}>אישור</button>
+            </li>
+            <li>
+              <button onClick={cancelChangeManagerFeedback}>בטל פעולה</button>
+            </li>
+          </ul>
+        </div>
       </div>
       <div>
         <h2>סטטוס דוח </h2>
@@ -211,7 +215,7 @@ function Report(props) {
         >
           ערוך סטטוס
         </button>
-        <p style={{ display: showInputStatus ? "block" : "none" }}>
+        <div style={{ display: showInputStatus ? "block" : "none" }}>
           <label>
             <span>סטטוס </span>
             <select
@@ -225,11 +229,15 @@ function Report(props) {
               <option>לא טופל</option>
             </select>
           </label>
-          <nav>
-            <button onClick={confirmChangeStatus}>אישור</button>
-            <button onClick={cancelChangeStatus}>בטל פעולה</button>
-          </nav>
-        </p>
+          <ul>
+            <li>
+              <button onClick={confirmChangeStatus}>אישור</button>
+            </li>
+            <li>
+              <button onClick={cancelChangeStatus}>בטל פעולה</button>
+            </li>
+          </ul>
+        </div>
       </div>
       <Toaster />
     </section>
