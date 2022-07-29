@@ -587,8 +587,15 @@ if (isset($DATA_OBJ->data_type)) {
             //get all reports reasons
             include_once('../api/system/Ads/reports.php');
             break;
+        case "getReportsThatAreNotActive":
+            include_once('../api/system/Ads/reports.php');
+            break;
+        case "getNewReports":
+             include_once('../api/system/Ads/reports.php');
+            break;
         case "getAllReports":
             include_once('../api/system/Ads/reports.php');
+            break;
         case "changeReportStatus":
             //update the active field on report 
             include_once('../api/system/Ads/reports.php');

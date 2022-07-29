@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { FaEye } from "react-icons/fa";
 import { FcSms } from "react-icons/fc";
 import { Link, NavLink, Outlet } from "react-router-dom";
-import "../../styles/AdBlock.css";
+import styles from"../../styles/AdsBlockForReports.module.css";
 import "../../styles/Report.css";
 
 // view component for the chat
@@ -89,7 +89,7 @@ const AdsBlockForReports = (props) => {
     }
   };
   return (
-    <section className="cardBlock">
+    <section className={styles.cardBlock}>
       <div>
         <header className="headerOnTheTop">
           {/* This div will contain data like how many days the add on the site */}

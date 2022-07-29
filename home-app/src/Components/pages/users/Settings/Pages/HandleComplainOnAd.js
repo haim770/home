@@ -31,13 +31,15 @@ function HandleComplainOnAd(props) {
   };
   return (
     <article className={props.className}>
-      <button onClick={changeToListView}>x</button>
+      <div>
+        <button onClick={changeToListView}>x</button>
+      </div>
       <div className="makeTwoElementSideBySide">
         <section>
           <AdsBlockForReports adBlock={props.selectedAd} />
         </section>
         <section>
-          <ShowReport element_type="ad" report={props.selectedReport} />
+          <ShowReport element_type="ad" report={props.selectedReport}  />
         </section>
       </div>
       <p>

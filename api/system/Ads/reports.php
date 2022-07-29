@@ -25,7 +25,11 @@ function createReportOnAd(){
   global $user;
   global $db;
   global $DATA_OBJ;
-  $userId= $user->getUuid();
+  if($userType=="registered")
+    $userId= $user->getUuid();
+  else{
+    $userId="guest";
+  }
   $element_type=$DATA_OBJ->params->element_type;
   $adID=$DATA_OBJ->params->elementId;
   $reportId=uniqid();
@@ -91,6 +95,41 @@ function changeReportManagerFeedback(){
   }
 
 }
+function  getNewReports(){
+  //get new reports
+  global $user;
+  if($user->getRule()!="5150"){
+    //not manager
+    echo "not authorized";
+    die;
+  }
+  else{
+    global $db;
+    global $DATA_OBJ;
+    $query="select * from user_reports where active = '1'";
+    $result=$db->readDBNoStoredProcedure($query);
+    echo json_encode($result);
+    die;
+  }
+}
+function getReportsThatAreNotActive(){
+  //get all reports that have been tempered
+  global $user;
+  if($user->getRule()!="5150"){
+    //not manager
+    echo "not authorized";
+    die;
+  }
+  else{
+    global $db;
+    global $DATA_OBJ;
+    $query="select * from user_reports where active = '0'";
+    $result=$db->readDBNoStoredProcedure($query);
+    echo json_encode($result);
+    die;
+  }
+}
+
 if($DATA_OBJ->data_type=="reportOnElement"){
 createReportOnAd();
 }
@@ -109,6 +148,16 @@ else{
       else{
         if($DATA_OBJ->data_type=="changeReportManagerFeedback"){
           changeReportManagerFeedback();
+        }
+        else{
+          if($DATA_OBJ->data_type=="getReportsThatAreNotActive"){
+            getReportsThatAreNotActive();
+          }
+          else{
+            if($DATA_OBJ->data_type=="getNewReports"){
+              getNewReports();
+            }
+          }
         }
       }
     }

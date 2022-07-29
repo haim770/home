@@ -27,6 +27,7 @@ const ManageReports = () => {
   const [showSelected, setShowSelected] = useState("notShowSelected");
   const [selectedReport, setSelectedReport] = useState({});
   const [selectedAd, setSelectedAd] = useState({});
+  const [searchReports, setSearchReports] = useState("getAllReports");
 
   /**
    * Get Data from server
@@ -78,9 +79,65 @@ const ManageReports = () => {
   useLayoutEffect(() => {
     getAllReports();
   }, []);
+  const serchReportsByParam = async (e) => {
+    e.preventDefault();
+    if (searchReports == "") {
+      alert("choose option");
+      return;
+    }
+    const data_type =
+      searchReports === "דוחות שטופלו בעבר"
+        ? "getReportsThatAreNotActive"
+        : searchReports === "דוחות חדשים"
+        ? "getNewReports"
+        : "getAllReports";
+    const result = await instance.request({
+      data: {
+        data_type: data_type,
+        params: { guest: "registered" },
+      },
+      headers: {
+        Authorization: `Bearer ${auth.accessToken}`,
+      },
+    });
+    // check if we got new data from server or any response
+    console.log(result.data);
+    if (result?.data == false) {
+      setRows([]);
+    }
+    if (result?.data) {
+      if (result.data == "not authorized") {
+        alert("not authorized");
+        return;
+      }
 
+      if (result.data == false) {
+        console.log("F");
+        setRows({});
+      }
+      console.log(result.data);
+      setRows(result.data);
+    }
+  };
   return (
     <div className="tableContainer ">
+      <nav>
+        <label>
+          <span>בחר איזה דוחות ברצונך לראות </span>
+          <select
+            value={searchReports}
+            onChange={(e) => {
+              setSearchReports(e.target.value);
+            }}
+          >
+            <option></option>
+            <option>דוחות חדשים</option>
+            <option>כל הדוחות</option>
+            <option>דוחות שטופלו בעבר</option>
+          </select>
+        </label>
+        <button onClick={serchReportsByParam}>חפש דוחות</button>
+      </nav>
       <div style={{ height: 700, width: "100%" }} className={tableClassName}>
         <DataGrid
           rows={rows}
