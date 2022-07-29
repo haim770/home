@@ -7,6 +7,7 @@ import FavoritesAds from "./FavoritesAds";
 const Home = () => {
   return (
     <div>
+      <p>Home page</p>
     </div>
   );
 };
