@@ -561,6 +561,9 @@ if (isset($DATA_OBJ->data_type)) {
         case "updateWatch":
             updateWatch();
             break;
+        case "getAllOfMyAds":
+             include_once('../api/system/Ads/searchAds.php');
+            break;
         case "getAllAdContentAndAdAndUsersForArrOfAds":
             include_once('../api/system/Ads/searchAds.php');
             break;

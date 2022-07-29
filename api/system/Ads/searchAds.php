@@ -80,7 +80,7 @@ function getAdWithAdContentForAdId1($adId,$user_id){
     $result["adContent"] = $resultAdContentTable;
     $result["user"]=$resultUserForTheAd;
     $result["adImages"]=$resultImagesForAdId;
-    $result["favorite"]=checkIfAdIsFavoriteForUser($adId);
+    $result["favorite"]=false;
     $arr = [];
     return $result;
 }
@@ -185,6 +185,33 @@ function getAdByAdId(){
     $arr=[];
     die;
 }
+function getAllOfMyAds(){
+    //get all of my ads by id of user
+    global $userType;
+    global $user;
+    global $db;
+    global $DATA_OBJ;
+    global $arr;
+    if($userType!="registered"||($user->getRule()!="5150"&&$user->getRule()!="2001")){
+    echo "not authorized";
+    die;
+    }
+    $userId=$user->getUuid();
+    $query="select adID from ads where user_id ='$userId'";
+    $adIdForTheSearch = $db->readDBNoStoredProcedure($query,[]);
+    $i=0;
+    if(gettype($adIdForTheSearch)!="array"&&gettype($adIdForTheSearch)!="Array"&&gettype($adIdForTheSearch)!="Object"){
+        $arr=[];
+        return;
+    }
+    else
+    foreach ($adIdForTheSearch as $key => $value) {
+        $result[$i++]=getAdWithAdContentForAdId1($value->adID,$userId);
+    }
+    echo json_encode($result);
+    $arr=[];
+    die;
+}
 function deleteAdById(){
     global $userType;
     global $user;
@@ -208,6 +235,11 @@ else{
         deleteAdById();
     }
     else{
-        getAllAdContentAndAdAndUsersForArrOfAds();}
+        if($DATA_OBJ->data_type=="getAllOfMyAds"){
+            getAllOfMyAds();
+        }
+        else{
+        getAllAdContentAndAdAndUsersForArrOfAds();}}
+        
     }
 ?>
