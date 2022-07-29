@@ -564,6 +564,12 @@ if (isset($DATA_OBJ->data_type)) {
         case "getAllOfMyAds":
              include_once('../api/system/Ads/searchAds.php');
             break;
+        case "getAllOfMyActiveAds":
+             include_once('../api/system/Ads/searchAds.php');
+            break;
+        case "getAllOfMyNotActiveAds":
+             include_once('../api/system/Ads/searchAds.php');
+            break;
         case "getAllAdContentAndAdAndUsersForArrOfAds":
             include_once('../api/system/Ads/searchAds.php');
             break;

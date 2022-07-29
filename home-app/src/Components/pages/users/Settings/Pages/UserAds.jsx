@@ -164,6 +164,30 @@ const UserAds = (props) => {
         elementType="ad"
       />
       <h1>תצוגת מודעות</h1>
+      <div>
+        <label>
+          <span>סנן מודעות </span>
+          <select
+            value={lastSearch}
+            onChange={(e) => {
+              setLastSearch(
+                e.target.value === "כל המודעות שלי"
+                  ? "getAllOfMyAds"
+                  : e.target.value === "המודעות הפעילות שלי"
+                  ? "getAllOfMyActiveAds"
+                  : e.target.value === "המודעות הלא פעילות שלי"
+                  ? "getAllOfMyNotActiveAds"
+                  : ""
+              );
+            }}
+          >
+            <option></option>
+            <option>כל המודעות שלי</option>
+            <option>המודעות הפעילות שלי</option>
+            <option>המודעות הלא פעילות שלי</option>
+          </select>
+        </label>
+      </div>
       {loading && listShow === "showList" ? (
         <div className="listAds">
           {loading && listShow === "showList" && ads}

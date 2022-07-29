@@ -212,6 +212,60 @@ function getAllOfMyAds(){
     $arr=[];
     die;
 }
+function getAllOfMyActiveAds(){
+    //get all active ads of userid
+    global $userType;
+    global $user;
+    global $db;
+    global $DATA_OBJ;
+    global $arr;
+    if($userType!="registered"||($user->getRule()!="5150"&&$user->getRule()!="2001")){
+    echo "not authorized";
+    die;
+    }
+    $userId=$user->getUuid();
+    $query="select adID from ads where user_id ='$userId' and active ='1'";
+    $adIdForTheSearch = $db->readDBNoStoredProcedure($query,[]);
+    $i=0;
+    if(gettype($adIdForTheSearch)!="array"&&gettype($adIdForTheSearch)!="Array"&&gettype($adIdForTheSearch)!="Object"){
+        $arr=[];
+        return;
+    }
+    else
+    foreach ($adIdForTheSearch as $key => $value) {
+        $result[$i++]=getAdWithAdContentForAdId1($value->adID,$userId);
+    }
+    echo json_encode($result);
+    $arr=[];
+    die;
+}
+function getAllOfMyNotActiveAds(){
+    //get all active ads of userid
+    global $userType;
+    global $user;
+    global $db;
+    global $DATA_OBJ;
+    global $arr;
+    if($userType!="registered"||($user->getRule()!="5150"&&$user->getRule()!="2001")){
+    echo "not authorized";
+    die;
+    }
+    $userId=$user->getUuid();
+    $query="select adID from ads where user_id ='$userId' and active ='0'";
+    $adIdForTheSearch = $db->readDBNoStoredProcedure($query,[]);
+    $i=0;
+    if(gettype($adIdForTheSearch)!="array"&&gettype($adIdForTheSearch)!="Array"&&gettype($adIdForTheSearch)!="Object"){
+        $arr=[];
+        return;
+    }
+    else
+    foreach ($adIdForTheSearch as $key => $value) {
+        $result[$i++]=getAdWithAdContentForAdId1($value->adID,$userId);
+    }
+    echo json_encode($result);
+    $arr=[];
+    die;
+}
 function deleteAdById(){
     global $userType;
     global $user;
@@ -239,7 +293,19 @@ else{
             getAllOfMyAds();
         }
         else{
-        getAllAdContentAndAdAndUsersForArrOfAds();}}
-        
+            if($DATA_OBJ->data_type=="getAllOfMyActiveAds"){
+                getAllOfMyActiveAds();
+            }
+            else{
+                if($DATA_OBJ->data_type=="getAllOfMyNotActiveAds"){
+                    getAllOfMyNotActiveAds();
+                }
+                else{
+                    getAllAdContentAndAdAndUsersForArrOfAds();
+                }
+            }
+        }
     }
+        
+}
 ?>
