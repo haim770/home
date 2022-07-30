@@ -41,6 +41,7 @@ const data = props.props;
      * Alice = us
      * Bob = sender
      */
+    console.log("data.sender: ", data.sender, chatInfo.uuid);
     const aliceOrBob = data.sender === chatInfo.uuid; // if true, means we got message
     return aliceOrBob ? (
       <div className="bob_message" id={msgID} key={msgID}>
