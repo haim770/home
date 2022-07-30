@@ -48,6 +48,17 @@ export const ViewProvidor = ({ children }) => {
       },
     });
   };
+  // setChatInfo user contacts list
+  const setChatInfo = (chatWith) => {
+    const updateChatInfo = chatWith;
+    dispatch({
+      type: "SET_CHAT_INFO",
+      payload: {
+        chatInfo: updateChatInfo,
+      },
+    });
+  };
+
   // the values we want to make global
   const value = {
     chatView: state.chatView,
@@ -57,6 +68,7 @@ export const ViewProvidor = ({ children }) => {
     startNewChat,
     showContacts,
     closeWindow,
+    setChatInfo,
   };
   return <ViewContext.Provider value={value}>{children}</ViewContext.Provider>;
 };

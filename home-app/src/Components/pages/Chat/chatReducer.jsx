@@ -46,6 +46,12 @@ const viewReducer = (state, action) => {
           chatInfo: payload.chatInfo,
           chatWindow: payload.chatWindow,
         };
+        
+        case "SET_CHAT_INFO":
+          return {
+            ...state,
+            chatInfo: payload.chatInfo,
+          };
 
     default:
       // only for the dev
