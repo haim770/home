@@ -1,0 +1,14 @@
+.screenSpliter {
+  display: grid;
+  grid-template-columns: 16% 84%;
+  grid-auto-rows: 90vh;
+  width: 100%;
+}
+.screenSpliter>div {
+  background: #eee;
+}
+
+.screenSpliter>div:nth-child(odd) {
+  background: #ddd;
+}
+
