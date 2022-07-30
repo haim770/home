@@ -36,6 +36,9 @@ const PurchaseHistory = () => {
     });
     // check if we got new data from server or any response
     if (result?.data) {
+      if (result.data == false) {
+        setRows([]);
+      }
       setRows(result.data.result);
     }
   };
@@ -48,7 +51,6 @@ const PurchaseHistory = () => {
     getUserPurchase();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
 
   return (
     <div className="tableContainer">
