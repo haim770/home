@@ -47,6 +47,9 @@ const AdPart = (props) => {
         case "street":
           hebrewKey = "רחוב";
           break;
+        case "area":
+          hebrewKey="שטח";
+          break;
         case "building_number":
           hebrewKey = "מס בניין";
           break;

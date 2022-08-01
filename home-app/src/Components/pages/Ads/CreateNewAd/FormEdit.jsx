@@ -1,21 +1,36 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import instance from "../../../../api/AxiosInstanceFormData";
 import useAuth from "../../../../Auth/useAuth";
-import StepFour from "./StepFour";
-import StepOne from "./StepOne";
-import StepThree from "./StepThree";
-import StepTwo from "./StepTwo";
+import StepFourEdit from "./StepFourEdit";
+import StepOneEdit from "./StepOneEdit";
+import StepThreeEdit from "./StepThreeEdit";
+import StepTwoEdit from "./StepTwoEdit";
 import "./styles.css";
 import toast, { Toaster } from "react-hot-toast"; // https://react-hot-toast.com/docs && https://react-hot-toast.com/
 
-const Form = () => {
+const Form = (props) => {
   const [page, setPage] = useState(0);
-  const [formData, setFormData] = useState({});
-  const [formDataStepThree, setFormDataStepThree] = useState({});
-  const [formDataImage, setFormDataImage] = useState([]);
-  const [formDataImageUpload, setFormDataImageUpload] = useState("");
+  console.log(props.adBlock);
+  const [formData, setFormData] = useState({
+    assetOption: props.adBlock.ad[0].adType == "קנייה" ? "buy" : "rent",
+    houseTax: props.adBlock.ad[0].houseCommittee || "",
+    price: props.adBlock.ad[0].price || "",
+    localTax: props.adBlock.ad[0].propertyTaxes || "",
+    city: props.adBlock.ad[0].city || "",
+    entryDate: props.adBlock.ad[0].enteringDate || "",
+    street: props.adBlock.ad[0].street || "",
+    numberOfRooms: props.adBlock.ad[0].rooms || "",
+    floor: props.adBlock.ad[0].floor || "",
+    maxFloor: props.adBlock.ad[0].maxFloor || "",
+    area: props.adBlock.ad[0].area || "",
+    assetType: props.adBlock.ad[0].assetType || "",
+    appartmentEntrance: props.adBlock.ad[0].entry || "",
+    appartmentNumber: props.adBlock.ad[0].building_number || "",
+  });
   const [formDataStepThreeBuy, setFormDataStepThreeBuy] = useState({});
+  const [formDataImage, setFormDataImage] = useState([]);
   const [formDataStepThreeRent, setFormDataStepThreeRent] = useState({});
+  const [formDataImageUpload, setFormDataImageUpload] = useState("");
   const { auth } = useAuth();
   // Page title, display accordin to our page index
   const FormTitles = [
@@ -37,7 +52,7 @@ const Form = () => {
     for (let i = 0; i < formDataImageUpload.length; i++) {
       data.append("files[]", formDataImageUpload[i]);
     }
-    data.append("data_type", "postNewAdd");
+    data.append("data_type", "editAd");
     data.append("formData", JSON.stringify(formData));
     data.append(
       "formDataStepThree",
@@ -45,6 +60,7 @@ const Form = () => {
         ? JSON.stringify(formDataStepThreeRent)
         : JSON.stringify(formDataStepThreeBuy)
     );
+    data.append("adId", props.adBlock.ad[0].adID);
     /**
      * END Build the post data
      */
@@ -54,8 +70,8 @@ const Form = () => {
         Authorization: `Bearer ${auth.accessToken}`,
       },
     });
-    console.log(result.data);
-    if (result?.data.message === "success") {
+    console.log(result);
+    if (result?.data === "success") {
       toast.dismiss(); // remove loading toast
       toast.success("המודעה פורסמה בהצלחה!");
     } else {
@@ -68,34 +84,56 @@ const Form = () => {
     //   window.location.reload(false);
     // }, 4000);
   };
-
+  useEffect(() => {
+    for (let index = 0; index < props.adBlock.adContent.length; index++) {
+      if (props.adBlock.ad[0].adType == "השכרה") {
+        formDataStepThreeRent[props.adBlock.adContent[index].name] =
+          props.adBlock.adContent[index].value;
+      } else {
+        formDataStepThreeBuy[props.adBlock.adContent[index].name] =
+          props.adBlock.adContent[index].value;
+      }
+    }
+  }, []);
   const PageDisplay = () => {
     switch (page) {
       case 0:
-        return <StepOne formData={formData} setFormData={setFormData} />;
-      case 1:
-        return <StepTwo formData={formData} setFormData={setFormData} />;
-      case 2:
         return (
-          <StepThree
+          <StepOneEdit
             formData={formData}
             setFormData={setFormData}
-            formDataStepThree={formDataStepThree}
-            setFormDataStepThree={setFormDataStepThree}
+            adBlock={props.adBlock}
+          />
+        );
+      case 1:
+        return (
+          <StepTwoEdit
+            formData={formData}
+            setFormData={setFormData}
+            adBlock={props.adBlock}
+          />
+        );
+      case 2:
+        return (
+          <StepThreeEdit
+            formData={formData}
+            setFormData={setFormData}
             formDataStepThreeBuy={formDataStepThreeBuy}
             setFormDataStepThreeBuy={setFormDataStepThreeBuy}
             formDataStepThreeRent={formDataStepThreeRent}
             setFormDataStepThreeRent={setFormDataStepThreeRent}
+            adBlock={props.adBlock}
           />
         );
       case 3:
         return (
-          <StepFour
+          <StepFourEdit
             formData={formData}
             setFormData={setFormData}
             formDataImage={formDataImage}
             setFormDataImage={setFormDataImage}
             setFormDataImageUpload={setFormDataImageUpload}
+            adBlock={props.adBlock}
           />
         );
       default:

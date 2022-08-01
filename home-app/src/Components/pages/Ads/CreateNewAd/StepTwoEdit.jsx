@@ -143,32 +143,44 @@ const StepTwo = ({ formData, setFormData }) => {
           placeholder="רחוב"
         />
         <div className="inputStyleStepTwo">
-          <input
-            type="text"
-            placeholder="מספר"
-            className="rounded-input"
-            name="appartmentNumber"
-            value={formData.appartmentNumber || ""}
-            onChange={handleChange}
-          />
-          <input
-            type="text"
-            placeholder="כניסה"
-            className="rounded-input"
-            name="appartmentEntrance"
-            value={formData.appartmentEntrance || ""}
-            onChange={handleChange}
-          />
+          <label>
+            {" "}
+            <span>מס בניין</span>
+            <input
+              type="text"
+              placeholder="מספר"
+              className="rounded-input"
+              name="appartmentNumber"
+              value={formData.appartmentNumber || ""}
+              onChange={handleChange}
+            />
+          </label>
+          <label>
+            {" "}
+            <span>כניסה</span>
+            <input
+              type="text"
+              placeholder="כניסה"
+              className="rounded-input"
+              name="appartmentEntrance"
+              value={formData.appartmentEntrance || ""}
+              onChange={handleChange}
+            />
+          </label>
         </div>
         <div>
-          <input
-            type="text"
-            placeholder="קומה"
-            className="rounded-input"
-            name="floor"
-            value={formData.floor || ""}
-            onChange={handleChange}
-          />
+          <label>
+            {" "}
+            <span> קומה</span>
+            <input
+              type="text"
+              placeholder="קומה"
+              className="rounded-input"
+              name="floor"
+              value={formData.floor || ""}
+              onChange={handleChange}
+            />
+          </label>
           <span> מתוך </span>
           <input
             type="text"
@@ -180,14 +192,18 @@ const StepTwo = ({ formData, setFormData }) => {
           />
         </div>
         <div className="inputStyleStepTwo">
-          <input
-            type="text"
-            placeholder="מספר חדרים"
-            className="rounded-input"
-            name="numberOfRooms"
-            value={formData.numberOfRooms || ""}
-            onChange={handleChange}
-          />
+          <label>
+            {" "}
+            <span>מס חדרים</span>
+            <input
+              type="text"
+              placeholder="מספר חדרים"
+              className="rounded-input"
+              name="numberOfRooms"
+              value={formData.numberOfRooms || ""}
+              onChange={handleChange}
+            />
+          </label>
         </div>
       </div>
       <div>
@@ -287,42 +303,58 @@ const StepTwo = ({ formData, setFormData }) => {
       <div>
         <h4>שטח במ"ר</h4>
         <div className="inputStyleStepTwo">
-          <input
-            type="number"
-            className="rounded-input"
-            placeholder="סהכ שטח"
-            name="area"
-            value={formData.area || ""}
-            onChange={handleChange}
-          />
+          <label>
+            {" "}
+            <span>שטח</span>
+            <input
+              type="number"
+              className="rounded-input"
+              placeholder="סהכ שטח"
+              name="area"
+              value={formData.area || ""}
+              onChange={handleChange}
+            />
+          </label>
         </div>
         <h4>מחיר מבוקש (ש"ח)?</h4>
         <div className="inputStyleStepTwo">
-          <input
-            type="number"
-            className="rounded-input"
-            placeholder="מחיר"
-            name="price"
-            value={formData.price || ""}
-            onChange={handleChange}
-          />
+          <label>
+            {" "}
+            <span>מחיר</span>
+            <input
+              type="number"
+              className="rounded-input"
+              placeholder="מחיר"
+              name="price"
+              value={formData.price || ""}
+              onChange={handleChange}
+            />
+          </label>
           <h4>תשלומים נוספים (ש"ח)?</h4>
-          <input
-            type="number"
-            className="rounded-input"
-            placeholder="ארנונה"
-            name="localTax"
-            value={formData.localTax || ""}
-            onChange={handleChange}
-          />
-          <input
-            type="number"
-            className="rounded-input"
-            placeholder="ועד בית"
-            name="houseTax"
-            value={formData.houseTax || ""}
-            onChange={handleChange}
-          />
+          <label>
+            {" "}
+            <span>ארנונה</span>
+            <input
+              type="number"
+              className="rounded-input"
+              placeholder="ארנונה"
+              name="localTax"
+              value={formData.localTax || ""}
+              onChange={handleChange}
+            />
+          </label>
+          <label>
+            {" "}
+            <span>ועד בית</span>
+            <input
+              type="number"
+              className="rounded-input"
+              placeholder="ועד בית"
+              name="houseTax"
+              value={formData.houseTax || ""}
+              onChange={handleChange}
+            />
+          </label>
         </div>
       </div>
     </div>

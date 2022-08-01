@@ -1,7 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { FaEye } from "react-icons/fa";
 import { FcSms } from "react-icons/fc";
-import { Link, NavLink, Outlet } from "react-router-dom";
+import {
+  Link,
+  NavLink,
+  Outlet,
+  Navigate,
+  useNavigate,
+  useLocation,
+} from "react-router-dom";
 import AdPart from "../AdPart.js";
 import AdContentPart from "../AdContentPart.js";
 import "../../styles/AdBlock.css";
@@ -24,6 +31,8 @@ const AdsBlock = (props) => {
   const [phone, setPhone] = useState(
     props.adBlock.user[0] ? props.adBlock.user[0].phone : 0
   );
+  const location = useLocation();
+  const [goToEditPage,setGoToEditPage]=useState(false);
   const [togglePhone, setTogglePhone] = useState("הצג טלפון");
   const [adBlock, setAdBlock] = useState(props.adBlock);
   const [isFavorite, setIsFavorite] = useState(props.adBlock.favorite);
@@ -49,6 +58,11 @@ const AdsBlock = (props) => {
     });
     console.log(res.data);
   };
+  const editAd=(e)=>{
+    e.preventDefault();
+    setGoToEditPage(true);
+     
+  }
   const changeViewToFull = async (e) => {
     e.preventDefault();
     if (
@@ -113,7 +127,7 @@ const AdsBlock = (props) => {
             className="jss1062"
             style={{
               display:
-                props.adBlock.user[0].mail=== auth?.user ? "none" : "block",
+                props.adBlock.user[0].mail === auth?.user ? "none" : "block",
             }}
           >
             {console.log(props.adBlock.user[0].mail)}
@@ -142,9 +156,30 @@ const AdsBlock = (props) => {
                 : togglePhone}
             </button>
             <button onClick={reportOnAd}>דווח על מודעה</button>
+            <button
+              style={{
+                display:
+                  props.adBlock.user[0].mail === auth?.user ? "none" : "block",
+              }}
+              onClick={editAd}
+            >
+              ערוך מודעה
+            </button>
           </div>
+          {goToEditPage ? (
+            <Navigate
+              to="/Settings/EditAd"
+              state={{
+                from: location,
+                act: "registerSucceeds",
+                adBlock: props.adBlock,
+              }}
+              replace
+            />
+          ) : (
+            ""
+          )}
         </div>
-        <div></div>
       </div>
     </section>
   );

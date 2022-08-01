@@ -49,6 +49,7 @@ import AddParameterToAds from "./Components/pages/users/Settings/Pages/AddParame
 import ChangeUserRule from "./Components/ChangeUserRule";
 import UserShow from "./Components/UserShow";
 import FavoritesAds from "./Components/FavoritesAds";
+import EditAd from "./Components/pages/EditAd.js";
 const ROLES = {
   User: 2001,
   Admin: 5150,
@@ -99,6 +100,7 @@ export default function App() {
                     <Route path="Messages" element={<Messages />} />
                     <Route path="Ads" element={<UserAds />} />
                     <Route path="Favorite" element={<Favorite />} />
+                    <Route path="EditAd" element={<EditAd />} />
                     <Route path="Purchase" element={<PurchaseHistory />} />
                     <Route element={<PersistLogin />}>
                       <Route
