@@ -19,7 +19,7 @@ function SearchAds(props) {
     user_id: "",
     city: "",
     street: "",
-    adType: "",
+    adType: "השכרה",
     maxRooms: "",
     minRooms: "",
     apartment: "",
@@ -103,6 +103,7 @@ function SearchAds(props) {
     setInputsAd((values) => ({ ...values, street: value }));
     setStreetSelectedOption(event);
   };
+ 
   const handleChangeAd = (event) => {
     const name = event.target.name;
     const value = event.target.value;
@@ -117,7 +118,7 @@ function SearchAds(props) {
       name === "maxRooms" ||
       name === "building_number" ||
       name === "maxArea" ||
-      "minArea"
+      name==="minArea"
     ) {
       if (isNaN(value)) return;
     }
@@ -280,7 +281,6 @@ function SearchAds(props) {
           value={inputsAd.adType}
           onChange={handleChangeAd}
         >
-          <option></option>
           <option>השכרה</option>
           <option>קנייה</option>
         </select>
@@ -480,9 +480,9 @@ function SearchAds(props) {
     return code;
   };
   const makeSearchFromScratch = () => {
-    returnStateToDefault();
-    setInputAdConentRent({});
-    setInputsAdContentBuy({});
+    // returnStateToDefault();
+    // setInputAdConentRent({});
+    // setInputsAdContentBuy({});
   };
   const returnStateToDefault = () => {
     setInputsAd({
@@ -490,7 +490,7 @@ function SearchAds(props) {
       city: "",
       area: "",
       street: "",
-      adType: "",
+      adType: "השכרה",
       maxRooms: "",
       minRooms: "",
       apartment: "",
