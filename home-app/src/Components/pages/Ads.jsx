@@ -202,10 +202,10 @@ const Ads = (props) => {
           setAdFull={setAdFull}
           setFullShow={props.setFullShow}
           setListShow={props.setListShow}
-          // showReport={showReport}
-          // setReportShow={setReportShow}
-          // adForTheReport={adForTheReport}
-          // setAdForTheReport={setAdForTheReport}
+          showReport={showReport}
+          setReportShow={setReportShow}
+          adForTheReport={adForTheReport}
+          setAdForTheReport={setAdForTheReport}
           auth={auth}
         />
       ) : (

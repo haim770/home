@@ -107,6 +107,10 @@ const StepTwo = ({ formData, setFormData }) => {
    * On render, first get list of all citys
    * Then when user select city, get all streets in the selected steet
    */
+  useEffect(() => {
+    setSearchMethod("city");
+    getSearchOprions();
+  }, []);
   useLayoutEffect(() => {
     if (selectedOption === null) {
       setSearchMethod("city");
