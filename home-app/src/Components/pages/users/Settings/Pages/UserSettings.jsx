@@ -238,6 +238,7 @@ const UserSettings = () => {
             value={user}
             aria-describedby="uidnote"
             disabled
+            className="inputField"
           />
         </div>
 
@@ -265,6 +266,7 @@ const UserSettings = () => {
             aria-describedby="uidnote"
             onFocus={() => setFirstNameFocus(true)}
             onBlur={() => setFirstNameFocus(false)}
+            className="inputField"
           />
         </div>
         <div className="Icon-inside">
@@ -316,6 +318,7 @@ const UserSettings = () => {
             aria-describedby="uidnote"
             onFocus={() => setPhoneNumberFocus(true)}
             onBlur={() => setPhoneNumberFocus(false)}
+            className="inputField"
           />
           <p
             id="pwdnote"
@@ -366,6 +369,7 @@ const UserSettings = () => {
               aria-describedby="pwdnote"
               onFocus={() => setPwdFocus(true)}
               onBlur={() => setPwdFocus(false)}
+              className="inputField"
             />
             <span>
               <IconButton
@@ -416,6 +420,7 @@ const UserSettings = () => {
               aria-describedby="confirmnote"
               onFocus={() => setMatchFocus(true)}
               onBlur={() => setMatchFocus(false)}
+              className="inputField"
             />
             <span>
               <IconButton
@@ -453,6 +458,7 @@ const UserSettings = () => {
               aria-describedby="confirmnote"
               onFocus={() => setMatchFocus(true)}
               onBlur={() => setMatchFocus(false)}
+              className="inputField"
             />
             <span>
               <IconButton

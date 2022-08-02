@@ -24,7 +24,7 @@ const Messages = () => {
   const inputRef = useRef();
   const [input, setInput] = useState("");
 
-  const { setChatInfo } = useView();
+  const { setChatInfo, chatInfo } = useView();
   /**
    * Get contacts from server
    */
@@ -86,18 +86,48 @@ const Messages = () => {
     }
   };
 
+    const getChatFirstTime = async (uuid) => {
+      const result = await instance.request({
+        data: {
+          data_type: "getChat",
+          params: { chatWith: uuid },
+        },
+        headers: {
+          Authorization: `Bearer ${auth.accessToken}`,
+        },
+      });
+      /**
+       * After we load all user message we want to show only new messages.
+       */
+      setShowNewMessages("refreshData");
+
+      // check if we got new data from server or any response
+      if (result?.data) {
+        if (result?.data?.chatMessages) {
+          setChatContact([
+            ...chatContact,
+            Object.values(result.data.chatMessages).map(
+              (anObjectMapped, index) => {
+                return {
+                  key: anObjectMapped["msgid"],
+                  msgData: anObjectMapped,
+                };
+              }
+            ),
+          ]);
+        }
+
+        if (result?.data?.newMessageUpdate > 0) {
+          //console.log(result.data);
+        }
+      }
+      // after finish load all data stop loading
+      setLoading(false);
+    };
   function handleClick(firstname, lastname, uuid) {
     setChatWithUUID(uuid);
     setChatWithName(`${firstname} ${lastname}`);
-
-        const chatWith = {
-          adBlock: [],
-          username: `${firstname} ${lastname}`,
-          uuid: uuid,
-          adID: "",
-        };
-    setChatInfo(chatWith);
-    getChat();
+    getChatFirstTime(uuid);
   }
 
   /**
@@ -187,6 +217,7 @@ const Messages = () => {
   // scroll down when new messages comes
   useEffect(() => {
     if (chatWithUUID !== "") inputRef.current.focus();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
