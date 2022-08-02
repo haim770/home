@@ -293,12 +293,25 @@
   z-index: 2;
   position: absolute;
 }
-.showList{
-  display:flex;
+
+.showList {
+  display: flex;
 }
-.notShowList{display: none;}
-.showFull{display:block};
-.notShowFull{display: none;}
+
+.notShowList {
+  display: none;
+}
+
+.showFull {
+  display: block
+}
+
+;
+
+.notShowFull {
+  display: none;
+}
+
 /* Add to Favorite circle 
 MuiButtonBase-root MuiFab-root jss2248 */
 
@@ -423,8 +436,9 @@ MuiButtonBase-root MuiFab-root jss2248 */
 }
 
 .jss185 {
-  padding-right: 12px;
-  padding-left: 12px;
+  margin: 1rem;
+  display: flex;
+  flex-direction: column;
 }
 
 /* This is the ad card, inner footer */
@@ -460,12 +474,6 @@ MuiButtonBase-root MuiFab-root jss2248 */
   }
 }
 
-/** This will contain the Ad footer Left button  */
-/* jss1061 */
-.jss1061 {
-  width: 50%;
-  padding-right: 4px;
-}
 
 
 /* button start chat */

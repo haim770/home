@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 import "./styles.css";
 
 /**
@@ -50,4 +50,4 @@ const StepOne = ({ formData, setFormData }) => {
   );
 };
 
-export default StepOne
+export default StepOne;

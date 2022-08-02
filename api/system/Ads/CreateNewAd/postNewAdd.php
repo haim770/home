@@ -20,7 +20,7 @@ $statusMsg = $errorMsg = $insertValuesSQL = $errorUpload = $errorUploadType = ''
  * STEP ONE
  * upload files to server
  */
-if(isset($_FILES)&&isset($_FILES['files'])&&isset($_FILES['files']['name'])){
+if(isset($fileNames)){
 if(!empty($fileNames)){
         $arr["serial_number"] = 1; // image counter
         foreach($_FILES['files']['name'] as $key=>$val){
@@ -49,7 +49,6 @@ if(!empty($fileNames)){
             }else{ 
                 $errorUploadType .= $_FILES['files']['name'][$key].' | '; 
             }
-        }
             /**
              * Save image to database
              */
@@ -63,7 +62,7 @@ if(!empty($fileNames)){
             }
             unset($arr["insertValuesSQL"]);
         }          
-    }
+    }}
 /**
  * STEP TWO write all Ad data to server
  */
@@ -80,9 +79,17 @@ if(!empty($fileNames)){
     );
     //////////////////////////////////////////////
     $expDate = date("Y-m-d H:i:s", $expFormat);
-    $adID = uniqid();
+    $adID = $arr["adUuid"];
     $expire_date = $expDate;
     $user_id= $user->getUuid();
+    if($formData->assetEntry=="עתידי"){
+        if($formData->entryDate!="")
+            $entryDate=$formData->entryDate;
+    }
+    else{
+        $entryDate=$formData->assetEntry;
+    }
+    
     $street = $formData->street;
     $building_number = $formData->appartmentNumber;
     $entry = $formData->appartmentEntrance;
@@ -98,7 +105,8 @@ if(!empty($fileNames)){
     $price = $formData->price;
     $rooms= $formData->numberOfRooms;
     $area=$formData->area;
-    $query="INSERT INTO ads (adID,user_id,city,street,propertyTaxes,houseCommittee,floor,maxFloor,price,rooms,adType,entry,building_number,expire_date,area) VALUES('$adID','$user_id','$city','$street','$propertyTaxes','$houseCommittee','$floor','$maxFloor','$price','$rooms','$adType','$entry','$building_number','$expire_date','$area')";
+    $property_type=$formData->assetType;
+    $query="INSERT INTO ads (adID,user_id,city,street,propertyTaxes,houseCommittee,floor,maxFloor,price,rooms,adType,entry,building_number,expire_date,area,entry_date,property_type) VALUES('$adID','$user_id','$city','$street','$propertyTaxes','$houseCommittee','$floor','$maxFloor','$price','$rooms','$adType','$entry','$building_number','$expire_date','$area','$entryDate','$property_type')";
     $db->writeDBNotStoredProcedure($query,[]);
     /////////////////////////////////////////////////
 

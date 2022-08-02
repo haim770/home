@@ -17,15 +17,24 @@ const Form = (props) => {
     price: props.adBlock.ad[0].price || "",
     localTax: props.adBlock.ad[0].propertyTaxes || "",
     city: props.adBlock.ad[0].city || "",
-    entryDate: props.adBlock.ad[0].enteringDate || "",
     street: props.adBlock.ad[0].street || "",
     numberOfRooms: props.adBlock.ad[0].rooms || "",
     floor: props.adBlock.ad[0].floor || "",
     maxFloor: props.adBlock.ad[0].maxFloor || "",
     area: props.adBlock.ad[0].area || "",
-    assetType: props.adBlock.ad[0].assetType || "",
     appartmentEntrance: props.adBlock.ad[0].entry || "",
     appartmentNumber: props.adBlock.ad[0].building_number || "",
+    entryDate:
+      props.adBlock.ad[0].entry_date !== "גמיש" &&
+      props.adBlock.ad[0].entry_date !== "מיידי"
+        ? props.adBlock.ad[0].entry_date
+        : "",
+    assetType: props.adBlock.ad[0].property_type || "דירה",
+    assetEntry:
+      props.adBlock.ad[0].entry_date === "גמיש" ||
+      props.adBlock.ad[0].entry_date === "מיידי"
+        ? props.adBlock.ad[0].entry_date
+        : "עתידי",
   });
   const [formDataStepThreeBuy, setFormDataStepThreeBuy] = useState({});
   const [formDataImage, setFormDataImage] = useState([]);

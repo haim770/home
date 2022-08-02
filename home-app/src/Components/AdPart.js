@@ -27,14 +27,14 @@ const AdPart = (props) => {
           break;
         case "create_time":
           hebrewKey = "תאריך יצירת מודעה";
-            code.push(
-              <Parameter
-                key={props.ad[0].adID + key}
-                paramName={hebrewKey}
-                paramValue={value.substring(0, value.indexOf(" "))}
-              />
-            );
-            continue;
+          code.push(
+            <Parameter
+              key={props.ad[0].adID + key}
+              paramName={hebrewKey}
+              paramValue={value.substring(0, value.indexOf(" "))}
+            />
+          );
+          continue;
         case "contact_counter":
           hebrewKey = "מספר אנשים שיצרו קשר";
           break;
@@ -48,7 +48,7 @@ const AdPart = (props) => {
           hebrewKey = "רחוב";
           break;
         case "area":
-          hebrewKey="שטח";
+          hebrewKey = "שטח";
           break;
         case "building_number":
           hebrewKey = "מס בניין";
@@ -85,6 +85,12 @@ const AdPart = (props) => {
           break;
         case "entry":
           hebrewKey = "כניסה";
+          break;
+        case "entry_date":
+          hebrewKey = "תאריך כניסה";
+          break;
+        case "property_type":
+          hebrewKey = "סוג נכס";
           break;
         default:
           hebrewKey = "אין מפתח";

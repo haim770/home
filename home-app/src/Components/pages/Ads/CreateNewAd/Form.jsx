@@ -94,6 +94,7 @@ const Form = () => {
             formData={formData}
             setFormData={setFormData}
             formDataImage={formDataImage}
+            formDataImageUpload={formDataImageUpload}
             setFormDataImage={setFormDataImage}
             setFormDataImageUpload={setFormDataImageUpload}
           />

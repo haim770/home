@@ -12,15 +12,17 @@ const StepFour = ({
   formDataImage,
   setFormDataImage,
   setFormDataImageUpload,
+  formDataImageUpload,
 }) => {
   const fileName = uuidv4();
   const handleImageChange = (e) => {
+    console.log(e.target.files[0]);
+    console.log(Array.from(e.target.files), "file");
     if (e.target.files) {
       setFormDataImageUpload(e.target.files);
       const filesArray = Array.from(e.target.files).map((file) =>
         URL.createObjectURL(file)
       );
-
       setFormDataImage((prevImages) => prevImages.concat(filesArray));
       Array.from(e.target.files).map(
         (file) => URL.revokeObjectURL(file) // avoid memory leak
@@ -39,7 +41,7 @@ const StepFour = ({
         id="file"
         name="files"
         accept="image/*"
-        multiple
+        multiple={true}
         onChange={handleImageChange}
       />
       <div className="label-holder">

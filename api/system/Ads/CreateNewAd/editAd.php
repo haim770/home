@@ -99,7 +99,15 @@ if(!empty($fileNames)){
     $price = $formData->price;
     $rooms= $formData->numberOfRooms;
     $area=$formData->area;
-    $query="UPDATE ads SET city = '$city', street = '$street',propertyTaxes ='$propertyTaxes', houseCommittee ='$houseCommittee',floor ='$floor',maxFloor ='$maxFloor',price='$price',rooms='$rooms',adType='$adType',entry='$entry',building_number='$building_number',expire_date='$expire_date',area= '$area' WHERE adID = '$adID'";
+    $property_type=$formData->assetType;
+    if($formData->assetEntry=="עתידי"){
+        if($formData->entryDate!="")
+            $entryDate=$formData->entryDate;
+    }
+    else{
+        $entryDate=$formData->assetEntry;
+    }
+    $query="UPDATE ads SET city = '$city', street = '$street',propertyTaxes ='$propertyTaxes', houseCommittee ='$houseCommittee',floor ='$floor',maxFloor ='$maxFloor',price='$price',rooms='$rooms',adType='$adType',entry='$entry',building_number='$building_number',expire_date='$expire_date',area= '$area',property_type='$property_type',entry_date='$entryDate' WHERE adID = '$adID'";
     $db->writeDBNotStoredProcedure($query,[]);
 
 /**
