@@ -23,29 +23,13 @@ section{
   border-radius: 1rem;
 }
 
-input[type="text"] {
+.inputField {
   padding: 1rem;
   border: 0;
   box-shadow: 0 0 1.5rem 0.4rem rgba(0, 0, 0, 0.06);
   width: 35%;
   border-radius: 1rem;
 }
-
-input[type="password"] {
-  padding: 1rem;
-  border: 0;
-  box-shadow: 0 0 1.5rem 0.4rem rgba(0, 0, 0, 0.06);
-  width: 35%;
-  border-radius: 1rem;
-}
-input[type="number"] {
-  padding: 1rem;
-  border: 0;
-  box-shadow: 0 0 1.5rem 0.4rem rgba(0, 0, 0, 0.06);
-  width: 35%;
-  border-radius: 1rem;
-}
-
 
 .headerH3 {
 display: flex;
