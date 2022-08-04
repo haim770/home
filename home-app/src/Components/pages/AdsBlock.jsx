@@ -40,13 +40,20 @@ const AdsBlock = (props) => {
   const [showReport, setReportShow] = useState("notShowReport");
   const { auth } = useAuth();
   const { startNewChat } = useView();
-  const handleClickChatWith = () => {
+  const handleClickChatWith = async () => {
     const chatWith = {
       adBlock: props.adBlock.ad[0],
       username: `${props.adBlock.user[0].first_name} ${props.adBlock.user[0].last_name}`,
       uuid: props.adBlock.user[0].uuid,
       adID: props.adBlock.ad[0].adID,
     };
+    const res = await instance.request({
+      data: {
+        data_type: "updateContacted",
+        params: { adID: props.adBlock.ad[0].adID }, //window.location.href gets the urlline
+      },
+    });
+    console.log(res.data);
     startNewChat(chatWith);
   };
   const updateWatch = async () => {

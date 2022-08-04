@@ -47,7 +47,10 @@ const Sidebar = () => {
             </Link>
           </li>
           <li>
-            <Link to="/Settings/ManageReports" style={{ textDecoration: "none" }}>
+            <Link
+              to="/Settings/ManageReports"
+              style={{ textDecoration: "none" }}
+            >
               <HiOutlineDocumentReport className="icon" />
               <span>דוחות</span>
             </Link>
@@ -69,6 +72,12 @@ const Sidebar = () => {
             <Link to="/Settings/Purchase" style={{ textDecoration: "none" }}>
               <BiPurchaseTagAlt className="icon" />
               <span>רכישות</span>
+            </Link>
+          </li>
+          <li>
+            <Link to="/Settings/UserReportsToAds" style={{ textDecoration: "none" }}>
+              <BiPurchaseTagAlt className="icon" />
+              <span>דוחות על מודעות של משתמש</span>
             </Link>
           </li>
           <p className="title">ניהול</p>

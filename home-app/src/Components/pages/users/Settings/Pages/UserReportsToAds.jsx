@@ -6,37 +6,36 @@ import "./Styles/ManageReports.css";
 import useAuth from "../../../../../Auth/useAuth";
 import instance from "../../../../../api/AxiosInstance";
 import HandleComplainOnAd from "./HandleComplainOnAd.js";
+import AdFullForPropsWithReport from "../../../../AdFullForPropsWithReport.js";
 
 const columns = [
-  { field: "id", headerName: "מס תלונה" },
-  { field: "element_id", headerName: "מספר אלמנט" },
-  { field: "userId", headerName: "משתמש שהתלונן" },
-  { field: "create_time", headerName: "תאריך" },
-  { field: "active", headerName: "סטטוס תלונה" },
-  { field: "content", headerName: "תוכן תלונה" },
-  { field: "title", headerName: "כותרת תלונה" },
-  { field: "manage_feedback", headerName: "תגובת מנהל לתלונה" },
-  { field: "report_reason", headerName: "סיבת תלונה" },
-  { field: "element_type", headerName: "סוג אלמנט" },
+  { field: "id", headerName: "מס סידורי" },
+  { field: "reportId", headerName: "מספר דוח" },
+  { field: "adId", headerName: "משתמש מודעה" },
+  { field: "createTime", headerName: "תאריך" },
+  { field: "seen", headerName: "נראה " },
 ];
 
-const ManageReports = () => {
+const UserReportsToAds = () => {
   const { auth } = useAuth();
   const [rows, setRows] = useState([]);
   const [tableClassName, setTableClassName] = useState("showTable");
   const [showSelected, setShowSelected] = useState("notShowSelected");
+  const [selectedMsg, setSelectedMsg] = useState({});
   const [selectedReport, setSelectedReport] = useState({});
+  const [reportFeedback, setReportFeedback] = useState({});
   const [selectedAd, setSelectedAd] = useState({});
-  const [searchReports, setSearchReports] = useState("getAllReports");
+  const [searchReports, setSearchReports] = useState("כל ההודעות");
 
   /**
    * Get Data from server
    */
-  const getSelectedAd = async (row) => {
+  const getSelectedAdWithReportFeedback = async (row) => {
+    setSelectedMsg(row);
     let result = await instance.request({
       data: {
-        data_type: "getAdByAdId",
-        params: { adId: row.element_id },
+        data_type: "getSelectedAdWithReportFeedback",
+        params: { guest: "guest", adId: row.adId, reportId: row.reportId },
         guest: "guest",
       },
       headers: {
@@ -46,30 +45,18 @@ const ManageReports = () => {
     console.log(result.data);
     setSelectedAd(result.data);
   };
-  const getAllReports = async () => {
-    //get all reports
-    const result = await instance.request({
+  const getAllReportsForUser = async (row) => {
+    let result = await instance.request({
       data: {
-        data_type: "getAllReports",
+        data_type: "getAllReportsOnAdsForUserId",
         params: { guest: "registered" },
       },
       headers: {
         Authorization: `Bearer ${auth.accessToken}`,
       },
     });
-    // check if we got new data from server or any response
-    if (result?.data) {
-      if (result.data == "not authorized") {
-        alert("not authorized");
-        return;
-      }
-
-      console.log(result.data);
-
-      setRows(result.data);
-    }
     console.log(result.data);
-    console.log(rows);
+    setRows(result.data);
   };
   /**
    * This will make that first we get all contacts then we will display all other
@@ -77,7 +64,7 @@ const ManageReports = () => {
    * window
    */
   useLayoutEffect(() => {
-    getAllReports();
+    getAllReportsForUser();
   }, []);
   const serchReportsByParam = async (e) => {
     e.preventDefault();
@@ -85,16 +72,19 @@ const ManageReports = () => {
       alert("choose option");
       return;
     }
-    const data_type =
-      searchReports === "דוחות שטופלו בעבר"
-        ? "getReportsThatAreNotActive"
-        : searchReports === "דוחות חדשים"
-        ? "getNewReports"
-        : "getAllReports";
+    console.log(searchReports);
     const result = await instance.request({
       data: {
-        data_type: data_type,
-        params: { guest: "registered" },
+        data_type: "getReportsOnAdsForUserIdByParam",
+        params: {
+          guest: "registered",
+          seenStatus:
+            searchReports === "הודעות שנקראו"
+              ? "1"
+              : searchReports === "הודעות חדשות"
+              ? "0"
+              : "all",
+        },
       },
       headers: {
         Authorization: `Bearer ${auth.accessToken}`,
@@ -130,9 +120,9 @@ const ManageReports = () => {
             }}
           >
             <option></option>
-            <option>דוחות חדשים</option>
-            <option>כל הדוחות</option>
-            <option>דוחות שטופלו בעבר</option>
+            <option>הודעות חדשות </option>
+            <option>כל ההודעות</option>
+            <option>הודעות שנקראו</option>
           </select>
         </label>
         <button onClick={serchReportsByParam}>חפש דוחות</button>
@@ -147,20 +137,20 @@ const ManageReports = () => {
           onRowClick={async (e) => {
             setSelectedReport(e.row);
             setTableClassName("notShowTable");
-            await getSelectedAd(e.row);
+            await getSelectedAdWithReportFeedback(e.row);
             setShowSelected("showSelected");
-            console.log(e.row);
           }}
         />
       </div>
       {showSelected === "showSelected" ? (
-        <HandleComplainOnAd
+        <AdFullForPropsWithReport
           className={showSelected}
           setClassName={setShowSelected}
           setTableClassName={setTableClassName}
-          selectedReport={selectedReport}
-          selectedAd={selectedAd}
+          report={selectedAd.report}
+          adBlock={selectedAd.ad}
           setSelectedAd={setSelectedAd}
+          msg={selectedMsg}
           setSelectedReport={setSelectedReport}
         />
       ) : (
@@ -170,4 +160,4 @@ const ManageReports = () => {
   );
 };
 
-export default ManageReports;
+export default UserReportsToAds;

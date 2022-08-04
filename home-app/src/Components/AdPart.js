@@ -5,6 +5,9 @@ const AdPart = (props) => {
   const renderComp = () => {
     let code = [];
     for (const [key, value] of Object.entries(props.ad[0])) {
+      if (value == "") {
+        continue;
+      }
       if (
         key === "adID" ||
         key === "active" ||

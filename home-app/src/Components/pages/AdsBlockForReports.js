@@ -26,51 +26,6 @@ const AdsBlockForReports = (props) => {
   const [didWatch, setDidWatch] = useState(0);
   const [showReport, setReportShow] = useState("notShowReport");
   const { auth } = useAuth();
-  // const { startNewChat } = useView();
-  // // const handleClickChatWith = () => {
-  // //   const chatWith = {
-  // //     adBlock: props.adBlock.ad[0],
-  // //     username: `${props.adBlock.user[0].first_name} ${props.adBlock.user[0].last_name}`,
-  // //     uuid: props.adBlock.user[0].uuid,
-  // //     adID: props.adBlock.ad[0].adID,
-  // //   };
-  //   startNewChat(chatWith);
-  // // };
-  // const updateWatch = async () => {
-  //   const res = await instance.request({
-  //     data: {
-  //       data_type: "updateWatch",
-  //       params: { adID: props.adBlock.ad[0].adID }, //window.location.href gets the urlline
-  //     },
-  //   });
-  //   console.log(res.data);
-  // };
-  // const changeViewToFull = async (e) => {
-  //   e.preventDefault();
-  //   if (
-  //     e.target.tagName === "svg" ||
-  //     e.target.tagName === "BUTTON" ||
-  //     e.target.tagName === "path" ||
-  //     e.target.tagName === "button" ||
-  //     e.target.parentElement.className === "showReport" ||
-  //     e.target.parentElement.parentElement.className === "showReport" ||
-  //     e.target.parentElement.parentElement.parentElement.className ===
-  //       "showReport"
-  //   )
-  //     //if the child is doing something in clicking we wont fire the view change
-  //     return;
-  //   await updateWatch();
-  //   setDidWatch((didWatch) => didWatch + 1);
-  //   props.setListShow("notShowList");
-  //   props.setFullShow("showFull");
-  //   props.setAdFull(props.adBlock);
-  // };
-  // const reportOnAd = (e) => {
-  //   //report on ad
-  //   e.preventDefault();
-  //   props.setReportShow("showReport");
-  //   props.setAdForTheReport(props.adBlock);
-  // };
   const deleteAd = async (e) => {
     //get all reports
     const result = await instance.request({

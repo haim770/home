@@ -129,7 +129,103 @@ function getReportsThatAreNotActive(){
     die;
   }
 }
-
+function sendReportToUser(){
+    //send msg to user about a report
+  global $userType;
+  global $user;
+  global $db;
+  global $DATA_OBJ;
+  if($userType!="registered"){
+    die;
+  }
+  $msgId=uniqid();
+  $elementId=$DATA_OBJ->params->elementId;
+  $userId=$DATA_OBJ->params->userId;
+  $reportId=$DATA_OBJ->params->reportId;
+  $content=$reportId." ".$elementId;//we will contain the element id and the report id at the content
+  $query="INSERT INTO system_messages (msgId,userId,message_content,msgType) VALUES ('$msgId','$userId','$content','report')";
+  $result=$db->readDBNoStoredProcedure($query);
+  echo json_encode($result);
+  die;
+}
+function getReportsOnAdsForUserIdByParam($seenStatus){
+  global $userType;
+  global $user;
+  global $db;
+  global $DATA_OBJ;
+  if($userType!="registered"){
+    echo "not authorized";
+    die;
+  }
+  else{
+    $userId= $user->getUuid();
+    $msgId=uniqid();
+    //we will contain the element id and the report id at the content
+    $query="select * from system_messages where userId = '$userId' and msgType= 'report' and seen='$seenStatus'";
+    $result=$db->readDBNoStoredProcedure($query);
+    $resultForTheTable=[];
+    $objForRow=[];
+    for ($i=0; $i <count($result) ; $i++) {
+      //we split the msg content to report id and adId
+      $objForRow=array("id"=>$result[$i]->msgId,"reportId"=>explode(" ", $result[$i]->message_content)[0],"adId"=>explode(" ", $result[$i]->message_content)[1],"createTime"=>$result[$i]->create_time,"seen"=>$result[$i]->seen=="1"?"כן":"לא");
+      // $objForRow=json_encode($objForRow);
+      $resultForTheTable[$i]=$objForRow;
+    }
+    echo json_encode($resultForTheTable);
+    die;
+  }
+}
+function getAllReportsOnAdsForUserId(){
+    //send msg to user about a report
+  global $userType;
+  global $user;
+  global $db;
+  global $DATA_OBJ;
+  if($userType!="registered"){
+    echo "not authorized";
+    die;
+  }
+  else{
+    $userId= $user->getUuid();
+    $msgId=uniqid();
+    //we will contain the element id and the report id at the content
+    $query="select * from system_messages where userId = '$userId' and msgType= 'report'";
+    $result=$db->readDBNoStoredProcedure($query);
+    $resultForTheTable=[];
+    $objForRow=[];
+    for ($i=0; $i <count($result) ; $i++) {
+      //we split the msg content to report id and adId
+      $objForRow=array("id"=>$result[$i]->msgId,"reportId"=>explode(" ", $result[$i]->message_content)[0],"adId"=>explode(" ", $result[$i]->message_content)[1],"createTime"=>$result[$i]->create_time,"seen"=>$result[$i]->seen=="1"?"כן":"לא");
+      // $objForRow=json_encode($objForRow);
+      $resultForTheTable[$i]=$objForRow;
+    }
+    echo json_encode($resultForTheTable);
+    die;
+}
+}
+function getReportById($elementId){
+  //return a report from the user_reports table by its id
+  global $userType;
+  global $user;
+  global $db;
+  global $DATA_OBJ;
+  $query="select * from user_reports where id='$elementId'";
+  $result=$db->readDBNoStoredProcedure($query);
+  return $result;
+}
+function getSelectedAdWithReportFeedback(){
+  //get feedback and the ad
+  global $userType;
+  global $user;
+  global $db;
+  global $DATA_OBJ;
+require_once('searchAds.php');//to have the functions that find ad by id
+ $ad=getAdByAdIdForParams($DATA_OBJ->params->adId);
+ $report=getReportById($DATA_OBJ->params->reportId);
+ $result["ad"]=$ad;
+ $result["report"]=$report;
+echo json_encode($result);
+}
 if($DATA_OBJ->data_type=="reportOnElement"){
 createReportOnAd();
 }
@@ -157,10 +253,36 @@ else{
             if($DATA_OBJ->data_type=="getNewReports"){
               getNewReports();
             }
+            else{
+              if($DATA_OBJ->data_type=="sendReportToUser"){
+                sendReportToUser();
+              }
+              else{
+                if($DATA_OBJ->data_type=="getAllReportsOnAdsForUserId"){
+                  getAllReportsOnAdsForUserId();
+                }
+                else{
+                  if($DATA_OBJ->data_type=="getReportsOnAdsForUserIdByParam"){
+                    if($DATA_OBJ->params->seenStatus!="1"&&$DATA_OBJ->params->seenStatus!="0"){
+                     getAllReportsOnAdsForUserId();
+                    }
+                     else{
+                      
+                        getReportsOnAdsForUserIdByParam($DATA_OBJ->params->seenStatus);
+                      }
+                    }
+                  else{
+                  if($DATA_OBJ->data_type=="getSelectedAdWithReportFeedback"){
+                    getSelectedAdWithReportFeedback();
+                  }
+                }
+              }
+            }
           }
         }
       }
     }
   }
+}
 }
 ?>

@@ -152,9 +152,26 @@ function Report(props) {
     });
     console.log(result.data);
   };
-  const sendFeedbackToOWnerOfTheAd=()=>{
-
-  }
+  const sendFeedbackToOWnerOfTheAd = async (e) => {
+    e.preventDefault();
+    console.log(props.adBlock);
+    const result = await instance.request({
+      data: {
+        data_type: "sendReportToUser",
+        params: {
+          guest: auth.accessToken != undefined ? "registered" : "guest",
+          elementId: props.adBlock.ad[0].adID,
+          reportId: props.report.id,
+          userId: props.adBlock.user[0].uuid,
+        },
+      },
+      headers: {
+        Authorization: `Bearer ${auth.accessToken}`,
+      },
+    });
+    alert("report sent to user");
+    console.log(result.data);
+  };
   return (
     <section className={props.className}>
       <div className="parameterShowReport">
