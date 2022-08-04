@@ -1,11 +1,10 @@
 import React from 'react'
-import Blog from "./Blog";
-
+import Home from "./Home/index";
 
 const index = () => {
   return (
     <>
-      <Blog />
+      <Home />
     </>
   );
 }
