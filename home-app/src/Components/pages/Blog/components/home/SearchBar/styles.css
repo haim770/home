@@ -9,12 +9,14 @@
 .searchBar-wrap form {
   display: flex;
   align-items: center;
+  min-width: 25%;
 }
 
 .searchBar-wrap input {
   background-color: #f0f0f0;
   outline: none;
   border: none;
+  padding-left: 15rem;
 }
 
 .searchBar-wrap span {

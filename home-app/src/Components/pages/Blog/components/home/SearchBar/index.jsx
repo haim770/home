@@ -6,12 +6,12 @@ const SearchBar = ({ formSubmit, value, handleSearchKey, clearSearch }) => (
     <form onSubmit={formSubmit}>
       <input
         type='text'
-        placeholder='Search By Category'
+        placeholder='חפש קטגוריה'
         value={value}
         onChange={handleSearchKey}
       />
       {value && <span onClick={clearSearch}>X</span>}
-      <button>Go</button>
+      <button>חפש</button>
     </form>
   </div>
 );
