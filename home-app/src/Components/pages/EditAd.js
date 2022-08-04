@@ -2,14 +2,14 @@ import React, { useState, useEffect } from "react";
 import { FaEye } from "react-icons/fa";
 import { FcSms } from "react-icons/fc";
 import { Link, NavLink, Outlet, useLocation } from "react-router-dom";
-import AdPartEdit from "../AdPartEdit.js";
-import AdContentPartEdit from "../AdContentPartEdit.js";
+//import AdPartEdit from "../AdPartEdit.js";
+//import AdContentPartEdit from "../AdContentPartEdit.js";
 import "../../styles/AdBlock.css";
 import "../../styles/Report.css";
 import FormEdit from "../pages/Ads/CreateNewAd/FormEdit.jsx";
 // view component for the chat
 import useView from "./Chat/ChatUseContext";
-import AdImagesEdit from "../AdImagesEdit.js";
+//import AdImagesEdit from "../AdImagesEdit.js";
 import { v4 as uuidv4 } from "uuid";
 import RecipeReviewCard from "../RecipeReviewCard.js";
 import instance from "../../api/AxiosInstance.jsx";

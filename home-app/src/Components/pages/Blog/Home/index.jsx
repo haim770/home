@@ -4,6 +4,7 @@ import BlogList from '../components/home/BlogList';
 import Header from '../components/home/Header';
 import SearchBar from '../components/home/SearchBar';
 import { blogList } from '../config/data';
+import "./styles.css";
 
 const Home = () => {
   const [blogs, setBlogs] = useState(blogList);
@@ -31,7 +32,7 @@ const Home = () => {
   };
 
   return (
-    <div>
+    <div className="blogMargin">
       {/* Page Header */}
       <Header />
 

@@ -1,9 +1,10 @@
 import React from "react";
 import "./styles.css";
+import img1 from "../../../images/13525-empty.gif";
 
 const EmptyList = () => (
   <div className="emptyList-wrap">
-    <img src="../../../images/13525-empty.gif" alt="empty" />
+    <img src={img1} alt="empty" />
   </div>
 );
 

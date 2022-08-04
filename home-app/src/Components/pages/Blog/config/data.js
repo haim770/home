@@ -1,3 +1,12 @@
+import author from "../images/author.jpg";
+import designer_1 from "../images/designer-1.jpg";
+import jibrish1 from "../images/f67396fc3cfce63a28e07ebb35d974ac.jpg";
+import jibrish2 from "../images/fQwuyKJ9qxjSbr6REcgtmW-1200-80.jpg";
+import jibrish3 from '../images/graphic-design-trends.png';
+import jibrish4 from "../images/make-it-personal.jpg";
+import jib5 from "../images/Purple-Combination-colors-graphic-design-predictions-1024x576-1024x576.jpg";
+import jib6 from "../images/Synthwave-Postmodern.jpg";
+
 export const blogList = [
   {
     id: 1,
@@ -7,9 +16,9 @@ export const blogList = [
     description:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
     authorName: "Lidor ben shimol",
-    authorAvatar: "../images/author.jpg",
+    authorAvatar: author,
     createdAt: "June 03, 2021",
-    cover: "../images/designer-1.jpg",
+    cover: designer_1,
   },
   {
     id: 2,
@@ -19,9 +28,9 @@ export const blogList = [
     description:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
     authorName: "Lidor ben shimol",
-    authorAvatar: "../images/author.jpg",
+    authorAvatar: author,
     createdAt: "June 03, 2021",
-    cover: "../images/f67396fc3cfce63a28e07ebb35d974ac.jpg",
+    cover: jibrish1,
   },
   {
     id: 3,
@@ -31,9 +40,9 @@ export const blogList = [
     description:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
     authorName: "John Doe",
-    authorAvatar: "../images/author.jpg",
+    authorAvatar: author,
     createdAt: "June 03, 2021",
-    cover: "../images/fQwuyKJ9qxjSbr6REcgtmW-1200-80.jpg",
+    cover: jibrish2,
   },
   {
     id: 4,
@@ -43,9 +52,9 @@ export const blogList = [
     description:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
     authorName: "John Doe",
-    authorAvatar: "../images/author.jpg",
+    authorAvatar: author,
     createdAt: "June 03, 2021",
-    cover: "../images/graphic-design-trends.png",
+    cover: jibrish3,
   },
   {
     id: 5,
@@ -55,9 +64,9 @@ export const blogList = [
     description:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
     authorName: "John Doe",
-    authorAvatar: "../images/author.jpg",
+    authorAvatar: author,
     createdAt: "June 03, 2021",
-    cover: "../images/make-it-personal.jpg",
+    cover: jibrish4,
   },
   {
     id: 6,
@@ -67,10 +76,9 @@ export const blogList = [
     description:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
     authorName: "John Doe",
-    authorAvatar: "../images/author.jpg",
+    authorAvatar: author,
     createdAt: "June 03, 2021",
-    cover:
-      "../images/Purple-Combination-colors-graphic-design-predictions-1024x576-1024x576.jpg",
+    cover: jib5,
   },
   {
     id: 7,
@@ -80,8 +88,8 @@ export const blogList = [
     description:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
     authorName: "John Doe",
-    authorAvatar: "../images/author.jpg",
+    authorAvatar: author,
     createdAt: "June 03, 2021",
-    cover: "../images/Synthwave-Postmodern.jpg",
+    cover: jib6,
   },
 ];
