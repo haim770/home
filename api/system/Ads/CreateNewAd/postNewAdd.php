@@ -106,7 +106,7 @@ if(!empty($fileNames)){
     $rooms= $formData->numberOfRooms;
     $area=$formData->area;
     $property_type=$formData->assetType;
-    $query="INSERT INTO ads (adID,user_id,city,street,propertyTaxes,houseCommittee,floor,maxFloor,price,rooms,adType,entry,building_number,expire_date,area,entry_date,property_type) VALUES('$adID','$user_id','$city','$street','$propertyTaxes','$houseCommittee','$floor','$maxFloor','$price','$rooms','$adType','$entry','$building_number','$expire_date','$area','$entryDate','$property_type')";
+    $query="INSERT INTO ads (adID,user_id,city,street,propertyTaxes,houseCommittee,floor,maxFloor,price,rooms,adType,entry,building_number,expire_date,area,entry_date,property_type,ad_link) VALUES('$adID','$user_id','$city','$street','$propertyTaxes','$houseCommittee','$floor','$maxFloor','$price','$rooms','$adType','$entry','$building_number','$expire_date','$area','$entryDate','$property_type','$adID')";
     $db->writeDBNotStoredProcedure($query,[]);
     /////////////////////////////////////////////////
 
@@ -114,7 +114,7 @@ if(!empty($fileNames)){
  * Step 3 - ad contact
  */
     $formDataStepThree = json_decode($DATA_OBJ["formDataStepThree"]);
-    $category=$formData->assetOption;
+    $category=$formData->assetOption=="buy"?"קנייה":"השכרה";
     foreach ($formDataStepThree as $key => $value) {
         // create new element id
            $elementid = uniqid();

@@ -105,7 +105,7 @@ function generateSearchFromBothAdContentAndAds1(){
     $hasAdContentAtSearch=false;
     if(!isset($DATA_OBJ->params)||$DATA_OBJ->params==[]){
         //if there is no params
-        return "select  DISTINCT ads.adID,ads.user_id from ads where ads.active =1 limit ".$DATA_OBJ->limitBy->end." OFFSET ".$DATA_OBJ->limitBy->start.";";
+        return "select  DISTINCT ads.adID,ads.user_id from ads where ads.active =1 order by create_time DESC limit ".$DATA_OBJ->limitBy->end." OFFSET ".$DATA_OBJ->limitBy->start.";";
     }
     //if there is parameters to search by
     $query="select DISTINCT ads.adID,ads.user_id from ads,ad_content where ads.adID=ad_content.adID and active =1" ;
@@ -158,7 +158,7 @@ function generateSearchFromBothAdContentAndAds1(){
             if(!$hasAdContentAtSearch){
                 $query=$queryWithoutAdContentParams;
             }
-             $query.=" ".$queryAdTableParams." ".$queryAdContentTableParams." limit ".$DATA_OBJ->limitBy->end." offset ".$DATA_OBJ->limitBy->start.";";
+             $query.=" ".$queryAdTableParams." ".$queryAdContentTableParams."order by create_time DESC limit ".$DATA_OBJ->limitBy->end." offset ".$DATA_OBJ->limitBy->start.";";
              
         }
         else{
@@ -192,6 +192,17 @@ function getAdByAdId(){
     echo json_encode($result);
     $arr=[];
     die;
+}
+function getAdByAdIdForParams($adId){
+    //returns the ad for the id we got in dataObj for params func
+    global $db;
+    global $DATA_OBJ;
+    global $arr;
+    $query = "select * from ads where adID= '$adId'";
+    $result = $db->readDBNoStoredProcedure($query,[]);
+    $result=getAdWithAdContentForAdId1($result[0]->adID,$result[0]->user_id);
+    $arr=[];
+    return $result;
 }
 function getAllOfMyAds(){
     //get all of my ads by id of user

@@ -437,7 +437,6 @@ function insertNewAd()
 
     $arrOfAdContent = [];
     $arrOfAdContent = insertNewAdContentTableArray($DATA_OBJ->params->adContent);
-
     $queryAdContent = makeInsertAdContentQuery($arrOfAdContent, $arrOfAd['adID']);
     $queryAd = "insertAd(:adID,:user_id,:city,:street,:price,:adType,:building_number,:entry,:apartment,:rooms)";
     $result = $db->writeDB($queryAd, $arrOfAd);
@@ -447,18 +446,28 @@ function insertNewAd()
     echo json_encode($result);
     $arr = [];
 }
-function updateWatch()
-{
+// function updateContacted(){
+//      global $db;
+//     global $DATA_OBJ;
+//     global $arr;
+//     $arr = [];
 
-    global $db;
-    global $DATA_OBJ;
-    global $arr;
-    $arr = [];
+//     $query = "update ads set contact_counter=contact_counter+1 where adID ='{$DATA_OBJ->params->adID}'";
+//     $result = $db->writeDBNotStoredProcedure($query);
+//     echo json_encode($result);
+// }
+// function updateWatch()
+// {
 
-    $query = "update ads set watch=watch+1 where adID ='{$DATA_OBJ->params->adID}'";
-    $result = $db->writeDBNotStoredProcedure($query);
-    echo json_encode($result);
-}
+//     global $db;
+//     global $DATA_OBJ;
+//     global $arr;
+//     $arr = [];
+
+//     $query = "update ads set watch=watch+1 where adID ='{$DATA_OBJ->params->adID}'";
+//     $result = $db->writeDBNotStoredProcedure($query);
+//     echo json_encode($result);
+// }
 /*
 function getPackById(){
     //get package by its id
@@ -551,6 +560,10 @@ if (isset($DATA_OBJ->data_type)) {
         case "getAdByAdId":
                 include_once('../api/system/Ads/searchAds.php');
                 break;
+        case "changeMessageToSeen":
+            //change message status to seen
+            include_once('../api/system/systemMessages/handleSystemMassages.php');
+             break;
         case "getAdByIDAndUserId":
             if (isset($DATA_OBJ->params))
                 echo json_encode(getAdWithAdContentForAdIdAndUserId($DATA_OBJ->params->adID, $DATA_OBJ->params->user_id));
@@ -559,7 +572,10 @@ if (isset($DATA_OBJ->data_type)) {
             insertNewAd();
             break;
         case "updateWatch":
-            updateWatch();
+            include_once('../api/system/Ads/updateWatchAndContactCounter.php');
+            break;
+        case "updateContacted":
+            include_once('../api/system/Ads/updateWatchAndContactCounter.php');
             break;
         case "getAllOfMyAds":
              include_once('../api/system/Ads/searchAds.php');
@@ -594,6 +610,21 @@ if (isset($DATA_OBJ->data_type)) {
             break;
         case "getAllReportReasons":
             //get all reports reasons
+            include_once('../api/system/Ads/reports.php');
+            break;
+        case "getReportsOnAdsForUserIdByParam":
+             //get all reports reasons
+            include_once('../api/system/Ads/reports.php');
+            break;
+        case "sendReportToUser":
+            //send msg to user about the report
+            include_once('../api/system/Ads/reports.php');
+            break;
+        case "getSelectedAdWithReportFeedback":
+             include_once('../api/system/Ads/reports.php');
+            break;
+        case "getAllReportsOnAdsForUserId":
+            //get all reports on ads for userId
             include_once('../api/system/Ads/reports.php');
             break;
         case "getReportsThatAreNotActive":
@@ -694,7 +725,6 @@ if (isset($DATA_OBJ->data_type)) {
         case "getAllAds":
             getAllAds();
             break;
-
         case "getSettingsUserPurchase":
             include("../api/system/user/getSettingsUserPurchase.php");
             break;
@@ -706,6 +736,9 @@ if (isset($DATA_OBJ->data_type)) {
         case "updateUserSettings":
             include("../api/system/user/updateUserSettings.php");
             break;
+        default:
+            die;
+        break;
 
             
     }

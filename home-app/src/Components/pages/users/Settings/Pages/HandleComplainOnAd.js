@@ -12,17 +12,6 @@ import AdsBlockForReports from "../../../AdsBlockForReports.js";
 function HandleComplainOnAd(props) {
   const { auth } = useAuth();
   const [isFavorite, setIsFavorite] = useState(props.isFavorite);
-  // useEffect(() => {
-  //   const result = instance.request({
-  //     data: {
-  //       data_type: "getAdForAdId",
-  //       params: { adID: props.selectedReport.element_id, guest: "guest" },
-  //     },
-  //     headers: {
-  //       Authorization: `Bearer ${auth.accessToken}`,
-  //     },
-  //   });
-  // }, []);
   const changeToListView = (e) => {
     e.preventDefault();
     props.setTableClassName("showTable");
@@ -39,7 +28,7 @@ function HandleComplainOnAd(props) {
           <AdsBlockForReports adBlock={props.selectedAd} />
         </section>
         <section>
-          <ShowReport element_type="ad" report={props.selectedReport}  />
+          <ShowReport element_type="ad" report={props.selectedReport} adBlock={props.selectedAd}  />
         </section>
       </div>
       <p>

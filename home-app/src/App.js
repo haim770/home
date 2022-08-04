@@ -21,6 +21,7 @@ import RequireAuth from "./Auth/RequireAuth";
 import PersistLogin from "./Auth/PersistLogin";
 import Settings from "./Components/pages/users/Settings";
 import Favorites from "./Components/Favorites.js";
+import UserReportsToAds from "./Components/pages/users/Settings/Pages/UserReportsToAds";
 
 // Chat
 import Chat from "./Components/pages/Chat";
@@ -102,6 +103,7 @@ export default function App() {
                     <Route path="Favorite" element={<Favorite />} />
                     <Route path="EditAd" element={<EditAd />} />
                     <Route path="Purchase" element={<PurchaseHistory />} />
+                    <Route path="UserReportsToAds" element={<UserReportsToAds/>}/>
                     <Route element={<PersistLogin />}>
                       <Route
                         element={<RequireAuth allowedRoles={[ROLES.Admin]} />}

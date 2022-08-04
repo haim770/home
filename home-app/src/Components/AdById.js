@@ -10,6 +10,7 @@ import AdsWithSearch from "./AdsWithSearch";
 import AdContentPart from "./AdContentPart";
 import AdUserPart from "./AdUserPart.js";
 import AdImages from "./AdImages";
+import useAuth from "../Auth/useAuth";
 import AddCookie from "./pages/Ads/addCookie";
 import RecipeReviewCard from "./RecipeReviewCard";
 import RecipeReviewCardUrl from "./RecipeReviewCardUrl";
@@ -18,11 +19,17 @@ function AdById(props) {
   const [isFavorite, setIsFavorite] = useState(props.isFavorite);
   const [renderCookie, setRenderCookie] = useState(true);
   let refreshTimes = 1;
+  const { auth } = useAuth();
   const getAd = async () => {
+    console.log(auth);
     const result = await instance.request({
       data: {
-        data_type: "getAdByIDAndUserId",
-        params: { adID: props.adID, user_id: props.user_id }, //window.location.href gets the urlline
+        data_type: "getAdByAdId",
+        params: { adId: props.adID, user_id: props.user_id },
+        guest: auth.accessToken != undefined ? "registered" : "guest",
+      },
+      headers: {
+        Authorization: `Bearer ${auth.accessToken}`,
       },
     });
     setData(result.data);
@@ -43,14 +50,6 @@ function AdById(props) {
 
   return data.ad !== false ? (
     <section className={"ad"}>
-      {console.log(props.id)}
-      {/* <AddCookie adID={dataForUrl.ad.adID} /> */}
-      {/* <RecipeReviewCardUrl
-        adBlock={dataForUrl}
-        maxSize="800"
-        isFavorite={isFavorite}
-        setFavorite={setIsFavorite}
-      /> */}
       <ul>
         <AdUserPart user={data.user} />
         <AdImages images={data.adImages} />
