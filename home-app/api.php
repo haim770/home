@@ -686,7 +686,11 @@ if (isset($DATA_OBJ->data_type)) {
         case "contacts":
             include("contact.php"); 
             break;
-
+            // proccess the data - Contact
+        case "getBlogs":
+            include("../api/system/Blog/getBlog.php");
+            break;
+            
         case "getAllAds":
             getAllAds();
             break;
