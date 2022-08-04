@@ -26,6 +26,8 @@ function SearchAds(props) {
     zip_code: "",
     price: "",
     building_number: "",
+    minArea: "",
+    maxArea: "",
     entry: "",
   });
 
@@ -87,6 +89,7 @@ function SearchAds(props) {
         },
       },
     });
+    console.log(result.data.searchOption);
     if (searchMethod === "city") setOptions(result.data.searchOption);
     else setStreetOptions(result.data.searchOption);
   };
@@ -100,6 +103,7 @@ function SearchAds(props) {
     setInputsAd((values) => ({ ...values, street: value }));
     setStreetSelectedOption(event);
   };
+ 
   const handleChangeAd = (event) => {
     const name = event.target.name;
     const value = event.target.value;
@@ -112,7 +116,9 @@ function SearchAds(props) {
       name === "price" ||
       name === "minRooms" ||
       name === "maxRooms" ||
-      name === "building_number"
+      name === "building_number" ||
+      name === "maxArea" ||
+      name==="minArea"
     ) {
       if (isNaN(value)) return;
     }
@@ -245,7 +251,7 @@ function SearchAds(props) {
         if (masters[index].category === "השכרה") {
           setInputAdConentRent({
             ...inputAdConentRent,
-            [masters[index].name]: "haim",
+            [masters[index].name]: "",
           });
         } else {
           setInputsAdContentBuy({
@@ -310,6 +316,30 @@ function SearchAds(props) {
       </label>
     );
     code.push(
+      <label key="minArea">
+        <span> מינימום שטח בית</span>
+        <input
+          type="text"
+          name="minArea"
+          id="minArea"
+          value={inputsAd.minArea}
+          onChange={handleChangeAd}
+        />
+      </label>
+    );
+    code.push(
+      <label key="maxArea">
+        <span> מינימום שטח בית</span>
+        <input
+          type="text"
+          name="maxArea"
+          id="maxArea"
+          value={inputsAd.maxArea}
+          onChange={handleChangeAd}
+        />
+      </label>
+    );
+    code.push(
       <label key="minRooms">
         <span> מינימום חדרים </span>
         <input
@@ -350,8 +380,7 @@ function SearchAds(props) {
       ) {
         if (masters[index].category === "השכרה") {
           code.push(
-            <label key={masters[index].element_id}
-             className={notdisplayRent}>
+            <label key={masters[index].element_id} className={notdisplayRent}>
               <span>{masters[index].name}</span>
               <input
                 type="text"
@@ -368,10 +397,7 @@ function SearchAds(props) {
           );
         } else {
           code.push(
-            <label
-              key={masters[index].element_id}
-              className={notdisplayBuy}
-            >
+            <label key={masters[index].element_id} className={notdisplayBuy}>
               <span>{masters[index].name}</span>
               <input
                 type="text"
@@ -391,8 +417,7 @@ function SearchAds(props) {
         if (masters[index].display_type === "checkBox") {
           if (masters[index].category === "השכרה") {
             code.push(
-              <label key={masters[index].element_id}
-               className={notdisplayRent}>
+              <label key={masters[index].element_id} className={notdisplayRent}>
                 <span>{masters[index].name}</span>
                 <input
                   type="checkBox"
@@ -407,8 +432,7 @@ function SearchAds(props) {
             );
           } else {
             code.push(
-              <label key={masters[index].element_id}
-               className={notdisplayBuy}>
+              <label key={masters[index].element_id} className={notdisplayBuy}>
                 <span>{masters[index].name}</span>
                 <input
                   type="checkBox"
@@ -425,8 +449,7 @@ function SearchAds(props) {
           //for text
           if (masters[index].category === "השכרה") {
             code.push(
-              <label key={masters[index].element_id}
-               className={notdisplayRent}>
+              <label key={masters[index].element_id} className={notdisplayRent}>
                 <span>{masters[index].name}</span>
                 <input
                   type="text"
@@ -439,8 +462,7 @@ function SearchAds(props) {
             );
           } else {
             code.push(
-              <label key={masters[index].element_id}
-               className={notdisplayBuy}>
+              <label key={masters[index].element_id} className={notdisplayBuy}>
                 <span>{masters[index].free_text}</span>
                 <input
                   type="text"
@@ -457,10 +479,16 @@ function SearchAds(props) {
     }
     return code;
   };
+  const makeSearchFromScratch = () => {
+    // returnStateToDefault();
+    // setInputAdConentRent({});
+    // setInputsAdContentBuy({});
+  };
   const returnStateToDefault = () => {
     setInputsAd({
       user_id: "",
       city: "",
+      area: "",
       street: "",
       adType: "השכרה",
       maxRooms: "",
@@ -470,6 +498,8 @@ function SearchAds(props) {
       price: "",
       building_number: "",
       entry: "",
+      minArea: "",
+      maxArea: "",
     });
     setMinPrice("");
     setMaxPrice(""); //hook for the price state
@@ -540,6 +570,7 @@ function SearchAds(props) {
       </button>
       <p>
         <button onClick={searchAdByParams}>חפש</button>
+        <button onClick={makeSearchFromScratch}>אפס חיפוש</button>
       </p>
     </form>
   );

@@ -15,10 +15,13 @@ $data_type = $DATA_OBJ["data_type"] ?? "";
 require_once('../api/system/classes/useDBs.php');
 $db = dbClass::GetInstance();
 
-
 // Proccess postNewAdd
 if ($DATA_OBJ["data_type"] == "postNewAdd") {
     include("../api/system/Ads/CreateNewAd/postNewAdd.php");
+}
+if($DATA_OBJ["data_type"] == "editAd"){
+    include("../api/system/Ads/CreateNewAd/editAd.php");
+    die;
 }
 
 ?>

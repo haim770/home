@@ -1,7 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { FaEye } from "react-icons/fa";
 import { FcSms } from "react-icons/fc";
-import { Link, NavLink, Outlet } from "react-router-dom";
+import {
+  Link,
+  NavLink,
+  Outlet,
+  Navigate,
+  useNavigate,
+  useLocation,
+} from "react-router-dom";
 import AdPart from "../AdPart.js";
 import AdContentPart from "../AdContentPart.js";
 import "../../styles/AdBlock.css";
@@ -24,6 +31,8 @@ const AdsBlock = (props) => {
   const [phone, setPhone] = useState(
     props.adBlock.user[0] ? props.adBlock.user[0].phone : 0
   );
+  const location = useLocation();
+  const [goToEditPage, setGoToEditPage] = useState(false);
   const [togglePhone, setTogglePhone] = useState("הצג טלפון");
   const [adBlock, setAdBlock] = useState(props.adBlock);
   const [isFavorite, setIsFavorite] = useState(props.adBlock.favorite);
@@ -48,6 +57,10 @@ const AdsBlock = (props) => {
       },
     });
     console.log(res.data);
+  };
+  const editAd = (e) => {
+    e.preventDefault();
+    setGoToEditPage(true);
   };
   const changeViewToFull = async (e) => {
     e.preventDefault();
@@ -107,28 +120,25 @@ const AdsBlock = (props) => {
       {/** This will contain the Ad footer wrapper  */}
       <div className="jss185 jss181">
         {/** This will contain the Ad footer inner wrapper  */}
-        <div className="jss1060">
-          {/** This will contain the Ad footer Right button  */}
-          <div
-            className="jss1062"
-            style={{
-              display:
-                props.adBlock.user[0].mail=== auth?.user ? "none" : "block",
-            }}
-          >
-            {console.log(props.adBlock.user[0].mail)}
-            <div className="jss142">
-              <button
-                className="MuiButtonBase-root MuiButton-root jss151 MuiButton-contained MuiButton-containedPrimary MuiButton-disableElevation MuiButton-fullWidth"
-                onClick={handleClickChatWith}
-              >
-                <span className="buttonSpanLabel">התחל צ'ט</span>
-              </button>
-            </div>
-          </div>
-          {/** This will contain the Ad footer Left button  */}
-          <div className="jss1061">
+        <div
+          style={{
+            display:
+              props.adBlock.user[0].mail === auth?.user ? "none" : "block",
+          }}
+        >
+          <div className="jss142">
             <button
+              className="MuiButtonBase-root MuiButton-root jss151 MuiButton-contained MuiButton-containedPrimary MuiButton-disableElevation MuiButton-fullWidth"
+              onClick={handleClickChatWith}
+            >
+              <span className="buttonSpanLabel">התחל צ'ט</span>
+            </button>
+          </div>
+        </div>
+        <div className="buttonPart">
+          <div>
+            <button
+              className="btnClassAdBlock"
               onClick={(e) => {
                 e.preventDefault();
                 console.log(e.target.tagName);
@@ -141,10 +151,38 @@ const AdsBlock = (props) => {
                 ? "" + togglePhone + " " + phone
                 : togglePhone}
             </button>
-            <button onClick={reportOnAd}>דווח על מודעה</button>
+          </div>
+          <div>
+            <button className="btnClassAdBlock" onClick={reportOnAd}>
+              דווח על מודעה
+            </button>
+          </div>
+          <div>
+            <button
+              className="btnClassAdBlock"
+              style={{
+                display:
+                  props.adBlock.user[0].mail === auth?.user ? "block" : "none",
+              }}
+              onClick={editAd}
+            >
+              ערוך מודעה
+            </button>
           </div>
         </div>
-        <div></div>
+        {goToEditPage ? (
+          <Navigate
+            to="/Settings/EditAd"
+            state={{
+              from: location,
+              act: "registerSucceeds",
+              adBlock: props.adBlock,
+            }}
+            replace
+          />
+        ) : (
+          ""
+        )}
       </div>
     </section>
   );

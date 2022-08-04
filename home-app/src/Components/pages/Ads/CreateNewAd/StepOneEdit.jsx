@@ -6,7 +6,7 @@ import "./styles.css";
  * If user got enoght ads to publish, disply rent of buy choose option, otherwise show pack purchase
  * @returns Step one
  */
-const StepOne = ({ formData, setFormData }) => {
+const StepOneEdit = ({ formData, setFormData }) => {
   const handleChange = (event) => {
     const name = event.target.name;
     const value = event.target.value;
@@ -50,4 +50,4 @@ const StepOne = ({ formData, setFormData }) => {
   );
 };
 
-export default StepOne;
+export default StepOneEdit;

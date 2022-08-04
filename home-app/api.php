@@ -653,6 +653,11 @@ if (isset($DATA_OBJ->data_type)) {
         case "getSelectData":
             include("../api/system/Ads/Search/dataSearch.php");
             break;
+        case "editAd":
+            // include("../api/system/Ads/CreateNewAd/postNewAdd.php");
+            echo "ckkckc";
+            die;
+            break;
 // Proccess postNewAdd
         case "postNewAdd":
             include("../api/system/Ads/CreateNewAd/postNewAdd.php");

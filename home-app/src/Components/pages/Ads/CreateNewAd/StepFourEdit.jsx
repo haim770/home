@@ -1,28 +1,32 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./styles.css";
+import instance from "../../../../api/AxiosInstance";
 import { FiUploadCloud } from "react-icons/fi";
 import { v4 as uuidv4 } from "uuid";
 /**
  * After user fill the ads contacts, move next to upload pictures and publish the asset
  * @returns
  */
-const StepFour = ({
+const StepFourEdit = ({
   formData,
   setFormData,
   formDataImage,
   setFormDataImage,
   setFormDataImageUpload,
-  formDataImageUpload,
+  adBlock,
 }) => {
   const fileName = uuidv4();
+
   const handleImageChange = (e) => {
-    console.log(e.target.files[0]);
-    console.log(Array.from(e.target.files), "file");
+    console.log(formDataImage);
+
     if (e.target.files) {
       setFormDataImageUpload(e.target.files);
       const filesArray = Array.from(e.target.files).map((file) =>
         URL.createObjectURL(file)
       );
+      console.log(filesArray);
+
       setFormDataImage((prevImages) => prevImages.concat(filesArray));
       Array.from(e.target.files).map(
         (file) => URL.revokeObjectURL(file) // avoid memory leak
@@ -34,6 +38,16 @@ const StepFour = ({
     const itemToRemove = e.target.getAttribute("id");
     setFormDataImage(formDataImage.filter((item) => item !== itemToRemove));
   };
+  // useEffect(() => {
+  //   if(adBlock.adImages){
+  //     console.log("d");
+  //     adBlock.adImages.forEach(element => {
+  //       setFormDataImage()
+  //     });
+  //     setFormDataImage()
+  //   }
+  //   console.log(adBlock);
+  // }, []);
   return (
     <div className="fileUploader">
       <input
@@ -41,7 +55,7 @@ const StepFour = ({
         id="file"
         name="files"
         accept="image/*"
-        multiple={true}
+        multiple
         onChange={handleImageChange}
       />
       <div className="label-holder">
@@ -67,4 +81,4 @@ const StepFour = ({
   );
 };
 
-export default StepFour;
+export default StepFourEdit;

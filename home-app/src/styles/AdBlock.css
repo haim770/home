@@ -10,9 +10,21 @@
   background-color: #fff;
   margin-bottom: 1rem;
 }
-.iconsAtTop{
+
+.iconsAtTop {
   display: flex;
   flex-direction: row;
+}
+
+.btnClassAdBlock {
+  height: 100%;
+}
+
+.buttonPart {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 1rem;
 }
 
 .headerOnTheTop {

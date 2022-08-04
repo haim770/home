@@ -14,16 +14,9 @@ const StepThree = ({
   setFormDataStepThreeBuy,
   formDataStepThreeRent,
   setFormDataStepThreeRent,
+  adBlock,
 }) => {
   const { auth } = useAuth();
-
-  /**
-   * search method, buy or rent
-   */
-  const [searchMethod, setSearchMethod] = useState(formData.assetOption || "");
-  const [masters, setMasters] = useState("");
-
-  const [adContacts, setAdContacts] = useState([]);
   const handleOnFocusLost = (e, typeOfParam) => {
     //func gets rent/buy and the event and check if smaller then min
     if (e.target.min) {
@@ -45,6 +38,13 @@ const StepThree = ({
       }
     }
   };
+  /**
+   * search method, buy or rent
+   */
+  const [masters, setMasters] = useState("");
+  /**
+   * Get data from server
+   */
   const handleChangeAdContentBuyCheckBox = (event) => {
     const name = event.target.name;
     setFormDataStepThreeBuy({
@@ -160,12 +160,18 @@ const StepThree = ({
       for (let index = 0; index < result.data.length; index++) {
         let name1 = result.data[index].name;
         if (result.data[index].category === "השכרה") {
+          if (typeof formDataStepThreeRent[name1] !== "undefined") {
+            continue;
+          }
           setFormDataStepThreeRent({
             ...formDataStepThreeRent,
             [result.data[index].name]: "",
           });
         } else {
           if (result.data[index].category === "קנייה") {
+            if (typeof formDataStepThreeBuy[name1] !== "undefined") {
+              continue;
+            }
             setFormDataStepThreeBuy({
               ...formDataStepThreeBuy,
               [result.data[index].name]: "",
@@ -178,9 +184,6 @@ const StepThree = ({
   useEffect(() => {
     getMasters();
   }, []);
-  /**
-   * Get data from server
-   */
   const makeFormOfAdContent = () => {
     //form of the adcontent masters we have
     let code = [];
@@ -322,38 +325,14 @@ const StepThree = ({
     }
     return code;
   };
-  const getAdAdditionalParams = async () => {
-    const result = await instance.request({
-      data: {
-        data_type: "getAdditionalAdContactData",
-        params: {
-          type: searchMethod,
-        },
-      },
-      headers: {
-        Authorization: `Bearer ${auth.accessToken}`,
-      },
-    });
-    setAdContacts([
-      Object.values(result.data.result).map((anObjectMapped, index) => {
-        return {
-          key: anObjectMapped["element_id"],
-          contactData: anObjectMapped,
-        };
-      }),
-    ]);
-  };
-
   /**
    * get the additional data
    */
-  useLayoutEffect(() => {
-    getAdAdditionalParams();
-  }, []);
   return (
     <div className="inputStyleStepTwo">
       {console.log(formDataStepThreeBuy)}
       {console.log(formDataStepThreeRent)}
+      {console.log(adBlock)}
       {masters ? makeFormOfAdContent() : ""}
     </div>
   );
