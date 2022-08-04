@@ -28,8 +28,8 @@ import { ViewProvidor } from "./Components/pages/Chat/ChatUseContext";
 
 // Blog
 import Blog from "./Components/pages/Blog";
-import Single from "./Components/pages/Blog/posts/Single";
-import Checkout from "./Components/Checkout.js";
+import BlogId from "./Components/pages/Blog/pages/Blog";
+
 // Settings
 import Dashbord from "./Components/pages/users/Settings/Pages/Dashbord";
 import Favorite from "./Components/pages/users/Settings/Pages/Favorite";
@@ -71,7 +71,7 @@ export default function App() {
               <Route path="/Login" element={<Login />} />
               <Route path="/adsWithSearch" element={<AdsWithSearch />} />
               <Route exact path="/adsWithSearch/:linkAd" element={<AdFull />} />
-              <Route path="/post/:postId" element={<Single />} />
+              <Route path="/blog/:id" element={<BlogId />} />
               <Route
                 exact
                 path="/packages/:packageId"
