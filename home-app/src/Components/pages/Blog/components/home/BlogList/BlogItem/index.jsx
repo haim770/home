@@ -14,14 +14,15 @@ const BlogItem = ({
     id,
   },
 }) => {
+  const authorAvatar = "author.jpg";
   return (
     <div className="blogItem-wrap">
       <Link className="blogItem-link" to={`/blog/${id}`}>
         <img
           className="blogItem-cover"
           src={
-            "../../../../../../../../../api/Images/" +
-            cover
+            process.env.PUBLIC_URL +
+            require("../../../../../../../../../api/Images/" + cover)
           }
           alt="cover"
         />
@@ -37,7 +38,10 @@ const BlogItem = ({
         <div className="blogItem-author">
           {/*<img src={authorAvatar} alt="avatar" /> */}
           <img
-            src="../../../../../../../../../api/Images/author.jpg"
+            src={
+              process.env.PUBLIC_URL +
+              require("../../../../../../../../../api/Images/" + authorAvatar)
+            }
             alt="avatar"
           />
           <div>

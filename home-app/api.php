@@ -721,6 +721,11 @@ if (isset($DATA_OBJ->data_type)) {
         case "getBlogs":
             include("../api/system/Blog/getBlog.php");
             break;
+
+        case "getBlogById":
+            include("../api/system/Blog/getBlogById.php");
+            break;
+            
             
         case "getAllAds":
             getAllAds();
