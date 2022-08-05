@@ -9,7 +9,6 @@ const BlogItem = ({
     title,
     createdAt,
     authorName,
-    authorAvatar,
     cover,
     category,
     id,
@@ -18,7 +17,14 @@ const BlogItem = ({
   return (
     <div className="blogItem-wrap">
       <Link className="blogItem-link" to={`/blog/${id}`}>
-        <img className="blogItem-cover" src={cover} alt="cover" />
+        <img
+          className="blogItem-cover"
+          src={
+            "../../../../../../../../../api/Images/" +
+            cover
+          }
+          alt="cover"
+        />
       </Link>
       <Chip label={category} />
       <Link className="blogItem-link" to={`/blog/${id}`}>
@@ -29,7 +35,11 @@ const BlogItem = ({
       </Link>
       <footer className="footer-styles">
         <div className="blogItem-author">
-          <img src={authorAvatar} alt="avatar" />
+          {/*<img src={authorAvatar} alt="avatar" /> */}
+          <img
+            src="../../../../../../../../../api/Images/author.jpg"
+            alt="avatar"
+          />
           <div>
             <h6>{authorName}</h6>
             <p>{createdAt}</p>
