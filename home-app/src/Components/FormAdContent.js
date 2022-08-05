@@ -8,7 +8,7 @@ function FormAdContent(props) {
   const [masters, setMasters] = useState("");
   const [adUploadStatus, setAdUploadStatus] = useState([]);
   const [inputsAdContent, setInputsAdContent] = useState({});
-  const {auth}=useAuth();
+  const { auth } = useAuth();
   const [inputsAd, setInputsAd] = useState({
     user_id: 1,
     city: "",
