@@ -51,6 +51,7 @@ import ChangeUserRule from "./Components/ChangeUserRule";
 import UserShow from "./Components/UserShow";
 import FavoritesAds from "./Components/FavoritesAds";
 import EditAd from "./Components/pages/EditAd.js";
+import HandlePackages from "./Components/pages/users/Settings/Pages/HandlePackages.jsx";
 const ROLES = {
   User: 2001,
   Admin: 5150,
@@ -80,7 +81,7 @@ export default function App() {
                 element={<PackageFull />}
               />
               <Route exact path="packages" element={<PackageDisplay />} />
-              <Route exact path="addPack" element={<CreatePackage />} />
+
               <Route path="/Register" element={<Register />} />
               <Route path="unauthorized" element={<Unauthorized />} />
 
@@ -103,7 +104,10 @@ export default function App() {
                     <Route path="Favorite" element={<Favorite />} />
                     <Route path="EditAd" element={<EditAd />} />
                     <Route path="Purchase" element={<PurchaseHistory />} />
-                    <Route path="UserReportsToAds" element={<UserReportsToAds/>}/>
+                    <Route
+                      path="UserReportsToAds"
+                      element={<UserReportsToAds />}
+                    />
                     <Route element={<PersistLogin />}>
                       <Route
                         element={<RequireAuth allowedRoles={[ROLES.Admin]} />}
@@ -111,6 +115,17 @@ export default function App() {
                         <Route
                           path="ManageReports"
                           element={<ManageReports />}
+                        />
+                      </Route>
+                    </Route>
+                    <Route element={<PersistLogin />}>
+                      <Route
+                        element={<RequireAuth allowedRoles={[ROLES.Admin]} />}
+                      >
+                        <Route
+                          exact
+                          path="addPack"
+                          element={<CreatePackage />}
                         />
                       </Route>
                     </Route>
@@ -155,7 +170,16 @@ export default function App() {
                         <Route path="userShow" element={<UserShow />} />
                       </Route>
                     </Route>
-
+                    <Route element={<PersistLogin />}>
+                      <Route
+                        element={<RequireAuth allowedRoles={[ROLES.Admin]} />}
+                      >
+                        <Route
+                          path="HandlePackages"
+                          element={<HandlePackages />}
+                        />
+                      </Route>
+                    </Route>
                     <Route element={<PersistLogin />}>
                       <Route
                         element={<RequireAuth allowedRoles={[ROLES.Admin]} />}

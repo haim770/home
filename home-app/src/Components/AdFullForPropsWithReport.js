@@ -61,14 +61,24 @@ function AdFullForPropsWithReport(props) {
   };
   return (
     <article className={"ad"}>
-      {console.log(props)}
-
       <button className="closeWindow" onClick={changeToListView}>
         x
       </button>
       <section>
         <h1>סיבת הדיווח: {props.report[0].report_reason}</h1>
         <h2>הודעת מנהל: {props.report[0].manage_feedback}</h2>
+        <div>
+          <button
+            className="btnClassAdBlock"
+            style={{
+              display:
+                props.adBlock.user[0].mail === auth?.user ? "block" : "none",
+            }}
+            onClick={editAd}
+          >
+            ערוך מודעה
+          </button>
+        </div>
       </section>
       <RecipeReviewCard
         adBlock={props.adBlock}

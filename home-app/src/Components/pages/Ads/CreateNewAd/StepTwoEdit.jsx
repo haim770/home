@@ -43,7 +43,7 @@ const StepTwo = ({ formData, setFormData }) => {
   /**
    * Get data from server
    */
-  const getSearchOprions = async () => {
+  const getSearchOptions = async () => {
     const result = await instance.request({
       data: {
         data_type: "getSelectData",
@@ -57,6 +57,23 @@ const StepTwo = ({ formData, setFormData }) => {
       },
     });
     if (searchMethod === "city") setOptions(result.data.searchOption);
+    else setStreetOptions(result.data.searchOption);
+  };
+  const getSearchOptionsByParams = async (searchType) => {
+    //search for the first income with param at func
+    const result = await instance.request({
+      data: {
+        data_type: "getSelectData",
+        params: {
+          selected: searchType,
+          cityName: formData.city || "",
+        },
+      },
+      headers: {
+        Authorization: `Bearer ${auth.accessToken}`,
+      },
+    });
+    if (searchType === "city") setOptions(result.data.searchOption);
     else setStreetOptions(result.data.searchOption);
   };
 
@@ -108,8 +125,8 @@ const StepTwo = ({ formData, setFormData }) => {
    * Then when user select city, get all streets in the selected steet
    */
   useEffect(() => {
-    setSearchMethod("city");
-    getSearchOprions();
+    getSearchOptionsByParams("city");
+    getSearchOptionsByParams("street");
   }, []);
   useLayoutEffect(() => {
     if (selectedOption === null) {
@@ -118,7 +135,7 @@ const StepTwo = ({ formData, setFormData }) => {
       setStreetSelectedOption(null);
       setSearchMethod("street");
     }
-    getSearchOprions();
+    getSearchOptions();
   }, [selectedOption]);
 
   return (
