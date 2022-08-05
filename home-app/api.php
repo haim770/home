@@ -13,7 +13,7 @@ $DATA_RAW = file_get_contents("php://input");
 
 
 require_once('../api/system/Ads/aproveOrDeclineAdByMangager.php');
-require_once('../api/system/packages/insertPack.php');
+
 
 
 /**
@@ -554,8 +554,11 @@ if (isset($DATA_OBJ->data_type)) {
         case "getAllWaitingAdsForAproval":
             getAllWaitingAdsForAproval();
             break;
+        case "getPackages":
+             include_once('../api/system/packages/insertPack.php');
+            break;
         case "insertPack":
-            insertPack();
+            include_once('../api/system/packages/insertPack.php');
             break;
         case "getAdByAdId":
                 include_once('../api/system/Ads/searchAds.php');
@@ -803,9 +806,7 @@ if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == 'aproveAd') {
 if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == 'getAllWaitingAdsForAproval') {
         getAllWaitingAdsForAproval();
     } else
-if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == 'insertPack') {
-        insertPack();
-    } else
+
 if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == 'getAdByID') {
         if (isset($DATA_OBJ->params))
             echo json_encode(getAdWithAdContentForAdId($DATA_OBJ->params->adID, $DATA_OBJ->params->user_id));
@@ -823,7 +824,6 @@ if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == 'getAllPackages') {
         getAllPackages();
     } else
 if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == 'addPackage') {
-        //insertPackage();
     } else
 if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == 'getAllMasters') {
         getAllMasters();

@@ -75,7 +75,10 @@ const Sidebar = () => {
             </Link>
           </li>
           <li>
-            <Link to="/Settings/UserReportsToAds" style={{ textDecoration: "none" }}>
+            <Link
+              to="/Settings/UserReportsToAds"
+              style={{ textDecoration: "none" }}
+            >
               <BiPurchaseTagAlt className="icon" />
               <span>דוחות על מודעות של משתמש</span>
             </Link>
@@ -88,6 +91,22 @@ const Sidebar = () => {
             </Link>
           </li>
           <li>
+            <Link to="/Settings/addPack" style={{ textDecoration: "none" }}>
+              <FiUsers className="icon" />
+              <span>צור חבילה חדשה</span>
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="/Settings/HandlePackages"
+              style={{ textDecoration: "none" }}
+            >
+              <FiUsers className="icon" />
+              <span>נהל חבילות</span>
+            </Link>
+          </li>
+
+          <li>
             <Link
               to="/Settings/addParameterToAds"
               style={{ textDecoration: "none" }}
@@ -95,7 +114,6 @@ const Sidebar = () => {
               <span> הוספת פרמטרים למודעות</span>
             </Link>
           </li>
-
           <li>
             <Link
               to="/Settings/ChangeUserRule"

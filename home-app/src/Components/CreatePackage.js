@@ -6,13 +6,14 @@ import "../styles/createAd.css";
 import Api from "../api/Api";
 import { v4 as uuidv4 } from "uuid";
 import instance from "../api/AxiosInstance.jsx";
+import useAuth from "../Auth/useAuth";
 function CreatePackage(props) {
   const [price, setPrice] = useState(""); //hook for parameter name
   const [title, setTitle] = useState(""); //hook for parameter max value
   const [content, setContent] = useState(""); //hook for parameter min value
   const [adValue, setAdValue] = useState(""); //hook for parameter style
   const [statusOfCreation, setStatusOfCreation] = useState(""); //the status of created pack
-
+  const { auth } = useAuth();
   const onChangeState = (setStateName, event) => {
     //func that recieves setstate and the event and change value of state to the value of input
     if (event.target.name === "price" || event.target.name === "adValue")
@@ -37,7 +38,11 @@ function CreatePackage(props) {
           content: content,
           title: title,
           ad_value: adValue,
+          guest: auth.accessToken != undefined ? "registered" : "guest",
         },
+      },
+      headers: {
+        Authorization: `Bearer ${auth.accessToken}`,
       },
     });
     console.log(result.data);
@@ -48,7 +53,7 @@ function CreatePackage(props) {
     <section>
       <form className={"createPack"}>
         <label>
-          <span>enter price for package</span>
+          <span>מחיר חבילה</span>
           <input
             type="text"
             pattern="[0-9]"
@@ -60,7 +65,7 @@ function CreatePackage(props) {
           />
         </label>
         <label>
-          <span>enter title of the package</span>
+          <span>כותרת חבילה</span>
           <input
             type="text"
             name="title"
@@ -71,7 +76,7 @@ function CreatePackage(props) {
           />
         </label>
         <label>
-          <span>enter ad value of package</span>
+          <span>מספר מודעות בחבילה</span>
           <input
             type="text"
             pattern="[0-9]"
@@ -83,7 +88,7 @@ function CreatePackage(props) {
           />
         </label>
         <label>
-          <span>enter content of package</span>
+          <span>תיאור חבילה</span>
           <textarea
             rows="4"
             cols="50"
@@ -95,7 +100,7 @@ function CreatePackage(props) {
           </textarea>
         </label>
         <p>
-          <Button onClick={submitPackage} content="create pack" />
+          <Button onClick={submitPackage} content="צור חבילה" />
         </p>
       </form>
       {statusOfCreation === true ? (
