@@ -22,17 +22,20 @@ const Home = () => {
     const result = await instance.request({
       data: {
         data_type: "getBlogs",
-        params: { searchParams: searchElement || "" },
+        params: { searchParams: searchElement || "",
+                  offestVal: currentOffset,      
+      },
       },
     });
 
     // check if we got new data from server or any response
     if (result?.data) {
       if (result?.data?.Blogs) {
-        setBlogs([
-          ...blogs,
-          result.data.Blogs,
-        ]);
+        const tmpArray = blogs;
+        Object.values(result.data.Blogs).forEach((element) => {
+          tmpArray.push(element);
+        });
+        setBlogs(tmpArray);
       }
     }
     // after finish load all data stop loading
@@ -43,9 +46,9 @@ const Home = () => {
 // check when we scroll down to button
   const handleScroll = (e) => {
     // this is the inner height of the HTML page
-    const innerHeight = window.innerHeight;
+    //const innerHeight = window.innerHeight;
     // get the current Scroll hheight
-    const scrollPosition = e.target.documentElement.scrollTop;
+    //const scrollPosition = e.target.documentElement.scrollTop;
     // get full page scrolling height
     const scrollHeight = e.target.documentElement.scrollHeight;
 
@@ -55,7 +58,7 @@ const Home = () => {
     if (currentHeight + 1 >= scrollHeight) {
       setLoading(true)
       getBlogs();
-      currentOffset += 10;
+      currentOffset += 6;
     }
   };
 
