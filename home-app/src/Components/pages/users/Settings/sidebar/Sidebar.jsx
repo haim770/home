@@ -105,7 +105,6 @@ const Sidebar = () => {
               <span>נהל חבילות</span>
             </Link>
           </li>
-
           <li>
             <Link
               to="/Settings/addParameterToAds"
@@ -114,6 +113,15 @@ const Sidebar = () => {
               <span> הוספת פרמטרים למודעות</span>
             </Link>
           </li>
+          <li>
+            <Link
+              to="/Settings/handleAdParams"
+              style={{ textDecoration: "none" }}
+            >
+              <span> ניהול פרמטרים למודעות</span>
+            </Link>
+          </li>
+
           <li>
             <Link
               to="/Settings/ChangeUserRule"

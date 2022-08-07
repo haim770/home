@@ -55,7 +55,7 @@ const Form = () => {
       },
     });
     console.log(result.data);
-    if (result?.data.message === "success") {
+    if (result?.data === "publish") {
       toast.dismiss(); // remove loading toast
       toast.success("המודעה פורסמה בהצלחה!");
     } else {

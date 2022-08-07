@@ -80,9 +80,9 @@ const Form = (props) => {
       },
     });
     console.log(result);
-    if (result?.data === "success") {
+    if (result?.data === "publish") {
       toast.dismiss(); // remove loading toast
-      toast.success("המודעה פורסמה בהצלחה!");
+      toast.success("המודעה נערכה בהצלחה!");
     } else {
       toast.dismiss(); // remove loading toast
       toast.error("אוי לא, משהו השתבש בדרך והמודעה לא פורסמה!");

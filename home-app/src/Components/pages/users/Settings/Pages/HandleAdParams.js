@@ -8,46 +8,45 @@ import instance from "../../../../../api/AxiosInstance";
 import HandleComplainOnAd from "./HandleComplainOnAd.js";
 import { Link, useNavigate, useLocation, Navigate } from "react-router-dom";
 import EditPackage from "../../../../EditPackage";
-import CreatePackage from "../../../../CreatePackage";
+import AddParameterToAds from "../../Settings/Pages/AddParameterToAds";
+import EditParameterAds from "./EditParameterAds";
 
 const columns = [
-  { field: "id", headerName: "מס חבילה" },
-  { field: "price", headerName: "מחיר" },
-  { field: "is_active", headerName: "חבילה פעילה" },
-  { field: "title", headerName: "כותרת" },
-  { field: "content", headerName: "תוכן " },
-  { field: "create_time", headerName: " תאריך יצירה" },
-  { field: "ad_value", headerName: "מס מודעות" },
-  { field: "update_time", headerName: "תאריך עדכון" },
-  { field: "countPurchases", headerName: "מס רכישות של החבילה" },
-  { field: "sumPurchases", headerName: "סכום שהורווח ממכירת חבילה" },
+  { field: "id", headerName: "מס פרמטר" },
+  { field: "category", headerName: "קטגוריה" },
+  { field: "min_value", headerName: "ערך מינימום" },
+  { field: "max_value", headerName: "ערך מקסימום" },
+  { field: "name", headerName: "שם פרמטר " },
+  { field: "display_type", headerName: " אפשרות תצוגה " },
+  { field: "typeOfVar", headerName: "סוג משתנה" },
 ];
 
-const HandlePackages = () => {
+const HandleAdParams = () => {
   const { auth } = useAuth();
   const location = useLocation();
   const [rows, setRows] = useState([]);
   const [tableClassName, setTableClassName] = useState("showTable");
   const [showSelected, setShowSelected] = useState("notShowSelected");
-  const [selectedPack, setSelectedPack] = useState({});
-  const [searchPacks, setSearchPacks] = useState("getAllPacks");
+  const [selectedParam, setSelectedParam] = useState({});
+  const [searchParam, setSearchParam] = useState("getAllParams");
 
   /**
    * Get Data from server
    */
-  const getPackages = async () => {
+  const getMasters = async () => {
     //get all reports
+    console.log(auth);
     const result = await instance.request({
       data: {
-        data_type: "getPackages",
+        data_type: "getMastersForAdsContentForTheTable",
         params: {
           guest: "registered",
           selector:
-            searchPacks === "חבילות פעילות"
-              ? "getActivePacks"
-              : searchPacks === "חבילות לא פעילות"
-              ? "getNotActivePacks"
-              : "getAllPacks",
+            searchParam === "פרמטרים השכרה"
+              ? "getRentParams"
+              : searchParam === "פרמטרים מכירה"
+              ? "getBuyParams"
+              : "getAllParams",
         },
       },
       headers: {
@@ -55,13 +54,12 @@ const HandlePackages = () => {
       },
     });
     // check if we got new data from server or any response
+    console.log(result.data);
     if (result?.data) {
       if (result.data == "not authorized") {
         alert("not authorized");
         return;
       }
-
-      console.log(result.data);
 
       setRows(result.data);
     }
@@ -74,16 +72,16 @@ const HandlePackages = () => {
    * window
    */
   useLayoutEffect(() => {
-    getPackages();
+    getMasters();
   }, []);
-  const serchReportsByParam = async (e) => {
-    console.log(searchPacks);
+  const serchParamssByParam = async (e) => {
+    console.log(searchParam);
     e.preventDefault();
-    if (searchPacks == "") {
+    if (searchParam == "") {
       alert("choose option");
       return;
     }
-    getPackages();
+    getMasters();
     // check if we got new data from server or any response
   };
   return (
@@ -92,25 +90,25 @@ const HandlePackages = () => {
         <label>
           <span>בחר איזה דוחות ברצונך לראות </span>
           <select
-            value={searchPacks}
+            value={searchParam}
             onChange={(e) => {
-              setSearchPacks(e.target.value);
+              setSearchParam(e.target.value);
             }}
           >
             <option></option>
-            <option>חבילות פעילות</option>
-            <option>חבילות לא פעילות</option>
-            <option>כל החבילות</option>
+            <option>פרמטרים השכרה</option>
+            <option>פרמטרים מכירה</option>
+            <option>כל הפרמטרים</option>
           </select>
         </label>
-        <button onClick={serchReportsByParam}>חפש חבילות</button>
+        <button onClick={serchParamssByParam}>חפש פרמטרים</button>
         <button
           onClick={(e) => {
-            setShowSelected("createPackage");
+            setShowSelected("createParam");
             setTableClassName("notShowTable");
           }}
         >
-          צור חבילה
+          צור פרמטר
         </button>
       </nav>
       <div style={{ height: 700, width: "100%" }} className={tableClassName}>
@@ -121,7 +119,7 @@ const HandlePackages = () => {
           rowsPerPageOptions={[15]}
           checkboxSelection={false}
           onRowClick={async (e) => {
-            setSelectedPack(e.row);
+            setSelectedParam(e.row);
             setTableClassName("notShowTable");
             setShowSelected("showSelected");
             console.log(e.row);
@@ -129,30 +127,26 @@ const HandlePackages = () => {
         />
       </div>
       {showSelected === "showSelected" ? (
-        <EditPackage
+        <EditParameterAds
           className={showSelected}
           setClassName={setShowSelected}
           setTableClassName={setTableClassName}
-          price={selectedPack.price}
-          title={selectedPack.title}
-          setSearchPacks={setSelectedPack}
-          id={selectedPack.id}
-          adValue={selectedPack.ad_value}
-          is_active={selectedPack.is_active}
-          content={selectedPack.content}
+          min_value={selectedParam.min_value}
+          max_value={selectedParam.max_value}
+          setSelectedParam={setSelectedParam}
+          id={selectedParam.id}
+          paramStyle={selectedParam.display_type}
+          paramName={selectedParam.name}
+          category={selectedParam.category}
+          refreshTable={getMasters}
         />
-      ) : showSelected === "createPackage" ? (
-        <CreatePackage
+      ) : showSelected === "createParam" ? (
+        <AddParameterToAds
           className={showSelected}
           setClassName={setShowSelected}
           setTableClassName={setTableClassName}
-          price={selectedPack.price}
-          title={selectedPack.title}
-          setSearchPacks={setSelectedPack}
-          id={selectedPack.id}
-          adValue={selectedPack.ad_value}
-          is_active={selectedPack.is_active}
-          content={selectedPack.content}
+          setSearchPacks={setSelectedParam}
+          refreshTable={getMasters}
         />
       ) : (
         ""
@@ -161,4 +155,4 @@ const HandlePackages = () => {
   );
 };
 
-export default HandlePackages;
+export default HandleAdParams;
