@@ -30,6 +30,8 @@
     "react-swipeable-views": "^0.14.0",
     "react-tooltip": "^4.2.21",
     "recharts": "^2.1.10",
+    "slate": "^0.82.0",
+    "slate-react": "^0.82.0",
     "styled-components": "^5.3.5",
     "universal-cookie": "^4.0.4",
     "web-vitals": "^2.1.4"

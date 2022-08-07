@@ -30,7 +30,7 @@ import { ViewProvidor } from "./Components/pages/Chat/ChatUseContext";
 // Blog
 import Blog from "./Components/pages/Blog";
 import BlogId from "./Components/pages/Blog/pages/Blog";
-
+import CreateBlog from "./Components/pages/Blog/components/home/NewBlog/CreateNewBlog"
 // Settings
 import Dashbord from "./Components/pages/users/Settings/Pages/Dashbord";
 import Favorite from "./Components/pages/users/Settings/Pages/Favorite";
@@ -202,6 +202,12 @@ export default function App() {
                       </Route>
                     </Route>
                   </Route>
+                </Route>
+              </Route>
+
+              <Route element={<PersistLogin />}>
+                <Route element={<RequireAuth allowedRoles={[ROLES.Admin]} />}>
+                  <Route path="/Blog/Create" element={<CreateBlog />} />
                 </Route>
               </Route>
 

@@ -3,6 +3,7 @@ import instance from '../../../../api/AxiosInstance';
 import EmptyList from '../components/common/EmptyList';
 import BlogList from '../components/home/BlogList';
 import Header from '../components/home/Header';
+import CreateBlog from '../components/home/NewBlog';
 import SearchBar from '../components/home/SearchBar';
 import "./styles.css";
 
@@ -123,6 +124,8 @@ const isDuplicate = (data, obj) =>
       {/* Page Header */}
       <Header />
 
+      {/* Create New Blog - Admin only */}
+      <CreateBlog />
       {/* Search Bar */}
       <SearchBar
         value={searchKey}
