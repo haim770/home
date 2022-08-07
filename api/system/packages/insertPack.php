@@ -130,7 +130,7 @@ function getPackages($selector){
       $numOfPurchases=$numOfPurchases[0]->numOfPurchases;
       $query="select sum(price) AS sumOfPurchases FROM purchase_history where packageId='$packId'";
       $sumOfPurchases=$db->readDBNoStoredProcedure($query);
-      $sumOfPurchases=$sumOfPurchases[0]->sumOfPurchases;
+      $sumOfPurchases=$sumOfPurchases[0]->sumOfPurchases==NULL?0:$sumOfPurchases[0]->sumOfPurchases;
       $objForRow=array("id"=>$result[$i]->packageId,"price"=>$result[$i]->price,"is_active"=>$result[$i]->is_active=="1"?"כן":"לא","title"=>$result[$i]->title,"content"=>$result[$i]->content,"create_time"=>$result[$i]->create_time,"ad_value"=>$result[$i]->ad_value,"update_time"=>$result[$i]->update_time,"countPurchases"=>$numOfPurchases,"sumPurchases"=>$sumOfPurchases);
       // $objForRow=json_encode($objForRow);
       $resultForTheTable[$i]=$objForRow;
