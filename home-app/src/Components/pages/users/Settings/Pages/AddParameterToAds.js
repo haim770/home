@@ -133,20 +133,6 @@ function AddParameterToAds(props) {
           style={{ display: paramStyle === "checkBox" ? "none" : "" }}
           className={numericParameterClass + " labelParamAdd"}
         >
-          <span>הכנס ערך מקסימום</span>
-          <input
-            type="text"
-            name="maxValue"
-            id="maxValue"
-            required
-            value={maxValue}
-            onChange={(e) => onChangeState(setMaxVlue, e)}
-          />
-        </label>
-        <label
-          style={{ display: paramStyle === "checkBox" ? "none" : "" }}
-          className={numericParameterClass + " labelParamAdd"}
-        >
           <span>הכנס ערך מינימום</span>
           <input
             type="text"
@@ -155,6 +141,20 @@ function AddParameterToAds(props) {
             required
             value={minValue}
             onChange={(e) => onChangeState(setMinValue, e)}
+          />
+        </label>
+        <label
+          style={{ display: paramStyle === "checkBox" ? "none" : "" }}
+          className={numericParameterClass + " labelParamAdd"}
+        >
+          <span>הכנס ערך מקסימום</span>
+          <input
+            type="text"
+            name="maxValue"
+            id="maxValue"
+            required
+            value={maxValue}
+            onChange={(e) => onChangeState(setMaxVlue, e)}
           />
         </label>
 

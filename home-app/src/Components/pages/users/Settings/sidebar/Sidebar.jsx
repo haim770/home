@@ -91,26 +91,12 @@ const Sidebar = () => {
             </Link>
           </li>
           <li>
-            <Link to="/Settings/addPack" style={{ textDecoration: "none" }}>
-              <FiUsers className="icon" />
-              <span>צור חבילה חדשה</span>
-            </Link>
-          </li>
-          <li>
             <Link
               to="/Settings/HandlePackages"
               style={{ textDecoration: "none" }}
             >
               <FiUsers className="icon" />
               <span>נהל חבילות</span>
-            </Link>
-          </li>
-          <li>
-            <Link
-              to="/Settings/addParameterToAds"
-              style={{ textDecoration: "none" }}
-            >
-              <span> הוספת פרמטרים למודעות</span>
             </Link>
           </li>
           <li>
