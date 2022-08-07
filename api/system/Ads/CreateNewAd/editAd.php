@@ -6,6 +6,7 @@ include_once(dirname(__FILE__) . DIRECTORY_SEPARATOR . $authPath);
 /**
  * Check if user got enoght ads to publish or user is admin, if user is admin he can publish as much as he want
  */
+try {
 if($user->getRule() == "5150"||$user->getRule()=="2001") {
 $arr = []; //for global scope var
 $arr["adUuid"] = $DATA_OBJ["adId"]; // will be use for all our data storage
@@ -64,9 +65,9 @@ if(!empty($fileNames)){
                 $statusMsg = "Upload failed! ";
             }
             unset($arr["insertValuesSQL"]);
-        }          
+        }
     }
-  }
+}
 /**
  * STEP TWO write all Ad data to server
  */
@@ -129,21 +130,12 @@ if(!empty($fileNames)){
         $query = "INSERT INTO ad_content(element_id, adID, category, free_text, name, value) VALUES ('$elementid','$adID','$category','$key','$key','$value')";
         $db->writeDBNotStoredProcedure($query,[]);}
     }
-
-echo json_encode(
-    array(
-        "message" => "success",       
-        "formData" => json_decode($DATA_OBJ["formData"]),
-        "formDataStepThree" => json_decode($DATA_OBJ["formDataStepThree"]),
-        "arr4" => $arr3,
-    )
-);
+echo json_encode("publish");
 die;
 }
 else{
-    echo json_encode(
-        array(
-            "message" => "zero ads to publish remain",
-        )
-    );
+    echo json_encode("not autorized");
+}
+} catch (Exception $e) {
+    echo json_encode("error");
 }

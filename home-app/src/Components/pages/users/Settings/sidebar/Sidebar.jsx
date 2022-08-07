@@ -91,12 +91,6 @@ const Sidebar = () => {
             </Link>
           </li>
           <li>
-            <Link to="/Settings/addPack" style={{ textDecoration: "none" }}>
-              <FiUsers className="icon" />
-              <span>צור חבילה חדשה</span>
-            </Link>
-          </li>
-          <li>
             <Link
               to="/Settings/HandlePackages"
               style={{ textDecoration: "none" }}
@@ -105,15 +99,15 @@ const Sidebar = () => {
               <span>נהל חבילות</span>
             </Link>
           </li>
-
           <li>
             <Link
-              to="/Settings/addParameterToAds"
+              to="/Settings/handleAdParams"
               style={{ textDecoration: "none" }}
             >
-              <span> הוספת פרמטרים למודעות</span>
+              <span> ניהול פרמטרים למודעות</span>
             </Link>
           </li>
+
           <li>
             <Link
               to="/Settings/ChangeUserRule"

@@ -289,32 +289,7 @@ function setLastSeen()
     }
 }
 
-function addNewMasterToAdContentTable()
-{
-    //add master parameter to adContent table its for manager only and will add new master
-    //for adid 0
-    global $db;
-    global $arr;
-    $arr = [];
-    global $DATA_OBJ;
-    $arr['paramName'] = $DATA_OBJ->params->paramName;
-    $arr['paramType'] = $DATA_OBJ->params->paramType;
-    $elementId = uniqid();
-    $query = "";
-    if ($arr['paramType'] == "VARCHAR")
-        $query = "INSERT into ad_content (element_id, adID,category,master,required,name,value,prevDisplay) VALUES(
-        '$elementId','0','{$DATA_OBJ->params->category}','1','0','{$DATA_OBJ->params->paramName}','master','0')";
-    if ($arr['paramType'] == "INT")
-        $query = "INSERT into ad_content (element_id, adID,category,master,min_value,max_value,required,name,value,prevDisplay) VALUES(
-        '$elementId','0','{$DATA_OBJ->params->category}','1','{$DATA_OBJ->params->minValue}','{$DATA_OBJ->params->maxValue}','0','{$DATA_OBJ->params->paramName}','master','0')";
 
-    if ($arr['paramType'] == "DOUBLE")
-        $query = "INSERT into ad_content (element_id, adID,category,master,min_value,max_value,required,name,value,prevDisplay) VALUES(
-        '$elementId','0','{$DATA_OBJ->params->category}','1','{$DATA_OBJ->params->minValue}','{$DATA_OBJ->params->maxValue}','0','{$DATA_OBJ->params->paramName}','master','0')";
-    $result = $db->writeDBNotStoredProcedure($query);
-    $arr = [];
-    echo json_encode($result);
-}
 function insertAd()
 {
     global $db;
@@ -531,7 +506,7 @@ if (isset($DATA_OBJ->data_type)) {
             include("../api/system/user/settingsUsers.php");
             break;
         case "addNewMasterToAdContentTable":
-            addNewMasterToAdContentTable();
+             include_once('../api/system/Ads/handleAdContentMasters.php');
             break;
         case "getFavoritesForUserId":
             include("../api/system/ads/favorites.php");
@@ -558,6 +533,9 @@ if (isset($DATA_OBJ->data_type)) {
              include_once('../api/system/packages/insertPack.php');
             break;
         case "insertPack":
+            include_once('../api/system/packages/insertPack.php');
+            break;
+          case "editPack":
             include_once('../api/system/packages/insertPack.php');
             break;
         case "getAdByAdId":
@@ -622,6 +600,12 @@ if (isset($DATA_OBJ->data_type)) {
         case "sendReportToUser":
             //send msg to user about the report
             include_once('../api/system/Ads/reports.php');
+            break;
+        case "editParameterAds":
+            include_once('../api/system/Ads/handleAdContentMasters.php');
+            break;
+        case "getMastersForAdsContentForTheTable":
+            include_once('../api/system/Ads/handleAdContentMasters.php');
             break;
         case "getSelectedAdWithReportFeedback":
              include_once('../api/system/Ads/reports.php');

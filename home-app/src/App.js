@@ -52,6 +52,9 @@ import UserShow from "./Components/UserShow";
 import FavoritesAds from "./Components/FavoritesAds";
 import EditAd from "./Components/pages/EditAd.js";
 import HandlePackages from "./Components/pages/users/Settings/Pages/HandlePackages.jsx";
+import HandleAdParams from "./Components/pages/users/Settings/Pages/HandleAdParams";
+import EditParameterAds from "./Components/pages/users/Settings/Pages/EditParameterAds";
+
 const ROLES = {
   User: 2001,
   Admin: 5150,
@@ -146,6 +149,27 @@ export default function App() {
                         />
                       </Route>
                     </Route>
+                    <Route element={<PersistLogin />}>
+                      <Route
+                        element={<RequireAuth allowedRoles={[ROLES.Admin]} />}
+                      >
+                        <Route
+                          path="handleAdParams"
+                          element={<HandleAdParams />}
+                        />
+                      </Route>
+                    </Route>
+                    <Route element={<PersistLogin />}>
+                      <Route
+                        element={<RequireAuth allowedRoles={[ROLES.Admin]} />}
+                      >
+                        <Route
+                          path="editAdsParams"
+                          element={<EditParameterAds />}
+                        />
+                      </Route>
+                    </Route>
+
                     <Route element={<PersistLogin />}>
                       <Route
                         element={<RequireAuth allowedRoles={[ROLES.Admin]} />}

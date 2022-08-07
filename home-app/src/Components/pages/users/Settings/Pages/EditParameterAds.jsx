@@ -1,18 +1,26 @@
 import React, { useState } from "react";
 import "./Styles/AddParameterMaster.css";
 import useAuth from "../../../../../Auth/useAuth";
-import toast, { Toaster } from "react-hot-toast"; // https://react-hot-toast.com/docs && https://react-hot-toast.com/
 import instance from "../../../../../api/AxiosInstance";
-function AddParameterToAds(props) {
+import toast, { Toaster } from "react-hot-toast"; // https://react-hot-toast.com/docs && https://react-hot-toast.com/
+
+function EditParameterAds(props) {
   const { auth } = useAuth();
-  const [paramName, setParamName] = useState(""); //hook for parameter name
-  const [maxValue, setMaxVlue] = useState(""); //hook for parameter max value
-  const [minValue, setMinValue] = useState(""); //hook fr parameter min value
-  const [paramStyle, setParamStyle] = useState("input"); //hook for parameter style
-  const [dataType, setDataType] = useState(""); //hook for parameter style
-  const [category, setCataegory] = useState("השכרה");
-  const [numericParameterClass, setNumericParameterClass] =
-    useState("not numeric");
+  const [paramName, setParamName] = useState(props.paramName); //hook for parameter name
+  const [maxValue, setMaxVlue] = useState(
+    props.max_value ? props.max_value : ""
+  ); //hook for parameter max value
+  const [minValue, setMinValue] = useState(
+    props.min_value ? props.min_value : ""
+  ); //hook fr parameter min value
+  const [paramStyle, setParamStyle] = useState(props.paramStyle); //hook for parameter style
+  const [dataType, setDataType] = useState(
+    props.max_value || props.min_value ? "INT" : "VARCHAR"
+  ); //hook for parameter style
+  const [category, setCataegory] = useState(props.category);
+  const [numericParameterClass, setNumericParameterClass] = useState(
+    dataType === "INT" ? "numeric" : "not numeric"
+  );
   const [isCheckBox, setIsCheckBox] = useState(false); //determine if checkbox
   const onChangeState = (setStateName, e) => {
     //func that recieves setstate and the event and change value of state to the value of input
@@ -40,8 +48,10 @@ function AddParameterToAds(props) {
     }
     const result = await instance.request({
       data: {
-        data_type: "addNewMasterToAdContentTable",
+        data_type: "editParameterAds",
         params: {
+          element_id: props.id,
+          guest: "registered",
           paramName: paramName,
           paramStyle: paramStyle,
           minValue: minValue,
@@ -55,16 +65,16 @@ function AddParameterToAds(props) {
       },
     });
     console.log(result.data);
-    if (result.data == "not authorized") {
+    if (result.data === "edit was done") {
       toast.dismiss(); // remove loading toast
-      toast.error("משהו השתבש");
-    } else {
-      props.refreshTable();
+      toast.success("  עריכה הצליחה");
+      returnStateToDefault();
       props.setClassName("notShowSelected");
       props.setTableClassName("showTable");
+      props.refreshTable();
+    } else {
       toast.dismiss(); // remove loading toast
-      toast.success("   פרמטר נוסף");
-      returnStateToDefault();
+      toast.error("עריכה נכשלה");
     }
   };
   const closeParam = (e) => {
@@ -159,12 +169,19 @@ function AddParameterToAds(props) {
         </label>
 
         <p className="labelParamAdd">
-          <button onClick={submitParameter}>הוספה</button>
+          <button onClick={submitParameter}>ערוך פרמטר</button>
         </p>
       </form>
       <Toaster />
     </section>
   );
 }
-AddParameterToAds.defaultProps = {};
-export default AddParameterToAds;
+EditParameterAds.defaultProps = {
+  paramName: "",
+  min_value: "",
+  maxValue: "",
+  paramStyle: "input",
+  category: "השכרה",
+  dataType: "VARCHAR",
+};
+export default EditParameterAds;
