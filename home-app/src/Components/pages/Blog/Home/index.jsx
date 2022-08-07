@@ -4,17 +4,16 @@ import EmptyList from '../components/common/EmptyList';
 import BlogList from '../components/home/BlogList';
 import Header from '../components/home/Header';
 import SearchBar from '../components/home/SearchBar';
-import { blogList } from '../config/data';
 import "./styles.css";
 
 const Home = () => {
   const [blogs, setBlogs] = useState([]);
   const [searchKey, setSearchKey] = useState("");
-  const [searchElement, setSearchElement] = useState("");
   const [loading, setLoading] = useState(true);
   let currentOffset = 0;
-
-
+  let searchElement = "";
+  let prvScrollHeight = 0;
+  let scrollHeight = 0;
   /**
    * Get Blogs from server
    */
@@ -22,7 +21,7 @@ const Home = () => {
     const result = await instance.request({
       data: {
         data_type: "getBlogs",
-        params: { searchParams: searchElement || "",
+        params: { searchParams: searchElement,
                   offestVal: currentOffset,      
       },
       },
@@ -33,15 +32,25 @@ const Home = () => {
       if (result?.data?.Blogs) {
         const tmpArray = blogs;
         Object.values(result.data.Blogs).forEach((element) => {
-          tmpArray.push(element);
+          if(!isDuplicate(tmpArray,element))
+            tmpArray.push(element);
         });
         setBlogs(tmpArray);
       }
     }
     // after finish load all data stop loading
     setLoading(false);
+    if(prvScrollHeight < scrollHeight) {
+    currentOffset += 6;
+    prvScrollHeight = Math.max(scrollHeight, prvScrollHeight);
+    }
+
   };
 
+const isDuplicate = (data, obj) =>
+  data.some((el) =>
+    Object.entries(obj).every(([key, value]) => value === el[key])
+  );
 
 // check when we scroll down to button
   const handleScroll = (e) => {
@@ -50,7 +59,7 @@ const Home = () => {
     // get the current Scroll hheight
     //const scrollPosition = e.target.documentElement.scrollTop;
     // get full page scrolling height
-    const scrollHeight = e.target.documentElement.scrollHeight;
+    scrollHeight = e.target.documentElement.scrollHeight;
 
     const currentHeight = Math.ceil(
       e.target.documentElement.scrollTop + window.innerHeight
@@ -58,7 +67,7 @@ const Home = () => {
     if (currentHeight + 1 >= scrollHeight) {
       setLoading(true)
       getBlogs();
-      currentOffset += 6;
+      
     }
   };
 
@@ -70,17 +79,29 @@ const Home = () => {
 
   // Search for blog by category
   const handleSearchResults = () => {
-    const allBlogs = blogList;
-    const filteredBlogs = allBlogs.filter((blog) =>
-      blog.category.toLowerCase().includes(searchKey.toLowerCase().trim())
-    );
-    setBlogs(filteredBlogs);
+    // const allBlogs = blogList;
+    // const filteredBlogs = allBlogs.filter((blog) =>
+    //   blog.category.toLowerCase().includes(searchKey.toLowerCase().trim())
+    // );
+    // setBlogs(filteredBlogs);
+    // set what we want to search.
+    searchElement = searchKey.toLowerCase();
+
+    //update the offset value to zero
+    currentOffset = 0;
+    setLoading(true);
+    getBlogs();
   };
 
   // Clear search and show all blogs
   const handleClearSearch = () => {
-    setBlogs(blogList);
+    // Clear Search element
+    searchElement = "";
     setSearchKey("");
+    //update the offset value to zero
+    currentOffset = 0;
+    setLoading(true);
+    getBlogs();
   };
 
   useEffect(() => {

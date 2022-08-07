@@ -11,10 +11,10 @@ $numberOfRows = 6;
 // our uuid
 $query = "SELECT blogs.blog_id as `id`, blogs.title,blogs.category,blogs.subCategory,blogs.content as `description`, blogs.create_time as `createdAt`, blogs.cover_image as `cover`, concat(users.first_name, ' ', users.last_name) as `authorName` FROM `blogs` 
 INNER JOIN users ON blogs.userId = users.uuid 
-WHERE users.first_name LIKE '%".$searchElement."%' 
-	OR users.last_name LIKE '%".$searchElement."%'
-	OR blogs.title LIKE '%".$searchElement."%'
-	OR blogs.category LIKE '%".$searchElement. "%'
+WHERE LOWER(users.first_name) LIKE '%".$searchElement. "%' 
+	OR LOWER(users.last_name) LIKE '%".$searchElement. "%'
+	OR LOWER(blogs.title) LIKE '%".$searchElement. "%'
+	OR LOWER(blogs.category) LIKE '%".$searchElement. "%'
 	LIMIT ".$offsetVal. "," . $numberOfRows . ";";
 
 $info = (object)[];
