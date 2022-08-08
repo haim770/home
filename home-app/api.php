@@ -502,6 +502,13 @@ if (isset($DATA_OBJ->data_type)) {
             removeFromFavorites();
             break;
             // get all users from server, use for manager settings
+        case "getAllSiteSettings":
+            //get all site settings from settings table
+            include("../api/system/syteSettings/manageSiteSettings.php");
+            break;
+        case "updateSiteSettings":
+            include("../api/system/syteSettings/manageSiteSettings.php");
+            break;
         case "getSettingsUsers":
             include("../api/system/user/settingsUsers.php");
             break;

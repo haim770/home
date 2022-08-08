@@ -1,8 +1,19 @@
-.notVisible{display:none}
-.visible{display: flex;border: 2px green solid;}
+.notVisible {
+  display: none
+}
+
+.visible {
+  display: flex;
+  border: 2px green solid;
+}
+
 .img {
   width: 100%;
   height: 100%;
   object-fit: contain;
 }
-.picContainer{width:100%; height: 100%;}
+
+.picContainer {
+  width: 100%;
+  height: 200px;
+}

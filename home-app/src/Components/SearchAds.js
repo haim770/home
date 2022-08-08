@@ -544,7 +544,7 @@ function SearchAds(props) {
         <span>מחיר מינימום</span>
         <input
           type="text"
-          name="form_max_price"
+          name="form_min_price"
           id="price"
           required
           value={minPrice}
@@ -555,7 +555,7 @@ function SearchAds(props) {
         <span>מחיר מקסימום</span>
         <input
           type="text"
-          name="form_min_price"
+          name="form_max_price"
           id="price"
           required
           value={maxPrice}

@@ -1,5 +1,6 @@
 import React from "react";
 import Parameter from "./Parameter.js";
+import { NavLink, Link } from "react-router-dom";
 import "../styles/adPart.css";
 const AdPart = (props) => {
   const renderComp = () => {
@@ -16,7 +17,8 @@ const AdPart = (props) => {
         key === "expire_date" ||
         key === "approval_status" ||
         key === "map_Y" ||
-        key === "user_id"
+        key === "user_id" ||
+        key === "watch"
       ) {
         continue;
       }
@@ -41,9 +43,9 @@ const AdPart = (props) => {
         case "contact_counter":
           hebrewKey = "מספר אנשים שיצרו קשר";
           break;
-        case "watch":
-          hebrewKey = "מספר צפיות";
-          break;
+        // case "watch":
+        //   hebrewKey = "מספר צפיות";
+        //   break;
         case "city":
           hebrewKey = "עיר";
           break;
@@ -75,7 +77,7 @@ const AdPart = (props) => {
           hebrewKey = "סוג מודעה";
           break;
         case "rooms":
-          hebrewKey = "מס חדרים";
+          hebrewKey = "חדרים";
           break;
         case "price":
           hebrewKey = "מחיר";
@@ -100,13 +102,23 @@ const AdPart = (props) => {
           break;
       }
       //we get an object of ad in the props and get out the 0 place which is the ads params
-      code.push(
-        <Parameter
-          key={props.ad[0].adID + key}
-          paramName={hebrewKey}
-          paramValue={value}
-        />
-      );
+      if (hebrewKey == "לינק") {
+        code.push(
+          <Parameter
+            key={props.ad[0].adID + key}
+            paramName={hebrewKey}
+            paramValue={<Link to={{ pathname: value }}>לחץ כאן</Link>}
+          />
+        );
+      } else {
+        code.push(
+          <Parameter
+            key={props.ad[0].adID + key}
+            paramName={hebrewKey}
+            paramValue={value}
+          />
+        );
+      }
     }
     return code;
   };

@@ -1,7 +1,7 @@
 .search {
   display: flex;
   flex-direction: column;
-  max-width: 30%;
+  max-width: 40%;
   border: 2px solid black;
   justify-content: flex-start;
   /* align-self: flex-start;
@@ -53,4 +53,7 @@
 .moreParams {
   margin: 1rem;
   border-radius: 5px;
+}
+.moreParams:hover{
+  opacity: 0.5;
 }

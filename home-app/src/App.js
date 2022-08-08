@@ -54,6 +54,7 @@ import EditAd from "./Components/pages/EditAd.js";
 import HandlePackages from "./Components/pages/users/Settings/Pages/HandlePackages.jsx";
 import HandleAdParams from "./Components/pages/users/Settings/Pages/HandleAdParams";
 import EditParameterAds from "./Components/pages/users/Settings/Pages/EditParameterAds";
+import ManageSiteSettings from "./Components/pages/users/Settings/Pages/ManageSiteSettings";
 
 const ROLES = {
   User: 2001,
@@ -166,6 +167,16 @@ export default function App() {
                         <Route
                           path="editAdsParams"
                           element={<EditParameterAds />}
+                        />
+                      </Route>
+                    </Route>
+                    <Route element={<PersistLogin />}>
+                      <Route
+                        element={<RequireAuth allowedRoles={[ROLES.Admin]} />}
+                      >
+                        <Route
+                          path="ManageSiteSettings"
+                          element={<ManageSiteSettings />}
                         />
                       </Route>
                     </Route>

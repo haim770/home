@@ -1,23 +1,29 @@
 .paramVisible {
   visibility: visible;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-between;
-   color: black;
-   max-width: 90%;
+  color: black;
+  max-width: 90%;
 }
-.key{
+
+.key {
   text-decoration: underline;
   color: blueviolet;
+  text-align: right;
 }
-.val{
+
+.val {
   text-decoration: none;
+  text-align: right;
 
 }
+
 .paramNotVisible {
   /* visibility: hidden; */
   display: none;
 }
+
 .transition-3 {
   transition: all 0.33s ease;
   -webkit-transition: all 0.33s ease;

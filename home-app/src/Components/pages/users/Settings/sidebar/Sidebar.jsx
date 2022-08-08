@@ -117,6 +117,14 @@ const Sidebar = () => {
             </Link>
           </li>
           <li>
+            <Link
+              to="/Settings/ManageSiteSettings"
+              style={{ textDecoration: "none" }}
+            >
+              <span> נהל הגדרות אתר </span>
+            </Link>
+          </li>
+          <li>
             <Link to="/Settings/Sales" style={{ textDecoration: "none" }}>
               <FcSalesPerformance className="icon" />
               <span>מכירות</span>

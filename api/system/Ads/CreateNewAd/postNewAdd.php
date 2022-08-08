@@ -122,7 +122,7 @@ if(!empty($fileNames)){
         $query = "INSERT INTO ad_content(element_id, adID, category, free_text, name, value) VALUES ('$elementid','$adID','$category','$key','$key','$value')";
         $db->writeDBNotStoredProcedure($query, []);
     }
-
+        decreaseAdValueBy1ToUser($user->getUuid());
 echo json_encode(
     "publish");
 die;
@@ -133,3 +133,11 @@ else{
 } catch (Exception $e) {
     echo json_encode("error"+$e);
 }
+function decreaseAdValueBy1ToUser($userId){
+    global $db;
+    global $user;
+    global $DATA_OBJ;
+    $query="UPDATE users SET remaining_ads = remaining_ads-1 WHERE uuid = '$userId'";
+    $db->writeDBNotStoredProcedure($query,[]);
+}
+?>

@@ -76,6 +76,7 @@ const AdsBlock = (props) => {
       e.target.tagName === "BUTTON" ||
       e.target.tagName === "path" ||
       e.target.tagName === "button" ||
+      e.target.tagName === "A" ||
       e.target.parentElement.className === "showReport" ||
       e.target.parentElement.parentElement.className === "showReport" ||
       e.target.parentElement.parentElement.parentElement.className ===
