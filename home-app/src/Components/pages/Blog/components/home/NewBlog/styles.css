@@ -1,0 +1,29 @@
+.addBlog{
+  display: block;
+  position: absolute;
+  z-index: 1000;
+  right: 25%;
+}
+
+.addBlog button{
+    outline: none;
+  border: none;
+  padding: 0.3rem 1rem;
+  border-radius: 5px;
+  background-color: #0f52ba;
+  color: #fff;
+  transition-duration: 0.4s;
+}
+.addBlog button:hover{
+    outline: none;
+  border: none;
+  padding: 0.3rem 1rem;
+  border-radius: 5px;
+  background-color: #ebf3ff;
+  color: rgb(43, 41, 41);
+}
+.addBlog button p {
+  font-size: 2rem;
+  margin-block-start:  0.2rem;
+  margin-block-end:  0.2rem;
+}
