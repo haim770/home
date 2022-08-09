@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./Styles/AddParameterMaster.css";
+import "./Styles/siteSettings.css";
 import useAuth from "../../../../../Auth/useAuth";
 import instance from "../../../../../api/AxiosInstance";
 import toast, { Toaster } from "react-hot-toast"; // https://react-hot-toast.com/docs && https://react-hot-toast.com/
@@ -8,11 +9,12 @@ function ManageSiteSettings(props) {
   const { auth } = useAuth();
   const [adValue, setAdValue] = useState(""); //hook for initial ad value per register
   const [editableParams, setEditableParams] = useState(false);
+  const [expireDate, setExpireDate] = useState("");
   const returnStateToDefault = () => {};
-  const setAdValueHook = (e) => {
+  const setDecimalParams = (e, setHook) => {
     if (isNaN(e.target.value)) return;
     if (e.target.value[e.target.value.length - 1] === ".") return;
-    setAdValue(e.target.value); //int number inside
+    setHook(e.target.value); //int number inside
   };
   const makeParamEditable = (e) => {
     e.preventDefault();
@@ -36,6 +38,7 @@ function ManageSiteSettings(props) {
       return;
     } else {
       setAdValue(result.data[0].adsGift);
+      setExpireDate(result.data[0].expireDateAds);
     }
   };
   useEffect(() => {
@@ -54,7 +57,8 @@ function ManageSiteSettings(props) {
         data_type: "updateSiteSettings",
         params: {
           guest: "registered",
-          ad_value: adValue,
+          ad_value: adValue > 0 ? adValue : 5,
+          expireDateAds: expireDate > 0 ? expireDate : 30,
         },
       },
       headers: {
@@ -75,23 +79,44 @@ function ManageSiteSettings(props) {
   return (
     <section>
       <form className="formAddParameter">
-        <label className="labelParamAdd" key={"adValueLable"}>
-          <span>כמות מודעות נוכחית ברישום</span>
-          <input
-            type="text"
-            name="adValue"
-            value={adValue || ""}
-            readOnly={!editableParams}
-            onChange={setAdValueHook}
-          />
-          <button onClick={makeParamEditable}>
+        <div>
+          <label className="labelParamAdd" key={"adValueLable"}>
+            <span>כמות מודעות נוכחית ברישום</span>
+            <input
+              type="text"
+              name="adValue"
+              value={adValue || ""}
+              readOnly={!editableParams}
+              onChange={(e) => setDecimalParams(e, setAdValue)}
+            />
+          </label>
+          <label className="labelParamAdd" key={"adValueLable"}>
+            <span>מס ימים עד פג תוקף של מודעה</span>
+            <input
+              type="text"
+              name="expireDate"
+              value={expireDate || ""}
+              readOnly={!editableParams}
+              onChange={(e) => setDecimalParams(e, setExpireDate)}
+            />
+          </label>
+        </div>
+        <div className="btnClassForSiteSettings">
+          <button
+            onClick={makeParamEditable}
+            className="btnInsideTheSiteSettings"
+          >
             {!editableParams
               ? "הפוך את הפרמטרים לזמינים לעריכה"
               : "סגור אפשרות עריכה"}
           </button>
-        </label>
-        <button onClick={submitChanges}>העלה שינויים לאתר</button>
-        <button onClick={cancel}>בטל</button>
+          <button className="btnInsideTheSiteSettings" onClick={submitChanges}>
+            העלה שינויים לאתר
+          </button>
+          <button className="btnInsideTheSiteSettings" onClick={cancel}>
+            בטל שינויים
+          </button>
+        </div>
       </form>
       <Toaster />
     </section>

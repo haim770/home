@@ -70,11 +70,12 @@ if(!empty($fileNames)){
     $formData=json_decode($DATA_OBJ["formData"]);
     $arr2=[];
     $arr2["uuid"]= $arr["adUuid"];
+
     $expFormat = mktime(
         date("H"),
         date("i"),
         date("s"),
-        date("m") + 30,
+        date("m") + getExpireDateFromSiteSettings(),
         date("d"),
         date("Y")
     );
@@ -83,6 +84,10 @@ if(!empty($fileNames)){
     $adID = $arr["adUuid"];
     $expire_date = $expDate;
     $user_id= $user->getUuid();
+    if(!isset($formData->assetEntry)){
+        $entryDate="מיידי";
+    }
+    else{
     if($formData->assetEntry=="עתידי"){
         if($formData->entryDate!="")
             $entryDate=$formData->entryDate;
@@ -90,6 +95,7 @@ if(!empty($fileNames)){
     else{
         $entryDate=$formData->assetEntry;
     }
+}
     
     $street = $formData->street;
     $building_number = $formData->appartmentNumber;
@@ -106,7 +112,11 @@ if(!empty($fileNames)){
     $price = $formData->price;
     $rooms= $formData->numberOfRooms;
     $area=$formData->area;
-    $property_type=$formData->assetType;
+    if(isset($formData->assetType)){
+    $property_type=$formData->assetType;}
+    else{
+        $property_type="דירה";
+    }
     $query="INSERT INTO ads (adID,user_id,city,street,propertyTaxes,houseCommittee,floor,maxFloor,price,rooms,adType,entry,building_number,expire_date,area,entry_date,property_type,ad_link) VALUES('$adID','$user_id','$city','$street','$propertyTaxes','$houseCommittee','$floor','$maxFloor','$price','$rooms','$adType','$entry','$building_number','$expire_date','$area','$entryDate','$property_type','$adID')";
     $db->writeDBNotStoredProcedure($query,[]);
     /////////////////////////////////////////////////
@@ -138,6 +148,16 @@ function decreaseAdValueBy1ToUser($userId){
     global $user;
     global $DATA_OBJ;
     $query="UPDATE users SET remaining_ads = remaining_ads-1 WHERE uuid = '$userId'";
-    $db->writeDBNotStoredProcedure($query,[]);
+    $result=$db->writeDBNotStoredProcedure($query,[]);
+}
+function getExpireDateFromSiteSettings(){
+    //gets num of days till expire from the settings
+    global $db;
+    global $user;
+    global $DATA_OBJ;
+    $query="select expireDateAds from settings";
+    $result=$db->readDBNoStoredProcedure($query,[]);
+    return $result[0]->expireDateAds;
+
 }
 ?>

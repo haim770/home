@@ -1,0 +1,9 @@
+.btnClassForSiteSettings{
+  display: flex;
+  align-content: center;
+  min-height: 4rem;
+}
+.btnInsideTheSiteSettings{
+  margin: 1rem;
+  padding: 1rem;
+}
