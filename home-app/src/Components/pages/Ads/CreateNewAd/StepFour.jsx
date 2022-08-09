@@ -16,10 +16,9 @@ const StepFour = ({
 }) => {
   const fileName = uuidv4();
   const handleImageChange = (e) => {
-    console.log(e.target.files[0]);
-    console.log(Array.from(e.target.files), "file");
     if (e.target.files) {
-      setFormDataImageUpload(e.target.files);
+      setFormDataImageUpload([...formDataImageUpload,e.target.files]);
+      //setFormDataImageUpload(e.target.files);
       const filesArray = Array.from(e.target.files).map((file) =>
         URL.createObjectURL(file)
       );
@@ -33,6 +32,9 @@ const StepFour = ({
   const deleteImage = (e) => {
     const itemToRemove = e.target.getAttribute("id");
     setFormDataImage(formDataImage.filter((item) => item !== itemToRemove));
+    setFormDataImageUpload(
+      formDataImage.filter((item) => item !== itemToRemove)
+    );
   };
   return (
     <div className="fileUploader">

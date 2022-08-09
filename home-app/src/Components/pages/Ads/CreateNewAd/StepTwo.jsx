@@ -270,8 +270,6 @@ const StepTwo = ({ formData, setFormData }) => {
               <p>יש תאריך מדויק לכניסה</p>
             </label>
           </div>
-          {console.log(formData.assetEntry)}
-          {console.log(formData.entryDate)}
         </div>
         {"עתידי" === formData.assetEntry ? (
           <input

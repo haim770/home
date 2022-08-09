@@ -34,9 +34,14 @@ const Form = () => {
      * Build the post data
      */
     let data = new FormData();
+    console.log(formDataImageUpload);
     for (let i = 0; i < formDataImageUpload.length; i++) {
-      data.append("files[]", formDataImageUpload[i]);
+      for (let x = 0; x < formDataImageUpload[i].length; x++) {
+        data.append("files[]", formDataImageUpload[i][x]);
+        console.log(formDataImageUpload[i][x]);
+      }
     }
+    
     data.append("data_type", "postNewAdd");
     data.append("formData", JSON.stringify(formData));
     data.append(
