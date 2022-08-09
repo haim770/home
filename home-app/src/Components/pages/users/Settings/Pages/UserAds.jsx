@@ -191,17 +191,13 @@ const UserAds = (props) => {
       ) : (
         ""
       )}
-      {props.fullShow === "showFull" && adFull != {} ? (
+      {fullShow === "showFull" && adFull != {} ? (
         <AdFullForProps
           className={fullShow}
           adBlock={adFull}
           setAdFull={setAdFull}
           setFullShow={setFullShow}
           setListShow={setListShow}
-          // showReport={showReport}
-          // setReportShow={setReportShow}
-          // adForTheReport={adForTheReport}
-          // setAdForTheReport={setAdForTheReport}
           auth={auth}
         />
       ) : (
