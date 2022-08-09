@@ -40,12 +40,16 @@ function getMastersForAdsContentForTheTable()
     $result=$db->readDBNoStoredProcedure($query);
     $resultForTheTable=[];
     $objForRow=[];
+    if($result!=false){
     for ($i=0; $i <count($result) ; $i++) {
       //we split the msg content to report id and adId
       $typeOfVar=$result[$i]->max_value!=null||$result[$i]->min_value!=null?"numeric":"text";
       $objForRow=array("id"=>$result[$i]->element_id,"category"=>$result[$i]->category,"min_value"=>$result[$i]->min_value,"max_value"=>$result[$i]->max_value,"category"=>$result[$i]->category,"name"=>$result[$i]->name,"display_type"=>$result[$i]->display_type,"typeOfVar"=>$typeOfVar);
       // $objForRow=json_encode($objForRow);
       $resultForTheTable[$i]=$objForRow;
+    }}
+    else{
+      $resultForTheTable=[];
     }
     echo json_encode($resultForTheTable);
     die;

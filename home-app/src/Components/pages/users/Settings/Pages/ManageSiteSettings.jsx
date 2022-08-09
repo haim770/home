@@ -90,7 +90,7 @@ function ManageSiteSettings(props) {
               onChange={(e) => setDecimalParams(e, setAdValue)}
             />
           </label>
-          <label className="labelParamAdd" key={"adValueLable"}>
+          <label className="labelParamAdd" key="expireDateLable">
             <span>מס ימים עד פג תוקף של מודעה</span>
             <input
               type="text"

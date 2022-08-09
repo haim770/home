@@ -9,11 +9,12 @@ import HandleComplainOnAd from "./HandleComplainOnAd.js";
 import AdFullForPropsWithReport from "../../../../AdFullForPropsWithReport.js";
 
 const columns = [
-  { field: "id", headerName: "מס סידורי" },
-  { field: "reportId", headerName: "מספר דוח" },
-  { field: "adId", headerName: "משתמש מודעה" },
-  { field: "createTime", headerName: "תאריך" },
-  { field: "seen", headerName: "נראה " },
+  // minWidth: 50
+  { field: "id", headerName: "מס סידורי", flex: 1 },
+  { field: "reportId", headerName: "מספר דוח", flex: 1 },
+  { field: "adId", headerName: "משתמש מודעה", flex: 1 },
+  { field: "createTime", headerName: "תאריך", flex: 1 },
+  { field: "seen", headerName: "נראה ", flex: 1 },
 ];
 
 const UserReportsToAds = () => {
@@ -129,6 +130,7 @@ const UserReportsToAds = () => {
       </nav>
       <div style={{ height: 700, width: "100%" }} className={tableClassName}>
         <DataGrid
+          sx={{ fontSize: "2vw" }}
           rows={rows}
           columns={columns}
           pageSize={15}

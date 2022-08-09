@@ -67,12 +67,14 @@ function getAllReportsOnAdsForUserIdFromMassages(){
     $result=$db->readDBNoStoredProcedure($query);
     $resultForTheTable=[];
     $objForRow=[];
+    if($result!=false){
     for ($i=0; $i <count($result) ; $i++) {
       //we split the msg content to report id and adId
       $objForRow=array("id"=>$result[$i]->msgId,"reportId"=>explode(" ", $result[$i]->message_content)[0],"adId"=>explode(" ", $result[$i]->message_content)[1],"createTime"=>$result[$i]->create_time,"seen"=>$result[$i]->seen=="1"?"כן":"לא");
       // $objForRow=json_encode($objForRow);
       $resultForTheTable[$i]=$objForRow;
     }
+  }
     echo json_encode($resultForTheTable);
     die;
   }

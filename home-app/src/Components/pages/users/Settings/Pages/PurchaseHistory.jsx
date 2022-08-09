@@ -6,14 +6,14 @@ import useAuth from "../../../../../Auth/useAuth";
 import instance from "../../../../../api/AxiosInstance";
 
 const columns = [
-  { field: "id", headerName: "מזהה רכישה", width: 180 },
-  { field: "pack_id", headerName: "מזהה חבילה", width: 180 },
-  { field: "purchase_date", headerName: "תאריך רכישה", width: 130 },
+  { field: "id", headerName: "מזהה רכישה", flex: 1 },
+  { field: "pack_id", headerName: "מזהה חבילה", flex: 1 },
+  { field: "purchase_date", headerName: "תאריך רכישה", flex: 1 },
   {
     field: "value",
     headerName: "סכום",
     type: "number",
-    width: 130,
+    flex: 1,
   },
 ];
 
@@ -54,8 +54,9 @@ const PurchaseHistory = () => {
 
   return (
     <div className="tableContainer">
-      <div style={{ height: 700, width: "100%" }}>
+      <div style={{ height: "1000px", width: "100%" }}>
         <DataGrid
+          sx={{ fontSize: "1.1vw" }}
           rows={rows}
           columns={columns}
           pageSize={15}
