@@ -12,13 +12,13 @@ import AddParameterToAds from "../../Settings/Pages/AddParameterToAds";
 import EditParameterAds from "./EditParameterAds";
 
 const columns = [
-  { field: "id", headerName: "מס פרמטר" },
-  { field: "category", headerName: "קטגוריה" },
-  { field: "min_value", headerName: "ערך מינימום" },
-  { field: "max_value", headerName: "ערך מקסימום" },
-  { field: "name", headerName: "שם פרמטר " },
-  { field: "display_type", headerName: " אפשרות תצוגה " },
-  { field: "typeOfVar", headerName: "סוג משתנה" },
+  { field: "id", headerName: "מס פרמטר", flex: 1 },
+  { field: "category", headerName: "קטגוריה", flex: 1 },
+  { field: "min_value", headerName: "ערך מינימום", flex: 1 },
+  { field: "max_value", headerName: "ערך מקסימום", flex: 1 },
+  { field: "name", headerName: "שם פרמטר ", flex: 1 },
+  { field: "display_type", headerName: " אפשרות תצוגה ", flex: 1 },
+  { field: "typeOfVar", headerName: "סוג משתנה", flex: 1 },
 ];
 
 const HandleAdParams = () => {
@@ -114,6 +114,7 @@ const HandleAdParams = () => {
       <div style={{ height: 700, width: "100%" }} className={tableClassName}>
         <DataGrid
           rows={rows}
+          sx={{ fontSize: "1.1vw" }}
           columns={columns}
           pageSize={15}
           rowsPerPageOptions={[15]}

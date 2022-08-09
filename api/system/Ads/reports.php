@@ -202,7 +202,7 @@ function getAllReportsOnAdsForUserId(){
     }
   }
     else{
-      $result=[];
+      $reusut=[];
     }
     echo json_encode($resultForTheTable);
     die;

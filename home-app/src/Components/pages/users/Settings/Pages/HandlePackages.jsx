@@ -11,16 +11,16 @@ import EditPackage from "../../../../EditPackage";
 import CreatePackage from "../../../../CreatePackage";
 
 const columns = [
-  { field: "id", headerName: "מס חבילה" },
-  { field: "price", headerName: "מחיר" },
-  { field: "is_active", headerName: "חבילה פעילה" },
-  { field: "title", headerName: "כותרת" },
-  { field: "content", headerName: "תוכן " },
-  { field: "create_time", headerName: " תאריך יצירה" },
-  { field: "ad_value", headerName: "מס מודעות" },
-  { field: "update_time", headerName: "תאריך עדכון" },
-  { field: "countPurchases", headerName: "מס רכישות של החבילה" },
-  { field: "sumPurchases", headerName: "סכום שהורווח ממכירת חבילה" },
+  { field: "id", headerName: "מס חבילה", flex: 1 },
+  { field: "price", headerName: "מחיר", flex: 1 },
+  { field: "is_active", headerName: "חבילה פעילה", flex: 1 },
+  { field: "title", headerName: "כותרת", flex: 1 },
+  { field: "content", headerName: "תוכן ", flex: 1 },
+  { field: "create_time", headerName: " תאריך יצירה", flex: 1 },
+  { field: "ad_value", headerName: "מס מודעות", flex: 1 },
+  { field: "update_time", headerName: "תאריך עדכון", flex: 1 },
+  { field: "countPurchases", headerName: "מס רכישות של החבילה", flex: 1 },
+  { field: "sumPurchases", headerName: "סכום שהורווח ממכירת חבילה", flex: 1 },
 ];
 
 const HandlePackages = () => {
@@ -113,9 +113,13 @@ const HandlePackages = () => {
           צור חבילה
         </button>
       </nav>
-      <div style={{ height: 700, width: "100%" }} className={tableClassName}>
+      <div
+        style={{ height: "800px", width: "100%" }}
+        className={tableClassName}
+      >
         <DataGrid
           rows={rows}
+          sx={{ fontSize: "1.1vw" }}
           columns={columns}
           pageSize={15}
           rowsPerPageOptions={[15]}

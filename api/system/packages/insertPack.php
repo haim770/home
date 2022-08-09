@@ -122,6 +122,7 @@ function getPackages($selector){
     }
     $resultForTheTable=[];
     $objForRow=[];
+    if($result!=false){
     for ($i=0; $i <count($result) ; $i++) {
       //we split the msg content to report id and adId
     $packId=$result[$i]->packageId;
@@ -135,6 +136,10 @@ function getPackages($selector){
       // $objForRow=json_encode($objForRow);
       $resultForTheTable[$i]=$objForRow;
     }
+  }
+  else{
+    $result=[];
+  }
     echo json_encode($resultForTheTable);
     die;
 
