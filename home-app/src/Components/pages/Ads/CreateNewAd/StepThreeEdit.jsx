@@ -183,6 +183,8 @@ const StepThree = ({
   };
   useEffect(() => {
     getMasters();
+    console.log(formDataStepThreeBuy);
+    console.log(formDataStepThreeRent);
   }, []);
   const makeFormOfAdContent = () => {
     //form of the adcontent masters we have

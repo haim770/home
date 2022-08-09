@@ -127,6 +127,7 @@ const StepTwo = ({ formData, setFormData }) => {
   useEffect(() => {
     getSearchOptionsByParams("city");
     getSearchOptionsByParams("street");
+    setStreetSelectedOption({ label: formData.street, value: formData.street });
   }, []);
   useLayoutEffect(() => {
     if (selectedOption === null) {
