@@ -2,6 +2,7 @@
 // get authTest file
 $authPath = "../../../Authentication/authTest.php";
 include_once(dirname(__FILE__) . DIRECTORY_SEPARATOR . $authPath);
+deleteInputPics();
 
 /**
  * Check if user got enoght ads to publish or user is admin, if user is admin he can publish as much as he want
@@ -20,8 +21,8 @@ $statusMsg = $errorMsg = $insertValuesSQL = $errorUpload = $errorUploadType = ''
  * STEP ONE
  * upload files to server
  */
-$query="delete from pictures where element_id='$arr[adUuid]'";
-$db->writeDBNotStoredProcedure($query,[]);
+// $query="delete from pictures where element_id='$arr[adUuid]'";
+// $db->writeDBNotStoredProcedure($query,[]);
 $query="";
 if(!empty($fileNames)){
         $arr["serial_number"] = 1; // image counter
@@ -139,3 +140,20 @@ else{
 } catch (Exception $e) {
     echo json_encode("error");
 }
+function deleteSpesificPic($picUrl,$adId){
+    global $DATA_OBJ;
+    global $db;
+    $query="Delete from pictures where element_id='$adId' and picture_url='$picUrl'";
+    $db->writeDBNotStoredProcedure($query,[]);
+}
+function deleteInputPics(){
+    //delete the pics that came from the formData for delete
+    global $DATA_OBJ;
+    global $db;
+    $adId= $DATA_OBJ["adId"];
+    $imagesDelete=json_decode($DATA_OBJ["picsDelete"]);
+    for ($i=0; $i <count($imagesDelete) ; $i++) { 
+         deleteSpesificPic($imagesDelete[$i]->picture_url,$adId);
+    }
+}
+?>

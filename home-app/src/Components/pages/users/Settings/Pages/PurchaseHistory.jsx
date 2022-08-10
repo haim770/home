@@ -56,7 +56,7 @@ const PurchaseHistory = () => {
     <div className="tableContainer">
       <div style={{ height: "1000px", width: "100%" }}>
         <DataGrid
-          sx={{ fontSize: "1.1vw" }}
+          sx={{ fontSize: "1vw" }}
           rows={rows}
           columns={columns}
           pageSize={15}

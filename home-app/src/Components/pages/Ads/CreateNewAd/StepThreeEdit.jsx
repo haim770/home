@@ -183,8 +183,6 @@ const StepThree = ({
   };
   useEffect(() => {
     getMasters();
-    console.log(formDataStepThreeBuy);
-    console.log(formDataStepThreeRent);
   }, []);
   const makeFormOfAdContent = () => {
     //form of the adcontent masters we have
@@ -332,9 +330,6 @@ const StepThree = ({
    */
   return (
     <div className="inputStyleStepTwo">
-      {console.log(formDataStepThreeBuy)}
-      {console.log(formDataStepThreeRent)}
-      {console.log(adBlock)}
       {masters ? makeFormOfAdContent() : ""}
     </div>
   );

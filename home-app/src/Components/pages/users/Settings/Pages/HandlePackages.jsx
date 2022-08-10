@@ -119,7 +119,7 @@ const HandlePackages = () => {
       >
         <DataGrid
           rows={rows}
-          sx={{ fontSize: "1.1vw" }}
+          sx={{ fontSize: "1vw" }}
           columns={columns}
           pageSize={15}
           rowsPerPageOptions={[15]}

@@ -38,8 +38,10 @@ const Form = (props) => {
   });
   const [formDataStepThreeBuy, setFormDataStepThreeBuy] = useState({});
   const [formDataImage, setFormDataImage] = useState([]);
+  const [formDataStepFourImageOld, setFormDataStepFourImageOld] = useState([]);
   const [formDataStepThreeRent, setFormDataStepThreeRent] = useState({});
   const [formDataImageUpload, setFormDataImageUpload] = useState("");
+  const [picsForDelete, setPicsForDelete] = useState([]);
   const { auth } = useAuth();
   // Page title, display accordin to our page index
   const FormTitles = [
@@ -59,7 +61,10 @@ const Form = (props) => {
      */
     let data = new FormData();
     for (let i = 0; i < formDataImageUpload.length; i++) {
-      data.append("files[]", formDataImageUpload[i]);
+      for (let x = 0; x < formDataImageUpload[i].length; x++) {
+        data.append("files[]", formDataImageUpload[i][x]);
+        console.log(formDataImageUpload[i][x]);
+      }
     }
     data.append("data_type", "editAd");
     data.append("formData", JSON.stringify(formData));
@@ -70,6 +75,8 @@ const Form = (props) => {
         : JSON.stringify(formDataStepThreeBuy)
     );
     data.append("adId", props.adBlock.ad[0].adID);
+    data.append("picsDelete", JSON.stringify(picsForDelete));
+    console.log(picsForDelete);
     /**
      * END Build the post data
      */
@@ -102,6 +109,12 @@ const Form = (props) => {
         formDataStepThreeBuy[props.adBlock.adContent[index].name] =
           props.adBlock.adContent[index].value;
       }
+    }
+    for (let index = 0; index < props.adBlock.adImages.length; index++) {
+      formDataStepFourImageOld[index] = {
+        alt: props.adBlock.adImages[index].alt,
+        picture_url: props.adBlock.adImages[index].picture_url,
+      };
     }
   }, []);
   const PageDisplay = () => {
@@ -140,9 +153,13 @@ const Form = (props) => {
             formData={formData}
             setFormData={setFormData}
             formDataImage={formDataImage}
+            formDataImageUpload={formDataImageUpload}
+            formDataImageOld={formDataStepFourImageOld}
             setFormDataImage={setFormDataImage}
             setFormDataImageUpload={setFormDataImageUpload}
             adBlock={props.adBlock}
+            picsForDelete={picsForDelete}
+            setPicsForDelete={setPicsForDelete}
           />
         );
       default:

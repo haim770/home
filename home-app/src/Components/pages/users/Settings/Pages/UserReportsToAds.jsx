@@ -130,7 +130,7 @@ const UserReportsToAds = () => {
       </nav>
       <div style={{ height: 700, width: "100%" }} className={tableClassName}>
         <DataGrid
-          sx={{ fontSize: "2vw" }}
+          sx={{ fontSize: "1vw" }}
           rows={rows}
           columns={columns}
           pageSize={15}
