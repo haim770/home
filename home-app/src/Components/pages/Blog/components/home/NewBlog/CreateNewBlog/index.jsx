@@ -2,7 +2,7 @@ import useAuth from "../../../../../../../Auth/useAuth";
 import "./styles.css";
 
 import React, { useState } from "react";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import instance from "../../../../../../../api/AxiosInstanceFormData";
 import { v4 as uuidv4 } from "uuid";
 import { FiUploadCloud } from "react-icons/fi";
