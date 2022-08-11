@@ -25,7 +25,7 @@ const ConfirmAdBlock = (props) => {
         params: { adID: props.adBlock.ad[0].adID },
       },
     });
-    setClassName(className+"invisible");
+    setClassName(className + "invisible");
   };
   const declineAd = async (e) => {
     e.preventDefault();
@@ -35,12 +35,12 @@ const ConfirmAdBlock = (props) => {
         params: { adID: props.adBlock.ad[0].adID },
       },
     });
-    setClassName(className+"invisible");
+    setClassName(className + "invisible");
   };
   return (
     <section className={className}>
       <Link
-        to={`/adsWithSearch1/${props.adBlock.ad[0].adID}`}
+        to={`/adsWithSearch/${props.adBlock.ad[0].adID}`}
         key={props.adBlock.ad[0].adID}
         state={{
           adBlock: props.adBlock,

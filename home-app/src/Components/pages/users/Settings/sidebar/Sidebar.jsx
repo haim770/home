@@ -12,7 +12,7 @@ import { BsClockHistory } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import useAuth from "../../../../../Auth/useAuth";
 const Sidebar = () => {
-   const { auth } = useAuth();
+  const { auth } = useAuth();
   return (
     <div className="settingsSidebar">
       <div className="settingsCenter">
@@ -50,11 +50,11 @@ const Sidebar = () => {
           </li>
           <li>
             <Link
-              to="/Settings/ManageReports"
+              to="/Settings/UserReportsToAds"
               style={{ textDecoration: "none" }}
             >
               <HiOutlineDocumentReport className="icon" />
-              <span>דוחות</span>
+              <span>דוחות על מודעות של משתמש</span>
             </Link>
           </li>
           <p className="titleSet">מודעות</p>
@@ -154,6 +154,19 @@ const Sidebar = () => {
               <Link to="/Settings/Sales" style={{ textDecoration: "none" }}>
                 <FcSalesPerformance className="icon" />
                 <span>מכירות</span>
+              </Link>
+            </li>
+          ) : (
+            <></>
+          )}
+          {auth?.roles === "5150" ? (
+            <li>
+              <Link
+                to="/Settings/ManageReports"
+                style={{ textDecoration: "none" }}
+              >
+                <HiOutlineDocumentReport className="icon" />
+                <span>דוחות</span>
               </Link>
             </li>
           ) : (

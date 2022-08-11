@@ -132,7 +132,10 @@ if(!empty($fileNames)){
         $query = "INSERT INTO ad_content(element_id, adID, category, free_text, name, value) VALUES ('$elementid','$adID','$category','$key','$key','$value')";
         $db->writeDBNotStoredProcedure($query, []);
     }
+    if($user->getRule() != "5150"){
+        //if user is not manager his ads will decrease by 1
         decreaseAdValueBy1ToUser($user->getUuid());
+    }
 echo json_encode(
     "publish");
 die;
