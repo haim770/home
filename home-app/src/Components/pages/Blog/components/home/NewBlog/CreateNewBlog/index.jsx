@@ -115,7 +115,7 @@ const CreateBlog = () => {
             })}
           </div>
         </div>
-        <div class="blog">
+        <div className="blog">
           <textarea
             type="text"
             className="title"
