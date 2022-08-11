@@ -103,7 +103,7 @@ function SearchAds(props) {
     setInputsAd((values) => ({ ...values, street: value }));
     setStreetSelectedOption(event);
   };
- 
+
   const handleChangeAd = (event) => {
     const name = event.target.name;
     const value = event.target.value;
@@ -118,7 +118,7 @@ function SearchAds(props) {
       name === "maxRooms" ||
       name === "building_number" ||
       name === "maxArea" ||
-      name==="minArea"
+      name === "minArea"
     ) {
       if (isNaN(value)) return;
     }
@@ -375,43 +375,130 @@ function SearchAds(props) {
       mastersName.push(masters[index].name);
 
       if (
-        masters[index].min_value !== null &&
+        masters[index].min_value !== null ||
         masters[index].max_value !== null
       ) {
-        if (masters[index].category === "השכרה") {
-          code.push(
-            <label key={masters[index].element_id} className={notdisplayRent}>
-              <span>{masters[index].name}</span>
-              <input
-                type="text"
-                name={masters[index].name}
-                min={masters[index].min_value}
-                max={masters[index].max_value}
-                id={masters[index].name}
-                required={masters[index].required}
-                value={inputAdConentRent.name}
-                onBlur={(e) => handleOnFocusLost(e, "rent")}
-                onChange={handleChangeAdRentContent}
-              />
-            </label>
-          );
+        if (
+          masters[index].min_value !== null &&
+          masters[index].max_value !== null
+        ) {
+          if (masters[index].category === "השכרה") {
+            code.push(
+              <label key={masters[index].element_id} className={notdisplayRent}>
+                <span>{masters[index].name}</span>
+                <input
+                  type="text"
+                  name={masters[index].name}
+                  min={masters[index].min_value}
+                  max={masters[index].max_value}
+                  id={masters[index].name}
+                  required={masters[index].required}
+                  value={inputAdConentRent[masters[index].name]}
+                  onBlur={(e) => handleOnFocusLost(e, "rent")}
+                  onChange={handleChangeAdRentContent}
+                />
+              </label>
+            );
+          } else {
+            code.push(
+              <label key={masters[index].element_id} className={notdisplayBuy}>
+                <span>{masters[index].name}</span>
+                <input
+                  type="text"
+                  name={masters[index].name}
+                  id={masters[index].name}
+                  min={masters[index].min_value}
+                  max={masters[index].max_value}
+                  required={masters[index].required}
+                  value={inputsAdContentBuy[masters[index].name]}
+                  onBlur={(e) => handleOnFocusLost(e, "buy")}
+                  onChange={handleChangeAdContentBuy}
+                />
+              </label>
+            );
+          }
         } else {
-          code.push(
-            <label key={masters[index].element_id} className={notdisplayBuy}>
-              <span>{masters[index].name}</span>
-              <input
-                type="text"
-                name={masters[index].name}
-                id={masters[index].name}
-                min={masters[index].min_value}
-                max={masters[index].max_value}
-                required={masters[index].required}
-                value={inputsAdContentBuy.name}
-                onBlur={(e) => handleOnFocusLost(e, "buy")}
-                onChange={handleChangeAdContentBuy}
-              />
-            </label>
-          );
+          if (masters[index].min_value !== null) {
+            if (masters[index].category === "השכרה") {
+              code.push(
+                <label
+                  key={masters[index].element_id}
+                  className={notdisplayRent}
+                >
+                  <span>{masters[index].name}</span>
+                  <input
+                    type="text"
+                    name={masters[index].name}
+                    min={masters[index].min_value}
+                    id={masters[index].name}
+                    required={masters[index].required}
+                    value={inputAdConentRent[masters[index].name]}
+                    onBlur={(e) => handleOnFocusLost(e, "rent")}
+                    onChange={handleChangeAdRentContent}
+                  />
+                </label>
+              );
+            } else {
+              code.push(
+                <label
+                  key={masters[index].element_id}
+                  className={notdisplayBuy}
+                >
+                  <span>{masters[index].name}</span>
+                  <input
+                    type="text"
+                    name={masters[index].name}
+                    id={masters[index].name}
+                    min={masters[index].min_value}
+                    required={masters[index].required}
+                    value={inputsAdContentBuy[masters[index].name]}
+                    onBlur={(e) => handleOnFocusLost(e, "buy")}
+                    onChange={handleChangeAdContentBuy}
+                  />
+                </label>
+              );
+            }
+          } else {
+            if (masters[index].category === "השכרה") {
+              code.push(
+                <label
+                  key={masters[index].element_id}
+                  className={notdisplayRent}
+                >
+                  <span>{masters[index].name}</span>
+                  <input
+                    type="text"
+                    name={masters[index].name}
+                    max={masters[index].max_value}
+                    id={masters[index].name}
+                    required={masters[index].required}
+                    value={inputAdConentRent[masters[index].name]}
+                    onBlur={(e) => handleOnFocusLost(e, "rent")}
+                    onChange={handleChangeAdRentContent}
+                  />
+                </label>
+              );
+            } else {
+              code.push(
+                <label
+                  key={masters[index].element_id}
+                  className={notdisplayBuy}
+                >
+                  <span>{masters[index].name}</span>
+                  <input
+                    type="text"
+                    name={masters[index].name}
+                    id={masters[index].name}
+                    max={masters[index].max_value}
+                    required={masters[index].required}
+                    value={inputsAdContentBuy[masters[index].name]}
+                    onBlur={(e) => handleOnFocusLost(e, "buy")}
+                    onChange={handleChangeAdContentBuy}
+                  />
+                </label>
+              );
+            }
+          }
         }
       } else {
         if (masters[index].display_type === "checkBox") {
