@@ -38,7 +38,7 @@ function EditParameterAds(props) {
   const submitParameter = async (e) => {
     //add ad to the db, returns true/false
     e.preventDefault();
-    if (minValue > maxValue) {
+    if (minValue > maxValue && maxValue != "") {
       alert("min is bigger then max");
       return;
     }
