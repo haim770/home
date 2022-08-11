@@ -11,6 +11,8 @@ const AdPart = (props) => {
       }
       if (
         key === "adID" ||
+        key === "userIdWatchSet" ||
+        key === "userIdContactSet" ||
         key === "active" ||
         key === "close_reason" ||
         key === "map_X" ||

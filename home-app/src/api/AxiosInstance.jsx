@@ -4,7 +4,7 @@ const BASE_URL = "http://localhost:80/home/home-app/api.php";
 const instance = axios.create({
   baseURL: BASE_URL,
   method: "POST", // whem we define our method, when using "Request" then automatic it will be turn to post.
-  timeout: 5000,
+  timeout: 10000,
 });
 export default instance;
 
