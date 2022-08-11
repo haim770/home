@@ -1,0 +1,136 @@
+.addBlog {
+    margin: 4rem;
+    right:0%;
+    position: relative;
+}
+.blog{
+    width: 70vw;
+    min-width: 40rem;
+    height: 10rem;
+    display: block;
+    margin: auto;
+    padding: 5rem 0;
+}
+
+textarea {
+    font-family: 'Rubik', sans-serif;
+}
+textarea::-webkit-scrollbar{
+    width: 1rem;
+}
+
+textarea::-webkit-scrollbar-thumb{
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 1rem;
+}
+
+.title,
+.article{
+    width: 100%;
+    min-height: 10rem;
+    height: auto;
+    outline: none;
+    font-size: 5rem;
+    font-weight: 600;
+    color: #2d2d2d;
+    resize: none;
+    border: none;
+    padding: 1rem;
+    border-radius: 1rem;
+}
+
+.title::placeholder,
+.article::placeholder{
+    color: #2d2d2d;
+}
+
+.article{
+    height: 50rem;
+    font-size: 2rem;
+    margin-top: 2rem;
+    line-height: 3rem;
+    font-weight: 500;
+    padding-bottom: 10rem;
+    white-space: pre-wrap;
+}
+
+
+/* Step four */
+.fileUploader{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+#file[type="file"] {
+	display: none;
+}
+.label-holder {
+	width: 100%;
+	height: 5rem;
+  display: grid;
+  place-items: center;
+  
+}
+.fileUploader .label{
+  height: 5rem;
+  width: 20rem;
+  background-color:#2a3eb1;
+  color: white;
+  display: grid;
+  place-items: center;
+  font-size: 2.5rem ;
+  cursor: pointer;
+}
+
+
+.result{
+  min-height: 100%;
+  max-height: auto; 
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center; 
+  margin: 2rem;
+}
+
+.result img{
+  width: 32rem;
+  height: 18rem;
+  object-fit: cover;
+  padding: 0.75rem;
+}
+
+.imageContainer {
+  position: relative;
+  text-align: center;
+  color: white;
+}
+
+.top-right {
+  position: absolute;
+  top: 0.8rem;
+  right: 1.6rem;
+}
+
+.addBlogFooter {
+    position: fixed;
+}
+
+.addBlogFooter button {
+    border-radius: 2rem;
+      text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  padding: 2rem;
+}
+
+.addBlogFooter button:hover {
+    border-radius: 2rem;
+      text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  padding: 2rem;
+  background-color: whitesmoke;
+  color: #2a3eb1;
+}

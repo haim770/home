@@ -24,4 +24,8 @@ if($DATA_OBJ["data_type"] == "editAd"){
     die;
 }
 
+if ($DATA_OBJ["data_type"] == "postNewBlog") {
+    include("../api/system/Blog/postNewBlog.php");
+    die;
+}
 ?>
