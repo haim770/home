@@ -22,7 +22,6 @@ const Home = () => {
       });
 
       // check if we got new data from server or any response
-      console.log(result?.data);
       if (result?.data) {
         if (result?.data?.Blogs) {
           setBlogs(result.data.Blogs);
