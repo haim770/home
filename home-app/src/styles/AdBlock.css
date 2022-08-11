@@ -19,7 +19,12 @@
 .btnClassAdBlock {
   height: 100%;
 }
-
+.btnClassAdBlockEdit{
+  width: 100%;
+  margin: 1rem;
+  justify-self: center;
+  padding: 1rem;
+}
 .buttonPart {
   display: flex;
   justify-content: space-between;

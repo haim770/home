@@ -101,8 +101,12 @@ export default function RecipeReviewCard(props) {
         images={props.adBlock.adImages}
         numPicToDisplay="1"
       />
-      <CardContent>
-        <AdPart ad={props.adBlock.ad} className="adPart" watch={props.didWatch} />
+      <CardContent style={{ display: "flex", justifyContent: "end" }}>
+        <AdPart
+          ad={props.adBlock.ad}
+          className="adPart"
+          watch={props.didWatch}
+        />
       </CardContent>
       <CardActions disableSpacing>
         {auth.roles ? (
@@ -110,7 +114,10 @@ export default function RecipeReviewCard(props) {
             aria-label="add to favorites"
             onClick={addOrRemoveToFavorites}
           >
-            <FavoriteIcon display={auth.accessToken != undefined?"block":"none"} color={props.isFavorite ? "success" : ""} />
+            <FavoriteIcon
+              display={auth.accessToken != undefined ? "block" : "none"}
+              color={props.isFavorite ? "success" : ""}
+            />
           </IconButton>
         ) : (
           ""
@@ -135,6 +142,6 @@ export default function RecipeReviewCard(props) {
     </Card>
   );
 }
-RecipeReviewCard.defaultProps={
-  didWatch:0,
-}
+RecipeReviewCard.defaultProps = {
+  didWatch: 0,
+};

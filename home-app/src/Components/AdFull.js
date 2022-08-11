@@ -14,17 +14,21 @@ import AddCookie from "./pages/Ads/addCookie";
 import RecipeReviewCard from "./RecipeReviewCard";
 import RecipeReviewCardUrl from "./RecipeReviewCardUrl";
 import AdById from "./AdById";
+import useView from "./pages/Chat/ChatUseContext";
+import useAuth from "../Auth/useAuth";
 function AdFull(props) {
   const [dataForUrl, setDataForUrl] = useState({});
   const [isFavorite, setIsFavorite] = useState(props.isFavorite);
   const [renderCookie, setRenderCookie] = useState(true);
+  const { auth } = useAuth();
+  const { startNewChat } = useView();
+  
+
   return (
     <AdById
-      adID={
-        window.location.href.split("/")[
-          window.location.href.split("/").length - 1
-        ]
-      }
+      adID={window.location.href.split("/")[window.location.href.split("/").length - 1]}
+        auth={auth}
+        startNewChat={startNewChat}
     />
   );
 }

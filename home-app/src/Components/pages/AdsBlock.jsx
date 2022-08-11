@@ -162,21 +162,21 @@ const AdsBlock = (props) => {
           </div>
           <div>
             <button className="btnClassAdBlock" onClick={reportOnAd}>
-              דווח על מודעה
+              דווח
             </button>
           </div>
-          <div>
-            <button
-              className="btnClassAdBlock"
-              style={{
-                display:
-                  props.adBlock.user[0].mail === auth?.user ? "block" : "none",
-              }}
-              onClick={editAd}
-            >
-              ערוך מודעה
-            </button>
-          </div>
+        </div>
+        <div>
+          <button
+            className="btnClassAdBlockEdit"
+            style={{
+              display:
+                props.adBlock.user[0].mail === auth?.user ? "block" : "none",
+            }}
+            onClick={editAd}
+          >
+            ערוך מודעה
+          </button>
         </div>
         {goToEditPage ? (
           <Navigate

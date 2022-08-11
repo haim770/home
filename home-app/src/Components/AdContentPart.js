@@ -13,8 +13,11 @@ const AdContentPart = (props) => {
   const renderComp = () => {
     let code = [];
     for (let index = 0; index < props.adContent.length; index++) {
-      //we get array of all the ad content as props
+      if (props.adContent[index].value === "") {
+        continue;
+      }
       if (props.adContent[index].display_type === "checkBox") {
+        //we get array of all the ad content as props
         //we make display as checkbox
         code.push(
           <Parameter

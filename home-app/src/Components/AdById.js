@@ -14,22 +14,39 @@ import useAuth from "../Auth/useAuth";
 import AddCookie from "./pages/Ads/addCookie";
 import RecipeReviewCard from "./RecipeReviewCard";
 import RecipeReviewCardUrl from "./RecipeReviewCardUrl";
+import { FaEye } from "react-icons/fa";
+import { FcSms } from "react-icons/fc";
 function AdById(props) {
   const [data, setData] = useState({});
   const [isFavorite, setIsFavorite] = useState(props.isFavorite);
   const [renderCookie, setRenderCookie] = useState(true);
   let refreshTimes = 1;
-  const { auth } = useAuth();
+  const handleClickChatWith = async () => {
+    const chatWith = {
+      adBlock: data.ad[0],
+      username: `${data.user[0].first_name} ${data.user[0].last_name}`,
+      uuid: data.user[0].uuid,
+      adID: data.ad[0].adID,
+      key: data.ad[0].adID + data.user[0].uuid,
+    };
+    const res = await instance.request({
+      data: {
+        data_type: "updateContacted",
+        params: { adID: props.adID }, //window.location.href gets the urlline
+      },
+    });
+    console.log(res.data);
+    props.startNewChat(chatWith);
+  };
   const getAd = async () => {
-    console.log(auth);
     const result = await instance.request({
       data: {
         data_type: "getAdByAdId",
         params: { adId: props.adID, user_id: props.user_id },
-        guest: auth.accessToken != undefined ? "registered" : "guest",
+        guest: props.auth.accessToken != undefined ? "registered" : "guest",
       },
       headers: {
-        Authorization: `Bearer ${auth.accessToken}`,
+        Authorization: `Bearer ${props.auth.accessToken}`,
       },
     });
     setData(result.data);
@@ -42,7 +59,7 @@ function AdById(props) {
       const result = instance.request({
         data: {
           data_type: "updateWatch",
-          params: { adID: props.id }, //window.location.href gets the urlline
+          params: { adID: props.adID }, //window.location.href gets the urlline
         },
       });
     }
@@ -50,15 +67,41 @@ function AdById(props) {
 
   return data.ad !== false ? (
     <section className={"ad"}>
+      <header className="headerOnTheTop">
+        {/* This div will contain data like how many days the add on the site */}
+        <div>
+          <h3 className="iconsAtTop">
+            <Parameter
+              paramName={<FaEye />}
+              paramValue={data?.ad ? data.ad[0].watch : ""}
+            />
+            <Parameter
+              paramName={<FcSms />}
+              paramValue={data?.ad ? data.ad[0].contact_counter : ""}
+            />
+          </h3>
+        </div>
+      </header>
       <ul>
         <AdUserPart user={data.user} />
         <AdImages images={data.adImages} />
         <AdPart ad={data.ad} />
         <AdContentPart adContent={data.adContent} />
       </ul>
-      <p>
-        <Button content="contact seller" onclick={props.onclick} />
-      </p>
+      <div
+        style={{
+          display: data?.user?.mail === props.auth?.user ? "none" : "block",
+        }}
+      >
+        <div className="jss142">
+          <button
+            className="MuiButtonBase-root MuiButton-root jss151 MuiButton-contained MuiButton-containedPrimary MuiButton-disableElevation MuiButton-fullWidth"
+            onClick={handleClickChatWith}
+          >
+            <span className="buttonSpanLabel">התחל צ'ט</span>
+          </button>
+        </div>
+      </div>
     </section>
   ) : (
     <section>
