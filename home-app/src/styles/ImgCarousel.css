@@ -22,9 +22,9 @@
 .center {
   align-self: center;
   color: yellow;
+  display: none;
 }
 
 .navArrows {
   display: flex;
-  border: 2px solid red;
 }

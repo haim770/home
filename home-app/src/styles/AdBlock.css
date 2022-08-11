@@ -1,7 +1,7 @@
 .cardBlock {
   display: flex;
   flex-direction: column;
-  border: 2px solid yellow;
+  border: 2px solid black;
   padding: 1rem;
   max-width: 40%;
   direction: rtl;

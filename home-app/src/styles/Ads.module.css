@@ -3,7 +3,6 @@
   flex-direction: row;
   flex-wrap: wrap;
   flex-grow: 1;
-  border: 2px solid red;
   justify-content: space-between;
   padding: 1rem;
   will-change: transform;
