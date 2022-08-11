@@ -9,7 +9,7 @@ function AddParameterToAds(props) {
   const [maxValue, setMaxVlue] = useState(""); //hook for parameter max value
   const [minValue, setMinValue] = useState(""); //hook fr parameter min value
   const [paramStyle, setParamStyle] = useState("input"); //hook for parameter style
-  const [dataType, setDataType] = useState(""); //hook for parameter style
+  const [dataType, setDataType] = useState("INT"); //hook for parameter style
   const [category, setCataegory] = useState("השכרה");
   const [numericParameterClass, setNumericParameterClass] =
     useState("not numeric");
@@ -30,7 +30,7 @@ function AddParameterToAds(props) {
   const submitParameter = async (e) => {
     //add ad to the db, returns true/false
     e.preventDefault();
-    if (minValue > maxValue) {
+    if (minValue > maxValue && maxValue != "") {
       alert("min is bigger then max");
       return;
     }
@@ -48,12 +48,14 @@ function AddParameterToAds(props) {
           maxValue: maxValue,
           paramType: dataType,
           category: category,
+          guest: auth.accessToken != undefined ? "registered" : "guest",
         },
       },
       headers: {
         Authorization: `Bearer ${auth.accessToken}`,
       },
     });
+    console.log(result);
     console.log(result.data);
     if (result.data == "not authorized") {
       toast.dismiss(); // remove loading toast
@@ -115,13 +117,14 @@ function AddParameterToAds(props) {
           <select
             value={dataType}
             onChange={(e) => {
-              console.log(e.target.value);
+              //console.log(e.target.value);
               if (e.target.value === "VARCHAR") {
                 setNumericParameterClass("notNumeric");
               } else {
                 setNumericParameterClass("numeric");
               }
               setDataType(e.target.value);
+              console.log(dataType);
             }}
           >
             <option>INT</option>

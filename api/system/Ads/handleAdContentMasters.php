@@ -83,7 +83,18 @@ function editParameterAds(){
     echo json_encode("param exist");
     die;
   }
-  $query="UPDATE ad_content SET name = '{$DATA_OBJ->params->paramName}', free_text ='{$DATA_OBJ->params->paramName}', display_type ='{$DATA_OBJ->params->paramStyle}', category ='{$DATA_OBJ->params->category}', min_value ='{$DATA_OBJ->params->minValue}', max_value ='{$DATA_OBJ->params->maxValue}' WHERE element_id = '{$DATA_OBJ->params->element_id}'";
+  //min+max value
+  if($DATA_OBJ->params->minValue!=""&&$DATA_OBJ->params->maxValue!=""){
+  $query="UPDATE ad_content SET name = '{$DATA_OBJ->params->paramName}', free_text ='{$DATA_OBJ->params->paramName}', display_type ='{$DATA_OBJ->params->paramStyle}', category ='{$DATA_OBJ->params->category}', min_value ='{$DATA_OBJ->params->minValue}', max_value ='{$DATA_OBJ->params->maxValue}' WHERE element_id = '{$DATA_OBJ->params->element_id}'";}
+//only max value
+  if($DATA_OBJ->params->minValue==""&&$DATA_OBJ->params->maxValue!=""){
+  $query="UPDATE ad_content SET name = '{$DATA_OBJ->params->paramName}', free_text ='{$DATA_OBJ->params->paramName}', display_type ='{$DATA_OBJ->params->paramStyle}', category ='{$DATA_OBJ->params->category}', max_value ='{$DATA_OBJ->params->maxValue}', min_value =NULL WHERE element_id = '{$DATA_OBJ->params->element_id}'";}
+  //only min value
+  if($DATA_OBJ->params->minValue!=""&&$DATA_OBJ->params->maxValue==""){
+  $query="UPDATE ad_content SET name = '{$DATA_OBJ->params->paramName}', free_text ='{$DATA_OBJ->params->paramName}', display_type ='{$DATA_OBJ->params->paramStyle}', category ='{$DATA_OBJ->params->category}', min_value ='{$DATA_OBJ->params->minValue}', max_value =NULL WHERE element_id = '{$DATA_OBJ->params->element_id}'";}
+  //no min/max value
+  if($DATA_OBJ->params->minValue==""&&$DATA_OBJ->params->maxValue==""){
+  $query="UPDATE ad_content SET name = '{$DATA_OBJ->params->paramName}', free_text ='{$DATA_OBJ->params->paramName}', display_type ='{$DATA_OBJ->params->paramStyle}', category ='{$DATA_OBJ->params->category}', min_value =NULL, max_value =NULL WHERE element_id = '{$DATA_OBJ->params->element_id}'";}
   $result=$db->readDBNoStoredProcedure($query);
   echo json_encode("edit was done");
   die;
@@ -104,21 +115,25 @@ function addNewMasterToAdContentTable()
     $arr['paramName'] = $DATA_OBJ->params->paramName;
     $arr['paramType'] = $DATA_OBJ->params->paramType;
     $elementId = uniqid();
-    $query = "";
-    if ($arr['paramType'] == "VARCHAR")
-        $query = "INSERT into ad_content (element_id, adID,category,master,required,name,value,prevDisplay) VALUES(
-        '$elementId','0','{$DATA_OBJ->params->category}','1','0','{$DATA_OBJ->params->paramName}','master','0')";
-    if ($arr['paramType'] == "INT")
-        $query = "INSERT into ad_content (element_id, adID,category,master,min_value,max_value,required,name,value,prevDisplay) VALUES(
-        '$elementId','0','{$DATA_OBJ->params->category}','1','{$DATA_OBJ->params->minValue}','{$DATA_OBJ->params->maxValue}','0','{$DATA_OBJ->params->paramName}','master','0')";
-
-    if ($arr['paramType'] == "DOUBLE")
-        $query = "INSERT into ad_content (element_id, adID,category,master,min_value,max_value,required,name,value,prevDisplay) VALUES(
-        '$elementId','0','{$DATA_OBJ->params->category}','1','{$DATA_OBJ->params->minValue}','{$DATA_OBJ->params->maxValue}','0','{$DATA_OBJ->params->paramName}','master','0')";
+    $maxValue=$DATA_OBJ->params->maxValue;
+    $minValue=$DATA_OBJ->params->minValue;
+    if(($minValue==""&&$maxValue=="")||$arr['paramType'] == "VARCHAR"){
+      $query="INSERT into ad_content (element_id, adID,category,master,required,name,free_text,value,prevDisplay) VALUES(
+        '$elementId','0','{$DATA_OBJ->params->category}','1','0','{$DATA_OBJ->params->paramName}','{$DATA_OBJ->params->paramName}','master','0')";
+    }
+    if($minValue!=""&&$maxValue==""&&($arr['paramType'] == "DOUBLE"||$arr['paramType'] == "INT")){
+      $query="INSERT into ad_content (element_id,adID,category,master,min_value,required,name,free_text,value,prevDisplay)  VALUES('$elementId','0','{$DATA_OBJ->params->category}','1','{$minValue}','0','{$DATA_OBJ->params->paramName}','{$DATA_OBJ->params->paramName}','master','0')";
+  }
+    if($maxValue!=""&&$minValue==""&&($arr['paramType'] == "DOUBLE"||$arr['paramType'] == "INT")){ $query="INSERT into ad_content (element_id,adID,category,master,max_value,required,name,free_text,value,prevDisplay)  VALUES('$elementId','0','{$DATA_OBJ->params->category}','1','{$maxValue}','0','{$DATA_OBJ->params->paramName}','{$DATA_OBJ->params->paramName}','master','0')";
+  }
+    if($maxValue!=""&&$minValue!=""&&($arr['paramType'] == "DOUBLE"||$arr['paramType'] == "INT")){
+      $query="INSERT into ad_content (element_id,adID,category,master,min_value,max_value,required,name,free_text,value,prevDisplay)  VALUES('$elementId','0','{$DATA_OBJ->params->category}','1','{$minValue}','{$maxValue}','0','{$DATA_OBJ->params->paramName}','{$DATA_OBJ->params->paramName}','master','0')";
+    }
     $result = $db->writeDBNotStoredProcedure($query);
     $arr = [];
+    echo $query;
     echo json_encode($result);
-}
+  }
 if($DATA_OBJ->data_type=="getMastersForAdsContentForTheTable"){
 getMastersForAdsContentForTheTable();
 }

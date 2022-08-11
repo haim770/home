@@ -109,7 +109,9 @@ const AdPart = (props) => {
           <Parameter
             key={props.ad[0].adID + key}
             paramName={hebrewKey}
-            paramValue={<Link to={{ pathname: value }}>לחץ כאן</Link>}
+            paramValue={
+              <Link to={{ pathname: "/AdsWithSearch/" + value }}>לחץ כאן</Link>
+            }
           />
         );
       } else {
@@ -131,5 +133,7 @@ const AdPart = (props) => {
     </ul>
   );
 };
-
+AdPart.defaultProps = {
+  withoutLink: false,
+};
 export default AdPart;
