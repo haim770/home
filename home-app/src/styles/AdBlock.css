@@ -4,12 +4,14 @@
   border: 2px solid black;
   padding: 1rem;
   max-width: 40%;
+  min-width: 40%;
   direction: rtl;
   font-size: 1rem;
   border-radius: 30px;
   background-color: #fff;
   margin-bottom: 1rem;
 }
+
 @media (max-width: 850px) {
   .cardBlock {
     font-size: 0.7rem;
@@ -26,12 +28,14 @@
 .btnClassAdBlock {
   height: 100%;
 }
-.btnClassAdBlockEdit{
+
+.btnClassAdBlockEdit {
   width: 100%;
   margin: 1rem;
   justify-self: center;
   padding: 1rem;
 }
+
 .buttonPart {
   display: flex;
   justify-content: space-between;

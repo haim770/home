@@ -12,7 +12,7 @@ import { BsClockHistory } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import useAuth from "../../../../../Auth/useAuth";
 const Sidebar = () => {
-   const { auth } = useAuth();
+  const { auth } = useAuth();
   return (
     <div className="settingsSidebar">
       <div className="settingsCenter">
@@ -49,12 +49,9 @@ const Sidebar = () => {
             </Link>
           </li>
           <li>
-            <Link
-              to="/Settings/ManageReports"
-              style={{ textDecoration: "none" }}
-            >
-              <HiOutlineDocumentReport className="icon" />
-              <span>דוחות</span>
+            <Link to="/Settings/Purchase" style={{ textDecoration: "none" }}>
+              <BiPurchaseTagAlt className="icon" />
+              <span>רכישות</span>
             </Link>
           </li>
           <p className="titleSet">מודעות</p>
@@ -70,13 +67,7 @@ const Sidebar = () => {
               <span>מועדפים</span>
             </Link>
           </li>
-          <li>
-            <Link to="/Settings/Purchase" style={{ textDecoration: "none" }}>
-              <BiPurchaseTagAlt className="icon" />
-              <span>רכישות</span>
-            </Link>
-          </li>
-          {auth?.roles === "5150" ? (
+          {auth?.roles === "5150" || auth?.roles === "2001" ? (
             <li>
               <Link
                 to="/Settings/UserReportsToAds"
@@ -106,8 +97,20 @@ const Sidebar = () => {
                 to="/Settings/HandlePackages"
                 style={{ textDecoration: "none" }}
               >
-                <FiUsers className="icon" />
+                <BiPurchaseTagAlt className="icon" />
                 <span>נהל חבילות</span>
+              </Link>
+            </li>
+          ) : (
+            <></>
+          )}
+          {auth?.roles === "5150" ? (
+            <li>
+              <Link
+                to="/Settings/confirmAdManagesr"
+                style={{ textDecoration: "none" }}
+              >
+                <span> אישור מודעות</span>
               </Link>
             </li>
           ) : (
@@ -154,6 +157,19 @@ const Sidebar = () => {
               <Link to="/Settings/Sales" style={{ textDecoration: "none" }}>
                 <FcSalesPerformance className="icon" />
                 <span>מכירות</span>
+              </Link>
+            </li>
+          ) : (
+            <></>
+          )}
+          {auth?.roles === "5150" ? (
+            <li>
+              <Link
+                to="/Settings/ManageReports"
+                style={{ textDecoration: "none" }}
+              >
+                <HiOutlineDocumentReport className="icon" />
+                <span>דוחות</span>
               </Link>
             </li>
           ) : (

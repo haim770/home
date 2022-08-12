@@ -17,9 +17,6 @@ import AdById from "./AdById";
 import useView from "./pages/Chat/ChatUseContext";
 import useAuth from "../Auth/useAuth";
 function AdFull(props) {
-  const [dataForUrl, setDataForUrl] = useState({});
-  const [isFavorite, setIsFavorite] = useState(props.isFavorite);
-  const [renderCookie, setRenderCookie] = useState(true);
   const { auth } = useAuth();
   const { startNewChat } = useView();
   

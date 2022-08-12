@@ -62,22 +62,26 @@ const ConfirmAdManager = (props) => {
         limitBy: { start: 0, end: indexEnd }, //the indexes
       },
     });
-     console.log(result.data);
+    console.log(result.data);
     if (result.data === false || result.data === "") {
       setNoMoreAdsForSearch(true);
       return;
     } else {
-        //console.log("append");
-        setAds((prevAds) => {
-          return new Set([
-            ...prevAds,
-            result.data.map((ad) => (
-              <ConfirmAdBlock key={ad.adID + uuidv4()} adBlock={ad} />
-            )),
-          ]);
-        });
-      }
-      setLoading(true);
+      //console.log("append");
+      setAds((prevAds) => {
+        return new Set([
+          result.data.map((ad) => (
+            <ConfirmAdBlock
+              key={ad.adID + uuidv4()}
+              adBlock={ad}
+              getAds={getAds}
+              setindexStart={setindexStart}
+            />
+          )),
+        ]);
+      });
+    }
+    setLoading(true);
   };
 
   useEffect(() => {

@@ -190,53 +190,148 @@ const StepThree = ({
 
     for (let index = 0; index < masters.length; index++) {
       if (
-        masters[index].min_value !== null &&
+        masters[index].min_value !== null ||
         masters[index].max_value !== null
       ) {
-        if (masters[index].category === "השכרה") {
-          code.push(
-            <label
-              key={masters[index].element_id}
-              style={{
-                display: formData.assetOption === "rent" ? "block" : "none",
-              }}
-            >
-              <span>{masters[index].name}</span>
-              <input
-                type="text"
-                name={masters[index].name}
-                min={masters[index].min_value}
-                max={masters[index].max_value}
-                id={masters[index].name}
-                required={masters[index].required}
-                value={formDataStepThreeRent[masters[index].name]}
-                onBlur={(e) => handleOnFocusLost(e, "rent")}
-                onChange={handleChangeAdRentContent}
-              />
-            </label>
-          );
+        if (
+          masters[index].min_value !== null &&
+          masters[index].max_value !== null
+        ) {
+          if (masters[index].category === "השכרה") {
+            code.push(
+              <label
+                key={masters[index].element_id}
+                style={{
+                  display: formData.assetOption === "rent" ? "block" : "none",
+                }}
+              >
+                <span>{masters[index].name}</span>
+                <input
+                  type="text"
+                  name={masters[index].name}
+                  min={masters[index].min_value}
+                  max={masters[index].max_value}
+                  id={masters[index].name}
+                  required={masters[index].required}
+                  value={formDataStepThreeRent[masters[index].name]}
+                  onBlur={(e) => handleOnFocusLost(e, "rent")}
+                  onChange={handleChangeAdRentContent}
+                />
+              </label>
+            );
+          } else {
+            code.push(
+              <label
+                key={masters[index].element_id}
+                style={{
+                  display: formData.assetOption === "buy" ? "block" : "none",
+                }}
+              >
+                <span>{masters[index].name}</span>
+                <input
+                  type="text"
+                  name={masters[index].name}
+                  id={masters[index].name}
+                  min={masters[index].min_value}
+                  max={masters[index].max_value}
+                  required={masters[index].required}
+                  value={formDataStepThreeBuy[masters[index].name]}
+                  onBlur={(e) => handleOnFocusLost(e, "buy")}
+                  onChange={handleChangeAdContentBuy}
+                />
+              </label>
+            );
+          }
         } else {
-          code.push(
-            <label
-              key={masters[index].element_id}
-              style={{
-                display: formData.assetOption === "buy" ? "block" : "none",
-              }}
-            >
-              <span>{masters[index].name}</span>
-              <input
-                type="text"
-                name={masters[index].name}
-                id={masters[index].name}
-                min={masters[index].min_value}
-                max={masters[index].max_value}
-                required={masters[index].required}
-                value={formDataStepThreeBuy[masters[index].name]}
-                onBlur={(e) => handleOnFocusLost(e, "buy")}
-                onChange={handleChangeAdContentBuy}
-              />
-            </label>
-          );
+          if (masters[index].min_value !== null) {
+            if (masters[index].category === "השכרה") {
+              code.push(
+                <label
+                  key={masters[index].element_id}
+                  style={{
+                    display: formData.assetOption === "rent" ? "block" : "none",
+                  }}
+                >
+                  <span>{masters[index].name}</span>
+                  <input
+                    type="text"
+                    name={masters[index].name}
+                    min={masters[index].min_value}
+                    id={masters[index].name}
+                    required={masters[index].required}
+                    value={formDataStepThreeRent[masters[index].name]}
+                    onBlur={(e) => handleOnFocusLost(e, "rent")}
+                    onChange={handleChangeAdRentContent}
+                  />
+                </label>
+              );
+            } else {
+              code.push(
+                <label
+                  key={masters[index].element_id}
+                  style={{
+                    display: formData.assetOption === "buy" ? "block" : "none",
+                  }}
+                >
+                  <span>{masters[index].name}</span>
+                  <input
+                    type="text"
+                    name={masters[index].name}
+                    id={masters[index].name}
+                    min={masters[index].min_value}
+                    required={masters[index].required}
+                    value={formDataStepThreeBuy[masters[index].name]}
+                    onBlur={(e) => handleOnFocusLost(e, "buy")}
+                    onChange={handleChangeAdContentBuy}
+                  />
+                </label>
+              );
+            }
+          } else {
+            if (masters[index].category === "השכרה") {
+              code.push(
+                <label
+                  key={masters[index].element_id}
+                  style={{
+                    display: formData.assetOption === "rent" ? "block" : "none",
+                  }}
+                >
+                  <span>{masters[index].name}</span>
+                  <input
+                    type="text"
+                    name={masters[index].name}
+                    max={masters[index].max_value}
+                    id={masters[index].name}
+                    required={masters[index].required}
+                    value={formDataStepThreeRent[masters[index].name]}
+                    onBlur={(e) => handleOnFocusLost(e, "rent")}
+                    onChange={handleChangeAdRentContent}
+                  />
+                </label>
+              );
+            } else {
+              code.push(
+                <label
+                  key={masters[index].element_id}
+                  style={{
+                    display: formData.assetOption === "buy" ? "block" : "none",
+                  }}
+                >
+                  <span>{masters[index].name}</span>
+                  <input
+                    type="text"
+                    name={masters[index].name}
+                    id={masters[index].name}
+                    max={masters[index].max_value}
+                    required={masters[index].required}
+                    value={formDataStepThreeBuy[masters[index].name]}
+                    onBlur={(e) => handleOnFocusLost(e, "buy")}
+                    onChange={handleChangeAdContentBuy}
+                  />
+                </label>
+              );
+            }
+          }
         }
       } else {
         if (masters[index].display_type === "checkBox") {

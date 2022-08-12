@@ -7,27 +7,69 @@ import EditAd from "./pages/EditAd";
 import EmptyList from "./pages/Blog/components/common/EmptyList";
 import BlogList from "./pages/Blog/components/home/BlogList";
 import instance from "../api/AxiosInstance";
-import "../styles/MainPage.css"
+import "../styles/MainPage.css";
+import useView from "./pages/Chat/ChatUseContext";
+import useAuth from "../Auth/useAuth";
+import AdById from "./AdById";
 const Home = () => {
-    const [blogs, setBlogs] = useState([]);
-    /**
-     * Get Blogs from server
-     */
-    const getBlogs = async () => {
-      const result = await instance.request({
-        data: {
-          data_type: "getBlogsTop",
-          params: { },
-        },
-      });
+  const [blogs, setBlogs] = useState([]);
+  const [ads, setAds] = useState([]);
+  const [indexStartAds, setIndexStartAds] = useState(0);
+  const { auth } = useAuth();
+  const { startNewChat } = useView();
+  /**
+   * Get Blogs from server
+   */
+  const getBlogs = async () => {
+    const result = await instance.request({
+      data: {
+        data_type: "getBlogsTop",
+        params: {},
+      },
+    });
 
-      // check if we got new data from server or any response
-      if (result?.data) {
-        if (result?.data?.Blogs) {
-          setBlogs(result.data.Blogs);
-        }
+    // check if we got new data from server or any response
+    console.log(result?.data);
+    if (result?.data) {
+      if (result?.data?.Blogs) {
+        setBlogs(result.data.Blogs);
       }
-    };
+    }
+  };
+
+  /**
+   * get ads at start
+   *
+   */
+  const getAds = async () => {
+    const result = await instance.request({
+      data: {
+        data_type: "getAdsForMain",
+        params: { start: indexStartAds, end: 3 },
+        guest: auth.accessToken != undefined ? "registered" : "guest",
+      },
+      headers: {
+        Authorization: `Bearer ${auth.accessToken}`,
+      },
+    });
+    // check if we got new data from server or any response
+    console.log(result?.data);
+    if (result?.data) {
+      if (result?.data) {
+        setAds(result.data);
+        setAds(
+          result.data.map((ad) => (
+            <AdById
+              key={ad.adID}
+              adID={ad.adID}
+              auth={auth}
+              startNewChat={startNewChat}
+            />
+          ))
+        );
+      }
+    }
+  };
 
   /**
    * This will make that first we get all contacts then we will display all other
@@ -36,13 +78,51 @@ const Home = () => {
    */
   useLayoutEffect(() => {
     getBlogs();
+    getAds();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <div className="wrapperHomePage">
       {/* Blog List & Empty View */}
-      {!blogs.length ? <EmptyList /> : <BlogList blogs={blogs} />}
-      {/* <EditAd/> */}
+      <section>
+        {!blogs.length ? <EmptyList /> : <BlogList blogs={blogs} />}
+        {/* <EditAd/> */}
+      </section>
+      {/*section for top ads */}
+      <section className="sectionAdsInMain">
+        <button
+          onClick={async (e) => {
+            e.preventDefault();
+            setIndexStartAds((indexStartAds) =>
+              indexStartAds == "0" ? 0 : indexStartAds - 3
+            );
+            await getAds();
+            e.target.disabled = true;
+            setTimeout(() => {
+              e.target.disabled = false;
+              console.log("Button Activated");
+            }, 1000);
+          }}
+        >
+          prev
+        </button>
+        {ads}
+        <button
+          onClick={async (e) => {
+            e.preventDefault();
+            setIndexStartAds(indexStartAds + 3);
+            await getAds();
+            e.target.disabled = true;
+            setTimeout(() => {
+              e.target.disabled = false;
+              console.log("Button Activated");
+            }, 1000);
+          }}
+        >
+          next
+        </button>
+      </section>
+
       <p>Home page</p>
     </div>
   );
