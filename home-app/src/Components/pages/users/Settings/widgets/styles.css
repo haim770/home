@@ -1,48 +1,63 @@
 .widget {
-	 display: flex;
-	 justify-content: space-between;
-	 flex: 1;
-	 padding: 1rem;
-	 -webkit-box-shadow: 0.2rem 0.4rem 1rem 0.1rem rgba(0, 0, 0, 0.47);
-	 box-shadow: 0.2rem 0.4rem 1rem 0.1rem rgba(201, 201, 201, 0.47);
-	 border-radius: 1rem;
-	 height: 11rem;
-     direction: ltr;
+	display: flex;
+	justify-content: space-between;
+	flex: 1;
+	padding: 1rem;
+	-webkit-box-shadow: 0.2rem 0.4rem 1rem 0.1rem rgba(0, 0, 0, 0.47);
+	box-shadow: 0.2rem 0.4rem 1rem 0.1rem rgba(201, 201, 201, 0.47);
+	border-radius: 1rem;
+
+	direction: ltr;
 }
- .widget .widgetLeft, .widget .widgetRight {
-	 display: flex;
-	 flex-direction: column;
-	 justify-content: space-between;
+
+.widget .widgetLeft,
+.widget .widgetRight {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
 }
- .widget .widgetLeft .title, .widget .widgetRight .title {
-	 font-weight: bold;
-	 font-size: 1.4rem;
-	 color: #a0a0a0;
+
+.widget .widgetLeft .title,
+.widget .widgetRight .title {
+	font-weight: bold;
+	font-size: 1.4rem;
+	color: #a0a0a0;
 }
- .widget .widgetLeft .counter, .widget .widgetRight .counter {
-	 font-size: 2.8rem;
-	 font-weight: 300;
+
+.widget .widgetLeft .counter,
+.widget .widgetRight .counter {
+	font-size: 2.8rem;
+	font-weight: 300;
 }
- .widget .widgetLeft .link, .widget .widgetRight .link {
-	 width: max-content;
-	 font-size: 1.2rem;
-	 border-bottom: 0.1rem solid gray;
+
+.widget .widgetLeft .link,
+.widget .widgetRight .link {
+	width: max-content;
+	font-size: 1.2rem;
+	border-bottom: 0.1rem solid gray;
 }
- .widget .widgetLeft .percentage, .widget .widgetRight .percentage {
-	 display: flex;
-	 align-items: center;
-	 font-size: 1.4rem;
+
+.widget .widgetLeft .percentage,
+.widget .widgetRight .percentage {
+	display: flex;
+	align-items: center;
+	font-size: 1.4rem;
 }
- .widget .widgetLeft .percentage.positive, .widget .widgetRight .percentage.positive {
-	 color: green;
+
+.widget .widgetLeft .percentage.positive,
+.widget .widgetRight .percentage.positive {
+	color: green;
 }
- .widget .widgetLeft .percentage.negative, .widget .widgetRight .percentage.negative {
-	 color: red;
+
+.widget .widgetLeft .percentage.negative,
+.widget .widgetRight .percentage.negative {
+	color: red;
 }
- .widget .widgetLeft .icon, .widget .widgetRight .icon {
-	 font-size: 1.8rem;
-	 padding: 0.5rem;
-	 border-radius: 0.5rem;
-	 align-self: flex-end;
+
+.widget .widgetLeft .icon,
+.widget .widgetRight .icon {
+	font-size: 1.8rem;
+	padding: 0.5rem;
+	border-radius: 0.5rem;
+	align-self: flex-end;
 }
- 

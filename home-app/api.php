@@ -565,8 +565,15 @@ if (isset($DATA_OBJ->data_type)) {
         case "updateContacted":
             include_once('../api/system/Ads/updateWatchAndContactCounter.php');
             break;
+        case "getWidgetStats":
+            include_once('../api/system/statistics.php');
+             break;
+        case "getSalesStats":
+             include_once('../api/system/statistics.php');
+             break;
         case "getFooterStats":
-             include_once('../api/system/footer.php');
+             include_once('../api/system/statistics.php');
+            break;
         case "getAdsForMain":
              include_once('../api/system/Ads/searchAds.php');
             break;
