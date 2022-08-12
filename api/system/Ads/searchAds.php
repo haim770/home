@@ -50,6 +50,15 @@ function checkIfAdIsFavoriteForUser($adId){
     return $result;
     }
 }
+function getAdsForMain(){
+    //get adIds for the main top 3 each time
+    global $DATA_OBJ;
+    global $db;
+    $date=time();
+    $query="select adID from ads where active=1 and expire_date > '$date' order by create_time DESC limit ".$DATA_OBJ->params->end." OFFSET ".$DATA_OBJ->params->start;
+    $result=$db->readDBNoStoredProcedure($query,[]);
+    echo json_encode($result);
+}
 function getAdsIdAndUserIdThatFeetSearch1(){
     //we search in ads and in adcontent and get adid and user id desired ad return them
     global $db;
@@ -320,6 +329,9 @@ else{
                     getAllOfMyNotActiveAds();
                 }
                 else{
+                    if($DATA_OBJ->data_type=="getAdsForMain"){
+                        getAdsForMain();
+                    }
                     getAllAdContentAndAdAndUsersForArrOfAds();
                 }
             }

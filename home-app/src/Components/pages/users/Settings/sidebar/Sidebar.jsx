@@ -49,12 +49,9 @@ const Sidebar = () => {
             </Link>
           </li>
           <li>
-            <Link
-              to="/Settings/UserReportsToAds"
-              style={{ textDecoration: "none" }}
-            >
-              <HiOutlineDocumentReport className="icon" />
-              <span>דוחות על מודעות של משתמש</span>
+            <Link to="/Settings/Purchase" style={{ textDecoration: "none" }}>
+              <BiPurchaseTagAlt className="icon" />
+              <span>רכישות</span>
             </Link>
           </li>
           <p className="titleSet">מודעות</p>
@@ -70,13 +67,7 @@ const Sidebar = () => {
               <span>מועדפים</span>
             </Link>
           </li>
-          <li>
-            <Link to="/Settings/Purchase" style={{ textDecoration: "none" }}>
-              <BiPurchaseTagAlt className="icon" />
-              <span>רכישות</span>
-            </Link>
-          </li>
-          {auth?.roles === "5150" ? (
+          {auth?.roles === "5150" || auth?.roles === "2001" ? (
             <li>
               <Link
                 to="/Settings/UserReportsToAds"
@@ -106,8 +97,20 @@ const Sidebar = () => {
                 to="/Settings/HandlePackages"
                 style={{ textDecoration: "none" }}
               >
-                <FiUsers className="icon" />
+                <BiPurchaseTagAlt className="icon" />
                 <span>נהל חבילות</span>
+              </Link>
+            </li>
+          ) : (
+            <></>
+          )}
+          {auth?.roles === "5150" ? (
+            <li>
+              <Link
+                to="/Settings/confirmAdManagesr"
+                style={{ textDecoration: "none" }}
+              >
+                <span> אישור מודעות</span>
               </Link>
             </li>
           ) : (

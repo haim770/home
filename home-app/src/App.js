@@ -214,6 +214,16 @@ export default function App() {
                         element={<RequireAuth allowedRoles={[ROLES.Admin]} />}
                       >
                         <Route
+                          path="confirmAdManagesr"
+                          element={<ConfirmAdManager />}
+                        />
+                      </Route>
+                    </Route>
+                    <Route element={<PersistLogin />}>
+                      <Route
+                        element={<RequireAuth allowedRoles={[ROLES.Admin]} />}
+                      >
+                        <Route
                           path="HandlePackages"
                           element={<HandlePackages />}
                         />
@@ -259,10 +269,6 @@ export default function App() {
                   <Route path="/createPackage" element={<CreatePackage />} />
                   <Route path="/packages" element={<PackageDisplay />}></Route>
                   <Route path="/addAd" element={<CreateNewAd />} />
-                  <Route
-                    path="/confirmAdManager"
-                    element={<ConfirmAdManager />}
-                  />
                 </Route>
               </Route>
               {/* catch all */}

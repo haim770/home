@@ -565,6 +565,11 @@ if (isset($DATA_OBJ->data_type)) {
         case "updateContacted":
             include_once('../api/system/Ads/updateWatchAndContactCounter.php');
             break;
+        case "getFooterStats":
+             include_once('../api/system/footer.php');
+        case "getAdsForMain":
+             include_once('../api/system/Ads/searchAds.php');
+            break;
         case "getAllOfMyAds":
              include_once('../api/system/Ads/searchAds.php');
             break;
@@ -732,7 +737,9 @@ if (isset($DATA_OBJ->data_type)) {
         case "getSettingsUserPurchase":
             include("../api/system/user/getSettingsUserPurchase.php");
             break;
-
+        case "getAllPurchases":
+             include_once("../api/system/user/getAllPurchases.php");
+            break;
         case "getUserDataForSettings":
             include("../api/system/user/getUserDataForSettings.php");
             break;
