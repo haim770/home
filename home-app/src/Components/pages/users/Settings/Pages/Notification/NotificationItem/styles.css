@@ -1,0 +1,62 @@
+.notification-wrapper {
+    max-width: 80%;
+    margin: 2rem;
+    direction: rtl;
+}
+
+.alert-box {
+    color:#555;
+    border-radius:1rem;
+    font-family:Tahoma,Geneva,Arial,sans-serif;
+    font-size:1.4rem;
+    padding:1rem 1rem 1rem 3.6rem;
+    margin:1rem;
+    direction: rtl;
+    display: flex;
+    flex-direction: column;
+
+}
+.alert-box span {
+    font-weight:bold;
+    text-transform:uppercase;
+}
+
+.notification-icon {
+    font-size: 3.1rem;
+    align-items: center;
+}
+
+.notification-error {
+    background:#ffecec;
+    border:0.3rem solid #f5aca6;
+}
+.notification-success {
+    background:#e9ffd9;
+    border:0.3rem solid #a6ca8a;
+}
+.notification-warning {
+    background:#fff8c4;
+    border:0.3rem solid #f2c779;
+}
+.notification-notice {
+    background:#e3f7fc;
+    border:0.3rem solid #8ed9f6;
+}
+
+.notification-read {
+   border:none;
+}
+
+.inner-alert-box-content{
+    display: flex;
+    align-items: center;
+}
+
+.inner-alert-box-date{
+text-align-last: left;
+}
+
+.inner-alert-box-date p{
+    margin-block-start: 0.1em;
+    margin-block-end: 0.1em;
+}

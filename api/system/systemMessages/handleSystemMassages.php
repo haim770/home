@@ -43,9 +43,8 @@ function sendMsgReportToUser(){
   $elementId=$DATA_OBJ->params->elementId;
   $userId=$DATA_OBJ->params->userId;
   $reportId=$DATA_OBJ->params->reportId;
-  $content=$reportId." ".$elementId;//we will contain the element id and the report id at the content
-  $query="INSERT INTO system_messages (msgId,userId,message_content,msgType) VALUES ('$msgId','$userId','$content','report')";
-  $result=$db->readDBNoStoredProcedure($query);
+  $content=$reportId." ".$elementId; //we will contain the element id and the report id at the content
+  $result = $db->createSystemMessage($msgId, $userId, $content, 'report', 'Notice');
   echo json_encode($result);
   die;
 }

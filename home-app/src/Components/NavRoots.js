@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import "../styles/navigation/navStyle.css";
 import "../styles/navigation/responsiveNavigation.css";
 import useAuth from "../Auth/useAuth";
@@ -73,7 +73,14 @@ const NavRoot = () => {
           {auth?.accessToken ? (
             <UserProfile />
           ) : (
-            <NavLink to="/Login">התחבר</NavLink>
+            <>
+              <Link to="/Login" style={{ textDecoration: "none" }}>
+                <span>התחבר</span>
+              </Link>
+              <Link to="/register" style={{ textDecoration: "none" }}>
+                <span>הירשם</span>
+              </Link>
+            </>
           )}
         </div>
       </div>

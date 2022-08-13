@@ -191,4 +191,15 @@ public function readDBNoStoredProcedure($query ,$arr=[])
         return false;
     }
 
+
+    public function createSystemMessage ($message,$uuid,$msgType,$notifecationType){
+        $arr = [];
+        $arr['msgID'] = uniqid();
+        $arr['userID'] = $uuid;
+        $arr['message_content'] = $message;
+        $arr['msgType'] = $msgType;
+        $arr['notifecationType'] = $notifecationType;
+        $query = "INSERT INTO `system_messages`(`msgId`, `userId`, `message_content`, `seen`, `msgType`,`NotificationType`) VALUES (:msgID,:userID,:message_content,0,:msgType,:notifecationType)";
+        return self::readDBNoStoredProcedure($query,$arr);
+    }
 }
