@@ -97,6 +97,8 @@ if (isset($DATA_OBJ->params->myCookie)) {
             "roles" => $foundUser[0]->rule,
             "user" => $username,
             "expireAt" => $expireAccess,
+            "firstName" => $foundUser[0]->first_name,
+            "lastName" => $foundUser[0]->last_name,
         )
     );
 }

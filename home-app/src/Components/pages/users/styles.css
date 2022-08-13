@@ -1,10 +1,107 @@
-.user-circle {
-  width: 5rem;
-  height: 5rem;
-  line-height: 5rem;
-  border-radius: 50%;
-  font-size: 50px;
-  color: #fff;
-  text-align: center;
-  background: #000
+.welcom-user {
+    cursor: pointer;
+    display: flex;
+    
+}
+
+.user-profile {
+    border-radius: 10% 30% 50% 70%;
+    width: 80%;
+    height: 80%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    background-color: #5b6dcd;
+    color: #fff;
+    padding: 1rem;
+}
+
+.container-user-profile {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  border-radius: 10px 10px;
+}
+.button-user-profile {
+  padding: 0;
+  width: 50px;
+  border: 0;
+  background-color: #fff;
+  color: #333;
+  cursor: pointer;
+  outline: 0;
+  font-size: 40px;
+}
+
+.dropdown-user-profile {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 300px;
+  z-index: 2500;
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  box-shadow: 0px 2px 4px -1px rgb(0 0 0 / 20%), 0px 4px 5px 0px rgb(0 0 0 / 14%), 0px 1px 10px 0px rgb(0 0 0 / 12%);
+background-color: #fff;
+    margin-top: 1rem;
+    border-radius: 10px 10px;
+}
+
+.dropdown-user-profile ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.dropdown-user-profile li {
+  padding: 8px 12px;
+}
+
+.dropdown-user-profile li:hover {
+  background-color: rgba(0, 0, 0, 0.14);
+  cursor: pointer;
+}
+
+.header-user-profile{
+  border-radius: 10px 10px 0px 0px;
+  padding: 5px;
+  background-color: #2A3942;
+}
+
+.header-user-profile > h3 {
+    color: #FFFFFF;
+  margin-left: 1rem;
+}
+
+
+.body-user-profile li{
+  transition: 1s all;
+  font-family: 'Roboto', sans-serif;
+  font-size: 1.8rem;
+  padding: 1.5rem;
+  margin-top: 0px;
+  list-style: none;
+  border-top-right-radius: 1rem 1rem;
+  border-bottom-right-radius: 1rem 1rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+
+.body-user-profile>li{
+    float: left;
+}
+
+.body-user-profile li ul{
+  background: #1E2B32;
+  margin-left: 28rem;
+  margin-top: -3.8rem;
+  display: none;
+  position: absolute;
+  border-top-right-radius: 1.5rem 1.5rem;
+  border-bottom-right-radius: 1.5rem 1.5rem;
+}
+
+.body-user-profile li:hover > ul{
+  display: block;
+  cursor: pointer;
 }

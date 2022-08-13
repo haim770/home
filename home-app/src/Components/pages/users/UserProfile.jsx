@@ -1,10 +1,13 @@
-import React , { useEffect } from 'react'
+import React, { useEffect, useState } from "react";
 import useLogout from "../../../Auth/useLogout";
 import toast, { Toaster, useToaster } from "react-hot-toast"; // https://react-hot-toast.com/docs && https://react-hot-toast.com/
 import useView from '../Chat/ChatUseContext';
 import useAuth from '../../../Auth/useAuth';
 import instance from '../../../api/AxiosInstance';
-import "./styles.css"
+import "./styles.css";
+import { styles } from '../Chat/styles.js'
+import { BiLogOut } from "react-icons/bi";
+
 
 const Notifications = () => {
   const { toasts, handlers } = useToaster();
@@ -54,9 +57,13 @@ const UserProfile = () => {
   const { chatView, chatInfo, chatWindow, startNewChat } = useView();
   const { toasts, handlers } = useToaster();
   const { startPause, endPause, calculateOffset, updateHeight } = handlers;
-
+  const [openMenu, setOpenMenu]=useState(false);
   const logout = useLogout();
   const { auth } = useAuth();
+
+  const handleOpenCloseMenu = () => {
+    setOpenMenu((current) => !current);
+  }
 
   /**
    * Get updates from server
@@ -135,11 +142,30 @@ const UserProfile = () => {
       return () => clearInterval(Interval);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  console.log(auth.firstName.charAt(0))
   return (
     <div>
-      <div className="user-circle">{auth.firstName.charAt(0) + auth.lastName.charAt(0)}</div>
-      <button onClick={signOut}>Sign Out</button>
+      <div className="welcom-user" onClick={() => handleOpenCloseMenu()}>
+        <div className="user-profile">
+          {auth?.firstName?.charAt(0) + " " + auth?.lastName?.charAt(0)}
+        </div>
+        <div className="container-user-profile">
+          {openMenu && (
+            <div className="dropdown-user-profile">
+              <div class="header-user-profile">
+                <h3>{auth?.firstName + " " + auth?.lastName}</h3>
+              </div>
+              <div class="body-user-profile">
+                <ul>
+                  <li>Option 1</li>
+                  <li>Option 2</li>
+                  <li>Option 3</li>
+                  <li onClick={signOut}>{<BiLogOut />} התנתק </li>
+                </ul>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
 
       {/*Toast maker */}
       {/*<Notifications /> */}

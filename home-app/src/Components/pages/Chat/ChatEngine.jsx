@@ -44,7 +44,7 @@ const ChatEngine = () => {
             },
           }}
         >
-          {auth.firstName.charAt(0) + auth.lastName.charAt(0)}
+          {auth?.firstName?.charAt(0) + auth?.lastName?.charAt(0)}
         </div>
         <ChatWindow />
       </div>
