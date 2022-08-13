@@ -4,6 +4,7 @@ import toast, { Toaster, useToaster } from "react-hot-toast"; // https://react-h
 import useView from '../Chat/ChatUseContext';
 import useAuth from '../../../Auth/useAuth';
 import instance from '../../../api/AxiosInstance';
+import "./styles.css"
 
 const Notifications = () => {
   const { toasts, handlers } = useToaster();
@@ -50,7 +51,7 @@ const Notifications = () => {
 };
 
 const UserProfile = () => {
-  const { chatView, chatInfo, chatWindow } = useView();
+  const { chatView, chatInfo, chatWindow, startNewChat } = useView();
   const { toasts, handlers } = useToaster();
   const { startPause, endPause, calculateOffset, updateHeight } = handlers;
 
@@ -76,9 +77,10 @@ const UserProfile = () => {
       //console.log(result.data);
       // Handle messages
       if (result?.data?.chatMessages) {
-        Object.values(result.data.chatMessages).map((anObjectMapped, index) => {
+        Object.values(uniq(result.data.chatMessages)).map(
+          (anObjectMapped, index) => {
             toast(
-              <div>
+              <div onClick={() => handleClickChat(anObjectMapped.first_name,anObjectMapped.last_name,anObjectMapped.uuid)}>
                 <div>קיבלת הודעה חדשה מאת</div>
                 <div>{`${anObjectMapped.first_name} ${anObjectMapped.last_name}`}</div>
                 <span>{anObjectMapped.message}</span>
@@ -94,10 +96,28 @@ const UserProfile = () => {
                 },
               }
             );
-        });
+          }
+        );
       }
     }
   };
+
+  function uniq(a) {
+    var seen = {};
+    return a.filter(function (item) {
+      return seen.hasOwnProperty(item) ? false : (seen[item] = true);
+    });
+  }
+
+    function handleClickChat(firstname, lastname, uuid) {
+      const chatWith = {
+        adBlock: [],
+        username: `${firstname} ${lastname}`,
+        uuid: uuid,
+        adID: "",
+      };
+      startNewChat(chatWith);
+    }
 
   const signOut = async () => {
     await logout();
@@ -115,9 +135,10 @@ const UserProfile = () => {
       return () => clearInterval(Interval);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
+  console.log(auth.firstName.charAt(0))
   return (
     <div>
+      <div className="user-circle">{auth.firstName.charAt(0) + auth.lastName.charAt(0)}</div>
       <button onClick={signOut}>Sign Out</button>
 
       {/*Toast maker */}

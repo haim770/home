@@ -5,10 +5,10 @@ export const styles = {
     // Border
     borderRadius: "50%",
     // Background
-    backgroundImage: `url(https://i.pravatar.cc/300)`,
-    backgroundRepeat: "no-repeat",
-    backgroundPosition: "center",
-    backgroundSize: "8rem",
+    // backgroundImage: `url(https://i.pravatar.cc/300)`,
+    // backgroundRepeat: "no-repeat",
+    // backgroundPosition: "center",
+    // backgroundSize: "8rem",
     // Size
     width: "8rem",
     height: "8rem",

@@ -44,8 +44,10 @@ const Login = () => {
       const accessToken = response?.data?.accessToken;
       const refreshTokenCookie = response?.data?.refreshToken;
       const roles = response?.data?.roles;
+      const firstName = response?.data?.firstName;
+      const lastName = response?.data?.lastName;
       //console.log(response?.data);
-      setAuth({ user, roles, accessToken });
+      setAuth({ user, roles, accessToken, firstName, lastName });
       // create the refresh token cookie
       cookies.set("refreshToken", refreshTokenCookie, { path: "/" });
       toast.success("התחברת בהצלחה");

@@ -93,6 +93,8 @@ if (is_array($hasValidCredentials)&&password_verify($pass,$hasValidCredentials[0
                 "roles" => $foundUser[0]->rule,
                 "refreshToken" => $refreshToken,
                 "user" => $username,
+                "firstName" => $foundUser[0]->first_name,
+                "lastName" => $foundUser[0]->last_name,
                 "expireAt" => $expireAccess,               
             ));
 }
