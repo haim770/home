@@ -1,5 +1,24 @@
 <?php
+$userType="";//guest or registered
+global $DATA_OBJ;
+global $db;
+if($DATA_OBJ->params->guest=="guest"){
+    $userType="guest";
+    }
+else{
+        //now we will populate the user object with the user that signed in
+     $authPath = "../../Authentication/authTest.php";
+     include_once(dirname(__FILE__) . DIRECTORY_SEPARATOR . $authPath);
+    $userType= "registered";
+}
+global $user;
 function getAllWaitingAdsForAproval(){
+  global $userType;
+  global $user;
+  if($userType!="registered"||$user->getRule()!="5150"){
+     header('HTTP/1.1 401 Unauthorized');
+    exit;
+  }
   global $db;
   global $DATA_OBJ;
   $adsIdForAproval=getAllAdIdWaitForAproval();
@@ -19,6 +38,12 @@ function getAllWaitingAdsForAproval(){
     $arr=[];
 }
 function getAllAdIdWaitForAproval(){
+  global $userType;
+  global $user;
+  if($userType!="registered"||$user->getRule()!="5150"){
+     header('HTTP/1.1 401 Unauthorized');
+    exit;
+  }
   global $db;
   global $DATA_OBJ;
   if(isset($DATA_OBJ->limitBy->start)&&isset($DATA_OBJ->limitBy->end)){
@@ -33,6 +58,12 @@ return $result;
 
 function getUserForUserIdAproval($user_id){
     //return user record for param user_id
+    global $userType;
+  global $user;
+  if($userType!="registered"||$user->getRule()!="5150"){
+     header('HTTP/1.1 401 Unauthorized');
+    exit;
+  }
     global $db;
     global $DATA_OBJ;
     global $arr;
@@ -45,6 +76,12 @@ function getUserForUserIdAproval($user_id){
 }
 function getImagesForAdIdAproval($adId){
     //return the images for the adId
+    global $userType;
+  global $user;
+  if($userType!="registered"||$user->getRule()!="5150"){
+     header('HTTP/1.1 401 Unauthorized');
+    exit;
+  }
     global $db;
     global $DATA_OBJ;
     global $arr;
@@ -57,6 +94,12 @@ function getImagesForAdIdAproval($adId){
 }
 function getAdWithAdContentForAdIdAproval($adId,$user_id){
     //get adcontent+ad for adid
+    global $userType;
+  global $user;
+  if($userType!="registered"||$user->getRule()!="5150"){
+     header('HTTP/1.1 401 Unauthorized');
+    exit;
+  }
     global $db;
     global $DATA_OBJ;
     global $arr;
@@ -77,22 +120,49 @@ function getAdWithAdContentForAdIdAproval($adId,$user_id){
     return $result;
 }
 function declineAd(){
+  global $userType;
+  global $user;
+  if($userType!="registered"||$user->getRule()!="5150"){
+     header('HTTP/1.1 401 Unauthorized');
+    exit;
+  }
   global $db;
   global $DATA_OBJ;
   if(isset($DATA_OBJ->params->adID)){
     $query="UPDATE ads SET approval_status = 'declined', active= false WHERE adID = '{$DATA_OBJ->params->adID}'";
   $result=$db->readDBNoStoredProcedure($query);
+  $db->createSystemMessage(" מודעה מספר "."{$DATA_OBJ->params->adID}"." לא אושרה ",$DATA_OBJ->params->userId,"declineAd","Notice");
   echo json_encode($result);}
   die;
 }
 function aproveAd(){
   //aprove ad by update ad to change approval status to aproved and active to true
+  global $userType;
+  global $user;
+  if($userType!="registered"||$user->getRule()!="5150"){
+     header('HTTP/1.1 401 Unauthorized');
+    exit;
+  }
  global $db;
   global $DATA_OBJ;
   if(isset($DATA_OBJ->params->adID)){
     $query="UPDATE ads SET approval_status = 'aproved', active= true WHERE adID = '{$DATA_OBJ->params->adID}'";
   $result=$db->readDBNoStoredProcedure($query);
+   $db->createSystemMessage(" מודעה מספר "."{$DATA_OBJ->params->adID}"." אושרה ",$DATA_OBJ->params->userId,"aproveAd","Notice");
   echo json_encode($result);}
   die;
+}
+if($DATA_OBJ->data_type=="getAllWaitingAdsForAproval"){
+  getAllWaitingAdsForAproval();
+}
+else{
+  if($DATA_OBJ->data_type=="aproveAd"){
+    aproveAd();
+  }
+  else{
+  if($DATA_OBJ->data_type=="declineAd"){
+    declineAd();
+  }
+}
 }
 ?>

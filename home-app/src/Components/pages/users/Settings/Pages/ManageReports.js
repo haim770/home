@@ -162,6 +162,7 @@ const ManageReports = () => {
           selectedAd={selectedAd}
           setSelectedAd={setSelectedAd}
           setSelectedReport={setSelectedReport}
+          getAllReports={getAllReports}
         />
       ) : (
         ""

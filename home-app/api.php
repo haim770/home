@@ -12,7 +12,6 @@ header('Content-Type: application/json');
 $DATA_RAW = file_get_contents("php://input");
 
 
-require_once('../api/system/Ads/aproveOrDeclineAdByMangager.php');
 
 
 
@@ -528,13 +527,13 @@ if (isset($DATA_OBJ->data_type)) {
             buyPack();
             break;
         case "declineAd":
-            declineAd();
+            include_once('../api/system/Ads/aproveOrDeclineAdByMangager.php');
             break;
         case "aproveAd":
-            aproveAd();
+             include_once('../api/system/Ads/aproveOrDeclineAdByMangager.php');
             break;
         case "getAllWaitingAdsForAproval":
-            getAllWaitingAdsForAproval();
+            include_once('../api/system/Ads/aproveOrDeclineAdByMangager.php');
             break;
         case "getPackages":
              include_once('../api/system/packages/insertPack.php');

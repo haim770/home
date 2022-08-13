@@ -189,16 +189,27 @@ function getUserForUserId1($user_id){
     $arr=[];
     return $result;
 }
-function getAdByAdId(){
-    //returns the ad for the id we got in dataObj
+function getAdByAdId($adId){
+    //echo the ad for the id we got in dataObj
     global $db;
     global $DATA_OBJ;
     global $arr;
-    $adId=$DATA_OBJ->params->adId;
     $query = "select * from ads where adID= '$adId'";
     $result = $db->readDBNoStoredProcedure($query,[]);
     $result=getAdWithAdContentForAdId1($result[0]->adID,$result[0]->user_id);
     echo json_encode($result);
+    $arr=[];
+    die;
+}
+function getAdByAdIdWithReturn($adId){
+    //returns the ad for the id we got in dataObj
+    global $db;
+    global $DATA_OBJ;
+    global $arr;
+    $query = "select * from ads where adID= '$adId'";
+    $result = $db->readDBNoStoredProcedure($query,[]);
+    $result=getAdWithAdContentForAdId1($result[0]->adID,$result[0]->user_id);
+    return $result;
     $arr=[];
     die;
 }
@@ -306,11 +317,17 @@ if($userType!="registered"||$user->getRule()!="5150"){
 else{
     $query="UPDATE ads SET active = '0', approval_status = 'reject' WHERE adID = '{$DATA_OBJ->params->adID}'";
     $result=$db->readDBNoStoredProcedure($query);
+    $ad=getAdByAdIdWithReturn($DATA_OBJ->params->adID);
+    if($ad["ad"]["0"]->active==0){
+     $db->createSystemMessage(" מודעה מספר" ."{$DATA_OBJ->params->adID}"." נמחקה ",$ad["ad"]["0"]->user_id,"adClosed","Notice");
+     echo "deleted";
+     die;
+    }
 }
 }
 
 if($DATA_OBJ->data_type=="getAdByAdId"){
-    getAdByAdId();
+    getAdByAdId($DATA_OBJ->params->adId);
 }
 else{
     if($DATA_OBJ->data_type=="deleteAdById"){

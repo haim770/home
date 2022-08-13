@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo } from "react";
 import instance from "../api/AxiosInstance";
 import { v4 as uuidv4 } from "uuid";
+import useAuth from "../Auth/useAuth";
 
 import "../styles/Main.css";
 import "../styles/Ads.css";
@@ -11,7 +12,7 @@ const ConfirmAdManager = (props) => {
   const [indexStart, setindexStart] = useState(0); //index to start get ads from db
   const [indexEnd, setindexEnd] = useState(10); //index to end get ads from db
   const [noMoreAdsForSearch, setNoMoreAdsForSearch] = useState(false); //control on weather we will scroll for more result changes to true if no more result are available
-
+  const { auth } = useAuth();
   // check when we scroll down to button
   const handleScroll = (e) => {
     // this is the inner height of the HTML page
@@ -33,7 +34,16 @@ const ConfirmAdManager = (props) => {
     const result = await instance.request({
       data: {
         data_type: "getAllWaitingAdsForAproval",
-        limitBy: { start: indexStart, end: indexEnd }, //the indexes
+        params: {
+          guest: auth.accessToken != undefined ? "registered" : "guest",
+        },
+        limitBy: {
+          start: indexStart,
+          end: indexEnd,
+        },
+      },
+      headers: {
+        Authorization: `Bearer ${auth.accessToken}`,
       },
     });
     console.log(result.data);
@@ -59,7 +69,13 @@ const ConfirmAdManager = (props) => {
     const result = await instance.request({
       data: {
         data_type: "getAllWaitingAdsForAproval",
+        params: {
+          guest: auth.accessToken != undefined ? "registered" : "guest",
+        },
         limitBy: { start: 0, end: indexEnd }, //the indexes
+      },
+      headers: {
+        Authorization: `Bearer ${auth.accessToken}`,
       },
     });
     console.log(result.data);

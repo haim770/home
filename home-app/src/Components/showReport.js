@@ -26,27 +26,6 @@ function Report(props) {
   // useEffect(() => {
   //   getReasonsForReports();
   // }, []);
-  const getReasonsForReports = async () => {
-    //get all the report reasons for the type of element
-    const res = await instance.request({
-      data: {
-        data_type: "getAllReportReasons",
-        params: { elementType: props.elementType, guest: "guest" }, //window.location.href gets the urlline
-      },
-      headers: {
-        Authorization: `Bearer ${auth.accessToken}`,
-      },
-    });
-    setReportReasons(res.data);
-    setReportOptionsElement((reasons) => {
-      return new Set([
-        ...reasons,
-        res.data.map((reason) => (
-          <option key={uuidv4()}>{reason.reason_name}</option>
-        )),
-      ]);
-    });
-  };
   const cancelReport = (e) => {
     e.preventDefault();
     props.setClassName("notShowReport");
@@ -91,6 +70,7 @@ function Report(props) {
         Authorization: `Bearer ${auth.accessToken}`,
       },
     });
+    props.getAllReports();
     console.log(result.data);
     setShowInputStatus(false);
   };
@@ -170,6 +150,7 @@ function Report(props) {
       },
     });
     alert("report sent to user");
+    props.getAllReports();
     console.log(result.data);
   };
   return (
