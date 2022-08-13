@@ -136,6 +136,8 @@ if(!empty($fileNames)){
         //if user is not manager his ads will decrease by 1
         decreaseAdValueBy1ToUser($user->getUuid());
     }
+$db->createSystemMessage("מודעה חדשה נוצרה והועברה לאישור מנהל", $user_id,'newAd', 'Notice');
+
 echo json_encode(
     "publish");
 die;
