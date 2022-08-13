@@ -10,6 +10,7 @@ function ManageSiteSettings(props) {
   const [adValue, setAdValue] = useState(""); //hook for initial ad value per register
   const [editableParams, setEditableParams] = useState(false);
   const [expireDate, setExpireDate] = useState("");
+  const [expectedProfit, setExpectedProfit] = useState("");
   const returnStateToDefault = () => {};
   const setDecimalParams = (e, setHook) => {
     if (isNaN(e.target.value)) return;
@@ -39,6 +40,7 @@ function ManageSiteSettings(props) {
     } else {
       setAdValue(result.data[0].adsGift);
       setExpireDate(result.data[0].expireDateAds);
+      setExpectedProfit(result.data[0].expectedProfit);
     }
   };
   useEffect(() => {
@@ -59,6 +61,7 @@ function ManageSiteSettings(props) {
           guest: "registered",
           ad_value: adValue > 0 ? adValue : 5,
           expireDateAds: expireDate > 0 ? expireDate : 30,
+          expectedProfit: expectedProfit >= 0 ? expectedProfit : 0,
         },
       },
       headers: {
@@ -98,6 +101,16 @@ function ManageSiteSettings(props) {
               value={expireDate || ""}
               readOnly={!editableParams}
               onChange={(e) => setDecimalParams(e, setExpireDate)}
+            />
+          </label>
+          <label className="labelParamAdd" key="expireDateLable">
+            <span>תחזית רווח</span>
+            <input
+              type="text"
+              name="expectedProfit"
+              value={expectedProfit || ""}
+              readOnly={!editableParams}
+              onChange={(e) => setDecimalParams(e, setExpectedProfit)}
             />
           </label>
         </div>

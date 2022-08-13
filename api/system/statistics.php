@@ -1,4 +1,6 @@
 <?php
+global $DATA_OBJ;
+global $db;
 function getCountOfTotalAds(){
   //get total ads that where posted from the begining of the site 
 global $db;
@@ -6,6 +8,7 @@ $query= "SELECT COUNT(adID) as total FROM ads";
 $result=$db->readDBNoStoredProcedure($query);
 return $result;
 }
+
 function getCountOfActiveAds(){
     //get total ads that where posted from the begining of the site that are active and not expired 
 global $db;
@@ -69,10 +72,87 @@ function getFooterStats(){
   $arr["getUsersConnectedhisMonth"]=getUsersConnectedhisMonth();
   $arr["getUsersCount"]=getUsersCount();
   $arr["getAvgWatchPerAd"]=getAvgWatchPerAd();
+   foreach($arr as $key=>$value){
+    if($value==""||$value==false||$value==[]){
+     $arr[$key]["total"]=0;
+    }
+    
+  }
   echo json_encode($arr);
   die;
 }
+function getTodaySales(){
+global $db;
+  $time=date('y-m-d',time());
+  $query="select sum(price) as sum from purchase_history where DATE(purchase_time) >= '$time'";
+  $result=$db->readDBNoStoredProcedure($query);
+  return $result;
+}
+function getMonthSales(){
+  global $db;
+   $time=date('y-m-d',time()-30*24*60*60);
+  $query="select sum(price) as sum from purchase_history where DATE(purchase_time) >= '$time'";
+  $result=$db->readDBNoStoredProcedure($query);
+  return $result;
+}
+function getWeekSales(){
+  global $db;
+  $time=date('y-m-d',time()-7*24*60*60);
+  $query="select sum(price) as sum from purchase_history where DATE(purchase_time) >= '$time'";
+  $result=$db->readDBNoStoredProcedure($query);
+  return $result;
+}
+function getSalesTarget(){
+  global $db;
+  $query="select expectedProfit from settings";
+  $result=$db->readDBNoStoredProcedure($query);
+  return $result;
+}
+function getSalesStats(){
+  $arr=[];
+  $arr["todaySales"]=getTodaySales();
+  $arr["monthSales"]=getMonthSales();
+  $arr["weekSales"]=getWeekSales();
+  $arr["target"]=getSalesTarget();
+  foreach($arr as $key=>$value){
+    if($value==""||$value==false||$value==[]){
+      if($key=="target"){
+        $arr[$key]["expectedProfit"]=0;
+      }
+      else{
+       $arr[$key]["sum"]=0;}
+    }
+  }
+  echo json_encode($arr);
+}
+function getUsersRegisteredLastMonth(){
+  //count users that registered last month
+   global $db;
+   $time=date('y-m-d',time()-30*24*60*60);
+  $query="select count(uuid) as count from users where create_time>='$time'";
+  $result=$db->readDBNoStoredProcedure($query);
+  if($result==[]||$result==false){
+    $result["count"]=0;
+  }
+  return $result;
+}
+function getWidgetStats(){
+  $arr=[];
+  $arr["allUsers"]=getUsersCount();
+  $arr["usersRegisteredLastMonth"]=getUsersRegisteredLastMonth();
+  echo json_encode($arr);
+}
 if($DATA_OBJ->data_type=="getFooterStats"){
 getFooterStats();
+}
+else{
+  if ($DATA_OBJ->data_type=="getSalesStats"){
+    getSalesStats();
+  }
+  else{
+    if($DATA_OBJ->data_type=="getWidgetStats"){
+      getWidgetStats();
+    }
+  }
 }
 ?>

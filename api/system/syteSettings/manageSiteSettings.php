@@ -44,7 +44,7 @@ global $db;
     echo "not authorized";
     die;
   }
-  $query="UPDATE settings SET adsGift = '{$DATA_OBJ->params->ad_value}', expireDateAds='{$DATA_OBJ->params->expireDateAds}'";
+  $query="UPDATE settings SET adsGift = '{$DATA_OBJ->params->ad_value}', expireDateAds='{$DATA_OBJ->params->expireDateAds}',expectedProfit='{$DATA_OBJ->params->expectedProfit}'";
   $result=$db->readDBNoStoredProcedure($query);
   if(getNumOfAdsGift()[0]->adsGift==$DATA_OBJ->params->ad_value){
     echo json_encode("update good");

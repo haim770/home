@@ -1,4 +1,4 @@
-import React, { useLayoutEffect , useState } from 'react'
+import React, { useLayoutEffect, useState } from "react";
 import "./styles.css";
 import { IoIosArrowUp } from "react-icons/io";
 import { IoPersonOutline } from "react-icons/io5";
@@ -7,17 +7,17 @@ import { MdOutlineMonetizationOn } from "react-icons/md";
 import { MdAccountBalanceWallet } from "react-icons/md";
 import ReactTooltip from "react-tooltip"; // https://www.npmjs.com/package/react-tooltip
 import instance from "../../../../../api/AxiosInstance";
-import useAuth from '../../../../../Auth/useAuth';
-const Widgets = ({type}) => {
+import useAuth from "../../../../../Auth/useAuth";
+const Widgets = ({ type }) => {
   const { auth } = useAuth();
-    const [widgetData, setWidgetData] = useState({
-      title: "",
-      isMoney: false,
-      link: "",
-      icon: "",
-      amount: 100,
-      diff: 20,
-    });
+  const [widgetData, setWidgetData] = useState({
+    title: "",
+    isMoney: false,
+    link: "",
+    icon: "",
+    amount: 100,
+    diff: 20,
+  });
 
   let data;
 
@@ -28,10 +28,10 @@ const Widgets = ({type}) => {
   /**
    * Get Data from server
    */
-  const getData = async () => {
+  const getWidgetStats = async () => {
     const result = await instance.request({
       data: {
-        data_type: "getSettingsWidgets",
+        data_type: "getWidgetStats",
         params: { requestWidget: type },
       },
       headers: {
@@ -54,8 +54,12 @@ const Widgets = ({type}) => {
               }}
             />
           ),
-          amount: 100,
-          diff: 20,
+          amount: result.data.allUsers[0].total,
+          diff: parseInt(
+            (result.data.usersRegisteredLastMonth[0].count /
+              result.data.allUsers[0].total) *
+              100
+          ),
         });
         break;
       case "order":
@@ -122,7 +126,7 @@ const Widgets = ({type}) => {
    * the data
    */
   useLayoutEffect(() => {
-    getData();
+    getWidgetStats();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -150,6 +154,6 @@ const Widgets = ({type}) => {
       </div>
     </div>
   );
-}
+};
 
-export default Widgets
+export default Widgets;
