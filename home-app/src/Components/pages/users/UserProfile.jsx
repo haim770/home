@@ -5,9 +5,8 @@ import useView from '../Chat/ChatUseContext';
 import useAuth from '../../../Auth/useAuth';
 import instance from '../../../api/AxiosInstance';
 import "./styles.css";
-import { styles } from '../Chat/styles.js'
 import { BiLogOut } from "react-icons/bi";
-
+import { Link } from "react-router-dom";
 
 const Notifications = () => {
   const { toasts, handlers } = useToaster();
@@ -151,14 +150,20 @@ const UserProfile = () => {
         <div className="container-user-profile">
           {openMenu && (
             <div className="dropdown-user-profile">
-              <div class="header-user-profile">
+              <div className="header-user-profile">
                 <h3>{auth?.firstName + " " + auth?.lastName}</h3>
               </div>
-              <div class="body-user-profile">
+              <div className="body-user-profile">
                 <ul>
-                  <li>Option 1</li>
-                  <li>Option 2</li>
-                  <li>Option 3</li>
+                  <li>
+                    <Link to="/Settings/Notifications">התראות </Link>
+                  </li>
+                  <li>
+                    <Link to="/Settings/Messages">הודעות </Link>
+                  </li>
+                  <li>
+                    <Link to="/Settings">הגדרות </Link>
+                  </li>
                   <li onClick={signOut}>{<BiLogOut />} התנתק </li>
                 </ul>
               </div>
