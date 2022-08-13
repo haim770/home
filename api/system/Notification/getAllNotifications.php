@@ -12,4 +12,7 @@ $query = "SELECT `message_content`,`create_time`,`seen`,`msgType`,`NotificationT
 
 $info = (object)[];
 $info->notifications = $db->readDBNoStoredProcedure($query, $arr);
+
+$query = "UPDATE `system_messages` SET `seen`=1 WHERE `userId`=:alice";
+$db->writeDBNotStoredProcedure($query,$arr);
 echo json_encode($info);
