@@ -17,17 +17,17 @@ const NavRoot = () => {
       path: "/",
       name: "בית",
     },
-    {
-      path: "/addAd",
-      name: "הוספת מודעה",
-    },
+    { path: "/AdsWithSearch", name: "מודעות" },
+    { path: "/Blog", name: "בלוג" },
     {
       path: "/packages",
       name: "הצגת חבילות",
     },
-    { path: "/AdsWithSearch", name: "מודעות" },
+    {
+      path: "/addAd",
+      name: "הוספת מודעה",
+    },
     { path: "/Settings", name: "הגדרות" },
-    { path: "/Blog", name: "בלוג" },
   ];
   return (
     <nav className="MuiPaper-root MuiAppBar-root jss4 MuiAppBar-positionSticky MuiAppBar-colorPrimary jss2 MuiPaper-elevation4">

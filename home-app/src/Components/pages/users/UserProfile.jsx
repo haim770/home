@@ -6,7 +6,7 @@ import useAuth from '../../../Auth/useAuth';
 import instance from '../../../api/AxiosInstance';
 import "./styles.css";
 import { BiLogOut } from "react-icons/bi";
-import { Link } from "react-router-dom";
+import { Link,NavLink } from "react-router-dom";
 
 const Notifications = () => {
   const { toasts, handlers } = useToaster();
@@ -156,13 +156,19 @@ const UserProfile = () => {
               <div className="body-user-profile">
                 <ul>
                   <li>
-                    <Link to="/Settings/Notifications">התראות </Link>
+                    <NavLink to="/Settings/Notifications" key="התראות">
+                      <div key="התראות">התראות</div>
+                    </NavLink>
                   </li>
                   <li>
-                    <Link to="/Settings/Messages">הודעות </Link>
+                    <NavLink to="/Settings/Messages" key="הודעות">
+                      <div key="הודעות">הודעות</div>
+                    </NavLink>
                   </li>
                   <li>
-                    <Link to="/Settings">הגדרות </Link>
+                    <NavLink to="/Settings" key="הגדרות">
+                      <div key="הגדרות">הגדרות</div>
+                    </NavLink>
                   </li>
                   <li onClick={signOut}>{<BiLogOut />} התנתק </li>
                 </ul>
