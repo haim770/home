@@ -24,10 +24,18 @@ $query= "SELECT COUNT(blog_id) as total FROM blogs";
 $result=$db->readDBNoStoredProcedure($query);
 return $result;
 }
+function getCountOfBlogsThisMonth(){
+    //get total blogs that where posted this month
+global $db;
+$thisMonth=date('d.m.Y',time()-30*24*60*60);
+$query= "SELECT COUNT(blog_id) as total FROM blogs where create_time >='$thisMonth'";
+$result=$db->readDBNoStoredProcedure($query);
+return $result;
+}
 function getUsersConnectedToday(){
       //get total users that where connected today
 global $db;
-$yesterday=date('d.m.Y',strtotime("-1 days"));
+$yesterday=date('d.m.Y',time()-1*24*60*60);
 $query= "SELECT COUNT(uuid) as total FROM users where  last_seen>'$yesterday'";
 $result=$db->readDBNoStoredProcedure($query);
 return $result;
@@ -35,7 +43,7 @@ return $result;
 function getUsersConnectedhisMonth(){
       //get total users that where connected this month we take month as 30 days period time
 global $db;
-$thisMonth=date('d.m.Y',strtotime("-30 days"));
+$thisMonth=date('d.m.Y',time()-30*24*60*60);
 $query= "SELECT COUNT(uuid) as total FROM users where  last_seen>'$thisMonth'";
 $result=$db->readDBNoStoredProcedure($query);
 return $result;
@@ -43,7 +51,7 @@ return $result;
 function getUsersConnectedThisWeek(){
   //get total users that where connected this week we take month as 30 days period time
 global $db;
-$thisWeek=date('d.m.Y',strtotime("-7 days"));
+$thisWeek=date('d.m.Y',time()-7*24*60*60);
 $query= "SELECT COUNT(uuid) as total FROM users where  last_seen>'$thisWeek'";
 $result=$db->readDBNoStoredProcedure($query);
 return $result;
@@ -136,10 +144,48 @@ function getUsersRegisteredLastMonth(){
   }
   return $result;
 }
+function getAdPostedThisMonth(){
+   global $db;
+   $time=date('y-m-d',time()-30*24*60*60);
+  $query="select count(adID) as count from ads where create_time>='$time'";
+  $result=$db->readDBNoStoredProcedure($query);
+  if($result==[]||$result==false){
+    $result["count"]=0;
+  }
+  return $result;
+}
+function getCountPurchasesThisMonth(){
+  //count purchase this month
+    global $db;
+   $time=date('y-m-d',time()-30*24*60*60);
+  $query="select count(purchase_id) as count from purchase_history where purchase_time>='$time'";
+  $result=$db->readDBNoStoredProcedure($query);
+  if($result==[]||$result==false){
+    $result["count"]=0;
+  }
+  return $result;
+}
+function getCountPurchases(){
+  //count all purchase
+  global $db;
+   $time=date('y-m-d',time()-30*24*60*60);
+  $query="select count(purchase_id) as count from purchase_history";
+  $result=$db->readDBNoStoredProcedure($query);
+  if($result==[]||$result==false){
+    $result["count"]=0;
+  }
+  return $result;
+}
 function getWidgetStats(){
   $arr=[];
   $arr["allUsers"]=getUsersCount();
   $arr["usersRegisteredLastMonth"]=getUsersRegisteredLastMonth();
+  $arr["adCount"]=getCountOfTotalAds();
+  $arr["adThisMonth"]=getAdPostedThisMonth();
+  $arr["getCountOfBlogs"]=getCountOfBlogs();
+  $arr["getCountOfBlogsThisMonth"]=getCountOfBlogsThisMonth();
+  $arr["getAllPurchasescount"]=getCountPurchases();
+  $arr["getPurchasesThisMonthCount"]=getCountPurchasesThisMonth();
   echo json_encode($arr);
 }
 if($DATA_OBJ->data_type=="getFooterStats"){

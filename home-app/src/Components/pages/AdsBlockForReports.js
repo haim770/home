@@ -18,7 +18,7 @@ const AdsBlockForReports = (props) => {
    * Add function of start new chat with user ad publisher
    */
   const [phone, setPhone] = useState(
-    props.adBlock.user ? props.adBlock.user.phone : 0
+    props.adBlock.user ? props.adBlock.user[0].phone : 0
   );
   const [togglePhone, setTogglePhone] = useState("הצג טלפון");
   const [adBlock, setAdBlock] = useState(props.adBlock);
@@ -41,6 +41,7 @@ const AdsBlockForReports = (props) => {
     console.log(result.data);
     if (result.data != "didnt succeed" && result.data != "not authorized") {
       alert("ad deleted");
+      await props.getAllReports();
     }
   };
   return (
@@ -52,11 +53,11 @@ const AdsBlockForReports = (props) => {
             <h3 className="iconsAtTop">
               <Parameter
                 paramName={<FaEye />}
-                paramValue={props.adBlock.ad.watch}
+                paramValue={props.adBlock?.ad[0].watch || ""}
               />
               <Parameter
                 paramName={<FcSms />}
-                paramValue={props.adBlock.ad.contact_counter}
+                paramValue={props.adBlock?.ad[0].contact_counter || ""}
               />
             </h3>
           </div>

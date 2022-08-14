@@ -42,7 +42,7 @@ const Widgets = ({ type }) => {
     switch (type) {
       case "user":
         setWidgetData({
-          title: "USERS",
+          title: "משתמשים",
           isMoney: false,
           link: "See all users",
           icon: (
@@ -64,7 +64,7 @@ const Widgets = ({ type }) => {
         break;
       case "order":
         setWidgetData({
-          title: "ORDERS",
+          title: "מודעות",
           isMoney: false,
           link: "View all orders",
           icon: (
@@ -76,14 +76,17 @@ const Widgets = ({ type }) => {
               }}
             />
           ),
-          amount: 100,
-          diff: 20,
+          amount: result.data.adCount[0].total,
+          diff: parseInt(
+            (result.data.adThisMonth[0].count / result.data.adCount[0].total) *
+              100
+          ),
         });
         break;
       case "earning":
         setWidgetData({
-          title: "EARNINGS",
-          isMoney: true,
+          title: "בלוגים",
+          isMoney: false,
           link: "View net earnings",
           icon: (
             <MdOutlineMonetizationOn
@@ -94,14 +97,18 @@ const Widgets = ({ type }) => {
               }}
             />
           ),
-          amount: 100,
-          diff: 20,
+          amount: result.data.getCountOfBlogs[0].total,
+          diff: parseInt(
+            (result.data.getCountOfBlogsThisMonth[0].total /
+              result.data.getCountOfBlogs[0].total) *
+              100
+          ),
         });
         break;
       case "balance":
         setWidgetData({
-          title: "BALANCE",
-          isMoney: true,
+          title: "רכישות",
+          isMoney: false,
           link: "See details",
           icon: (
             <MdAccountBalanceWallet
@@ -112,8 +119,12 @@ const Widgets = ({ type }) => {
               }}
             />
           ),
-          amount: 100,
-          diff: 20,
+          amount: result.data.getAllPurchasescount[0].count,
+          diff: parseInt(
+            (result.data.getPurchasesThisMonthCount[0].count /
+              result.data.getAllPurchasescount[0].count) *
+              100
+          ),
         });
         break;
       default:

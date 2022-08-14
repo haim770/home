@@ -25,15 +25,20 @@ function HandleComplainOnAd(props) {
       </div>
       <div className="makeTwoElementSideBySide">
         <section>
-          <AdsBlockForReports adBlock={props.selectedAd} />
+          <AdsBlockForReports
+            adBlock={props.selectedAd}
+            getAllReports={props.getAllReports}
+          />
         </section>
         <section>
-          <ShowReport element_type="ad" report={props.selectedReport} adBlock={props.selectedAd}  />
+          <ShowReport
+            element_type="ad"
+            report={props.selectedReport}
+            adBlock={props.selectedAd}
+            getAllReports={props.getAllReports}
+          />
         </section>
       </div>
-      <p>
-        <Button content="contact seller" onclick={props.onclick} />
-      </p>
     </article>
   );
 }
