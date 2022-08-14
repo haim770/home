@@ -1,4 +1,15 @@
 <?php
+$userType="";//guest or registered
+if($DATA_OBJ->guest=="guest"){
+    $userType="guest";
+    }
+else{
+        //now we will populate the user object with the user that signed in
+     $authPath = "../Authentication/authTest.php";
+     include_once(dirname(__FILE__) . DIRECTORY_SEPARATOR . $authPath);
+    $userType= "registered";
+}
+global $user;
 global $DATA_OBJ;
 global $db;
 function getCountOfTotalAds(){
@@ -94,6 +105,9 @@ global $db;
   $time=date('y-m-d',time());
   $query="select sum(price) as sum from purchase_history where DATE(purchase_time) >= '$time'";
   $result=$db->readDBNoStoredProcedure($query);
+  if($result[0]->sum==null||$result[0]->sum==false){
+  $result[0]->sum=0;
+  }
   return $result;
 }
 function getMonthSales(){
@@ -101,6 +115,9 @@ function getMonthSales(){
    $time=date('y-m-d',time()-30*24*60*60);
   $query="select sum(price) as sum from purchase_history where DATE(purchase_time) >= '$time'";
   $result=$db->readDBNoStoredProcedure($query);
+  if($result[0]->sum==null||$result[0]->sum==false){
+  $result[0]->sum=0;
+  }
   return $result;
 }
 function getWeekSales(){
@@ -108,15 +125,28 @@ function getWeekSales(){
   $time=date('y-m-d',time()-7*24*60*60);
   $query="select sum(price) as sum from purchase_history where DATE(purchase_time) >= '$time'";
   $result=$db->readDBNoStoredProcedure($query);
+  if($result[0]->sum==null||$result[0]->sum==false){
+  $result[0]->sum=0;
+  }
   return $result;
 }
 function getSalesTarget(){
   global $db;
   $query="select expectedProfit from settings";
   $result=$db->readDBNoStoredProcedure($query);
+  if($result[0]->expectedProfit==null||$result[0]->expectedProfit==false){
+  $result[0]->expectedProfit=0;
+  }
   return $result;
 }
 function getSalesStats(){
+   global $DATA_OBJ;
+  global $user;
+  global $userType;
+  if($userType=="guest"||$user->getRule()!="5150"){
+    header('HTTP/1.1 401 Unauthorized');
+    exit;
+  }
   $arr=[];
   $arr["todaySales"]=getTodaySales();
   $arr["monthSales"]=getMonthSales();
@@ -177,6 +207,13 @@ function getCountPurchases(){
   return $result;
 }
 function getWidgetStats(){
+   global $DATA_OBJ;
+  global $user;
+  global $userType;
+  if($userType=="guest"||$user->getRule()!="5150"){
+    header('HTTP/1.1 401 Unauthorized');
+    exit;
+  }
   $arr=[];
   $arr["allUsers"]=getUsersCount();
   $arr["usersRegisteredLastMonth"]=getUsersRegisteredLastMonth();
@@ -188,6 +225,190 @@ function getWidgetStats(){
   $arr["getPurchasesThisMonthCount"]=getCountPurchasesThisMonth();
   echo json_encode($arr);
 }
+function UserMonthPurchase(){
+  global $db;
+  global $user;
+  $uuid=$user->getUuid();
+  $time=date('y-m-d',time()-30*24*60*60);
+  $query="select sum(price) as sum from purchase_history where DATE(purchase_time) >= '$time' and userId= '$uuid'";
+  $result=$db->readDBNoStoredProcedure($query);
+  if($result[0]->sum==null||$result[0]->sum==false){
+  $result[0]->sum=0;
+  }
+  return $result;
+}
+function UserWeekPurchase(){
+  global $db;
+  global $user;
+  $uuid=$user->getUuid();
+  $time=date('y-m-d',time()-7*24*60*60);
+  $query="select sum(price) as sum from purchase_history where DATE(purchase_time) >= '$time' and userId= '$uuid'";
+  $result=$db->readDBNoStoredProcedure($query);
+  if($result[0]->sum==null||$result[0]->sum==false){
+  $result[0]->sum=0;
+  }
+  return $result;
+}
+function UserTodayPurchase(){
+  global $db;
+  global $user;
+  $uuid=$user->getUuid();
+  $time=date('y-m-d',time());
+  $query="select sum(price) as sum from purchase_history where DATE(purchase_time) >= '$time' and userId= '$uuid'";
+  $result=$db->readDBNoStoredProcedure($query);
+  if($result[0]->sum==null||$result[0]->sum==false){
+  $result[0]->sum=0;
+  }
+  return $result;
+}
+function getUserPurchasesStats(){
+  //statistics for user purchases for the chart divide the avg of users and target
+  global $DATA_OBJ;
+  global $user;
+  global $userType;
+  global $db;
+  if($userType=="guest"||($user->getRule()!="2001"&&$user->getRule()!="5150")){
+    header('HTTP/1.1 401 Unauthorized');
+    exit;
+  }
+  $arr=[];
+  $arr["UserTodayPurchase"]=getTodaySales();
+  $arr["UserMonthPurchase"]=getMonthSales();
+  $arr["UserWeekPurchase"]=getWeekSales();
+  if(getUsersCount()[0]->total!="0")
+  $arr["target"]=getSalesTarget()[0]->expectedProfit/getUsersCount()[0]->total;
+  else{
+    $arr["target"]=0;
+  }
+echo json_encode($arr);
+}
+function getAdPostedThisMonthForUser(){
+  //ads posted this month by user
+  global $db;
+  global $DATA_OBJ;
+  global $user;
+  $uuid=$user->getUuid();
+  global $userType;
+   $time=date('y-m-d',time()-30*24*60*60);
+  $query="select count(adID) as count from ads where create_time>='$time' and user_id='$uuid'";
+  $result=$db->readDBNoStoredProcedure($query);
+  if($result==[]||$result==false){
+    $result["count"]=0;
+  }
+  return $result;
+}
+function getCountOfTotalAdsForUser(){
+  //get total ads that where posted from the begining of the site  by the user
+  global $DATA_OBJ;
+  global $user;
+  $uuid=$user->getUuid();
+  global $userType;
+global $db;
+$query= "SELECT COUNT(adID) as total FROM ads where user_id='$uuid'";
+$result=$db->readDBNoStoredProcedure($query);
+return $result;
+}
+function getCountOfBlogsThisMonthByUser(){
+  //get total blogs that where posted from this month of the site  by the user
+  global $DATA_OBJ;
+  global $user;
+  $uuid=$user->getUuid();
+  global $userType;
+  global $db;
+  $thisMonth=date('d.m.Y',time()-30*24*60*60);
+$query= "SELECT COUNT(blog_id) as total FROM blogs where create_time >='$thisMonth' and userId='$uuid'";
+$result=$db->readDBNoStoredProcedure($query);
+return $result;
+}
+function getCountOfBlogsByUser(){
+    //get total blogs that where posted from the begining of the site  by the user
+  global $DATA_OBJ;
+  global $user;
+  $uuid=$user->getUuid();
+  global $userType;
+  global $db;
+$query= "SELECT COUNT(blog_id) as total FROM blogs where userId='$uuid'";
+$result=$db->readDBNoStoredProcedure($query);
+return $result;
+}
+function getCountPurchasesByUserThisMonth(){
+  //get total purchases that from this month  by the user
+  global $DATA_OBJ;
+  global $db;
+  global $user;
+  $uuid=$user->getUuid();
+  global $userType;
+   $time=date('y-m-d',time()-30*24*60*60);
+  $query="select count(purchase_id) as count from purchase_history where purchase_time>='$time' and userId= '$uuid'";
+  $result=$db->readDBNoStoredProcedure($query);
+  if($result==[]||$result==false){
+    $result["count"]=0;
+  }
+  return $result;
+}
+function getCountPurchasesByUser(){
+     //get total purchases that from the begining of the site  by the user
+  global $DATA_OBJ;
+  global $user;
+  global $db;
+  $uuid=$user->getUuid();
+  global $userType;
+  $query="select count(purchase_id) as count from purchase_history where userId= '$uuid'";
+  $result=$db->readDBNoStoredProcedure($query);
+  if($result==[]||$result==false){
+    $result["count"]=0;
+  }
+  return $result;
+}
+function getWidgetStatsForUser(){
+  //get user widgets stats
+  global $DATA_OBJ;
+  global $user;
+  global $userType;
+  if($userType=="guest"||($user->getRule()!="5150"&&$user->getRule()!="2001")){
+    header('HTTP/1.1 401 Unauthorized');
+    exit;
+  }
+  $arr=[];
+  $arr["allUsers"]=getUsersCount();
+  $arr["usersRegisteredLastMonth"]=getUsersRegisteredLastMonth();
+  $arr["adCount"]=getCountOfTotalAdsForUser();
+  $arr["adThisMonth"]=getAdPostedThisMonthForUser();
+  $arr["getCountOfBlogs"]=getCountOfBlogsByUser();
+  $arr["getCountOfBlogsThisMonth"]=getCountOfBlogsThisMonthByUser();
+  $arr["getAllPurchasescount"]=getCountPurchasesByUser();
+  $arr["getPurchasesThisMonthCount"]=getCountPurchasesByUserThisMonth();
+  echo json_encode($arr);
+}
+function getAllAdsByMonthsChart(){
+  //get ads posted by month for last 6 month
+  global $db;
+  global $DATA_OBJ;
+  $arr=[];
+  $thisMonth= date('m');//num of cur month
+  echo $thisMonth;
+  for ($i=6; $i >0 ; $i--) { 
+    $begin=date('y-m-d',time()-($i)*30*24*60*60);
+    $end=date('y-m-d',time()-($i-1)*30*24*60*60);
+    $arr[$thisMonth-$i]=getAllAdsBetween2TimeStamps($begin,$end);
+  }
+  echo json_encode($arr);
+  die;
+}
+function getAllAdsBetween2TimeStamps($begin,$end){
+  //return count of ads between 2 timestamps
+  global $db;
+  $query="select count(adID) as count from ads where create_time>='$begin' and create_time<='$end'";
+  $result=$db->readDBNoStoredProcedure($query);
+  if($result==[]||$result==false){
+    $result["count"]=0;
+  }
+  return $result[0]->count;
+}
+function getAllAdsByMonthsForUserChart(){
+  //get ads posted by month by user
+
+}
 if($DATA_OBJ->data_type=="getFooterStats"){
 getFooterStats();
 }
@@ -198,6 +419,34 @@ else{
   else{
     if($DATA_OBJ->data_type=="getWidgetStats"){
       getWidgetStats();
+    }
+    else{
+      if($DATA_OBJ->data_type=="getUserPurchasesStats"){
+        getUserPurchasesStats();
+      }
+      else{
+        if($DATA_OBJ->data_type=="getWidgetStatsForUser"){
+          getWidgetStatsForUser();
+        }
+        else{
+          if($DATA_OBJ->data_type=="getAllAdsPostedByMonth"){
+            getAllAdsPostedByMonth();
+          }
+          else{
+          if($DATA_OBJ->data_type=="getAllAdsPostedByMonthForUser"){
+            getAllAdsPostedByMonthForUser();
+          }
+          else{
+            if($DATA_OBJ->data_type=="getAllAdsByMonthsChart"){
+              getAllAdsByMonthsChart();
+            }
+            else{if($DATA_OBJ->data_type=="getAllAdsByMonthsForUserChart"){
+              getAllAdsByMonthsForUserChart();
+            }}
+          }
+        }
+        }
+      }
     }
   }
 }

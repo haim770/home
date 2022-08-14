@@ -569,6 +569,18 @@ if (isset($DATA_OBJ->data_type)) {
         case "updateContacted":
             include_once('../api/system/Ads/updateWatchAndContactCounter.php');
             break;
+        case "getAllAdsByMonthsChart":
+            include_once('../api/system/statistics.php');
+                  break;
+        case "getAllAdsByMonthsForUserChart":
+            include_once('../api/system/statistics.php');
+                  break;
+        case "getWidgetStatsForUser":
+                include_once('../api/system/statistics.php');
+                  break;
+        case "getUserPurchasesStats":
+             include_once('../api/system/statistics.php');
+             break;
         case "getWidgetStats":
             include_once('../api/system/statistics.php');
              break;
@@ -747,6 +759,9 @@ if (isset($DATA_OBJ->data_type)) {
             break;
         case "getSettingsUserPurchase":
             include("../api/system/user/getSettingsUserPurchase.php");
+            break;
+        case "getAllPurchasesForUser":
+            include_once("../api/system/user/getAllPurchases.php");
             break;
         case "getAllPurchases":
              include_once("../api/system/user/getAllPurchases.php");

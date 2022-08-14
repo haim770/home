@@ -30,6 +30,21 @@ const List = () => {
       data: {
         data_type: "getAllPurchases",
         params: {},
+        guest: "registered",
+      },
+      headers: {
+        Authorization: `Bearer ${auth.accessToken}`,
+      },
+    });
+    console.log(result.data);
+    setRows(result.data.result);
+  };
+  const getAllPurchasesForUser = async () => {
+    const result = await instance.request({
+      data: {
+        data_type: "getAllPurchasesForUser",
+        params: {},
+        guest: "registered",
       },
       headers: {
         Authorization: `Bearer ${auth.accessToken}`,
@@ -39,7 +54,9 @@ const List = () => {
     setRows(result.data.result);
   };
   useEffect(() => {
-    getAllPurchases();
+    if (auth?.rule == "5150") {
+      getAllPurchases();
+    } else getAllPurchasesForUser();
   }, []);
   return (
     <div className="tableContainer">
@@ -48,7 +65,7 @@ const List = () => {
           sx={{ fontSize: "1vw" }}
           rows={rows}
           columns={columns}
-          pageSize={15}
+          pageSize={5}
           rowsPerPageOptions={[5]}
           checkboxSelection={false}
         />

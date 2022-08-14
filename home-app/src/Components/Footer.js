@@ -12,11 +12,16 @@ function Footer(props) {
   const [usersConnectedThisMonth, setUsersConnectedThisMonth] = useState("");
   const [usersConnectedToday, setUsersConnectedToday] = useState("");
   const [usersCount, setUsersCount] = useState("");
+  const { auth } = useAuth();
   const getStats = async () => {
     const result = await instance.request({
       data: {
         data_type: "getFooterStats",
-        params: {},
+        params: { guest: "guest" },
+        guest: "guest",
+      },
+      headers: {
+        Authorization: `Bearer ${auth.accessToken}`,
       },
     });
     // check if we got new data from server or any response

@@ -49,7 +49,8 @@ function AdById(props) {
         Authorization: `Bearer ${props.auth.accessToken}`,
       },
     });
-    setData(result.data);
+    if(result?.data){
+    setData(result.data);}
     console.log(result.data);
     console.log(data);
   };

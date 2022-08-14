@@ -6,9 +6,12 @@ import { FiMoreVertical } from "react-icons/fi";
 import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import instance from "../../../../../../api/AxiosInstance";
+import useAuth from "../../../../../../Auth/useAuth";
 
 const Featured = (props) => {
   const [todaySales, setTodaySales] = useState("");
+  const { auth } = useAuth();
+
   const [monthSales, setMonthSales] = useState("");
   const [weekSales, setWeekSales] = useState("");
   const [targetProfit, setTargetProfit] = useState("");
@@ -17,8 +20,13 @@ const Featured = (props) => {
       data: {
         data_type: "getSalesStats",
         params: {},
+        guest: "registered",
+      },
+      headers: {
+        Authorization: `Bearer ${auth.accessToken}`,
       },
     });
+    console.log(result.data);
     if (result?.data) {
       setMonthSales(result.data.monthSales[0].sum);
       setTodaySales(result.data.todaySales[0].sum);
@@ -26,8 +34,31 @@ const Featured = (props) => {
       setTargetProfit(result.data.target[0].expectedProfit);
     }
   };
+  const getUserPurchasesStats = async () => {
+    const result = await instance.request({
+      data: {
+        data_type: "getUserPurchasesStats",
+        guest: "registered",
+        params: { guest: "registered" },
+      },
+      headers: {
+        Authorization: `Bearer ${auth.accessToken}`,
+      },
+    });
+    console.log(result.data);
+    console.log(result.data);
+    if (result?.data) {
+      setMonthSales(result.data.UserMonthPurchase[0].sum);
+      setTodaySales(result.data.UserTodayPurchase[0].sum);
+      setWeekSales(result.data.UserWeekPurchase[0].sum);
+      setTargetProfit(result.data.target);
+    }
+  };
   useEffect(() => {
-    getSalesStats();
+    if (auth?.roles == "5150") getSalesStats();
+    else {
+      getUserPurchasesStats();
+    }
   }, []);
   return (
     <div className="featured">
@@ -39,7 +70,7 @@ const Featured = (props) => {
         <div className="featuredChart">
           <CircularProgressbar
             value={(monthSales / targetProfit) * 100}
-            text={parseInt((monthSales / targetProfit) * 100)}
+            text={parseInt((monthSales / targetProfit) * 100)+"%"}
             strokeWidth={5}
           />
         </div>

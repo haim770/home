@@ -28,11 +28,116 @@ const Widgets = ({ type }) => {
   /**
    * Get Data from server
    */
+  const getWidgetStatsForUser = async () => {
+    const result = await instance.request({
+      data: {
+        data_type: "getWidgetStatsForUser",
+        params: { requestWidget: type, guest: "registered" },
+        guest: "registered",
+      },
+      headers: {
+        Authorization: `Bearer ${auth.accessToken}`,
+      },
+    });
+    console.log(result);
+    switch (type) {
+      case "user":
+        setWidgetData({
+          title: "משתמשים",
+          isMoney: false,
+          link: "See all users",
+          icon: (
+            <IoPersonOutline
+              className="icon"
+              style={{
+                color: "crimson",
+                backgroundColor: "rgba(255, 0, 0, 0.2)",
+              }}
+            />
+          ),
+          amount: result.data.allUsers[0].total,
+          diff: parseInt(
+            (result.data.usersRegisteredLastMonth[0].count /
+              result.data.allUsers[0].total) *
+              100
+          ),
+        });
+        break;
+      case "order":
+        setWidgetData({
+          title: "מודעות",
+          isMoney: false,
+          link: "View all orders",
+          icon: (
+            <FiShoppingCart
+              className="icon"
+              style={{
+                backgroundColor: "rgba(218, 165, 32, 0.2)",
+                color: "goldenrod",
+              }}
+            />
+          ),
+          amount: result.data.adCount[0].total,
+          diff: parseInt(
+            (result.data.adThisMonth[0].count / result.data.adCount[0].total) *
+              100
+          ),
+        });
+        break;
+      case "earning":
+        setWidgetData({
+          title: "בלוגים",
+          isMoney: false,
+          link: "View net earnings",
+          icon: (
+            <MdOutlineMonetizationOn
+              className="icon"
+              style={{
+                backgroundColor: "rgba(0, 128, 0, 0.2)",
+                color: "green",
+              }}
+            />
+          ),
+          amount: result.data.getCountOfBlogs[0].total,
+          diff: parseInt(
+            (result.data.getCountOfBlogsThisMonth[0].total /
+              result.data.getCountOfBlogs[0].total) *
+              100
+          ),
+        });
+        break;
+      case "balance":
+        setWidgetData({
+          title: "רכישות",
+          isMoney: false,
+          link: "See details",
+          icon: (
+            <MdAccountBalanceWallet
+              className="icon"
+              style={{
+                backgroundColor: "rgba(128, 0, 128, 0.2)",
+                color: "purple",
+              }}
+            />
+          ),
+          amount: result.data.getAllPurchasescount[0].count,
+          diff: parseInt(
+            (result.data.getPurchasesThisMonthCount[0].count /
+              result.data.getAllPurchasescount[0].count) *
+              100
+          ),
+        });
+        break;
+      default:
+        break;
+    }
+  };
   const getWidgetStats = async () => {
     const result = await instance.request({
       data: {
         data_type: "getWidgetStats",
-        params: { requestWidget: type },
+        params: { requestWidget: type, guest: "registered" },
+        guest: "registered",
       },
       headers: {
         Authorization: `Bearer ${auth.accessToken}`,
@@ -137,8 +242,10 @@ const Widgets = ({ type }) => {
    * the data
    */
   useLayoutEffect(() => {
-    getWidgetStats();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    if (auth?.roles == "5150") getWidgetStats();
+    else {
+      getWidgetStatsForUser();
+    }
   }, []);
 
   return (
