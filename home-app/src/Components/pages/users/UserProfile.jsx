@@ -156,17 +156,23 @@ const UserProfile = () => {
               <div className="body-user-profile">
                 <ul>
                   <li>
-                    <NavLink to="/Settings/Notifications" key="התראות">
+                    <NavLink
+                      to="Settings/Notifications"
+                      key="התראות"
+                    >
                       <div key="התראות">התראות</div>
                     </NavLink>
                   </li>
                   <li>
-                    <NavLink to="/Settings/Messages" key="הודעות">
+                    <NavLink
+                      to="Settings/Messages"
+                      key="הודעות"
+                    >
                       <div key="הודעות">הודעות</div>
                     </NavLink>
                   </li>
                   <li>
-                    <NavLink to="/Settings" key="הגדרות">
+                    <NavLink to="Settings" key="הגדרות">
                       <div key="הגדרות">הגדרות</div>
                     </NavLink>
                   </li>
