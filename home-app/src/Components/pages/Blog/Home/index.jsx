@@ -80,27 +80,36 @@ const isDuplicate = (data, obj) =>
 
   // Search for blog by category
   const handleSearchResults = () => {
-    // const allBlogs = blogList;
+    const allBlogs = blogs;
     // const filteredBlogs = allBlogs.filter((blog) =>
     //   blog.category.toLowerCase().includes(searchKey.toLowerCase().trim())
     // );
-    // setBlogs(filteredBlogs);
+    const filteredBlogs = allBlogs.filter(function (o) {
+      return Object.keys(o).some(function (k) {
+        return (
+          o[k].toString().toLowerCase().indexOf(searchKey.toLowerCase()) !== -1
+        );
+      });
+    });
+
+    setBlogs(filteredBlogs);
     // set what we want to search.
     searchElement = searchKey.toLowerCase();
 
     //update the offset value to zero
-    currentOffset = 0;
-    setLoading(true);
-    getBlogs();
+    currentOffset = filteredBlogs.length;
+    prvScrollHeight=0;
+    console.log(currentOffset);
+    console.log(searchElement);
   };
 
   // Clear search and show all blogs
   const handleClearSearch = () => {
-    // Clear Search element
-    searchElement = "";
-    setSearchKey("");
-    //update the offset value to zero
-    currentOffset = 0;
+
+  currentOffset = 0;
+  searchElement = "";
+  prvScrollHeight = 0;
+  scrollHeight = 0;
     setLoading(true);
     getBlogs();
   };

@@ -131,7 +131,7 @@ function declineAd(){
   if(isset($DATA_OBJ->params->adID)){
     $query="UPDATE ads SET approval_status = 'declined', active= false WHERE adID = '{$DATA_OBJ->params->adID}'";
   $result=$db->readDBNoStoredProcedure($query);
-  $db->createSystemMessage(" מודעה מספר "."{$DATA_OBJ->params->adID}"." לא אושרה ",$DATA_OBJ->params->userId,"declineAd","Notice");
+  $db->createSystemMessage(" מודעה מספר "."{$DATA_OBJ->params->adID}"." לא אושרה ",$DATA_OBJ->params->userId,"declineAd", "Error");
   echo json_encode($result);}
   die;
 }
@@ -148,7 +148,7 @@ function aproveAd(){
   if(isset($DATA_OBJ->params->adID)){
     $query="UPDATE ads SET approval_status = 'aproved', active= true WHERE adID = '{$DATA_OBJ->params->adID}'";
   $result=$db->readDBNoStoredProcedure($query);
-   $db->createSystemMessage(" מודעה מספר "."{$DATA_OBJ->params->adID}"." אושרה ",$DATA_OBJ->params->userId,"aproveAd","Notice");
+   $db->createSystemMessage(" מודעה מספר "."{$DATA_OBJ->params->adID}"." אושרה ",$DATA_OBJ->params->userId,"aproveAd", "Success");
   echo json_encode($result);}
   die;
 }

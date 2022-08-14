@@ -3,15 +3,14 @@ import './styles.css';
 
 const Header = () => (
   <header className='home-header'>
-    <h2>Inc. This Morning</h2>
+    <h2>א אוהל ב זה בית</h2>
     <h1>
       <span>“</span> Home <span>”</span>
     </h1>
     <p>
-      awesome place to make oneself 
+      הבלוג של הבית שלנו 
       <br /> 
-      productive and entertained through
-      daily updates.
+      כיצד לקוחים משכנתא? מה בודקים כשמשכירים בית וכל מה שרציתם לדעת ולא חשבתם לשאול במקום אחד.
     </p>
   </header>
 );
