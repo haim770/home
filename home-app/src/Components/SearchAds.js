@@ -135,6 +135,9 @@ function SearchAds(props) {
     let num = e.target.value.replace(/\D/g, "");
     const name = e.target.name;
     const value = e.target.value;
+     if (inputsAdContentBuy[name] == "0" && e.target.value.length > 0) {
+       return;
+     }
     if (e.target.min || e.target.max) {
       if (isNaN(e.target.value) === true) {
         //value is not a number
@@ -198,6 +201,9 @@ function SearchAds(props) {
     let num = e.target.value.replace(/\D/g, "");
     const name = e.target.name;
     const value = e.target.value;
+    if (inputAdConentRent[name] == "0" && e.target.value.length > 0) {
+      return;
+    }
     if (e.target.min || e.target.max) {
       if (isNaN(e.target.value) === true) {
         //value is not a number
