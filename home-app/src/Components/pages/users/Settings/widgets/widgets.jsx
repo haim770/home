@@ -181,7 +181,7 @@ const Widgets = ({ type }) => {
               }}
             />
           ),
-          amount: result.data.adCount[0].total,
+          amount: result.data?.adCount[0]?.total,
           diff: parseInt(
             (result.data.adThisMonth[0].count / result.data.adCount[0].total) *
               100
@@ -202,7 +202,7 @@ const Widgets = ({ type }) => {
               }}
             />
           ),
-          amount: result.data.getCountOfBlogs[0].total,
+          amount: result.data?.getCountOfBlogs[0]?.total,
           diff: parseInt(
             (result.data.getCountOfBlogsThisMonth[0].total /
               result.data.getCountOfBlogs[0].total) *
@@ -224,7 +224,7 @@ const Widgets = ({ type }) => {
               }}
             />
           ),
-          amount: result.data.getAllPurchasescount[0].count,
+          amount: result.data?.getAllPurchasescount[0]?.count,
           diff: parseInt(
             (result.data.getPurchasesThisMonthCount[0].count /
               result.data.getAllPurchasescount[0].count) *
