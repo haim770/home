@@ -146,7 +146,7 @@ const StepTwo = ({ formData, setFormData }) => {
         <Select
           className="selectStyle"
           name="city"
-          value={selectedOption}
+          value={selectedOption || ""}
           onChange={handleChangeCity}
           options={options}
           autoFocus={true}
@@ -157,7 +157,7 @@ const StepTwo = ({ formData, setFormData }) => {
         <Select
           className="selectStyle"
           name="street"
-          value={streetSelectedOption}
+          value={streetSelectedOption || ""}
           onChange={handleChangeStreet}
           options={streetOptions}
           aria-label="שם רחוב"

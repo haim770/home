@@ -1,4 +1,6 @@
-import React from 'react'
+import { React, useEffect } from "react";
+import instance from "../../../../../../api/AxiosInstance";
+import useAuth from "../../../../../../Auth/useAuth";
 import "./styles.css";
 import {
   AreaChart,
@@ -8,17 +10,59 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
-
-const data = [
-  { name: "ינואר", Total: 1200 },
-  { name: "פברואר", Total: 2100 },
-  { name: "מרץ", Total: 800 },
-  { name: "אפריל", Total: 1600 },
-  { name: "מאי", Total: 900 },
-  { name: "יוני", Total: 1700 },
-];
+import { useState } from "react";
 
 const Chart = ({ aspect, title }) => {
+  const { auth } = useAuth();
+
+  const [data, setData] = useState([
+    { name: "1", Total: 4 },
+    { name: "2", Total: 2 },
+    { name: "3", Total: 5 },
+    { name: "4", Total: 1 },
+    { name: "5", Total: 7 },
+    { name: "7", Total: 1 },
+    { name: "8", Total: 12 },
+    { name: "9", Total: 2 },
+    { name: "10", Total: 1 },
+    { name: "11", total: 11 },
+    { name: "12", Total: 1 },
+  ]);
+  console.log(data);
+  const getAllAdsByMonths = async () => {
+    const result = await instance.request({
+      data: {
+        data_type: "getAllAdsByMonthsChart",
+        params: {},
+        guest: "registered",
+      },
+      headers: {
+        Authorization: `Bearer ${auth.accessToken}`,
+      },
+    });
+    console.log(result.data);
+    if (result?.data) setData(result.data);
+  };
+  const getAllAdsByMonthsForUser = async () => {
+    //get all ads count for user for several months
+    const result = await instance.request({
+      data: {
+        data_type: "getAllAdsByMonthsForUserChart",
+        params: {},
+        guest: "registered",
+      },
+      headers: {
+        Authorization: `Bearer ${auth.accessToken}`,
+      },
+    });
+    console.log(result.data);
+    if (result?.data) setData(result.data);
+  };
+  useEffect(() => {
+    if (auth?.roles == "5150") {
+      getAllAdsByMonths();
+    } else getAllAdsByMonthsForUser();
+  }, []);
   return (
     <div className="chart">
       <div className="title">{title}</div>
@@ -28,7 +72,6 @@ const Chart = ({ aspect, title }) => {
           height={250}
           data={data}
           margin={{ top: 10, right: 30, left: 0, bottom: 10 }}
-          
         >
           <defs>
             <linearGradient id="total" x1="0" y1="0" x2="0" y2="1">
@@ -52,4 +95,4 @@ const Chart = ({ aspect, title }) => {
   );
 };
 
-export default Chart
+export default Chart;

@@ -386,11 +386,10 @@ function getAllAdsByMonthsChart(){
   global $DATA_OBJ;
   $arr=[];
   $thisMonth= date('m');//num of cur month
-  echo $thisMonth;
-  for ($i=6; $i >0 ; $i--) { 
+  for ($i=5; $i >0 ; $i--) { 
     $begin=date('y-m-d',time()-($i)*30*24*60*60);
     $end=date('y-m-d',time()-($i-1)*30*24*60*60);
-    $arr[$thisMonth-$i]=getAllAdsBetween2TimeStamps($begin,$end);
+    array_push($arr,["name"=>$thisMonth-$i,"Total"=>(int)getAllAdsBetween2TimeStamps($begin,$end)]);
   }
   echo json_encode($arr);
   die;
@@ -405,9 +404,31 @@ function getAllAdsBetween2TimeStamps($begin,$end){
   }
   return $result[0]->count;
 }
+function getAllAdsBetween2TimeStampsForUser($begin,$end,$uuid){
+  //return count of ads between 2 timestamps
+  global $db;
+  $query="select count(adID) as count from ads where create_time>='$begin' and create_time<='$end' and user_id='$uuid'";
+  $result=$db->readDBNoStoredProcedure($query);
+  if($result==[]||$result==false){
+    $result["count"]=0;
+  }
+  return $result[0]->count;
+}
 function getAllAdsByMonthsForUserChart(){
   //get ads posted by month by user
-
+ global $db;
+  global $DATA_OBJ;
+  global $user;
+  $uuid=$user->getUuid();
+  $arr=[];
+  $thisMonth= date('m');//num of cur month
+  for ($i=5; $i >0 ; $i--) { 
+    $begin=date('y-m-d',time()-($i)*30*24*60*60);
+    $end=date('y-m-d',time()-($i-1)*30*24*60*60);
+    array_push($arr,["name"=>$thisMonth-$i,"Total"=>(int)getAllAdsBetween2TimeStampsForUser($begin,$end,$uuid)]);
+  }
+  echo json_encode($arr);
+  die;
 }
 if($DATA_OBJ->data_type=="getFooterStats"){
 getFooterStats();

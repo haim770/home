@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import useAuth from "../../../Auth/useAuth";
 import useView from "./ChatUseContext";
 import ChatWindow from "./ChatWindow";
+import { v4 as uuidv4 } from "uuid";
 
 const ChatEngine = () => {
   const { auth } = useAuth();
@@ -31,6 +32,7 @@ const ChatEngine = () => {
       <div>
         <div
           className="transition-5"
+          key={uuidv4()}
           onClick={handleClick}
           onMouseEnter={() => setHovered(true)}
           onMouseLeave={() => setHovered(false)}
