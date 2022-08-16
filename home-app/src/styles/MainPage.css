@@ -4,8 +4,13 @@
 
 .sectionAdsInMain {
     display: grid;
-    grid-template-columns: 0.2fr 1fr 1fr 1fr 0.2fr;
+    grid-template-columns: 0.2fr 1.6fr 0.2fr;
 
+}
+
+.adsContainerMain {
+    display: flex;
+    flex-direction: row;
 }
 
 .sectionAdsInMain * {

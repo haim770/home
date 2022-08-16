@@ -21,7 +21,7 @@ const Sidebar = () => {
           <li>
             <Link to="/Settings/Dashbord" style={{ textDecoration: "none" }}>
               <RiDashboardLine className="icon" />
-              <span>דשבורד</span>
+              <span>פאנל ניהול</span>
             </Link>
           </li>
           <li>

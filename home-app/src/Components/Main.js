@@ -15,6 +15,8 @@ const Home = () => {
   const [blogs, setBlogs] = useState([]);
   const [ads, setAds] = useState([]);
   const [indexStartAds, setIndexStartAds] = useState(0);
+  const [noMoreAds, setNoMoreAds] = useState(false);
+  const [midSend, setMidSend] = useState(false);
   const { auth } = useAuth();
   const { startNewChat } = useView();
   /**
@@ -42,21 +44,25 @@ const Home = () => {
    *
    */
   const getAds = async () => {
-    const result = await instance.request({
-      data: {
-        data_type: "getAdsForMain",
-        params: { start: indexStartAds, end: 3 },
-        guest: auth.accessToken != undefined ? "registered" : "guest",
-      },
-      headers: {
-        Authorization: `Bearer ${auth.accessToken}`,
-      },
-    });
-    // check if we got new data from server or any response
-    console.log(result?.data);
-    if (result?.data) {
+    if (!midSend) {
+      setMidSend(true);
+      const result = await instance.request({
+        data: {
+          data_type: "getAdsForMain",
+          params: { start: indexStartAds, end: 3 },
+          guest: auth.accessToken != undefined ? "registered" : "guest",
+        },
+        headers: {
+          Authorization: `Bearer ${auth.accessToken}`,
+        },
+      });
+      // check if we got new data from server or any response
+      console.log(result?.data);
+      if (result.data == false) {
+        setNoMoreAds(true);
+      }
       if (result?.data) {
-        setAds(result.data);
+        setNoMoreAds(false);
         setAds(
           result.data.map((ad) => (
             <AdById
@@ -69,6 +75,7 @@ const Home = () => {
         );
       }
     }
+    setMidSend(false);
   };
 
   /**
@@ -91,32 +98,29 @@ const Home = () => {
       {/*section for top ads */}
       <section className="sectionAdsInMain">
         <button
+          disabled={indexStartAds == "0" ? true : false}
           onClick={async (e) => {
             e.preventDefault();
+
+            console.log(indexStartAds);
             setIndexStartAds((indexStartAds) =>
-              indexStartAds == "0" ? 0 : indexStartAds - 3
+              indexStartAds == "0" || indexStartAds == "3"
+                ? 0
+                : indexStartAds - 3
             );
             await getAds();
-            e.target.disabled = true;
-            setTimeout(() => {
-              e.target.disabled = false;
-              console.log("Button Activated");
-            }, 1000);
           }}
         >
           prev
         </button>
-        {ads}
+        <div className="adsContainerMain">{ads}
+        </div>
         <button
+          disabled={noMoreAds}
           onClick={async (e) => {
             e.preventDefault();
             setIndexStartAds(indexStartAds + 3);
             await getAds();
-            e.target.disabled = true;
-            setTimeout(() => {
-              e.target.disabled = false;
-              console.log("Button Activated");
-            }, 1000);
           }}
         >
           next

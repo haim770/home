@@ -16,7 +16,7 @@ const StepTwo = ({ formData, setFormData }) => {
    */
   const [options, setOptions] = useState([{}]);
   const [selectedOption, setSelectedOption] = useState(
-    { value: formData.enCity, label: formData.city } || null
+    { value: formData.enCity, label: formData.city } || ""
   );
 
   /**
@@ -24,7 +24,7 @@ const StepTwo = ({ formData, setFormData }) => {
    */
   const [streetOptions, setStreetOptions] = useState([{}]);
   const [streetSelectedOption, setStreetSelectedOption] = useState(
-    { value: formData.street_code, label: formData.street } || null
+    { value: formData.street_code, label: formData.street } || ""
   );
   /**
    * search method, city or street
@@ -124,7 +124,7 @@ const StepTwo = ({ formData, setFormData }) => {
         <Select
           className="selectStyle"
           name="city"
-          value={selectedOption}
+          value={selectedOption || ""}
           onChange={handleChangeCity}
           options={options}
           autoFocus={true}
@@ -135,7 +135,7 @@ const StepTwo = ({ formData, setFormData }) => {
         <Select
           className="selectStyle"
           name="street"
-          value={streetSelectedOption}
+          value={streetSelectedOption || ""}
           onChange={handleChangeStreet}
           options={streetOptions}
           aria-label="שם רחוב"

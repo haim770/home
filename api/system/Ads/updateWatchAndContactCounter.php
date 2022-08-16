@@ -50,15 +50,15 @@ function updateContacted(){
     $tmpForContact=uniqid();
     $arr = [];
     $count=0;
-    do{
-    while(getUserIdContactSetter()!=""&&getUserIdContactSetter()!=$tmpForContact&&$count<10);
-    //only if userId is equale to "" or to our key we will be able to keep forward
-    setUserIdContactSetter($tmpForContact);
-  $count++;}
-    while(getUserIdContactSetter()!=$tmpForContact);
+  //   do{
+  //   while(getUserIdContactSetter()!=""&&getUserIdContactSetter()!=$tmpForContact&&$count<10);
+  //   //only if userId is equale to "" or to our key we will be able to keep forward
+  //   setUserIdContactSetter($tmpForContact);
+  // $count++;}
+  //   while(getUserIdContactSetter()!=$tmpForContact);
     $query = "update ads set contact_counter=contact_counter+1 where adID ='{$DATA_OBJ->params->adID}'";
     $result = $db->writeDBNotStoredProcedure($query);
-    setUserIdContactSetter("");
+    // setUserIdContactSetter("");
     echo json_encode($result);
 }
 function updateWatch()
@@ -71,18 +71,18 @@ function updateWatch()
     $tmpForWatch=uniqid();
     $arr = [];
     $count=0;
-    do{
-      $tmp=getUserIdWatch();
-    while($tmp!=""&&$tmp!=$tmpForWatch&&$count<2){
-        $tmp=getUserIdWatch(); 
-        $count=$count+1; 
-    }
-    //only if userId is equale to "" or to our key we will be able to keep forward
-    setUserIdWatchSetter($tmpForWatch);}
-    while(getUserIdContactSetter()!=$tmpForWatch&&$count<2);
+    // do{
+    //   $tmp=getUserIdWatch();
+    // while($tmp!=""&&$tmp!=$tmpForWatch&&$count<2){
+    //     $tmp=getUserIdWatch(); 
+    //     $count=$count+1; 
+    // }
+    // //only if userId is equale to "" or to our key we will be able to keep forward
+    // setUserIdWatchSetter($tmpForWatch);}
+    // while(getUserIdContactSetter()!=$tmpForWatch&&$count<2);
     $query = "update ads set watch=watch+1 where adID ='{$DATA_OBJ->params->adID}'";
     $result = $db->writeDBNotStoredProcedure($query);
-    setUserIdWatchSetter("");
+    // setUserIdWatchSetter("");
     echo json_encode($result);
 }
 if($DATA_OBJ->data_type=="updateWatch"){
