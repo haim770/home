@@ -97,21 +97,22 @@ if(!empty($fileNames)){
     }
 }
     
-    $street = $formData->street;
-    $building_number = $formData->appartmentNumber;
-    $entry = $formData->appartmentEntrance;
+    $street = isset($formData->street)?$formData->street:"";
+    $building_number = isset($formData->appartmentNumber)?$formData->appartmentNumber:"1";
+    $entry = isset($formData->appartmentEntrance)?$formData->appartmentEntrance:"1";
     $adType = "השכרה";
     if($formData->assetOption=="buy")
         $adType = "קנייה";
-    $city= $formData->city;
-    $floor = $formData->floor;
-    $propertyTaxes = $formData->houseTax;
-    $houseCommittee = $formData->localTax;
-    $floor=$formData->floor;
-    $maxFloor = $formData->maxFloor;
-    $price = $formData->price;
-    $rooms= $formData->numberOfRooms;
-    $area=$formData->area;
+    $city= isset($formData->city)?$formData->city:"";
+    $floor = isset($formData->floor)?$formData->floor:"";
+    $propertyTaxes = isset($formData->houseTax)?$formData->houseTax:"";
+    $houseCommittee = isset($formData->localTax)?$formData->localTax:"";
+    $floor=isset($formData->floor)?$formData->floor:"";
+    $maxFloor = isset($formData->maxFloor)?$formData->maxFloor:"";
+    $price = isset($formData->price)?$formData->price:"";
+    $rooms= isset($formData->numberOfRooms)?$formData->numberOfRooms:"";
+    $area=isset($formData->area)?$formData->area:"";
+
     if(isset($formData->assetType)){
     $property_type=$formData->assetType;}
     else{
@@ -163,6 +164,6 @@ function getExpireDateFromSiteSettings(){
     $query="select expireDateAds from settings";
     $result=$db->readDBNoStoredProcedure($query,[]);
     return $result[0]->expireDateAds;
-
 }
+
 ?>

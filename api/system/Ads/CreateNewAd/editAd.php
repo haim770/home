@@ -86,28 +86,28 @@ if(!empty($fileNames)){
     $expDate = date("Y-m-d H:i:s", $expFormat);
     $adID = $arr["adUuid"];
     $expire_date = $expDate;
-    $street = $formData->street;
-    $building_number = $formData->appartmentNumber;
-    $entry = $formData->appartmentEntrance;
+    $street = isset($formData->street)?$formData->street:"";
+    $building_number = isset($formData->appartmentNumber)?$formData->appartmentNumber:"";
+    $entry = isset($formData->appartmentEntrance)?$formData->appartmentEntrance:"";
     $adType = "השכרה";
     if($formData->assetOption=="buy")
         $adType = "קנייה";
-    $city= $formData->city;
-    $floor = $formData->floor;
-    $propertyTaxes = $formData->houseTax;
-    $houseCommittee = $formData->localTax;
-    $floor=$formData->floor;
-    $maxFloor = $formData->maxFloor;
-    $price = $formData->price;
-    $rooms= $formData->numberOfRooms;
-    $area=$formData->area;
-    $property_type=$formData->assetType;
-    if($formData->assetEntry=="עתידי"){
-        if($formData->entryDate!="")
+    $city= isset($formData->city)?$formData->city:"";
+    $floor = isset($formData->floor)?$formData->floor:"";
+    $propertyTaxes = isset($formData->houseTax)?$formData->houseTax:"";
+    $houseCommittee = isset($formData->localTax)?$formData->localTax:"";
+    $floor=isset($formData->floor)?$formData->floor:"";
+    $maxFloor = isset($formData->maxFloor)?$formData->maxFloor:"";
+    $price = isset($formData->price)?$formData->price:"";
+    $rooms= isset($formData->numberOfRooms)?$formData->numberOfRooms:"";
+    $area=isset($formData->area)?$formData->area:"";
+    $property_type=isset($formData->assetType)?$formData->assetType:"";
+    if(isset($formData->assetEntry)&&$formData->assetEntry=="עתידי"){
+        if(!isset($formData->entryDate)||$formData->entryDate!="")
             $entryDate=$formData->entryDate;
     }
     else{
-        $entryDate=$formData->assetEntry;
+        $entryDate=isset($formData->assetEntry)?$formData->assetEntry:"";
     }
     $query="UPDATE ads SET city = '$city', street = '$street',propertyTaxes ='$propertyTaxes', houseCommittee ='$houseCommittee',floor ='$floor',maxFloor ='$maxFloor',price='$price',rooms='$rooms',adType='$adType',entry='$entry',building_number='$building_number',expire_date='$expire_date',area= '$area',property_type='$property_type',entry_date='$entryDate',active ='0' ,approval_status ='pending' WHERE adID = '$adID'";
     $db->writeDBNotStoredProcedure($query,[]);
