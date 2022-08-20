@@ -87,3 +87,14 @@ $query = "SELECT * from users where mail = :user";
 $userarr["user"] = $token->data->user;
 $user = users::GetInstance();
 $user = $db->readDBObj($query, $userarr, "users")[0];
+setLastSeen1($user->getMail());
+function setLastSeen1($mail)
+{
+    //set last seen to now if user is inside
+    global $db;
+    global $arr;
+    $arr['last_seen'] = date("Y-m-d H:i:s");
+    $arr['mail'] = $mail;
+    $query = "setLastSeen(:mail,:last_seen)";
+    $result = $db->writeDB($query, $arr);
+}
