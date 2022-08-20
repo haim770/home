@@ -5,7 +5,7 @@ const MessageBlock = (props) => {
 const { chatInfo } = useView();
 const { decryptAES } = useDH();
 const data = props.props;
-console.log(data);
+//console.log(data);
   /**
    * Set alice (us) and Bob(other) message tempalte
    */
