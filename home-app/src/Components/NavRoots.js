@@ -24,6 +24,10 @@ const NavRoot = () => {
       name: "הצגת חבילות",
     },
     {
+      path: "/usefullLinks",
+      name: "לינקים",
+    },
+    {
       path: "/addAd",
       name: "הוספת מודעה",
     },

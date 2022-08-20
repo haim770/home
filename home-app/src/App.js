@@ -60,6 +60,7 @@ import ManageSiteSettings from "./Components/pages/users/Settings/Pages/ManageSi
  * Diffi helman
  */
 import {DHProvidor} from "./Auth/DH/DHUseContext"
+import UsefullLinks from "./Components/pages/users/Settings/Pages/UsefullLinks";
 const ROLES = {
   User: 2001,
   Admin: 5150,
@@ -81,6 +82,7 @@ export default function App() {
                 <Route index element={<Main />} />
                 <Route path="/Login" element={<Login />} />
                 <Route path="/adsWithSearch" element={<AdsWithSearch />} />
+                <Route path="/usefullLinks" element={<UsefullLinks />} />
                 <Route
                   exact
                   path="/adsWithSearch/:linkAd"

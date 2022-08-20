@@ -590,6 +590,18 @@ if (isset($DATA_OBJ->data_type)) {
         case "getFooterStats":
              include_once('../api/system/statistics.php');
             break;
+            case "getAllLinks":
+             include_once('../api/system/links/links.php');
+            break;
+            case "insertLink":
+             include_once('../api/system/links/links.php');
+            break;
+             case "deleteLink":
+             include_once('../api/system/links/links.php');
+            break;
+             case "editLink":
+             include_once('../api/system/links/links.php');
+            break;
         case "getAdsForMain":
              include_once('../api/system/Ads/searchAds.php');
             break;
