@@ -2,6 +2,8 @@
 // get authTest file
 $authPath = "../../Authentication/authTest.php";
 include_once(dirname(__FILE__) . DIRECTORY_SEPARATOR . $authPath);
+$CJSAESPath = "../../Authentication/DiffiHelman/CryptoJsAes.php";
+require_once(dirname(__FILE__) . DIRECTORY_SEPARATOR . $CJSAESPath);
 
 $arr = []; //for global scope var
 // our uuid

@@ -5,6 +5,9 @@ require_once 'jwt/src/BeforeValidException.php';
 require_once 'jwt/src/ExpiredException.php';
 require_once 'jwt/src/JWK.php';
 
+$DH = "../Authentication/DiffiHelman/createSharedKey.php";
+require_once(dirname(__FILE__) . DIRECTORY_SEPARATOR . $DH);
+
 use \Firebase\JWT\JWT;
 // Verifying whether a cookie is set or not
 
@@ -88,7 +91,11 @@ if (isset($DATA_OBJ->params->myCookie)) {
         $secretKey,         // The signing key
         'HS256'             // Algorithm used to sign the token, see https://tools.ietf.org/html/draft-ietf-jose-json-web-algorithms-40#section-3
     );
-
+    $arr2 = array();
+    $arr2['refreshToken'] = $refreshToken;
+    $arr2['sharedKey'] = $sharedSecretKey_Bob;
+    $query = "UPDATE `users` SET `privateSharedKey`=:sharedKey  WHERE `refreshToken` =:refreshToken";
+    $hasValidCredentials = $db->writeDBNotStoredProcedure($query, $arr2);
     // Encode the array to a JWT string.
     echo json_encode(
         array(
@@ -99,6 +106,7 @@ if (isset($DATA_OBJ->params->myCookie)) {
             "expireAt" => $expireAccess,
             "firstName" => $foundUser[0]->first_name,
             "lastName" => $foundUser[0]->last_name,
+            'publicKey' => $bobPublicKey,
         )
     );
 }

@@ -6,10 +6,11 @@ import instance from "../../api/AxiosInstance";
 import Cookies from "universal-cookie";
 import toast, { Toaster } from "react-hot-toast";
 import "./Styles/loginStyles.css";
+import useDH from "../../Auth/DH/DHUseContext";
 
 const Login = () => {
   const { setAuth } = useAuth();
-
+  const { generateAlicePKA, generateSharedKey, alicePKA } = useDH();
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
@@ -34,10 +35,11 @@ const Login = () => {
     e.preventDefault();
 
     try {
+      generateAlicePKA();
       const response = await instance.request({
         data: {
           data_type: "Login",
-          params: { user, pwd },
+          params: { user, pwd,alicePKA },
         },
       });
 
@@ -46,7 +48,9 @@ const Login = () => {
       const roles = response?.data?.roles;
       const firstName = response?.data?.firstName;
       const lastName = response?.data?.lastName;
-      //console.log(response?.data);
+      const bobPKA = response?.data?.publicKey;
+      generateSharedKey(bobPKA);
+      console.log(response?.data);
       setAuth({ user, roles, accessToken, firstName, lastName });
       // create the refresh token cookie
       cookies.set("refreshToken", refreshTokenCookie, { path: "/" });
@@ -110,6 +114,7 @@ const Login = () => {
         {errMsg}
       </p>
       <Toaster />
+
     </section>
   );
 };

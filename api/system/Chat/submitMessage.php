@@ -2,6 +2,10 @@
 // get authTest file
 $authPath = "../../Authentication/authTest.php";
 include_once(dirname(__FILE__) . DIRECTORY_SEPARATOR . $authPath);
+$CJSAESPath = "../../Authentication/DiffiHelman/CryptoAes.php";
+require_once(dirname(__FILE__) . DIRECTORY_SEPARATOR . $CJSAESPath);
+
+$privateKey = $user->getPrivateSharedKey();
 
 $arr = []; //for global scope var
 // our uuid
@@ -12,7 +16,12 @@ $arr["alice"] = ($db->readDBNoStoredProcedure($query, $arr))[0]->uuid;
 // user we chat with uuid
 $arr['chatWith'] = $DATA_OBJ->params->chatWith ?? "null";
 //$arr['date'] = date("Y-m-d H:i:s");
-$arr['message'] = $DATA_OBJ->params->message; // message we got from the user.
+
+
+// decrypt
+//$decrypted  = CryptoAes::decrypt($DATA_OBJ->params->message, $privateKey);
+
+$arr['message'] = $$DATA_OBJ->params->message; // message we got from the user.
 $arr['msgid'] = uniqid(); // generate rnd msgid
 
 // write our message to database
@@ -24,9 +33,12 @@ $query = "select * from messages where msgid = :msgid limit 1";
 $a['msgid'] = $arr['msgid'];
 $myLastMessage = $db->readDBNoStoredProcedure($query, $a); // return array of object 
 
-
+    // encrypt
+    //$encrypted = CryptoAes::encrypt($myLastMessage, $privateKey);
+    //$myLastMessage = $encrypted;
 $info = (object)[];
 $info->chatMessages = $myLastMessage;
 $info->data_type = "chatMessages";
 echo json_encode($info);
 die;
+?>

@@ -5,6 +5,9 @@ require_once 'jwt/src/BeforeValidException.php';
 require_once 'jwt/src/ExpiredException.php';
 require_once 'jwt/src/JWK.php';
 
+$DH = "../Authentication/DiffiHelman/createSharedKey.php";
+require_once(dirname(__FILE__) . DIRECTORY_SEPARATOR . $DH);
+
 use \Firebase\JWT\JWT;
 
 $username = $DATA_OBJ->params->user;
@@ -82,7 +85,8 @@ if (is_array($hasValidCredentials)&&password_verify($pass,$hasValidCredentials[0
     $arr2=array();
     $arr2['user'] = $username;
     $arr2['refreshToken'] = $refreshToken;
-    $query = "UPDATE `users` SET `refreshToken`=:refreshToken WHERE mail=:user";
+    $arr2['sharedKey'] = $sharedSecretKey_Bob;
+    $query = "UPDATE `users` SET `refreshToken`=:refreshToken, `privateSharedKey`=:sharedKey  WHERE mail=:user";
     $hasValidCredentials = $db->writeDBNotStoredProcedure($query, $arr2);
 
     // Encode the array to a JWT string.
@@ -95,7 +99,8 @@ if (is_array($hasValidCredentials)&&password_verify($pass,$hasValidCredentials[0
                 "user" => $username,
                 "firstName" => $foundUser[0]->first_name,
                 "lastName" => $foundUser[0]->last_name,
-                "expireAt" => $expireAccess,               
+                "expireAt" => $expireAccess,
+                'publicKey' => $bobPublicKey,             
             ));
 }
 

@@ -13,6 +13,7 @@ class users
   private string $rule = "";
   private string $refreshToken = "";
   private string $remaining_ads = "";
+  private string $privateSharedKey = "";
   private static $obj;
   /**
    * Return instance of the database.
@@ -26,6 +27,10 @@ class users
   public function getRemainingAds()
   {
     return $this->remaining_ads;
+  }
+  public function getPrivateSharedKey()
+  {
+    return $this->privateSharedKey;
   }
   public function getRefreshToken()
   {

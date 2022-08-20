@@ -56,6 +56,10 @@ import HandleAdParams from "./Components/pages/users/Settings/Pages/HandleAdPara
 import EditParameterAds from "./Components/pages/users/Settings/Pages/EditParameterAds";
 import ManageSiteSettings from "./Components/pages/users/Settings/Pages/ManageSiteSettings";
 
+/**
+ * Diffi helman
+ */
+import {DHProvidor} from "./Auth/DH/DHUseContext"
 const ROLES = {
   User: 2001,
   Admin: 5150,
@@ -65,218 +69,232 @@ export default function App() {
   return (
     <div className="App">
       {/* viewprovidor let all children of this provider to use the chat */}
-
-      <ViewProvidor>
-        <PopupAdProvidor>
-          <NavRoots />
-          <Chat />
-          <PersistLogin />
-          <Routes>
-            <Route path="/" element={<Layout />}>
-              {/* public routes */}
-              <Route index element={<Main />} />
-              <Route path="/Login" element={<Login />} />
-              <Route path="/adsWithSearch" element={<AdsWithSearch />} />
-              <Route exact path="/adsWithSearch/:linkAd" element={<AdFull />} />
-              <Route path="/blog/:id" element={<BlogId />} />
-              <Route
-                exact
-                path="/packages/:packageId"
-                element={<PackageFull />}
-              />
-              <Route exact path="packages" element={<PackageDisplay />} />
-
-              <Route path="/Register" element={<Register />} />
-              <Route path="unauthorized" element={<Unauthorized />} />
-
-              <Route exact path="/Blog" element={<Blog />} />
-
-              {/* we want to protect these routes */}
-              <Route element={<PersistLogin />}>
+      <DHProvidor>
+        <ViewProvidor>
+          <PopupAdProvidor>
+            <NavRoots />
+            <Chat />
+            <PersistLogin />
+            <Routes>
+              <Route path="/" element={<Layout />}>
+                {/* public routes */}
+                <Route index element={<Main />} />
+                <Route path="/Login" element={<Login />} />
+                <Route path="/adsWithSearch" element={<AdsWithSearch />} />
                 <Route
-                  element={
-                    <RequireAuth allowedRoles={[ROLES.User, ROLES.Admin]} />
-                  }
-                >
-                  <Route path="/Settings" element={<Settings />}>
-                    <Route index element={<Dashbord />} />
-                    <Route path="Dashbord" element={<Dashbord />} />
-                    <Route path="Notifications" element={<Notifications />} />
-                    <Route path="UserSettings" element={<UserSettings />} />
-                    <Route path="Messages" element={<Messages />} />
-                    <Route path="Ads" element={<UserAds />} />
-                    <Route path="Favorite" element={<FavoritesAds />} />
-                    <Route path="EditAd" element={<EditAd />} />
-                    <Route path="Purchase" element={<PurchaseHistory />} />
-                    <Route
-                      path="UserReportsToAds"
-                      element={<UserReportsToAds />}
-                    />
-                    <Route element={<PersistLogin />}>
-                      <Route
-                        element={<RequireAuth allowedRoles={[ROLES.Admin]} />}
-                      >
-                        <Route
-                          path="ManageReports"
-                          element={<ManageReports />}
-                        />
-                      </Route>
-                    </Route>
-                    <Route element={<PersistLogin />}>
-                      <Route
-                        element={<RequireAuth allowedRoles={[ROLES.Admin]} />}
-                      >
-                        <Route
-                          exact
-                          path="addPack"
-                          element={<CreatePackage />}
-                        />
-                      </Route>
-                    </Route>
-                    <Route element={<PersistLogin />}>
-                      <Route
-                        element={<RequireAuth allowedRoles={[ROLES.Admin]} />}
-                      >
-                        <Route path="Users" element={<SiteUsers />} />
-                      </Route>
-                    </Route>
-                    <Route element={<PersistLogin />}>
-                      <Route
-                        element={<RequireAuth allowedRoles={[ROLES.Admin]} />}
-                      >
-                        <Route
-                          path="addParameterToAds"
-                          element={<AddParameterToAds />}
-                        />
-                      </Route>
-                    </Route>
-                    <Route element={<PersistLogin />}>
-                      <Route
-                        element={<RequireAuth allowedRoles={[ROLES.Admin]} />}
-                      >
-                        <Route
-                          path="handleAdParams"
-                          element={<HandleAdParams />}
-                        />
-                      </Route>
-                    </Route>
-                    <Route element={<PersistLogin />}>
-                      <Route
-                        element={<RequireAuth allowedRoles={[ROLES.Admin]} />}
-                      >
-                        <Route
-                          path="editAdsParams"
-                          element={<EditParameterAds />}
-                        />
-                      </Route>
-                    </Route>
-                    <Route element={<PersistLogin />}>
-                      <Route
-                        element={<RequireAuth allowedRoles={[ROLES.Admin]} />}
-                      >
-                        <Route
-                          path="ManageSiteSettings"
-                          element={<ManageSiteSettings />}
-                        />
-                      </Route>
-                    </Route>
+                  exact
+                  path="/adsWithSearch/:linkAd"
+                  element={<AdFull />}
+                />
+                <Route path="/blog/:id" element={<BlogId />} />
+                <Route
+                  exact
+                  path="/packages/:packageId"
+                  element={<PackageFull />}
+                />
+                <Route exact path="packages" element={<PackageDisplay />} />
 
-                    <Route element={<PersistLogin />}>
+                <Route path="/Register" element={<Register />} />
+                <Route path="unauthorized" element={<Unauthorized />} />
+
+                <Route exact path="/Blog" element={<Blog />} />
+
+                {/* we want to protect these routes */}
+                <Route element={<PersistLogin />}>
+                  <Route
+                    element={
+                      <RequireAuth allowedRoles={[ROLES.User, ROLES.Admin]} />
+                    }
+                  >
+                    <Route path="/Settings" element={<Settings />}>
+                      <Route index element={<Dashbord />} />
+                      <Route path="Dashbord" element={<Dashbord />} />
+                      <Route path="Notifications" element={<Notifications />} />
+                      <Route path="UserSettings" element={<UserSettings />} />
+                      <Route path="Messages" element={<Messages />} />
+                      <Route path="Ads" element={<UserAds />} />
+                      <Route path="Favorite" element={<FavoritesAds />} />
+                      <Route path="EditAd" element={<EditAd />} />
+                      <Route path="Purchase" element={<PurchaseHistory />} />
                       <Route
-                        element={<RequireAuth allowedRoles={[ROLES.Admin]} />}
-                      >
+                        path="UserReportsToAds"
+                        element={<UserReportsToAds />}
+                      />
+                      <Route element={<PersistLogin />}>
                         <Route
-                          path="changeUserRule"
-                          element={<ChangeUserRule />}
-                        />
-                      </Route>
-                    </Route>
-                    <Route element={<PersistLogin />}>
-                      <Route
-                        element={
-                          <RequireAuth
-                            allowedRoles={[ROLES.User, ROLES.Admin]}
+                          element={<RequireAuth allowedRoles={[ROLES.Admin]} />}
+                        >
+                          <Route
+                            path="ManageReports"
+                            element={<ManageReports />}
                           />
-                        }
-                      >
-                        <Route path="favorites" element={<FavoritesAds />} />
+                        </Route>
                       </Route>
-                    </Route>
-                    <Route element={<PersistLogin />}>
-                      <Route
-                        element={<RequireAuth allowedRoles={[ROLES.Admin]} />}
-                      >
-                        <Route path="userShow" element={<UserShow />} />
-                      </Route>
-                    </Route>
-                    <Route element={<PersistLogin />}>
-                      <Route
-                        element={<RequireAuth allowedRoles={[ROLES.Admin]} />}
-                      >
+                      <Route element={<PersistLogin />}>
                         <Route
-                          path="confirmAdManagesr"
-                          element={<ConfirmAdManager />}
-                        />
+                          element={<RequireAuth allowedRoles={[ROLES.Admin]} />}
+                        >
+                          <Route
+                            exact
+                            path="addPack"
+                            element={<CreatePackage />}
+                          />
+                        </Route>
                       </Route>
-                    </Route>
-                    <Route element={<PersistLogin />}>
-                      <Route
-                        element={<RequireAuth allowedRoles={[ROLES.Admin]} />}
-                      >
+                      <Route element={<PersistLogin />}>
                         <Route
-                          path="HandlePackages"
-                          element={<HandlePackages />}
-                        />
+                          element={<RequireAuth allowedRoles={[ROLES.Admin]} />}
+                        >
+                          <Route path="Users" element={<SiteUsers />} />
+                        </Route>
                       </Route>
-                    </Route>
-                    <Route element={<PersistLogin />}>
-                      <Route
-                        element={<RequireAuth allowedRoles={[ROLES.Admin]} />}
-                      >
-                        <Route path="Sales" element={<SiteSales />} />
+                      <Route element={<PersistLogin />}>
+                        <Route
+                          element={<RequireAuth allowedRoles={[ROLES.Admin]} />}
+                        >
+                          <Route
+                            path="addParameterToAds"
+                            element={<AddParameterToAds />}
+                          />
+                        </Route>
                       </Route>
-                    </Route>
-                    <Route element={<PersistLogin />}>
-                      <Route
-                        element={<RequireAuth allowedRoles={[ROLES.Admin]} />}
-                      >
-                        <Route path="SitePurchase" element={<SitePurchase />} />
+                      <Route element={<PersistLogin />}>
+                        <Route
+                          element={<RequireAuth allowedRoles={[ROLES.Admin]} />}
+                        >
+                          <Route
+                            path="handleAdParams"
+                            element={<HandleAdParams />}
+                          />
+                        </Route>
                       </Route>
-                    </Route>
-                    <Route element={<PersistLogin />}>
-                      <Route
-                        element={<RequireAuth allowedRoles={[ROLES.Admin]} />}
-                      >
-                        <Route path="SiteSettings" element={<SiteSettings />} />
+                      <Route element={<PersistLogin />}>
+                        <Route
+                          element={<RequireAuth allowedRoles={[ROLES.Admin]} />}
+                        >
+                          <Route
+                            path="editAdsParams"
+                            element={<EditParameterAds />}
+                          />
+                        </Route>
+                      </Route>
+                      <Route element={<PersistLogin />}>
+                        <Route
+                          element={<RequireAuth allowedRoles={[ROLES.Admin]} />}
+                        >
+                          <Route
+                            path="ManageSiteSettings"
+                            element={<ManageSiteSettings />}
+                          />
+                        </Route>
+                      </Route>
+
+                      <Route element={<PersistLogin />}>
+                        <Route
+                          element={<RequireAuth allowedRoles={[ROLES.Admin]} />}
+                        >
+                          <Route
+                            path="changeUserRule"
+                            element={<ChangeUserRule />}
+                          />
+                        </Route>
+                      </Route>
+                      <Route element={<PersistLogin />}>
+                        <Route
+                          element={
+                            <RequireAuth
+                              allowedRoles={[ROLES.User, ROLES.Admin]}
+                            />
+                          }
+                        >
+                          <Route path="favorites" element={<FavoritesAds />} />
+                        </Route>
+                      </Route>
+                      <Route element={<PersistLogin />}>
+                        <Route
+                          element={<RequireAuth allowedRoles={[ROLES.Admin]} />}
+                        >
+                          <Route path="userShow" element={<UserShow />} />
+                        </Route>
+                      </Route>
+                      <Route element={<PersistLogin />}>
+                        <Route
+                          element={<RequireAuth allowedRoles={[ROLES.Admin]} />}
+                        >
+                          <Route
+                            path="confirmAdManagesr"
+                            element={<ConfirmAdManager />}
+                          />
+                        </Route>
+                      </Route>
+                      <Route element={<PersistLogin />}>
+                        <Route
+                          element={<RequireAuth allowedRoles={[ROLES.Admin]} />}
+                        >
+                          <Route
+                            path="HandlePackages"
+                            element={<HandlePackages />}
+                          />
+                        </Route>
+                      </Route>
+                      <Route element={<PersistLogin />}>
+                        <Route
+                          element={<RequireAuth allowedRoles={[ROLES.Admin]} />}
+                        >
+                          <Route path="Sales" element={<SiteSales />} />
+                        </Route>
+                      </Route>
+                      <Route element={<PersistLogin />}>
+                        <Route
+                          element={<RequireAuth allowedRoles={[ROLES.Admin]} />}
+                        >
+                          <Route
+                            path="SitePurchase"
+                            element={<SitePurchase />}
+                          />
+                        </Route>
+                      </Route>
+                      <Route element={<PersistLogin />}>
+                        <Route
+                          element={<RequireAuth allowedRoles={[ROLES.Admin]} />}
+                        >
+                          <Route
+                            path="SiteSettings"
+                            element={<SiteSettings />}
+                          />
+                        </Route>
                       </Route>
                     </Route>
                   </Route>
                 </Route>
-              </Route>
 
-              <Route element={<PersistLogin />}>
-                <Route element={<RequireAuth allowedRoles={[ROLES.Admin]} />}>
-                  <Route path="/Blog/Create" element={<CreateBlog />} />
+                <Route element={<PersistLogin />}>
+                  <Route element={<RequireAuth allowedRoles={[ROLES.Admin]} />}>
+                    <Route path="/Blog/Create" element={<CreateBlog />} />
+                  </Route>
                 </Route>
-              </Route>
 
-              <Route element={<PersistLogin />}>
-                <Route
-                  element={
-                    <RequireAuth allowedRoles={[ROLES.User, ROLES.Admin]} />
-                  }
-                >
-                  <Route path="/createPackage" element={<CreatePackage />} />
-                  <Route path="/packages" element={<PackageDisplay />}></Route>
-                  <Route path="/addAd" element={<CreateNewAd />} />
+                <Route element={<PersistLogin />}>
+                  <Route
+                    element={
+                      <RequireAuth allowedRoles={[ROLES.User, ROLES.Admin]} />
+                    }
+                  >
+                    <Route path="/createPackage" element={<CreatePackage />} />
+                    <Route
+                      path="/packages"
+                      element={<PackageDisplay />}
+                    ></Route>
+                    <Route path="/addAd" element={<CreateNewAd />} />
+                  </Route>
                 </Route>
+                {/* catch all */}
+                <Route path="*" element={<Missing />} />
               </Route>
-              {/* catch all */}
-              <Route path="*" element={<Missing />} />
-            </Route>
-          </Routes>
-        </PopupAdProvidor>
-      </ViewProvidor>
+            </Routes>
+          </PopupAdProvidor>
+        </ViewProvidor>
+      </DHProvidor>
       <Footer />
     </div>
   );

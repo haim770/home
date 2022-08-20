@@ -7,10 +7,11 @@ import useAuth from "../../../Auth/useAuth";
 import instance from "../../../api/AxiosInstance";
 import MessageBlock from "./Messages/MessageBlock";
 import { AiOutlineClose } from "react-icons/ai";
-
+import useDH from "../../../Auth/DH/DHUseContext";
 
 const ChatWith = () => {
   const { chatView, showContacts, chatInfo, closeWindow } = useView();
+  const { messageUse } = useDH();
   const [chatContact, setChatContact] = useState([]);
   const [showNewMessages, setShowNewMessages] = useState("getChat");
   const [loading, setLoading] = useState(true);
@@ -126,7 +127,7 @@ const ChatWith = () => {
           Authorization: `Bearer ${auth.accessToken}`,
         },
       });
-     // console.log(result.data);
+      console.log(result.data);
       // check if we got new data from server or any response
       if (result?.data) {
           if (result?.data?.chatMessages) {
