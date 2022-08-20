@@ -50,7 +50,7 @@ const Login = () => {
       const lastName = response?.data?.lastName;
       const bobPKA = response?.data?.publicKey;
       generateSharedKey(bobPKA);
-      console.log(response?.data);
+      //console.log(response?.data);
       setAuth({ user, roles, accessToken, firstName, lastName });
       // create the refresh token cookie
       cookies.set("refreshToken", refreshTokenCookie, { path: "/" });

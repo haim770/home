@@ -40,12 +40,15 @@ const dhReducer = (state, action) => {
     case "ENCRYPT_AES":
       return {
         ...state,
-        useMessage: decryptAES(payload.messageUse, payload.sharedSecretKey),
+        useMessage: encryptAES(
+          payload.messageUse,
+          payload.sharedSecretKey
+        ),
       };
     case "DECRYPT_AES":
       return {
         ...state,
-        useMessage: encryptAES(payload.messageUse, payload.sharedSecretKey),
+        useMessage: decryptAES(payload.messageUse, payload.sharedSecretKey),
       };
     default:
       // only for the dev
@@ -201,10 +204,10 @@ function findPrimitive(n) {
  * Encrypt a derived hd private key with a given pin and return it in Base64 form
  */
 const encryptAES = (text, key) => {
-  return CryptoJS.AES.encrypt(JSON.stringify(text), key, {
-    format: CryptoJSAesJson,
-  }).toString();
-  //return CryptoJS.AES.encrypt(text, key).toString();
+    var JsonFormatter = CryptoJS.JsonFormatter;
+    const crypted = CryptoJS.AES.encrypt(text, key, { format: JsonFormatter });
+    console.log(crypted);
+    //return tt;
 };
 /**
  * Decrypt an encrypted message
@@ -213,15 +216,7 @@ const encryptAES = (text, key) => {
  * @return The decrypted content
  */
 const decryptAES = (encrypted, key) => {
-  return JSON.parse(
-    CryptoJS.AES.decrypt(encrypted, key, {
-      format: CryptoJSAesJson,
-    }).toString(CryptoJS.enc.Utf8)
-  );
-  /**
-   * 
-
-  const decrypted = CryptoJS.AES.decrypt(encryptedBase64, key);
+  const decrypted = CryptoJS.AES.decrypt(encrypted, key);
   if (decrypted) {
     try {
       const str = decrypted.toString(CryptoJS.enc.Utf8);
@@ -234,23 +229,5 @@ const decryptAES = (encrypted, key) => {
       return "error 2";
     }
   }
-  return "error 3";   */
-};
-
-var CryptoJSAesJson = {
-  stringify: function (cipherParams) {
-    var j = { ct: cipherParams.ciphertext.toString(CryptoJS.enc.Base64) };
-    if (cipherParams.iv) j.iv = cipherParams.iv.toString();
-    if (cipherParams.salt) j.s = cipherParams.salt.toString();
-    return JSON.stringify(j);
-  },
-  parse: function (jsonStr) {
-    var j = JSON.parse(jsonStr);
-    var cipherParams = CryptoJS.lib.CipherParams.create({
-      ciphertext: CryptoJS.enc.Base64.parse(j.ct),
-    });
-    if (j.iv) cipherParams.iv = CryptoJS.enc.Hex.parse(j.iv);
-    if (j.s) cipherParams.salt = CryptoJS.enc.Hex.parse(j.s);
-    return cipherParams;
-  },
+  return "error 3";
 };

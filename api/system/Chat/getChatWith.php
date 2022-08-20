@@ -2,8 +2,10 @@
 // get authTest file
 $authPath = "../../Authentication/authTest.php";
 include_once(dirname(__FILE__) . DIRECTORY_SEPARATOR . $authPath);
-$CJSAESPath = "../../Authentication/DiffiHelman/CryptoJsAes.php";
+$CJSAESPath = "../../Authentication/DiffiHelman/CryptoAes.php";
 require_once(dirname(__FILE__) . DIRECTORY_SEPARATOR . $CJSAESPath);
+
+$secretKey = $user->getPrivateSharedKey();
 
 $arr = []; //for global scope var
 // our uuid
@@ -22,7 +24,9 @@ $db->writeDBNotStoredProcedure($query, $arr);
 //read data back from data base and display it on pur chat box
 $query = "select * from messages where (sender =:alice && receiver =:chatWith) || (sender =:chatWith && receiver =:alice)";
 $chatMessages = $db->readDBNoStoredProcedure($query, $arr);
-
+foreach($chatMessages as $row){
+    $row->message = CryptoAes::cryptoJsAesEncrypt($secretKey, $row->message);
+}
 $info = (object)[];
 $info->chatMessages = $chatMessages;
 $info->data_type = "chatMessages";

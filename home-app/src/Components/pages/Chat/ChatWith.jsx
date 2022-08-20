@@ -11,7 +11,7 @@ import useDH from "../../../Auth/DH/DHUseContext";
 
 const ChatWith = () => {
   const { chatView, showContacts, chatInfo, closeWindow } = useView();
-  const { messageUse } = useDH();
+  const { encryptAES } = useDH();
   const [chatContact, setChatContact] = useState([]);
   const [showNewMessages, setShowNewMessages] = useState("getChat");
   const [loading, setLoading] = useState(true);
@@ -37,7 +37,6 @@ const ChatWith = () => {
      * After we load all user message we want to show only new messages.
      */
     setShowNewMessages("refreshData");
-
     // check if we got new data from server or any response
     if (result?.data) {
         if (result?.data?.chatMessages) {
@@ -115,12 +114,13 @@ const ChatWith = () => {
 
   const handleSubmit = async () => {
     if (input.trim().length !== 0) {
+     let encryptMessage = encryptAES(input);
       const result = await instance.request({
         data: {
           data_type: "submitMessage",
           params: {
             chatWith: chatInfo.uuid,
-            message: input,
+            message: encryptMessage,
           },
         },
         headers: {

@@ -1,9 +1,11 @@
 import React, { useLayoutEffect, useState } from "react";
+import useDH from "../../../../Auth/DH/DHUseContext";
 import useView from "../ChatUseContext";
 const MessageBlock = (props) => {
 const { chatInfo } = useView();
-
+const { decryptAES } = useDH();
 const data = props.props;
+console.log(data);
   /**
    * Set alice (us) and Bob(other) message tempalte
    */
@@ -44,12 +46,12 @@ const data = props.props;
     const aliceOrBob = data.sender === chatInfo.uuid; // if true, means we got message
     return aliceOrBob ? (
       <div className="bob_message" id={msgID} key={msgID}>
-          <p>{data.message}</p>
-          <span>{timeShow}</span>
+        <p>{decryptAES(data.message)}</p>
+        <span>{timeShow}</span>
       </div>
     ) : (
       <div className="alice_message" id={msgID} key={msgID}>
-        <p>{data.message}</p>
+        <p>{decryptAES(data.message)}</p>
         <div className="alice_container">
           <span>{timeShow}</span>
           <span>V</span>

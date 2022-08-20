@@ -35,7 +35,7 @@ function AdById(props) {
         params: { adID: props.adID }, //window.location.href gets the urlline
       },
     });
-    console.log(res.data);
+    //console.log(res.data);
     props.startNewChat(chatWith);
   };
   const getAd = async () => {
@@ -51,8 +51,8 @@ function AdById(props) {
     });
     if(result?.data){
     setData(result.data);}
-    console.log(result.data);
-    console.log(data);
+    //console.log(result.data);
+    //console.log(data);
   };
   useEffect(() => {
     getAd();

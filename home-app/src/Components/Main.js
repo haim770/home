@@ -31,7 +31,7 @@ const Home = () => {
     });
 
     // check if we got new data from server or any response
-    console.log(result?.data);
+    //console.log(result?.data);
     if (result?.data) {
       if (result?.data?.Blogs) {
         setBlogs(result.data.Blogs);
@@ -57,7 +57,7 @@ const Home = () => {
         },
       });
       // check if we got new data from server or any response
-      console.log(result?.data);
+      //console.log(result?.data);
       if (result.data == false) {
         setNoMoreAds(true);
       }
@@ -102,7 +102,7 @@ const Home = () => {
           onClick={async (e) => {
             e.preventDefault();
 
-            console.log(indexStartAds);
+            //console.log(indexStartAds);
             setIndexStartAds((indexStartAds) =>
               indexStartAds == "0" || indexStartAds == "3"
                 ? 0

@@ -24,7 +24,7 @@ const ChatContant = () => {
         Authorization: `Bearer ${auth.accessToken}`,
       },
     });
-    console.log(result);
+    //console.log(result);
     setContacts(result.data.message);
   };
 

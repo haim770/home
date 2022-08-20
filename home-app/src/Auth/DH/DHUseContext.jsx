@@ -1,5 +1,6 @@
 import React, { useReducer, createContext, useContext } from "react";
 import dhReducer, { initialState } from "./DHReducer";
+import CryptoJS from "crypto-js";
   /**
    * Diffie Hellman Key Exchange.
    * INTRO -
@@ -67,23 +68,39 @@ export const DHProvidor = ({ children }) => {
 
   // Starting new chat
   const encryptAES = (messageToEncrypt) => {
-    dispatch({
-      type: "ENCRYPT_AES",
-      payload: {
-        messageUse: messageToEncrypt,
-        sharedSecretKey: state.sharedSecretKey,
-      },
-    });
+    const crypted = CryptoJS.AES.encrypt(
+      JSON.stringify(messageToEncrypt),
+      state.sharedSecretKey,
+      { format: CryptoJSAesJson }
+    ).toString();
+   return crypted;
   };
   // Starting new chat
-  const decryptAES = (messageToDEcrypt) => {
-    dispatch({
-      type: "DECRYPT_AES",
-      payload: {
-        messageUse: messageToDEcrypt,
-        sharedSecretKey: state.sharedSecretKey,
-      },
-    });
+  const decryptAES = (messageEncrypted) => {
+    const decrypted = JSON.parse(
+      CryptoJS.AES.decrypt(messageEncrypted, state.sharedSecretKey, {
+        format: CryptoJSAesJson,
+      }).toString(CryptoJS.enc.Utf8)
+    );
+    return decrypted;
+    /*
+      const decrypted = CryptoJS.AES.decrypt(
+        messageToDEcrypt,
+        state.sharedSecretKey
+      );
+      if (decrypted) {
+        try {
+          const str = decrypted.toString(CryptoJS.enc.Utf8);
+          if (str.length > 0) {
+            return str;
+          } else {
+            return "error 1";
+          }
+        } catch (e) {
+          return "error 2";
+        }
+      }
+      return "error 3";*/
   };
 
   // the values we want to make global
@@ -108,3 +125,20 @@ const useDH = () => {
 }
 export default useDH;
 
+var CryptoJSAesJson = {
+  stringify: function (cipherParams) {
+    var j = { ct: cipherParams.ciphertext.toString(CryptoJS.enc.Base64) };
+    if (cipherParams.iv) j.iv = cipherParams.iv.toString();
+    if (cipherParams.salt) j.s = cipherParams.salt.toString();
+    return JSON.stringify(j);
+  },
+  parse: function (jsonStr) {
+    var j = JSON.parse(jsonStr);
+    var cipherParams = CryptoJS.lib.CipherParams.create({
+      ciphertext: CryptoJS.enc.Base64.parse(j.ct),
+    });
+    if (j.iv) cipherParams.iv = CryptoJS.enc.Hex.parse(j.iv);
+    if (j.s) cipherParams.salt = CryptoJS.enc.Hex.parse(j.s);
+    return cipherParams;
+  },
+};

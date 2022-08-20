@@ -186,7 +186,9 @@ O(logy) */
    * Encrypt a derived hd private key with a given pin and return it in Base64 form
    */
   const encryptAES = (text, key) => {
-    return CryptoJS.AES.encrypt(text, key).toString();
+    // custom json serialization format
+    var JsonFormatter = CryptoJS.JsonFormatter;
+    return CryptoJS.AES.encrypt(text, key, { format: JsonFormatter });
   };
   /**
    * Decrypt an encrypted message
@@ -225,7 +227,7 @@ O(logy) */
       <p>Alice Shared Secret key = {sharedSecretKey_Alice}</p>
       <p>Bob Shared Secret key = {sharedSecretKey_Bob}</p>
       <p>-----------------------------------------</p>
-      <p>encrypt message = {cryptMessage.toString()}</p>
+      <p>encrypt message = {}</p>
       <p>decrypt message = {decryptMessage.toString()}</p>
     </div>
   );
