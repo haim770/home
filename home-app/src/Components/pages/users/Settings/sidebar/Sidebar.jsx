@@ -1,7 +1,8 @@
 import React from "react";
 import "./styles.css";
 import { RiDashboardLine } from "react-icons/ri";
-import { FiSettings, FiUsers } from "react-icons/fi";
+
+import { FiSettings, FiUsers, FiClock } from "react-icons/fi";
 import { IoNotificationsOutline, IoLogoWechat } from "react-icons/io5";
 import { HiOutlineDocumentReport } from "react-icons/hi";
 import { GoHome } from "react-icons/go";
@@ -65,6 +66,12 @@ const Sidebar = () => {
             <Link to="/Settings/Favorites" style={{ textDecoration: "none" }}>
               <MdOutlineFavoriteBorder className="icon" />
               <span>מועדפים</span>
+            </Link>
+          </li>
+          <li>
+            <Link to="/Settings/History" style={{ textDecoration: "none" }}>
+              <FiClock className="icon" />
+              <span>היסטוריה</span>
             </Link>
           </li>
           {auth?.roles === "5150" || auth?.roles === "2001" ? (

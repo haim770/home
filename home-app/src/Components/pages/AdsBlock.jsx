@@ -56,7 +56,22 @@ const AdsBlock = (props) => {
     console.log(res.data);
     startNewChat(chatWith);
   };
+  const addItemToHistory = async (e) => {
+    //add item to history
+    const res = await instance.request({
+      data: {
+        data_type: "addItmeToHistory",
+        params: { adID: props.adBlock.ad[0].adID },
+        guest: auth.accessToken != undefined ? "registered" : "guest",
+      },
+      headers: {
+        Authorization: `Bearer ${auth.accessToken}`,
+      },
+    });
+    console.log(res.data);
+  };
   const updateWatch = async () => {
+    //update watch count
     const res = await instance.request({
       data: {
         data_type: "updateWatch",
@@ -85,6 +100,7 @@ const AdsBlock = (props) => {
       //if the child is doing something in clicking we wont fire the view change
       return;
     await updateWatch();
+    await addItemToHistory();
     setDidWatch((didWatch) => didWatch + 1);
     props.setListShow("notShowList");
     props.setFullShow("showFull");

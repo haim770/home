@@ -608,6 +608,12 @@ if (isset($DATA_OBJ->data_type)) {
         case "getAllOfMyAds":
              include_once('../api/system/Ads/searchAds.php');
             break;
+        case "showHistory":
+             include_once('../api/system/Ads/searchAds.php');
+            break;
+        case "addItmeToHistory":
+             include_once('../api/system/Ads/searchAds.php');
+            break;
         case "getAllOfMyActiveAds":
              include_once('../api/system/Ads/searchAds.php');
             break;

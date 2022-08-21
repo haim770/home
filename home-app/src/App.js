@@ -20,7 +20,7 @@ import Register from "./Components/Register";
 import RequireAuth from "./Auth/RequireAuth";
 import PersistLogin from "./Auth/PersistLogin";
 import Settings from "./Components/pages/users/Settings";
-import Favorites from "./Components/Favorites.js";
+
 import UserReportsToAds from "./Components/pages/users/Settings/Pages/UserReportsToAds";
 
 // Chat
@@ -33,7 +33,7 @@ import BlogId from "./Components/pages/Blog/pages/Blog";
 import CreateBlog from "./Components/pages/Blog/components/home/NewBlog/CreateNewBlog";
 // Settings
 import Dashbord from "./Components/pages/users/Settings/Pages/Dashbord";
-import Favorite from "./Components/pages/users/Settings/Pages/Favorite";
+
 import Messages from "./Components/pages/users/Settings/Pages/Messages";
 import Notifications from "./Components/pages/users/Settings/Pages/Notifications";
 import PurchaseHistory from "./Components/pages/users/Settings/Pages/PurchaseHistory";
@@ -50,6 +50,7 @@ import AddParameterToAds from "./Components/pages/users/Settings/Pages/AddParame
 import ChangeUserRule from "./Components/ChangeUserRule";
 import UserShow from "./Components/UserShow";
 import FavoritesAds from "./Components/FavoritesAds";
+import HistoryAds from "./Components/HistoryAds.js";
 import EditAd from "./Components/pages/EditAd.js";
 import HandlePackages from "./Components/pages/users/Settings/Pages/HandlePackages.jsx";
 import HandleAdParams from "./Components/pages/users/Settings/Pages/HandleAdParams";
@@ -115,6 +116,7 @@ export default function App() {
                       <Route path="UserSettings" element={<UserSettings />} />
                       <Route path="Messages" element={<Messages />} />
                       <Route path="Ads" element={<UserAds />} />
+                      <Route path="history" element={<HistoryAds/>}/>
                       <Route path="Favorite" element={<FavoritesAds />} />
                       <Route path="EditAd" element={<EditAd />} />
                       <Route path="Purchase" element={<PurchaseHistory />} />

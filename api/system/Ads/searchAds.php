@@ -305,6 +305,55 @@ function getAllOfMyNotActiveAds(){
     $arr=[];
     die;
 }
+function showHistory(){
+  global $userType;
+    global $user;
+    global $db;
+    global $DATA_OBJ;
+if($userType!="registered"||($user->getRule()!="5150"&&$user->getRule()!="2001")){
+    echo "not authorized";
+    die;
+}
+    $userId=$user->getUuid();
+    $query="select adId from history where userId='$userId' order by create_time desc limit 20";
+    $adIdForTheSearch=$db->readDBNoStoredProcedure($query);
+    $i=0;
+    foreach ($adIdForTheSearch as $key => $value) {
+        $result[$i++]=getAdByAdIdWithReturn($value->adId);
+    }
+    echo json_encode($result);
+}
+function checkIfHistoryItemExist($adId,$userId){
+    //check if history item exist
+    global $db;
+    $query="select * from history where userId='$userId' and adId='$adId'";
+    $result=$db->readDBNoStoredProcedure($query);
+    if($result==[]||$result==""||$result==false){
+        return false;
+    }
+    return true;
+
+}
+function addItmeToHistory($adId){
+    //add item to history on deep watch
+     global $userType;
+    global $user;
+    global $db;
+    global $DATA_OBJ;
+if($userType!="registered"||($user->getRule()!="5150"&&$user->getRule()!="2001")){
+    echo "not authorized";
+    die;
+}
+    $userId=$user->getUuid();
+    $historyId=uniqid();
+    $time=time();
+    $typeOfQuery=checkIfHistoryItemExist($adId,$userId);//false for insert
+    if($typeOfQuery==false)
+    $query="INSERT INTO history (history_id, userId, adId) VALUES ('$historyId','$userId','$adId')";
+    else
+    $query="UPDATE history SET create_time = '$time' WHERE adId = '{$adId}' and userId='$userId'";
+    $result=$db->readDBNoStoredProcedure($query);
+}
 function deleteAdById(){
     global $userType;
     global $user;
@@ -349,7 +398,20 @@ else{
                     if($DATA_OBJ->data_type=="getAdsForMain"){
                         getAdsForMain();
                     }
-                    getAllAdContentAndAdAndUsersForArrOfAds();
+                    else{
+                        if($DATA_OBJ->data_type=="addItmeToHistory"){
+                            addItmeToHistory($DATA_OBJ->params->adID);
+                        }
+                        else
+                        {
+                            if($DATA_OBJ->data_type=="showHistory"){
+                            showHistory();
+                        }
+                        
+                        else
+                            getAllAdContentAndAdAndUsersForArrOfAds();
+                        }
+                    }
                 }
             }
         }
