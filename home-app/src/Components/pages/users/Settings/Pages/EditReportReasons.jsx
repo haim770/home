@@ -106,7 +106,7 @@ function EditReportReasons(props) {
           </select>
         </label>
         <label className="labelParamAdd">
-          <span>הכנס שם פרמטר</span>
+          <span>הכנס שם סיבה</span>
           <input
             type="text"
             name="reasonName"
