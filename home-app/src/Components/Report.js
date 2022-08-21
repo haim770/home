@@ -33,15 +33,17 @@ function Report(props) {
         Authorization: `Bearer ${auth.accessToken}`,
       },
     });
-    setReportReasons(res.data);
-    setReportOptionsElement((reasons) => {
-      return new Set([
-        ...reasons,
-        res.data.map((reason) => (
-          <option key={uuidv4()}>{reason.reason_name}</option>
-        )),
-      ]);
-    });
+    if (res.data) {
+      setReportReasons(res.data);
+      setReportOptionsElement((reasons) => {
+        return new Set([
+          ...reasons,
+          res.data.map((reason) => (
+            <option key={uuidv4()}>{reason.reason_name}</option>
+          )),
+        ]);
+      });
+    }
   };
   const cancelReport = (e) => {
     e.preventDefault();
@@ -71,36 +73,65 @@ function Report(props) {
     if (!checkForValidFields()) {
       return;
     } else {
-      const result = await instance.request({
-        data: {
-          data_type: "reportOnElement",
-          params: {
-            guest: auth.accessToken != undefined ? "registered" : "guest",
-            freeText: freeText,
-            title: title,
-            reportType: reportType,
-            elementId: props.adBlock.ad[0].adID,
-            element_type: props.elementType,
+      if (props.elementType == "blog") {
+        const result = await instance.request({
+          data: {
+            data_type: "reportOnElement",
+            params: {
+              guest: auth.accessToken != undefined ? "registered" : "guest",
+              freeText: freeText,
+              title: title,
+              reportType: reportType,
+              elementId: props.blogId,
+              element_type: props.elementType,
+            },
           },
-        },
-        headers: {
-          Authorization: `Bearer ${auth.accessToken}`,
-        },
-      });
-      if (result) {
-        if (result.data === "mail exist") {
+          headers: {
+            Authorization: `Bearer ${auth.accessToken}`,
+          },
+        });
+        if (result) {
+          if (result.data === "mail exist") {
+            toast.dismiss();
+            toast.error("בעיה בשליחת דוח   ");
+            props.setClassName("notShowReport");
+            return;
+          }
           toast.dismiss();
-          toast.error("בעיה בשליחת דוח   ");
           props.setClassName("notShowReport");
-          return;
         }
-        // setRegisterStatusDisplay("yes");
-        // setRegisterStatus("ההרשמה נקלטה במערכת");
-        toast.dismiss();
-        props.setClassName("notShowReport");
+        console.log(result);
+        returnStateToDefault();
+      } else {
+        const result = await instance.request({
+          data: {
+            data_type: "reportOnElement",
+            params: {
+              guest: auth.accessToken != undefined ? "registered" : "guest",
+              freeText: freeText,
+              title: title,
+              reportType: reportType,
+              elementId: props.adBlock.ad[0].adID,
+              element_type: props.elementType,
+            },
+          },
+          headers: {
+            Authorization: `Bearer ${auth.accessToken}`,
+          },
+        });
+        if (result) {
+          if (result.data === "mail exist") {
+            toast.dismiss();
+            toast.error("בעיה בשליחת דוח   ");
+            props.setClassName("notShowReport");
+            return;
+          }
+          toast.dismiss();
+          props.setClassName("notShowReport");
+        }
+        console.log(result);
+        returnStateToDefault();
       }
-      console.log(result);
-      returnStateToDefault();
     }
   };
   return (

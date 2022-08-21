@@ -6,7 +6,7 @@ import "./Styles/ManageReports.css";
 import useAuth from "../../../../../Auth/useAuth";
 import instance from "../../../../../api/AxiosInstance";
 import HandleComplainOnAd from "./HandleComplainOnAd.js";
-
+import HandleComplainOnBlog from "./HandleComplainOnBlog.jsx";
 const columns = [
   { field: "id", headerName: "מס תלונה" },
   { field: "element_id", headerName: "מספר אלמנט" },
@@ -33,18 +33,44 @@ const ManageReports = () => {
    * Get Data from server
    */
   const getSelectedAd = async (row) => {
-    let result = await instance.request({
-      data: {
-        data_type: "getAdByAdId",
-        params: { adId: row.element_id },
-        guest: "guest",
-      },
-      headers: {
-        Authorization: `Bearer ${auth.accessToken}`,
-      },
-    });
-    console.log(result.data);
-    setSelectedAd(result.data);
+    if (row.element_type == "ad") {
+      let result = await instance.request({
+        data: {
+          data_type: "getAdByAdId",
+          params: { adId: row.element_id },
+          guest: "guest",
+        },
+        headers: {
+          Authorization: `Bearer ${auth.accessToken}`,
+        },
+      });
+      if (result.data == "") {
+        return;
+      }
+      if (result?.data) {
+        console.log(result.data);
+        setSelectedAd(result.data);
+        return;
+      }
+    } else {
+      if (row.element_type == "blog") {
+        let result = await instance.request({
+          data: {
+            data_type: "getBlogById",
+            params: { blogId: row.element_id },
+            guest: "guest",
+          },
+          headers: {
+            Authorization: `Bearer ${auth.accessToken}`,
+          },
+        });
+        if (result.data == "") {
+          return;
+        }
+        console.log(result.data);
+        setSelectedAd(result.data);
+      }
+    }
   };
   const getAllReports = async () => {
     //get all reports
@@ -153,7 +179,9 @@ const ManageReports = () => {
           }}
         />
       </div>
-      {showSelected === "showSelected" ? (
+      {console.log(selectedReport)}
+      {showSelected === "showSelected" &&
+      selectedReport.element_type == "ad" ? (
         <HandleComplainOnAd
           className={showSelected}
           setClassName={setShowSelected}
@@ -164,6 +192,18 @@ const ManageReports = () => {
           setSelectedReport={setSelectedReport}
           getAllReports={getAllReports}
         />
+      ) : showSelected == "showSelected" &&
+        selectedReport.element_type == "blog" ? (
+          <HandleComplainOnBlog
+            className={showSelected}
+            setClassName={setShowSelected}
+            setTableClassName={setTableClassName}
+            selectedReport={selectedReport}
+            selectedBlog={selectedAd}
+            setSelectedBlog={setSelectedAd}
+            setSelectedReport={setSelectedReport}
+            getAllReports={getAllReports}
+          />
       ) : (
         ""
       )}

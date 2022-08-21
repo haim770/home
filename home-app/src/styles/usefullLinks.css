@@ -1,6 +1,7 @@
 .usefullLinks {
   display: flex;
   flex-direction: column;
+  max-width: 80%;
   justify-content: center;
 
 }
@@ -13,21 +14,26 @@
 
 .linkRecordUser {
   display: grid;
-  grid-template-columns: 0.2fr 0.8fr;
+  grid-template-columns: 2fr 3fr;
   margin: 1rem;
+  width: 100%;
+  justify-content: flex-start;
+
 }
 
 .linkRecordManager {
   display: grid;
-  grid-template-columns: 0.2fr 0.6fr 0.2fr;
+  justify-content: flex-start;
+  grid-template-columns: 2fr 3fr 1fr;
   margin: 1rem;
+  width: 100%;
 }
 
 .linkButtons {
   list-style-type: none;
   display: flex;
   font-size: 2rem;
-  margin: 1rem;
+  margin-right: auto;
 }
 
 .linkButton {

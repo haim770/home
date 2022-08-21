@@ -636,6 +636,7 @@ if (isset($DATA_OBJ->data_type)) {
         case "searchInDbWithUnknownParamsAndTable":
             searchInDbWithUnknownParamsAndTable("ads");
             break;
+      
         case "getAllReportReasons":
             //get all reports reasons
             include_once('../api/system/Ads/reports.php');
@@ -752,6 +753,9 @@ if (isset($DATA_OBJ->data_type)) {
             include("contact.php"); 
             break;
             // proccess the data - Contact
+        case "deleteBlogById":
+            include_once("../api/system/Blog/deleteBlog.php");
+            break;
         case "getBlogs":
             include("../api/system/Blog/getBlog.php");
             break;

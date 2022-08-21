@@ -38,7 +38,7 @@ return $result;
 function getCountOfBlogsThisMonth(){
     //get total blogs that where posted this month
 global $db;
-$thisMonth=date('d.m.Y',time()-30*24*60*60);
+$thisMonth=date('y.m.d',time()-30*24*60*60);
 $query= "SELECT COUNT(blog_id) as total FROM blogs where create_time >='$thisMonth'";
 $result=$db->readDBNoStoredProcedure($query);
 return $result;
@@ -46,7 +46,7 @@ return $result;
 function getUsersConnectedToday(){
       //get total users that where connected today
 global $db;
-$yesterday=date('d.m.Y',time()-1*24*60*60);
+$yesterday=date('y.m.d',time()-1*24*60*60);
 $query= "SELECT COUNT(uuid) as total FROM users where  last_seen>'$yesterday'";
 $result=$db->readDBNoStoredProcedure($query);
 return $result;
@@ -54,7 +54,7 @@ return $result;
 function getUsersConnectedhisMonth(){
       //get total users that where connected this month we take month as 30 days period time
 global $db;
-$thisMonth=date('d.m.Y',time()-30*24*60*60);
+$thisMonth=date('y.m.d',time()-30*24*60*60);
 $query= "SELECT COUNT(uuid) as total FROM users where  last_seen>'$thisMonth'";
 $result=$db->readDBNoStoredProcedure($query);
 return $result;
@@ -62,7 +62,7 @@ return $result;
 function getUsersConnectedThisWeek(){
   //get total users that where connected this week we take month as 30 days period time
 global $db;
-$thisWeek=date('d.m.Y',time()-7*24*60*60);
+$thisWeek=date('y.m.d',time()-7*24*60*60);
 $query= "SELECT COUNT(uuid) as total FROM users where  last_seen>'$thisWeek'";
 $result=$db->readDBNoStoredProcedure($query);
 return $result;
@@ -102,7 +102,7 @@ function getFooterStats(){
 }
 function getTodaySales(){
 global $db;
-  $time=date('y-m-d',time());
+  $time=date('y.m.d',time());
   $query="select sum(price) as sum from purchase_history where DATE(purchase_time) >= '$time'";
   $result=$db->readDBNoStoredProcedure($query);
   if($result[0]->sum==null||$result[0]->sum==false){
@@ -112,7 +112,7 @@ global $db;
 }
 function getMonthSales(){
   global $db;
-   $time=date('y-m-d',time()-30*24*60*60);
+   $time=date('y.m.d',time()-30*24*60*60);
   $query="select sum(price) as sum from purchase_history where DATE(purchase_time) >= '$time'";
   $result=$db->readDBNoStoredProcedure($query);
   if($result[0]->sum==null||$result[0]->sum==false){
@@ -122,7 +122,7 @@ function getMonthSales(){
 }
 function getWeekSales(){
   global $db;
-  $time=date('y-m-d',time()-7*24*60*60);
+  $time=date('y.m.d',time()-7*24*60*60);
   $query="select sum(price) as sum from purchase_history where DATE(purchase_time) >= '$time'";
   $result=$db->readDBNoStoredProcedure($query);
   if($result[0]->sum==null||$result[0]->sum==false){
@@ -166,7 +166,7 @@ function getSalesStats(){
 function getUsersRegisteredLastMonth(){
   //count users that registered last month
    global $db;
-   $time=date('y-m-d',time()-30*24*60*60);
+   $time=date('y.m.d',time()-30*24*60*60);
   $query="select count(uuid) as count from users where create_time>='$time'";
   $result=$db->readDBNoStoredProcedure($query);
   if($result==[]||$result==false){
@@ -176,7 +176,7 @@ function getUsersRegisteredLastMonth(){
 }
 function getAdPostedThisMonth(){
    global $db;
-   $time=date('y-m-d',time()-30*24*60*60);
+   $time=date('y.m.d',time()-30*24*60*60);
   $query="select count(adID) as count from ads where create_time>='$time'";
   $result=$db->readDBNoStoredProcedure($query);
   if($result==[]||$result==false){
@@ -187,7 +187,7 @@ function getAdPostedThisMonth(){
 function getCountPurchasesThisMonth(){
   //count purchase this month
     global $db;
-   $time=date('y-m-d',time()-30*24*60*60);
+   $time=date('y.m.d',time()-30*24*60*60);
   $query="select count(purchase_id) as count from purchase_history where purchase_time>='$time'";
   $result=$db->readDBNoStoredProcedure($query);
   if($result==[]||$result==false){
@@ -198,7 +198,7 @@ function getCountPurchasesThisMonth(){
 function getCountPurchases(){
   //count all purchase
   global $db;
-   $time=date('y-m-d',time()-30*24*60*60);
+   $time=date('y.m.d',time()-30*24*60*60);
   $query="select count(purchase_id) as count from purchase_history";
   $result=$db->readDBNoStoredProcedure($query);
   if($result==[]||$result==false){
@@ -253,7 +253,7 @@ function UserTodayPurchase(){
   global $db;
   global $user;
   $uuid=$user->getUuid();
-  $time=date('y-m-d',time());
+  $time=date('y.m.d',time());
   $query="select sum(price) as sum from purchase_history where DATE(purchase_time) >= '$time' and userId= '$uuid'";
   $result=$db->readDBNoStoredProcedure($query);
   if($result[0]->sum==null||$result[0]->sum==false){
@@ -289,7 +289,7 @@ function getAdPostedThisMonthForUser(){
   global $user;
   $uuid=$user->getUuid();
   global $userType;
-   $time=date('y-m-d',time()-30*24*60*60);
+   $time=date('y.m.d',time()-30*24*60*60);
   $query="select count(adID) as count from ads where create_time>='$time' and user_id='$uuid'";
   $result=$db->readDBNoStoredProcedure($query);
   if($result==[]||$result==false){
@@ -315,7 +315,7 @@ function getCountOfBlogsThisMonthByUser(){
   $uuid=$user->getUuid();
   global $userType;
   global $db;
-  $thisMonth=date('d.m.Y',time()-30*24*60*60);
+  $thisMonth=date('y.m.d',time()-30*24*60*60);
 $query= "SELECT COUNT(blog_id) as total FROM blogs where create_time >='$thisMonth' and userId='$uuid'";
 $result=$db->readDBNoStoredProcedure($query);
 return $result;
@@ -423,8 +423,8 @@ function getAllAdsByMonthsForUserChart(){
   $arr=[];
   $thisMonth= date('m');//num of cur month
   for ($i=5; $i >0 ; $i--) { 
-    $begin=date('y-m-d',time()-($i)*30*24*60*60);
-    $end=date('y-m-d',time()-($i-1)*30*24*60*60);
+    $begin=date('y.m.d',time()-($i)*30*24*60*60);
+    $end=date('y.m.d',time()-($i-1)*30*24*60*60);
     array_push($arr,["name"=>$thisMonth-$i,"Total"=>(int)getAllAdsBetween2TimeStampsForUser($begin,$end,$uuid)]);
   }
   echo json_encode($arr);
