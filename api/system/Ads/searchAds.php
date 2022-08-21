@@ -318,6 +318,10 @@ if($userType!="registered"||($user->getRule()!="5150"&&$user->getRule()!="2001")
     $query="select adId from history where userId='$userId' order by create_time desc limit 20";
     $adIdForTheSearch=$db->readDBNoStoredProcedure($query);
     $i=0;
+    if($adIdForTheSearch==[]||$adIdForTheSearch==""||$adIdForTheSearch==false){
+        echo json_encode([]);
+        die;
+    }
     foreach ($adIdForTheSearch as $key => $value) {
         $result[$i++]=getAdByAdIdWithReturn($value->adId);
     }

@@ -29,7 +29,7 @@ const HistoryAds = (props) => {
       },
     });
     console.log(result.data);
-    if (result.data === false || result.data === "") {
+    if (result.data === false || result.data === "" || result.data == []) {
       setNoMoreAdsForSearch(true);
       return;
     } else {
