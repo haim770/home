@@ -201,7 +201,11 @@ function Report(props) {
             <li>
               <button onClick={confirmChangeManagerFeedback}>אישור</button>
             </li>
-            <li>
+            <li
+              style={{
+                display: props.element_type != "blog" ? "block" : "none",
+              }}
+            >
               <button onClick={sendFeedbackToOWnerOfTheAd}>
                 שלח משוב על המודעה לבעל המודעה
               </button>
