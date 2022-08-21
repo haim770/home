@@ -48,7 +48,9 @@ function Report(props) {
   const cancelReport = (e) => {
     e.preventDefault();
     props.setClassName("notShowReport");
-    props.setAdForTheReport({});
+    if (props.elementType != "blog") {
+      props.setAdForTheReport({});
+    }
   };
   const onChangeState = (setStateName, e) => {
     //func that recieves setstate and the event and change value of state to the value of input

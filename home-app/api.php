@@ -767,6 +767,15 @@ if (isset($DATA_OBJ->data_type)) {
             include("contact.php"); 
             break;
             // proccess the data - Contact
+        case "submitComment":
+             include_once("../api/system/Blog/blogComments.php");
+            break;
+        case "deleteComment":
+             include_once("../api/system/Blog/blogComments.php");
+            break;
+        case "getCommentsForBlogId":
+             include_once("../api/system/Blog/blogComments.php");
+            break;
         case "deleteBlogById":
             include_once("../api/system/Blog/deleteBlog.php");
             break;

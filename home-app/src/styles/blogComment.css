@@ -1,0 +1,24 @@
+.blogComment {
+  display: flex;
+  flex-direction: column;
+  background-color: aqua;
+  border-radius: 5px;
+  border: 2px solid black;
+}
+
+.titleComments {
+  font-size: 1.5em;
+  border: 1px solid gray;
+}
+
+.blogComment li {
+  list-style-type: none;
+}
+.commentTitlePart {
+  display: grid;
+  grid-template-columns: 1fr 5fr;
+}
+.commentsHeaderPart {
+  display: flex;
+  justify-content: space-between;
+}

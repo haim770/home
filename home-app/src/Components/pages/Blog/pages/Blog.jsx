@@ -6,6 +6,8 @@ import "./styles.css";
 import { Link } from "react-router-dom";
 import instance from "../../../../api/AxiosInstance";
 import Report from "../../../Report.js";
+import BlogCommentForm from "./BlogCommentForm";
+import CommentsForBlog from "./CommentsForBlog";
 
 const Blog = () => {
   const { id } = useParams();
@@ -16,6 +18,11 @@ const Blog = () => {
     //report on BLOG
     e.preventDefault();
     setReportShow("showReport");
+  };
+  const insertComment = (e) => {
+    //open comment window
+    e.preventDefault();
+    setReportShow("showComment");
   };
   /**
    * Get Blogs from server
@@ -51,7 +58,7 @@ const Blog = () => {
       <Link className="blog-goBack" to="/Blog">
         <span> &#8594;</span> <span>חזור</span>
       </Link>
-      {blog && showReport != "showReport" ? (
+      {blog && showReport != "showReport" && showReport != "showComment" ? (
         <div className="blog-wrap">
           <header>
             <p className="blog-date">פורסם ב {blog.createdAt}</p>
@@ -73,6 +80,8 @@ const Blog = () => {
           />
           <p className="blog-desc">{blog.description}</p>
           <button onClick={reportOnBlog}> דווח על בלוג</button>
+          <button onClick={insertComment}>הגב</button>
+          <CommentsForBlog blogId={id} />
         </div>
       ) : showReport == "showReport" ? (
         <Report
@@ -80,6 +89,12 @@ const Blog = () => {
           setClassName={setReportShow}
           blogId={id}
           elementType="blog"
+        />
+      ) : showReport == "showComment" ? (
+        <BlogCommentForm
+          className={showReport}
+          setClassName={setReportShow}
+          blogId={id}
         />
       ) : (
         <EmptyList />
