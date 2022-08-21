@@ -14,11 +14,16 @@ function getAllReportReasons(){
     //get all reasons for report on element from a kind blog/ad
   global $DATA_OBJ;
   global $db;
+  if(isset($DATA_OBJ->params->elementType)){
   $elementType=$DATA_OBJ->params->elementType;
-  $query="select * from report_reason where element_type = '$elementType'";
+  $query="select * from report_reason where element_type = '$elementType'";}
+  else{
+    $query="select  reason_id as id ,element_type, reason_name, create_time, active from report_reason"; 
+  }
   $result=$db->readDBNoStoredProcedure($query);
   echo json_encode($result);
 }
+
 function createReportOnAd(){
   //open report on ad (complain)
   global $userType;
@@ -40,6 +45,78 @@ function createReportOnAd(){
   $result=$db->readDBNoStoredProcedure($query);
   echo json_encode($result);
   die;
+}
+function ToggleActiveReportReason(){
+  //toggle active report reason
+  global $userType;
+  global $user;
+  global $db;
+  global $DATA_OBJ;
+  if($userType!="registered"||$user->getRule()!="5150"){
+    echo "not authorized";
+    die;
+  }
+  $reasonId= $DATA_OBJ->params->reasonId;
+  $active=$DATA_OBJ->params->active=='1'?0:1;
+  $query="UPDATE report_reason SET active = '$active' WHERE reason_id = '{$reasonId}'";
+  $result=$db->readDBNoStoredProcedure($query);
+  var_dump($result);
+  echo json_encode(checkIfReasonExist($reasonId,"checkById"));
+  die;
+
+}
+function editReportReason(){
+  //edit report reason
+   global $userType;
+  global $user;
+  global $db;
+  global $DATA_OBJ;
+  if($userType!="registered"||$user->getRule()!="5150"){
+    echo "not authorized";
+    die;
+  }
+    $reasonId= $DATA_OBJ->params->reasonId;
+    $category=$DATA_OBJ->params->category;
+    $reasonName=$DATA_OBJ->params->reasonName;
+    $query="UPDATE report_reason SET active = '1', reason_name= '$reasonName', element_type='$category' WHERE reason_id = '{$reasonId}'";
+    $result=$db->readDBNoStoredProcedure($query);
+    echo json_encode(checkIfReasonExist($reasonName,$category));
+    die;
+}
+function addNewReportReason(){
+  //insert new report reason
+   global $userType;
+  global $user;
+  global $db;
+  global $DATA_OBJ;
+  if($userType!="registered"||$user->getRule()!="5150"){
+    echo "not authorized";
+    die;
+  }
+  else{
+    $reasonId= uniqid();
+    $category=$DATA_OBJ->params->category;
+    $reasonName=$DATA_OBJ->params->reasonName;
+    $query="INSERT INTO report_reason (reason_id,element_type,reason_name) VALUES ('$reasonId','$category','$reasonName')";
+    $result=$db->readDBNoStoredProcedure($query);
+    echo json_encode(checkIfReasonExist($reasonName,$category));
+    die;
+  }
+}
+function checkIfReasonExist($reasonName,$category){
+  //check if reason exist
+  global $db;
+  if($category=="checkById"){
+    $query="select * from report_reason where reason_id='$reasonName' and active='1'";
+  }
+  else{
+  $query="select * from report_reason where element_type='$category' and reason_name='$reasonName' and active='1'";
+}
+  $result=$db->readDBNoStoredProcedure($query);
+  if($result==[]||$result==false||$result==""){
+    return false;
+  }
+  return true;
 }
 function getAllReports(){
   //get all reports
@@ -279,6 +356,21 @@ else{
                   else{
                   if($DATA_OBJ->data_type=="getSelectedAdWithReportFeedback"){
                     getSelectedAdWithReportFeedback();
+                  }
+                  else{
+                    if($DATA_OBJ->data_type=="addNewReportReason"){
+                      addNewReportReason();
+                    }
+                    else{
+                      if($DATA_OBJ->data_type=="editReportReason"){
+                        editReportReason();
+                      }
+                      else{
+                        if($DATA_OBJ->data_type=="toggleReportReasons"){
+                          ToggleActiveReportReason();
+                        }
+                      }
+                    }
                   }
                 }
               }

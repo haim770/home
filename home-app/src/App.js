@@ -50,7 +50,7 @@ import AddParameterToAds from "./Components/pages/users/Settings/Pages/AddParame
 import ChangeUserRule from "./Components/ChangeUserRule";
 import UserShow from "./Components/UserShow";
 import FavoritesAds from "./Components/FavoritesAds";
-import HistoryAds from "./Components/HistoryAds.js";
+import HistoryAds from "./Components/HistoryAds";
 import EditAd from "./Components/pages/EditAd.js";
 import HandlePackages from "./Components/pages/users/Settings/Pages/HandlePackages.jsx";
 import HandleAdParams from "./Components/pages/users/Settings/Pages/HandleAdParams";
@@ -60,8 +60,9 @@ import ManageSiteSettings from "./Components/pages/users/Settings/Pages/ManageSi
 /**
  * Diffi helman
  */
-import {DHProvidor} from "./Auth/DH/DHUseContext"
+import { DHProvidor } from "./Auth/DH/DHUseContext";
 import UsefullLinks from "./Components/pages/users/Settings/Pages/UsefullLinks";
+import HandleReportReasons from "./Components/pages/users/Settings/Pages/HandleReportReasons";
 const ROLES = {
   User: 2001,
   Admin: 5150,
@@ -116,7 +117,7 @@ export default function App() {
                       <Route path="UserSettings" element={<UserSettings />} />
                       <Route path="Messages" element={<Messages />} />
                       <Route path="Ads" element={<UserAds />} />
-                      <Route path="history" element={<HistoryAds/>}/>
+                      <Route path="history" element={<HistoryAds />} />
                       <Route path="Favorite" element={<FavoritesAds />} />
                       <Route path="EditAd" element={<EditAd />} />
                       <Route path="Purchase" element={<PurchaseHistory />} />
@@ -169,6 +170,16 @@ export default function App() {
                           <Route
                             path="handleAdParams"
                             element={<HandleAdParams />}
+                          />
+                        </Route>
+                      </Route>
+                      <Route element={<PersistLogin />}>
+                        <Route
+                          element={<RequireAuth allowedRoles={[ROLES.Admin]} />}
+                        >
+                          <Route
+                            path="handleReportReasons"
+                            element={<HandleReportReasons />}
                           />
                         </Route>
                       </Route>

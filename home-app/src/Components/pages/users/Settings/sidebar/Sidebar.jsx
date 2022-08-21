@@ -126,6 +126,18 @@ const Sidebar = () => {
           {auth?.roles === "5150" ? (
             <li>
               <Link
+                to="/Settings/handleReportReasons"
+                style={{ textDecoration: "none" }}
+              >
+                <span> ניהול סיבות דוחות</span>
+              </Link>
+            </li>
+          ) : (
+            <></>
+          )}
+          {auth?.roles === "5150" ? (
+            <li>
+              <Link
                 to="/Settings/handleAdParams"
                 style={{ textDecoration: "none" }}
               >
