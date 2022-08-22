@@ -4,6 +4,14 @@ import { v4 as uuidv4 } from "uuid";
 import Report from "../Report.js";
 import "../../styles/Main.css";
 import "../../styles/Ads.css";
+import {
+  Link,
+  NavLink,
+  Outlet,
+  Navigate,
+  useNavigate,
+  useLocation,
+} from "react-router-dom";
 import AdsBlock from "./AdsBlock";
 import AdFullForProps from "../AdFullForProps";
 import useAuth from "../../Auth/useAuth";
@@ -17,8 +25,10 @@ const Ads = (props) => {
   const [fullShow, setFullShow] = useState("notShowFull");
   const [showReport, setReportShow] = useState("notShowReport");
   const [adForTheReport, setAdForTheReport] = useState({});
+  const [idForSearch, setIdForSearch] = useState("");
   const [adFull, setAdFull] = useState({});
   const { auth } = useAuth();
+  const location = useLocation();
 
   // check when we scroll down to button
   const handleScroll = (e) => {
@@ -77,6 +87,13 @@ const Ads = (props) => {
       }
     }
     setLoading(true);
+  };
+  const searchById = async (e) => {
+    //find the ad we want by id
+    window.open(
+      "http://localhost:3000" + "/AdsWithSearch/" + idForSearch,
+      "_self"
+    );
   };
   const getAds = async () => {
     setLoading(false);
@@ -188,6 +205,25 @@ const Ads = (props) => {
         elementType="ad"
       />
       <h1>תצוגת מודעות</h1>
+      <p
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          flexDirection: "column",
+        }}
+      >
+        <label key="LableAdId">
+          <span> מס מודעה</span>
+          <input
+            type="text"
+            name="inputAdId"
+            id="inputAdId"
+            value={idForSearch}
+            onChange={(e) => setIdForSearch(e.target.value)}
+          />
+        </label>
+        <button onClick={searchById}>חפש מספר מודעה</button>
+      </p>
       {loading && props.listShow === "showList" ? (
         <div className="listAds">
           {loading && props.listShow === "showList" && ads}
