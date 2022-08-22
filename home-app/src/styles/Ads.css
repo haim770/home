@@ -462,6 +462,8 @@ MuiButtonBase-root MuiFab-root jss2248 */
 /* Button */
 .jss142 {
   width: 100%;
+  display: flex;
+  justify-content: space-between;
   position: relative;
   text-align: center;
 }

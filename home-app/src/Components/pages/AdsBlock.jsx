@@ -9,6 +9,7 @@ import {
   useNavigate,
   useLocation,
 } from "react-router-dom";
+import { FaWhatsapp } from "react-icons/fa";
 import AdPart from "../AdPart.js";
 import AdContentPart from "../AdContentPart.js";
 import "../../styles/AdBlock.css";
@@ -147,7 +148,7 @@ const AdsBlock = (props) => {
         <div
           style={{
             display:
-              props.adBlock.user[0].mail === auth?.user ? "none" : "block",
+              props.adBlock.user[0].mail === auth?.user ? "none" : "flex",
           }}
         >
           <div className="jss142">
@@ -156,6 +157,28 @@ const AdsBlock = (props) => {
               onClick={handleClickChatWith}
             >
               <span className="buttonSpanLabel">התחל צ'ט</span>
+            </button>
+            <button
+              style={{
+                backgroundColor: "green",
+                marginRight: "1rem",
+                padding: "1rem",
+              }}
+              onClick={(e) =>
+                window.open(
+                  "https://web.whatsapp.com/send?phone=972" +
+                    phone.substring(1) +
+                    "&text=" +
+                    "http://localhost:3000" +
+                    "/AdsWithSearch/" +
+                    props.adBlock.ad[0].ad_link +
+                    "&app_absent=0",
+                  "_blank"
+                )
+              }
+            >
+              {" "}
+              <FaWhatsapp color="black" />
             </button>
           </div>
         </div>
