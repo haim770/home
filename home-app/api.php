@@ -770,6 +770,9 @@ if (isset($DATA_OBJ->data_type)) {
         case "submitComment":
              include_once("../api/system/Blog/blogComments.php");
             break;
+        case "editComment":
+            include_once("../api/system/Blog/blogComments.php");
+            break;
         case "deleteComment":
              include_once("../api/system/Blog/blogComments.php");
             break;

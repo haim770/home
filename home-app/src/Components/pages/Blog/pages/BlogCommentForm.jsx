@@ -5,8 +5,8 @@ import toast, { Toaster } from "react-hot-toast"; // https://react-hot-toast.com
 import instance from "./../../../../api/AxiosInstance";
 function BlogCommentForm(props) {
   const { auth } = useAuth();
-  const [title, setTitle] = useState(""); //hook for reason name
-  const [content, setContent] = useState("");
+  const [title, setTitle] = useState(props.title); //hook for reason name
+  const [content, setContent] = useState(props.content);
   const onChangeState = (setStateName, e) => {
     //func that recieves setstate and the event and change value of state to the value of input
     setStateName(e.target.value);
@@ -23,30 +23,59 @@ function BlogCommentForm(props) {
       alert("fill the fields");
       return;
     }
-    const result = await instance.request({
-      data: {
-        data_type: "submitComment",
-        params: {
-          title: title,
-          content: content,
-          blogId: props.blogId,
-          guest: auth.accessToken != undefined ? "registered" : "guest",
+    if (props.action != "edit") {
+      const result = await instance.request({
+        data: {
+          data_type: "submitComment",
+          params: {
+            title: title,
+            content: content,
+            blogId: props.blogId,
+            guest: auth.accessToken != undefined ? "registered" : "guest",
+          },
         },
-      },
-      headers: {
-        Authorization: `Bearer ${auth.accessToken}`,
-      },
-    });
-    console.log(result);
-    console.log(result.data);
-    if (result.data == "not authorized") {
-      toast.dismiss(); // remove loading toast
-      toast.error("משהו השתבש");
+        headers: {
+          Authorization: `Bearer ${auth.accessToken}`,
+        },
+      });
+      console.log(result);
+      console.log(result.data);
+      if (result.data == "not authorized") {
+        toast.dismiss(); // remove loading toast
+        toast.error("משהו השתבש");
+      } else {
+        props.setClassName("notShowSelected");
+        toast.dismiss(); // remove loading toast
+        toast.success("תגובה נוספה");
+        returnStateToDefault();
+      }
     } else {
-      props.setClassName("notShowSelected");
-      toast.dismiss(); // remove loading toast
-      toast.success("תגובה נוספה");
-      returnStateToDefault();
+      const result = await instance.request({
+        data: {
+          data_type: "editComment",
+          params: {
+            commentId: props.commentId,
+            title: title,
+            content: content,
+            guest: auth.accessToken != undefined ? "registered" : "guest",
+          },
+        },
+        headers: {
+          Authorization: `Bearer ${auth.accessToken}`,
+        },
+      });
+      console.log(result);
+      console.log(result.data);
+      if (result.data == "not authorized") {
+        toast.dismiss(); // remove loading toast
+        toast.error("משהו השתבש");
+      } else {
+        props.setClassName("notShowSelected");
+        toast.dismiss(); // remove loading toast
+        toast.success("תגובה נוספה");
+        props.getComments();
+        returnStateToDefault();
+      }
     }
   };
   const closeParam = (e) => {
@@ -88,5 +117,10 @@ function BlogCommentForm(props) {
     </section>
   );
 }
-BlogCommentForm.defaultProps = {};
+BlogCommentForm.defaultProps = {
+  title: "",
+  content: "",
+  action: "create",
+  className: "notShowSelected",
+};
 export default BlogCommentForm;

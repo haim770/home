@@ -42,7 +42,6 @@ $result=$db->readDBNoStoredProcedure($query);
   die;
 }
 function deleteComment($id){
-  echo $blogId;
   //delete comment
   global $DATA_OBJ;
   global $userType;
@@ -58,6 +57,21 @@ function deleteComment($id){
   die;
 
 }
+function editComment($commentId,$title,$content){
+  //edit comment
+  global $DATA_OBJ;
+  global $userType;
+  global $user;
+  global $db;
+  if($userType=="guest"||$user->getRule()!="5150"){
+    echo "not authorized";
+    die;
+  }
+   $query="UPDATE blogcomments SET content = '$content', title = '$title' WHERE id = '{$commentId}'";
+   $result=$db->readDBNoStoredProcedure($query);
+     echo json_encode($result);
+  die;
+}
 if($DATA_OBJ->data_type=="submitComment"){
   submitComment();
 }
@@ -68,6 +82,11 @@ else{
   else{
     if($DATA_OBJ->data_type=="deleteComment"){
       deleteComment($DATA_OBJ->params->id);
+    }
+    else{
+      if($DATA_OBJ->data_type=="editComment"){
+        editComment($DATA_OBJ->params->commentId,$DATA_OBJ->params->title,$DATA_OBJ->params->content);
+      }
     }
   }
 }

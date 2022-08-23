@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import "../../../../styles/blogComment.css";
 import instance from "../../../../api/AxiosInstance";
 import useAuth from "../../../../Auth/useAuth";
+import BlogCommentForm from "./BlogCommentForm";
 function LinkRecord(props) {
   const { auth } = useAuth();
+  const [showReport, setReportShow] = useState("notShowReport");
   const deleteComment = async (e) => {
     //delete link
     e.preventDefault();
@@ -28,28 +30,57 @@ function LinkRecord(props) {
     }
   };
   return (
-    <ul className="blogComment">
-      {console.log(auth)}
-      <li className="commentsHeaderPart">
-        <li>{props.blogComment.userId}</li>
-        <li>{props.blogComment.create_time}</li>
-      </li>
-      <li className="commentTitlePart">
-        <li className="titleComments">כותרת</li>
-        <li className="titleComments">{props.blogComment.title}</li>
-      </li>
-      <li>{props.blogComment.content}</li>
-
-      {auth?.roles == "5150" ? (
-        <li>
-          <button className="linkButton" onClick={deleteComment}>
-            מחיקת תגובה
-          </button>
-        </li>
+    <section>
+      {console.log(props)}
+      {showReport === "showCommentEditForm" ? (
+        <BlogCommentForm
+          className={showReport}
+          setClassName={setReportShow}
+          action="edit"
+          commentId={props.blogComment.id}
+          blogId={props.blogComment.blogId}
+          content={props.blogComment.content}
+          title={props.blogComment.title}
+          getComments={props.getComments}
+        />
       ) : (
-        ""
+        <ul
+          className="blogComment"
+          style={{
+            display: showReport != "showCommentEditForm" ? "block" : "none",
+          }}
+        >
+          {console.log(auth)}
+          <li className="commentsHeaderPart">
+            <li>{props.blogComment.userId}</li>
+            <li>{props.blogComment.create_time}</li>
+          </li>
+          <li className="commentTitlePart">
+            <li className="titleComments">כותרת</li>
+            <li className="titleComments">{props.blogComment.title}</li>
+          </li>
+          <li>{props.blogComment.content}</li>
+          {auth?.roles == "5150" ? (
+            <li>
+              <button className="linkButton" onClick={deleteComment}>
+                מחיקת תגובה
+              </button>
+              <button
+                className="linkButton"
+                onClick={(e) => {
+                  e.preventDefault();
+                  setReportShow("showCommentEditForm");
+                }}
+              >
+                עריכת תגובה
+              </button>
+            </li>
+          ) : (
+            <li></li>
+          )}
+        </ul>
       )}
-    </ul>
+    </section>
   );
 }
 LinkRecord.defaultProps = {
