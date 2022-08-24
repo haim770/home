@@ -77,10 +77,10 @@ function AdById(props) {
       data: {
         data_type: "getAdByAdId",
         params: { adId: props.adID, user_id: props.user_id },
-        guest: props.auth.accessToken != undefined ? "registered" : "guest",
+        guest: auth.accessToken != undefined ? "registered" : "guest",
       },
       headers: {
-        Authorization: `Bearer ${props.auth.accessToken}`,
+        Authorization: `Bearer ${auth.accessToken}`,
       },
     });
     if (result?.data) {
