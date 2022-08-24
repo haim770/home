@@ -51,6 +51,21 @@ function AdById(props) {
     e.preventDefault();
     setGoToEditPage(true);
   };
+  const deleteAd = async (e) => {
+    const res = await instance.request({
+      data: {
+        data_type: "deleteAdById",
+        params: { adID: data.ad[0].adID, deleteByUser: true },
+        guest: auth.accessToken != undefined ? "registered" : "guest",
+      },
+      headers: {
+        Authorization: `Bearer ${auth.accessToken}`,
+      },
+    });
+    console.log(res.data);
+    alert("deleted");
+    window.open("http://localhost:3000" + "/AdsWithSearch/", "_self");
+  };
   const reportOnAd = (e) => {
     //report on ad
     e.preventDefault();
@@ -133,7 +148,7 @@ function AdById(props) {
               </button>
               <button
                 style={{
-                  display:data?.user?.phone?"block":"none",
+                  display: data?.user?.phone ? "block" : "none",
                   backgroundColor: "green",
                   marginRight: "1rem",
                   padding: "1rem",
@@ -180,6 +195,18 @@ function AdById(props) {
             </div>
           </div>
           <div>
+            <button
+              className="btnClassAdBlockEdit"
+              style={{
+                display:
+                  data?.user?.mail === auth?.user || auth?.rule === "5150"
+                    ? "block"
+                    : "none",
+              }}
+              onClick={deleteAd}
+            >
+              מחק מודעה
+            </button>
             <button
               className="btnClassAdBlockEdit"
               style={{

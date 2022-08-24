@@ -32,6 +32,21 @@ function AdFullForProps(props) {
     };
     startNewChat(chatWith);
   };
+  const deleteAd = async (e) => {
+    const res = await instance.request({
+      data: {
+        data_type: "deleteAdById",
+        params: { adID: props.adBlock.ad[0].adID, deleteByUser: true },
+        guest: auth.accessToken != undefined ? "registered" : "guest",
+      },
+      headers: {
+        Authorization: `Bearer ${auth.accessToken}`,
+      },
+    });
+    console.log(res.data);
+    await props.getAds();
+    changeToListView(e);
+  };
   const editAd = (e) => {
     e.preventDefault();
     setGoToEditPage(true);
@@ -108,6 +123,19 @@ function AdFullForProps(props) {
               </button>
             </div>
             <div>
+              <button
+                className="btnClassAdBlockEdit"
+                style={{
+                  display:
+                    props.adBlock.user[0].mail === auth?.user ||
+                    auth?.rule === "5150"
+                      ? "block"
+                      : "none",
+                }}
+                onClick={deleteAd}
+              >
+                מחק מודעה
+              </button>
               <button
                 className="btnClassAdBlock"
                 style={{

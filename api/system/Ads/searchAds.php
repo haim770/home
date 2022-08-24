@@ -363,8 +363,12 @@ function deleteAdById(){
     global $user;
     global $db;
     global $DATA_OBJ;
-if($userType!="registered"||$user->getRule()!="5150"){
+if($userType!="registered"){
     echo "not authorized";
+    die;
+}
+if(!($user->getRule()=="5150"||(isset($DATA_OBJ->params->deleteByUser)&&$DATA_OBJ->params->deleteByUser&&$user->getRule()!="2001"))){
+echo "not authorized";
     die;
 }
 else{

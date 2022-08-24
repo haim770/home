@@ -81,6 +81,20 @@ const AdsBlock = (props) => {
     });
     console.log(res.data);
   };
+  const deleteAd = async (e) => {
+    const res = await instance.request({
+      data: {
+        data_type: "deleteAdById",
+        params: { adID: props.adBlock.ad[0].adID,deleteByUser:true },
+        guest: auth.accessToken != undefined ? "registered" : "guest",
+      },
+      headers: {
+        Authorization: `Bearer ${auth.accessToken}`,
+      },
+    });
+    console.log(res.data);
+    await props.getAds();
+  };
   const editAd = (e) => {
     e.preventDefault();
     setGoToEditPage(true);
@@ -215,6 +229,19 @@ const AdsBlock = (props) => {
             onClick={editAd}
           >
             ערוך מודעה
+          </button>
+          <button
+            className="btnClassAdBlockEdit"
+            style={{
+              display:
+                props.adBlock.user[0].mail === auth?.user ||
+                auth?.rule === "5150"
+                  ? "block"
+                  : "none",
+            }}
+            onClick={deleteAd}
+          >
+            מחק מודעה
           </button>
         </div>
         {goToEditPage ? (

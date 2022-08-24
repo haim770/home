@@ -121,6 +121,7 @@ const Ads = (props) => {
             <AdsBlock
               key={ad.adID + uuidv4()}
               className={props.listShow}
+              getAds={getAds}
               adBlock={ad}
               setAdFull={setAdFull}
               setFullShow={props.setFullShow}
@@ -141,6 +142,7 @@ const Ads = (props) => {
             result.data.map((ad) => (
               <AdsBlock
                 key={ad.adID + uuidv4()}
+                getAds={getAds}
                 className={props.listShow}
                 adBlock={ad}
                 setAdFull={setAdFull}
@@ -234,6 +236,7 @@ const Ads = (props) => {
       {props.fullShow === "showFull" && adFull != {} ? (
         <AdFullForProps
           className={props.fullShow}
+          getAds={getAds}
           adBlock={adFull}
           setAdFull={setAdFull}
           setFullShow={props.setFullShow}

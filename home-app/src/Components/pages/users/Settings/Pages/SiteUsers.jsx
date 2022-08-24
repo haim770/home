@@ -135,15 +135,14 @@ function Row(props) {
                 </TableHead>
                 <TableBody>
                   {row.adss.map((adsRow, index) => (
-                    <TableRow key={index}>
+                    <TableRow
+                      key={index}
+                      onClick={function () {
+                        handleClick(adsRow.adID, adsRow.user_id);
+                      }}
+                    >
                       <TableCell component="th" scope="row" align="right">
-                        <div
-                          onClick={function () {
-                            handleClick(adsRow.adID, adsRow.user_id);
-                          }}
-                        >
-                          {adsRow.adID}
-                        </div>
+                        <div>{adsRow.adID}</div>
                       </TableCell>
                       <TableCell align="right">{adsRow.create_time}</TableCell>
                       <TableCell align="right">{adsRow.expire_date}</TableCell>

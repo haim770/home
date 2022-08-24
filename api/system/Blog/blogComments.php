@@ -36,7 +36,7 @@ $id=uniqid();
 $blogId=$DATA_OBJ->params->blogId;
 $title=$DATA_OBJ->params->title;
 $content=$DATA_OBJ->params->content;
-$query="INSERT INTO blogcomments (id,blogId,userId,title,content) VALUES ('$id','$blogId','$userId','$content','$title') ";
+$query="INSERT INTO blogcomments (id,blogId,userId,title,content) VALUES ('$id','$blogId','$userId','$title','$content') ";
 $result=$db->readDBNoStoredProcedure($query);
   echo json_encode($result);
   die;
