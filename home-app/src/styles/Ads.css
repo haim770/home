@@ -531,7 +531,7 @@ MuiButtonBase-root MuiFab-root jss2248 */
 
 .MuiButton-root {
   color: #191F2E;
-  padding: 6px 16px;
+  padding: 0.5rem 1rem;
   font-size: 0.875rem;
   min-width: 64px;
   box-sizing: border-box;

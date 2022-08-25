@@ -1,7 +1,6 @@
 import React from "react";
 import "./styles.css";
 import { RiDashboardLine } from "react-icons/ri";
-
 import { FiSettings, FiUsers, FiClock } from "react-icons/fi";
 import { IoNotificationsOutline, IoLogoWechat } from "react-icons/io5";
 import { HiOutlineDocumentReport } from "react-icons/hi";
@@ -12,8 +11,54 @@ import { FcSalesPerformance } from "react-icons/fc";
 import { BsClockHistory } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import useAuth from "../../../../../Auth/useAuth";
+import { useState, useEffect } from "react";
+import instance from "../../../../../api/AxiosInstance";
 const Sidebar = () => {
   const { auth } = useAuth();
+  const [newNotification, setNewNotification] = useState(0);
+  const [newMsgForUser, setNewMsgForUser] = useState(0);
+  const [newRequestForAdsAproval, setNewRequestForAdsAproval] = useState(0);
+  const [newReportCountForManager, setNewReportCountForManager] = useState(0);
+  const [newReportForTheUser, setNewReportForTheUser] = useState(0);
+  const getAllNumbersOfNewItems = async () => {
+    const result = await instance.request({
+      data: {
+        data_type: "getNewItemsCountForDashboard",
+        params: {
+          guest: "registered",
+        },
+      },
+      headers: {
+        Authorization: `Bearer ${auth.accessToken}`,
+      },
+    });
+    if (result.data === "not authorized") {
+      alert("not authorized");
+      return;
+    } else {
+      console.log(result.data);
+      setNewMsgForUser(result.data.NewMessagesCount[0].total);
+      setNewNotification(result.data.newNotificationCount[0].total);
+      setNewRequestForAdsAproval(
+        result.data.newAdsWaitForAproval[0].total
+          ? result.data.newAdsWaitForAproval[0].total
+          : 0
+      );
+      setNewReportCountForManager(
+        result.data.newReportForManager[0].total
+          ? result.data.newReportForManager[0].total
+          : 0
+      );
+      setNewReportForTheUser(
+        result.data.newReportForTheUser[0].total
+          ? result.data.newReportForTheUser[0].total
+          : 0
+      );
+    }
+  };
+  useEffect(() => {
+    getAllNumbersOfNewItems();
+  }, []);
   return (
     <div className="settingsSidebar">
       <div className="settingsCenter">
@@ -41,12 +86,18 @@ const Sidebar = () => {
             >
               <IoNotificationsOutline className="icon" />
               <span>התראות</span>
+              <span style={{ color: "red" }}>
+                {newNotification == "0" ? "" : newNotification}
+              </span>
             </Link>
           </li>
           <li>
             <Link to="/Settings/Messages" style={{ textDecoration: "none" }}>
               <IoLogoWechat className="icon" />
               <span>הודעות</span>
+              <span style={{ color: "red" }}>
+                {newMsgForUser == "0" ? "" : newMsgForUser}
+              </span>
             </Link>
           </li>
           <li>
@@ -82,6 +133,9 @@ const Sidebar = () => {
               >
                 <BiPurchaseTagAlt className="icon" />
                 <span>דוחות על מודעות של משתמש</span>
+                <span style={{ color: "red" }}>
+                  {newReportForTheUser == "0" ? "" : newReportForTheUser}
+                </span>
               </Link>
             </li>
           ) : (
@@ -118,6 +172,9 @@ const Sidebar = () => {
                 style={{ textDecoration: "none" }}
               >
                 <span> אישור מודעות</span>
+                <span style={{ color: "red" }}>
+                  {newRequestForAdsAproval == 0 ? "" : newRequestForAdsAproval}
+                </span>
               </Link>
             </li>
           ) : (
@@ -189,6 +246,11 @@ const Sidebar = () => {
               >
                 <HiOutlineDocumentReport className="icon" />
                 <span>דוחות</span>
+                <span style={{ color: "red" }}>
+                  {newReportCountForManager == "0"
+                    ? ""
+                    : newReportCountForManager}
+                </span>
               </Link>
             </li>
           ) : (

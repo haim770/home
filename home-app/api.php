@@ -551,11 +551,12 @@ if (isset($DATA_OBJ->data_type)) {
             //change message status to seen
             include_once('../api/system/systemMessages/handleSystemMassages.php');
              break;
-
         case "getAllNotifications":
             include_once('../api/system/Notification/getAllNotifications.php');
             break;
-            
+        case "getNewItemsCountForDashboard":
+            include_once('../api/system/Notification/manageCountOfNotificationsAndDisplays.php');
+            break;
         case "getAdByIDAndUserId":
             if (isset($DATA_OBJ->params))
                 echo json_encode(getAdWithAdContentForAdIdAndUserId($DATA_OBJ->params->adID, $DATA_OBJ->params->user_id));

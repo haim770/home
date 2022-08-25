@@ -281,6 +281,8 @@ function getAllReportsOnAdsForUserId(){
     else{
       $reusut=[];
     }
+    $query="UPDATE user_reports SET seen = '1' WHERE userId = '{$userId}'";
+    $result=$db->readDBNoStoredProcedure($query);
     echo json_encode($resultForTheTable);
     die;
 }

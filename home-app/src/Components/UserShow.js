@@ -13,16 +13,17 @@ function UserShow(props) {
   const [showRemainingAdsInput, setShowRemainingAdsInput] =
     useState("notShowInput");
   const [valueRemainingInput, setValueRemainingInput] = useState("0");
-   const { auth } = useAuth();
+  const { auth } = useAuth();
   const [valueRemainingInput1, setValueRemainingInput1] = useState(
     props.user.remaining_ads
   );
+  const [activeStatus, setActiveStatus] = useState(props.user.active);
   const deleteOrRestoreUser = async () => {
     //add ad to the db, returns true/false
     const result = await instance.request({
       data: {
         data_type: "deleteOrRestoreUser",
-        params: { mail: props.user.mail, active: props.user.active },
+        params: { mail: props.user.mail, active: activeStatus },
       },
       headers: {
         Authorization: `Bearer ${auth.accessToken}`,
@@ -30,7 +31,10 @@ function UserShow(props) {
     });
     console.log(result.data);
     if (result) {
-      if (result.data === "changed active status") console.log("succeeds");
+      if (result.data === "changed active status") {
+        console.log("succeeds");
+        setActiveStatus(activeStatus == "0" ? "1" : "0");
+      }
     } else {
       console.log("failed");
     }
@@ -73,12 +77,12 @@ function UserShow(props) {
     console.log(result.data);
     if (result) {
       if (result.data === "changed remaining ads") console.log("succeeds");
-    } 
-    else {
+    } else {
       console.log("failed");
     }
   };
   const deleteOrRestore = (e) => {
+    console.log(activeStatus);
     e.preventDefault();
     console.log(props.user);
     if (props.user === []) {
@@ -125,7 +129,7 @@ function UserShow(props) {
         <Parameter paramName="טלפון" paramValue={props.user.phone} />
         <Parameter
           paramName="תפקיד"
-          paramValue={props.user.active === "1" ? "פעיל" : "מחוק"}
+          paramValue={activeStatus === "1" ? "פעיל" : "מחוק"}
         />
         <Parameter
           paramName="תפקיד"
@@ -161,7 +165,7 @@ function UserShow(props) {
           {props.user.rule === "2001" ? "הפוך משתמש למנהל" : "הפוך מנהל למשתמש"}
         </button>
         <button onClick={deleteOrRestore}>
-          {props.user.active === "1" ? "מחק משתמש" : " שחזר למשתמש"}
+          {activeStatus === "1" ? "מחק משתמש" : " שחזר למשתמש"}
         </button>
         <button onClick={(e) => changeRemainingAds(e)}>שנה יתרת מודעות</button>
       </div>

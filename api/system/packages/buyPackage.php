@@ -2,7 +2,8 @@
 // get authTest file
 $authPath = "../../Authentication/authTest.php";
 include_once(dirname(__FILE__) . DIRECTORY_SEPARATOR . $authPath);
-
+global $user;
+global $db;
 
 function buyPack(){
   //purchase package after pay in  paypl
