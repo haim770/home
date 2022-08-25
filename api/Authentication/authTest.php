@@ -23,7 +23,6 @@ if (!preg_match('/Bearer\s(\S+)/', $_SERVER['HTTP_AUTHORIZATION'], $matches)) {
     // can also http_response_code(400)
     echo 'Token not found in request';
     header('HTTP/1.0 400 Bad Request');
-    
     exit;
 }
 

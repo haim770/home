@@ -63,6 +63,7 @@ import ManageSiteSettings from "./Components/pages/users/Settings/Pages/ManageSi
 import { DHProvidor } from "./Auth/DH/DHUseContext";
 import UsefullLinks from "./Components/pages/users/Settings/Pages/UsefullLinks";
 import HandleReportReasons from "./Components/pages/users/Settings/Pages/HandleReportReasons";
+import RecoveryPage from "./Components/pages/users/RecoveryPage";
 const ROLES = {
   User: 2001,
   Admin: 5150,
@@ -83,6 +84,7 @@ export default function App() {
                 {/* public routes */}
                 <Route index element={<Main />} />
                 <Route path="/Login" element={<Login />} />
+                <Route path="/Recovery" element={<RecoveryPage />} />
                 <Route path="/adsWithSearch" element={<AdsWithSearch />} />
                 <Route path="/usefullLinks" element={<UsefullLinks />} />
                 <Route
