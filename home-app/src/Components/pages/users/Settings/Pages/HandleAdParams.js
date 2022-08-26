@@ -16,6 +16,7 @@ const columns = [
   { field: "category", headerName: "קטגוריה", flex: 1 },
   { field: "min_value", headerName: "ערך מינימום", flex: 1 },
   { field: "max_value", headerName: "ערך מקסימום", flex: 1 },
+  { field: "required", headerName: "שדה חובה", flex: 1 },
   { field: "name", headerName: "שם פרמטר ", flex: 1 },
   { field: "display_type", headerName: " אפשרות תצוגה ", flex: 1 },
   { field: "typeOfVar", headerName: "סוג משתנה", flex: 1 },
@@ -139,6 +140,7 @@ const HandleAdParams = () => {
           paramStyle={selectedParam.display_type}
           paramName={selectedParam.name}
           category={selectedParam.category}
+          required={selectedParam.required}
           refreshTable={getMasters}
         />
       ) : showSelected === "createParam" ? (

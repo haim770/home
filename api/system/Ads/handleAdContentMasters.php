@@ -44,7 +44,7 @@ function getMastersForAdsContentForTheTable()
     for ($i=0; $i <count($result) ; $i++) {
       //we split the msg content to report id and adId
       $typeOfVar=$result[$i]->max_value!=null||$result[$i]->min_value!=null?"numeric":"text";
-      $objForRow=array("id"=>$result[$i]->element_id,"category"=>$result[$i]->category,"min_value"=>$result[$i]->min_value,"max_value"=>$result[$i]->max_value,"category"=>$result[$i]->category,"name"=>$result[$i]->name,"display_type"=>$result[$i]->display_type,"typeOfVar"=>$typeOfVar);
+      $objForRow=array("id"=>$result[$i]->element_id,"category"=>$result[$i]->category,"min_value"=>$result[$i]->min_value,"max_value"=>$result[$i]->max_value,"required"=>$result[$i]->required,"category"=>$result[$i]->category,"name"=>$result[$i]->name,"display_type"=>$result[$i]->display_type,"typeOfVar"=>$typeOfVar);
       // $objForRow=json_encode($objForRow);
       $resultForTheTable[$i]=$objForRow;
     }}
@@ -70,6 +70,7 @@ function checkIfNameOfParamExist($paramName,$id,$category){
 
 }
 function editParameterAds(){
+  //edit parameter of ads
   global $db;
     global $DATA_OBJ;
     global $arr;
@@ -85,18 +86,34 @@ function editParameterAds(){
   }
   //min+max value
   if($DATA_OBJ->params->minValue!=""&&$DATA_OBJ->params->maxValue!=""){
-  $query="UPDATE ad_content SET name = '{$DATA_OBJ->params->paramName}', free_text ='{$DATA_OBJ->params->paramName}', display_type ='{$DATA_OBJ->params->paramStyle}', category ='{$DATA_OBJ->params->category}', min_value ='{$DATA_OBJ->params->minValue}', max_value ='{$DATA_OBJ->params->maxValue}' WHERE element_id = '{$DATA_OBJ->params->element_id}'";}
+  $query="UPDATE ad_content SET name = '{$DATA_OBJ->params->paramName}', free_text ='{$DATA_OBJ->params->paramName}',required='{$DATA_OBJ->params->required}', display_type ='{$DATA_OBJ->params->paramStyle}', category ='{$DATA_OBJ->params->category}', min_value ='{$DATA_OBJ->params->minValue}', max_value ='{$DATA_OBJ->params->maxValue}' WHERE element_id = '{$DATA_OBJ->params->element_id}'";}
 //only max value
   if($DATA_OBJ->params->minValue==""&&$DATA_OBJ->params->maxValue!=""){
-  $query="UPDATE ad_content SET name = '{$DATA_OBJ->params->paramName}', free_text ='{$DATA_OBJ->params->paramName}', display_type ='{$DATA_OBJ->params->paramStyle}', category ='{$DATA_OBJ->params->category}', max_value ='{$DATA_OBJ->params->maxValue}', min_value =NULL WHERE element_id = '{$DATA_OBJ->params->element_id}'";}
+  $query="UPDATE ad_content SET name = '{$DATA_OBJ->params->paramName}', free_text ='{$DATA_OBJ->params->paramName}',required='{$DATA_OBJ->params->required}', display_type ='{$DATA_OBJ->params->paramStyle}', category ='{$DATA_OBJ->params->category}', max_value ='{$DATA_OBJ->params->maxValue}', min_value =NULL WHERE element_id = '{$DATA_OBJ->params->element_id}'";}
   //only min value
   if($DATA_OBJ->params->minValue!=""&&$DATA_OBJ->params->maxValue==""){
-  $query="UPDATE ad_content SET name = '{$DATA_OBJ->params->paramName}', free_text ='{$DATA_OBJ->params->paramName}', display_type ='{$DATA_OBJ->params->paramStyle}', category ='{$DATA_OBJ->params->category}', min_value ='{$DATA_OBJ->params->minValue}', max_value =NULL WHERE element_id = '{$DATA_OBJ->params->element_id}'";}
+  $query="UPDATE ad_content SET name = '{$DATA_OBJ->params->paramName}', free_text ='{$DATA_OBJ->params->paramName}',required='{$DATA_OBJ->params->required}', display_type ='{$DATA_OBJ->params->paramStyle}', category ='{$DATA_OBJ->params->category}', min_value ='{$DATA_OBJ->params->minValue}', max_value =NULL WHERE element_id = '{$DATA_OBJ->params->element_id}'";}
   //no min/max value
   if($DATA_OBJ->params->minValue==""&&$DATA_OBJ->params->maxValue==""){
-  $query="UPDATE ad_content SET name = '{$DATA_OBJ->params->paramName}', free_text ='{$DATA_OBJ->params->paramName}', display_type ='{$DATA_OBJ->params->paramStyle}', category ='{$DATA_OBJ->params->category}', min_value =NULL, max_value =NULL WHERE element_id = '{$DATA_OBJ->params->element_id}'";}
+  $query="UPDATE ad_content SET name = '{$DATA_OBJ->params->paramName}', free_text ='{$DATA_OBJ->params->paramName}',required='{$DATA_OBJ->params->required}', display_type ='{$DATA_OBJ->params->paramStyle}', category ='{$DATA_OBJ->params->category}', min_value =NULL, max_value =NULL WHERE element_id = '{$DATA_OBJ->params->element_id}'";}
   $result=$db->readDBNoStoredProcedure($query);
   echo json_encode("edit was done");
+  die;
+}
+function deleteParameter(){
+  //delete parameter
+   global $db;
+    global $DATA_OBJ;
+    global $arr;
+    global $user;
+    global $userType;
+     if($userType!="registered"||$user->getRule()!="5150"){
+    echo "not authorized";
+    die;
+  }
+  $query="delete from ad_content WHERE element_id = '{$DATA_OBJ->params->element_id}'";
+  $result=$db->readDBNoStoredProcedure($query);
+  echo json_encode("delete was done");
   die;
 }
 function addNewMasterToAdContentTable()
@@ -117,21 +134,21 @@ function addNewMasterToAdContentTable()
     $elementId = uniqid();
     $maxValue=$DATA_OBJ->params->maxValue;
     $minValue=$DATA_OBJ->params->minValue;
+    $required=$DATA_OBJ->params->required;
     if(($minValue==""&&$maxValue=="")||$arr['paramType'] == "VARCHAR"){
       $query="INSERT into ad_content (element_id, adID,category,master,required,name,free_text,value,prevDisplay) VALUES(
-        '$elementId','0','{$DATA_OBJ->params->category}','1','0','{$DATA_OBJ->params->paramName}','{$DATA_OBJ->params->paramName}','master','0')";
+        '$elementId','0','{$DATA_OBJ->params->category}','1','$required','{$DATA_OBJ->params->paramName}','{$DATA_OBJ->params->paramName}','master','0')";
     }
     if($minValue!=""&&$maxValue==""&&($arr['paramType'] == "DOUBLE"||$arr['paramType'] == "INT")){
-      $query="INSERT into ad_content (element_id,adID,category,master,min_value,required,name,free_text,value,prevDisplay)  VALUES('$elementId','0','{$DATA_OBJ->params->category}','1','{$minValue}','0','{$DATA_OBJ->params->paramName}','{$DATA_OBJ->params->paramName}','master','0')";
+      $query="INSERT into ad_content (element_id,adID,category,master,min_value,required,name,free_text,value,prevDisplay)  VALUES('$elementId','0','{$DATA_OBJ->params->category}','1','{$minValue}','$required','{$DATA_OBJ->params->paramName}','{$DATA_OBJ->params->paramName}','master','0')";
   }
-    if($maxValue!=""&&$minValue==""&&($arr['paramType'] == "DOUBLE"||$arr['paramType'] == "INT")){ $query="INSERT into ad_content (element_id,adID,category,master,max_value,required,name,free_text,value,prevDisplay)  VALUES('$elementId','0','{$DATA_OBJ->params->category}','1','{$maxValue}','0','{$DATA_OBJ->params->paramName}','{$DATA_OBJ->params->paramName}','master','0')";
+    if($maxValue!=""&&$minValue==""&&($arr['paramType'] == "DOUBLE"||$arr['paramType'] == "INT")){ $query="INSERT into ad_content (element_id,adID,category,master,max_value,required,name,free_text,value,prevDisplay)  VALUES('$elementId','0','{$DATA_OBJ->params->category}','1','{$maxValue}','$required','{$DATA_OBJ->params->paramName}','{$DATA_OBJ->params->paramName}','master','0')";
   }
     if($maxValue!=""&&$minValue!=""&&($arr['paramType'] == "DOUBLE"||$arr['paramType'] == "INT")){
-      $query="INSERT into ad_content (element_id,adID,category,master,min_value,max_value,required,name,free_text,value,prevDisplay)  VALUES('$elementId','0','{$DATA_OBJ->params->category}','1','{$minValue}','{$maxValue}','0','{$DATA_OBJ->params->paramName}','{$DATA_OBJ->params->paramName}','master','0')";
+      $query="INSERT into ad_content (element_id,adID,category,master,min_value,max_value,required,name,free_text,value,prevDisplay)  VALUES('$elementId','0','{$DATA_OBJ->params->category}','1','{$minValue}','{$maxValue}','$required','{$DATA_OBJ->params->paramName}','{$DATA_OBJ->params->paramName}','master','0')";
     }
     $result = $db->writeDBNotStoredProcedure($query);
     $arr = [];
-    echo $query;
     echo json_encode($result);
   }
 if($DATA_OBJ->data_type=="getMastersForAdsContentForTheTable"){
@@ -144,6 +161,11 @@ else{
   else{
     if($DATA_OBJ->data_type=="addNewMasterToAdContentTable"){
       addNewMasterToAdContentTable();
+    }
+    else{
+      if($DATA_OBJ->data_type=="deleteParameter"){
+      deleteParameter();
+    }
     }
   }
 }

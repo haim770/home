@@ -10,6 +10,7 @@ function AddParameterToAds(props) {
   const [minValue, setMinValue] = useState(""); //hook fr parameter min value
   const [paramStyle, setParamStyle] = useState("input"); //hook for parameter style
   const [dataType, setDataType] = useState("INT"); //hook for parameter style
+  const [required,setRequired]=useState("רשות");
   const [category, setCataegory] = useState("השכרה");
   const [numericParameterClass, setNumericParameterClass] =
     useState("not numeric");
@@ -26,6 +27,7 @@ function AddParameterToAds(props) {
     setParamName("");
     setParamStyle("input");
     setDataType("השכרה");
+    setRequired("רשות");
   };
   const submitParameter = async (e) => {
     //add ad to the db, returns true/false
@@ -48,6 +50,7 @@ function AddParameterToAds(props) {
           maxValue: maxValue,
           paramType: dataType,
           category: category,
+          required:required=="רשות"?"0":"1",
           guest: auth.accessToken != undefined ? "registered" : "guest",
         },
       },
@@ -108,6 +111,22 @@ function AddParameterToAds(props) {
             value={paramName}
             onChange={(e) => onChangeState(setParamName, e)}
           />
+        </label>
+        <label
+          style={{ display: paramStyle === "checkBox" ? "none" : "block" }}
+          className="labelParamAdd"
+        >
+          <span>שדה חובה</span>
+          <select
+            value={required}
+            onChange={(e) => {
+              //console.log(e.target.value);
+              setRequired(e.target.value);
+            }}
+          >
+            <option>חובה</option>
+            <option>רשות</option>
+          </select>
         </label>
         <label
           style={{ display: paramStyle === "checkBox" ? "none" : "block" }}

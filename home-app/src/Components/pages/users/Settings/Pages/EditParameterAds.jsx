@@ -18,6 +18,9 @@ function EditParameterAds(props) {
     props.max_value || props.min_value ? "INT" : "VARCHAR"
   ); //hook for parameter style
   const [category, setCataegory] = useState(props.category);
+  const [required, setRequired] = useState(
+    props.required == "1" ? "חובה" : "רשות"
+  );
   const [numericParameterClass, setNumericParameterClass] = useState(
     dataType === "INT" ? "numeric" : "not numeric"
   );
@@ -34,6 +37,34 @@ function EditParameterAds(props) {
     setParamName("");
     setParamStyle("input");
     setDataType("השכרה");
+    setRequired("רשות");
+  };
+  const deleteParameter = async (e) => {
+    e.preventDefault();
+    const result = await instance.request({
+      data: {
+        data_type: "deleteParameter",
+        params: {
+          element_id: props.id,
+          guest: "registered",
+        },
+      },
+      headers: {
+        Authorization: `Bearer ${auth.accessToken}`,
+      },
+    });
+    console.log(result.data);
+    if (result.data === "delete was done") {
+      toast.dismiss(); // remove loading toast
+      toast.success("  מחיקה הצליחה");
+      returnStateToDefault();
+      props.setClassName("notShowSelected");
+      props.setTableClassName("showTable");
+      props.refreshTable();
+    } else {
+      toast.dismiss(); // remove loading toast
+      toast.error("מחיקה נכשלה");
+    }
   };
   const submitParameter = async (e) => {
     //add ad to the db, returns true/false
@@ -58,6 +89,7 @@ function EditParameterAds(props) {
           maxValue: maxValue,
           paramType: dataType,
           category: category,
+          required: required == "רשות" ? "0" : "1",
         },
       },
       headers: {
@@ -121,6 +153,22 @@ function EditParameterAds(props) {
           style={{ display: paramStyle === "checkBox" ? "none" : "block" }}
           className="labelParamAdd"
         >
+          <span>שדה חובה</span>
+          <select
+            value={required}
+            onChange={(e) => {
+              //console.log(e.target.value);
+              setRequired(e.target.value);
+            }}
+          >
+            <option>חובה</option>
+            <option>רשות</option>
+          </select>
+        </label>
+        <label
+          style={{ display: paramStyle === "checkBox" ? "none" : "block" }}
+          className="labelParamAdd"
+        >
           <span>הכנס טיפוס של תכונה</span>
           <select
             value={dataType}
@@ -170,6 +218,7 @@ function EditParameterAds(props) {
 
         <p className="labelParamAdd">
           <button onClick={submitParameter}>ערוך פרמטר</button>
+          <button onClick={deleteParameter}>מחק פרמטר</button>
         </p>
       </form>
       <Toaster />

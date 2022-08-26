@@ -670,6 +670,9 @@ if (isset($DATA_OBJ->data_type)) {
         case "getMastersForAdsContentForTheTable":
             include_once('../api/system/Ads/handleAdContentMasters.php');
             break;
+        case "deleteParameter":
+             include_once('../api/system/Ads/handleAdContentMasters.php');
+            break;
         case "getSelectedAdWithReportFeedback":
              include_once('../api/system/Ads/reports.php');
             break;
