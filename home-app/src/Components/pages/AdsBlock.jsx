@@ -34,7 +34,7 @@ const AdsBlock = (props) => {
   );
   const location = useLocation();
   const [goToEditPage, setGoToEditPage] = useState(false);
-  const [togglePhone, setTogglePhone] = useState("הצג טלפון");
+  const [togglePhone, setTogglePhone] = useState("הסתר טלפון");
   const [adBlock, setAdBlock] = useState(props.adBlock);
   const [isFavorite, setIsFavorite] = useState(props.adBlock.favorite);
   const [didWatch, setDidWatch] = useState(0);
@@ -85,7 +85,7 @@ const AdsBlock = (props) => {
     const res = await instance.request({
       data: {
         data_type: "deleteAdById",
-        params: { adID: props.adBlock.ad[0].adID,deleteByUser:true },
+        params: { adID: props.adBlock.ad[0].adID, deleteByUser: true },
         guest: auth.accessToken != undefined ? "registered" : "guest",
       },
       headers: {
@@ -167,6 +167,9 @@ const AdsBlock = (props) => {
         >
           <div className="jss142">
             <button
+              style={{
+                display: !auth?.user ? "none" : "flex",
+              }}
               className="MuiButtonBase-root MuiButton-root jss151 MuiButton-contained MuiButton-containedPrimary MuiButton-disableElevation MuiButton-fullWidth"
               onClick={handleClickChatWith}
             >
@@ -174,6 +177,7 @@ const AdsBlock = (props) => {
             </button>
             <button
               style={{
+                display: !auth?.user ? "none" : "flex",
                 backgroundColor: "green",
                 marginRight: "1rem",
                 padding: "1rem",
@@ -200,6 +204,9 @@ const AdsBlock = (props) => {
           <div>
             <button
               className="btnClassAdBlock"
+              style={{
+                display: !auth?.user ? "none" : "flex",
+              }}
               onClick={(e) => {
                 e.preventDefault();
                 console.log(e.target.tagName);

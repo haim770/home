@@ -8,6 +8,7 @@ import {
   useNavigate,
   useLocation,
 } from "react-router-dom";
+import { FaWhatsapp } from "react-icons/fa";
 import instance from "../api/AxiosInstance.jsx";
 import "../styles/Ad.css";
 import RecipeReviewCard from "./RecipeReviewCard";
@@ -17,7 +18,7 @@ function AdFullForProps(props) {
   const [isFavorite, setIsFavorite] = useState(props.adBlock.favorite);
   const [goToEditPage, setGoToEditPage] = useState(false);
   const location = useLocation();
-  const [togglePhone, setTogglePhone] = useState("הצג טלפון");
+  const [togglePhone, setTogglePhone] = useState("הסתר טלפון");
   const [phone, setPhone] = useState(
     props.adBlock.user[0] ? props.adBlock.user[0].phone : 0
   );
@@ -93,10 +94,36 @@ function AdFullForProps(props) {
           >
             <div className="jss142">
               <button
+                style={{
+                  display: !auth?.user ? "none" : "flex",
+                }}
                 className="MuiButtonBase-root MuiButton-root jss151 MuiButton-contained MuiButton-containedPrimary MuiButton-disableElevation MuiButton-fullWidth"
                 onClick={handleClickChatWith}
               >
                 <span className="buttonSpanLabel">התחל צ'ט</span>
+              </button>
+              <button
+                style={{
+                  display: !auth?.user ? "none" : "flex",
+                  backgroundColor: "green",
+                  marginRight: "1rem",
+                  padding: "1rem",
+                }}
+                onClick={(e) =>
+                  window.open(
+                    "https://web.whatsapp.com/send?phone=972" +
+                      phone.substring(1) +
+                      "&text=" +
+                      "http://localhost:3000" +
+                      "/AdsWithSearch/" +
+                      props.adBlock.ad[0].ad_link +
+                      "&app_absent=0",
+                    "_blank"
+                  )
+                }
+              >
+                {" "}
+                <FaWhatsapp color="black" />
               </button>
             </div>
           </div>
@@ -104,6 +131,9 @@ function AdFullForProps(props) {
             <div>
               <button
                 className="btnClassAdBlock"
+                style={{
+                  display: !auth?.user ? "none" : "flex",
+                }}
                 onClick={(e) => {
                   e.preventDefault();
                   console.log(e.target.tagName);
@@ -164,7 +194,6 @@ function AdFullForProps(props) {
             ""
           )}
         </div>
-        <Button content="contact seller" onclick={props.onclick} />
       </section>
     </article>
   );
