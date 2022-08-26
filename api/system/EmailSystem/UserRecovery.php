@@ -1,5 +1,16 @@
 <?php
 
+
+$email = $DATA_OBJ->params->resetMail ?? "null";
+$email = filter_var($email, FILTER_SANITIZE_EMAIL); // Remove all illegal characters from an email address:
+$email = filter_var($email, FILTER_VALIDATE_EMAIL); // Check if the variable $email is a valid email address:
+
+if (!$email) {
+    $info = (object)[];
+    $info->isValid = "false";
+    echo json_encode($info);
+    exit;
+}
 	/**
 	 * Method createTmpRecovery will create users temp token with exp date.
 	 * @param $mail - mail we want to create recovery page for.
@@ -24,13 +35,13 @@
 		$expDate = date("Y-m-d H:i:s", $expFormat);
 
 		// inset into our database the email, token, exp date, if exist, update them to the new token and exp date.
-		$query = "INSERT INTO recoverymaill values(id,:userMail,:token,:expDate) ON DUPLICATE KEY UPDATE
+		$query = "INSERT INTO password_recovery values(id,:userMail,:token,:exp_date) ON DUPLICATE KEY UPDATE
 		token   = VALUES(token),
-		expDate = VALUES(expDate)";
+		exp_date = VALUES(exp_date)";
 		$data = false;
 		$data['userMail'] = $mail;
 		$data['token'] = $token;
-		$data['expDate'] = $expDate;
+		$data['exp_date'] = $expDate;
         $db->writeDBNotStoredProcedure($query, $data);
 
 		// send use recovery mail.
@@ -64,5 +75,8 @@
             echo "Email sending failed...";
         }
     }
+
+
+createTmpRecovery($email)
 
 ?>

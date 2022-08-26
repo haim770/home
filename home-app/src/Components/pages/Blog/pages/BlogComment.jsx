@@ -21,7 +21,7 @@ function LinkRecord(props) {
         Authorization: `Bearer ${auth.accessToken}`,
       },
     });
-    console.log(result);
+    
     if (result?.data == "not authorized") {
       alert("error");
     } else {
@@ -31,7 +31,7 @@ function LinkRecord(props) {
   };
   return (
     <section>
-      {console.log(props)}
+      
       {showReport === "showCommentEditForm" ? (
         <BlogCommentForm
           className={showReport}
@@ -50,7 +50,7 @@ function LinkRecord(props) {
             display: showReport != "showCommentEditForm" ? "block" : "none",
           }}
         >
-          {console.log(auth)}
+         
           <li className="commentsHeaderPart">
             <li>{props.blogComment.userId}</li>
             <li>{props.blogComment.create_time}</li>

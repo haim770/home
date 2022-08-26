@@ -14,7 +14,7 @@ if (!$email) {
 } else {
     // check the values from url.
     // if valid retrun the Expiration date else false.
-    $val = checkRecoveryTokenMail($email, $key);
+    $val = checkRecoveryTokenMail($email, $token);
     if ($val) {
         $info = (object)[];
         $info->isValid = "true";
@@ -41,12 +41,11 @@ if (!$email) {
         $arr["userMail"]= $mail;
         $arr["token"] = $tokenKey;
 		$curDate = date("Y-m-d H:i:s"); // set server current time.
-        $query= "SELECT expDate FROM recoverymaill WHERE userMail =:userMail and token =:token";
+        $query= "SELECT exp_date FROM password_recovery WHERE userMail =:userMail and token =:token";
 		$result = $db->readDBNoStoredProcedure($query, $arr);
-		self::disconnect();
 		if ($result != null)
 			// retrun the recovery mail Expiration date
-			return $result["expDate"] > $curDate;
+			return $result[0] > $curDate;
 		else
 			return false;
 	}

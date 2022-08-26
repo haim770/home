@@ -42,7 +42,6 @@ const CreateBlog = () => {
         Authorization: `Bearer ${auth.accessToken}`,
       },
     });
-    console.log(result.data);
     if (result?.data === "publish") {
       toast.dismiss(); // remove loading toast
       toast.success("בלוג פורסם בהצלחה!");

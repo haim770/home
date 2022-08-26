@@ -32,7 +32,7 @@ const RecoveryPage = () => {
 
   const [errMsg, setErrMsg] = useState("");
   const errRef = useRef();
-  let errMessage = false;
+  let errMessage = true;
 
   /**
    * Get Chat from server
@@ -44,10 +44,10 @@ const RecoveryPage = () => {
         params: { token: token, email: userMail },
       },
     });
-
+    console.log(result?.data.isValid);
     // check if we got new data from server or any response
     if (result?.data) {
-      errMessage = result?.data.isValid === "true" ? true : false;
+      errMessage = result?.data.isValid == "true" ? true : false;
     }
   };
 

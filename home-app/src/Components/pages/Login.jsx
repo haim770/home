@@ -91,9 +91,10 @@ const Login = () => {
             params: { resetMail },
           },
         });
+        console.log(response?.data);
         toast.success("מייל שחזור נשלח בהצלחה");
         await delay(3000);
-        navigate(from, { replace: true });
+        //navigate(from, { replace: true });
       } catch (err) {
         if (!err?.response) {
           setErrMsg("No Server Response");

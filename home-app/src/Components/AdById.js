@@ -44,7 +44,6 @@ function AdById(props) {
         params: { adID: props.adID }, //window.location.href gets the urlline
       },
     });
-    //console.log(res.data);
     props.startNewChat(chatWith);
   };
   const editAd = (e) => {
@@ -62,7 +61,7 @@ function AdById(props) {
         Authorization: `Bearer ${auth.accessToken}`,
       },
     });
-    console.log(res.data);
+
     alert("deleted");
     window.open("http://localhost:3000" + "/AdsWithSearch/", "_self");
   };
@@ -86,8 +85,6 @@ function AdById(props) {
     if (result?.data) {
       setData(result.data);
     }
-    //console.log(result.data);
-    //console.log(data);
   };
   useEffect(() => {
     getAd();
@@ -190,7 +187,7 @@ function AdById(props) {
                 }}
                 onClick={(e) => {
                   e.preventDefault();
-                  console.log(e.target.tagName);
+                  
                   setTogglePhone(
                     togglePhone === "הצג טלפון" ? "הסתר טלפון" : "הצג טלפון"
                   );
@@ -232,7 +229,7 @@ function AdById(props) {
               }}
               onClick={editAd}
             >
-              {console.log(auth)}
+              
               ערוך מודעה
             </button>
           </div>

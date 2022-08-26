@@ -25,7 +25,6 @@ function Footer(props) {
       },
     });
     // check if we got new data from server or any response
-    console.log(result);
     if (result.data) {
       setTotalAdCount(result.data.getCountOfTotalAds[0].total || "");
       setActiveAdCount(result.data.countActiveAds[0].total || "");

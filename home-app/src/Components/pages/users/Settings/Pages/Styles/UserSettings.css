@@ -2,7 +2,6 @@
   position: relative;
   display:flex;
   flex-direction: column;
-  
 }
 
 section{
@@ -42,7 +41,9 @@ max-width: 70%;
     text-align:center;
     margin:0.5rem;  /* and that, will result in a 10px gap */
 }
-
+.offscreen {
+  display: none;
+}
 
 
 /** 
