@@ -93,11 +93,11 @@ const Home = () => {
       {/* Blog List & Empty View */}
       <section>
         {!blogs.length ? <EmptyList /> : <BlogList blogs={blogs} />}
-        {/* <EditAd/> */}
       </section>
       {/*section for top ads */}
       <section className="sectionAdsInMain">
         <button
+          className="button-4"
           disabled={indexStartAds == "0" ? true : false}
           onClick={async (e) => {
             e.preventDefault();
@@ -113,9 +113,9 @@ const Home = () => {
         >
           prev
         </button>
-        <div className="adsContainerMain">{ads}
-        </div>
+        <div className="adsContainerMain">{ads}</div>
         <button
+          className="button-4"
           disabled={noMoreAds}
           onClick={async (e) => {
             e.preventDefault();
@@ -127,7 +127,7 @@ const Home = () => {
         </button>
       </section>
 
-      <p>Home page</p>
+
     </div>
   );
 };

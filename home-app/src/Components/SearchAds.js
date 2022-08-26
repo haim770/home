@@ -656,14 +656,18 @@ function SearchAds(props) {
         />
       </label>
       {masters ? makeFormOfAdContent() : ""}
-      <button className="moreParams" onClick={showExtraParams}>
+      <button className="button-4" onClick={showExtraParams}>
         {adContentClass === "notVisible"
           ? "הראה פרמטרים נוספים"
           : "הסתר פרמטרים נוספים"}
       </button>
       <p>
-        <button onClick={searchAdByParams}>חפש</button>
-        <button onClick={makeSearchFromScratch}>אפס חיפוש</button>
+        <button onClick={searchAdByParams} className="button-4">
+          חפש
+        </button>
+        <button onClick={makeSearchFromScratch} className="button-4">
+          אפס חיפוש
+        </button>
       </p>
     </form>
   );

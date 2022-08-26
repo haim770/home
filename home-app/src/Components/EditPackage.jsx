@@ -133,7 +133,7 @@ function EditPackage(props) {
           </select>
         </label>
         <p>
-          <button onClick={submitPackage}>
+          <button onClick={submitPackage} className="button-4">
             {props.typeOfForm === "create" ? "צור חבילה" : "ערוך חבילה"}
           </button>
         </p>

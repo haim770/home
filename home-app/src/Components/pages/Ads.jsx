@@ -224,7 +224,9 @@ const Ads = (props) => {
             onChange={(e) => setIdForSearch(e.target.value)}
           />
         </label>
-        <button onClick={searchById}>חפש מספר מודעה</button>
+        <button onClick={searchById} className="button-4">
+          חפש מספר מודעה
+        </button>
       </p>
       {loading && props.listShow === "showList" ? (
         <div className="listAds">

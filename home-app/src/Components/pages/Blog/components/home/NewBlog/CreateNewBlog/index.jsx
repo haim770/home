@@ -144,6 +144,7 @@ const CreateBlog = () => {
       </div>
       <div className="addBlogFooter">
         <button
+          className="button-4"
           onClick={() => {
             postNewAdd();
           }}

@@ -69,7 +69,7 @@ function AdFullForPropsWithReport(props) {
         <h2>הודעת מנהל: {props.report[0].manage_feedback}</h2>
         <div>
           <button
-            className="btnClassAdBlock"
+            className="button-4"
             style={{
               display:
                 props.adBlock.user[0].mail === auth?.user ? "block" : "none",
@@ -91,7 +91,7 @@ function AdFullForPropsWithReport(props) {
           <div className="buttonPart">
             <div>
               <button
-                className="btnClassAdBlock"
+                className="button-4"
                 onClick={(e) => {
                   e.preventDefault();
                   console.log(e.target.tagName);
@@ -107,7 +107,7 @@ function AdFullForPropsWithReport(props) {
             </div>
             <div>
               <button
-                className="btnClassAdBlock"
+                className="button-4"
                 style={{
                   display:
                     props.adBlock.user[0].mail === auth?.user

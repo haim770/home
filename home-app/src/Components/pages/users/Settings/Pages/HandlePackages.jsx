@@ -103,8 +103,14 @@ const HandlePackages = () => {
             <option>כל החבילות</option>
           </select>
         </label>
-        <button onClick={serchReportsByParam}>חפש חבילות</button>
         <button
+          className="button-4"
+          onClick={serchReportsByParam}
+        >
+          חפש חבילות
+        </button>
+        <button
+          className="button-4"
           onClick={(e) => {
             setShowSelected("createPackage");
             setTableClassName("notShowTable");

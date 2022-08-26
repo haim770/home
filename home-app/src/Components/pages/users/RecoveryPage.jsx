@@ -221,7 +221,10 @@ const RecoveryPage = () => {
           </p>
         </div>
 
-        <button disabled={!validPwd || !validMatch ? true : false}>
+        <button
+          className="button-4"
+          disabled={!validPwd || !validMatch ? true : false}
+        >
           עדכן פרטים
         </button>
       </form>

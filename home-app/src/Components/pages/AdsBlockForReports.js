@@ -80,6 +80,7 @@ const AdsBlockForReports = (props) => {
           {/** This will contain the Ad footer Left button  */}
           <div className="jss1061">
             <button
+              className="button-4"
               onClick={(e) => {
                 e.preventDefault();
                 console.log(e.target.tagName);
@@ -92,7 +93,9 @@ const AdsBlockForReports = (props) => {
                 ? "" + togglePhone + " " + phone
                 : togglePhone}
             </button>
-            <button onClick={deleteAd}>מחק מודעה</button>
+            <button onClick={deleteAd} className="button-4">
+              מחק מודעה
+            </button>
           </div>
         </div>
         <div></div>

@@ -60,7 +60,9 @@ function ImgCaruaselForEditAd(props) {
           <ArrowCircleLeftIcon fontSize="large" />
         </div>
       </nav>
-      <button onClick={deletePic}>מחק תמונה</button>
+      <button onClick={deletePic} className="button-4">
+        מחק תמונה
+      </button>
     </section>
   );
 }

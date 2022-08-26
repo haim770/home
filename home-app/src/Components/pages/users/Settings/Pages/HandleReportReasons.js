@@ -66,6 +66,7 @@ const HandleReportReasons = () => {
     <div className="tableContainer ">
       <nav className={tableClassName}>
         <button
+          className="button-4"
           onClick={(e) => {
             setShowSelected("createReason");
             setTableClassName("notShowTable");

@@ -79,8 +79,13 @@ const Blog = () => {
             alt="cover"
           />
           <p className="blog-desc">{blog.description}</p>
-          <button onClick={reportOnBlog}> דווח על בלוג</button>
-          <button onClick={insertComment}>הגב</button>
+          <button className="button-4" onClick={reportOnBlog}>
+            {" "}
+            דווח על בלוג
+          </button>
+          <button className="button-4"  onClick={insertComment}>
+            הגב
+          </button>
           <CommentsForBlog blogId={id} />
         </div>
       ) : showReport == "showReport" ? (

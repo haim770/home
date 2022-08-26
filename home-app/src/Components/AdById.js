@@ -150,6 +150,7 @@ function AdById(props) {
                 <span className="buttonSpanLabel">התחל צ'ט</span>
               </button>
               <button
+                className="button-4"
                 style={{
                   display:
                     data?.user?.phone != "" && auth?.accessToken != ""
@@ -180,7 +181,7 @@ function AdById(props) {
           <div className="buttonPart">
             <div>
               <button
-                className="btnClassAdBlock"
+                className="button-4"
                 style={{
                   display:
                     data?.user?.phone && auth?.accessToken != ""
@@ -201,18 +202,18 @@ function AdById(props) {
               </button>
             </div>
             <div>
-              <button className="btnClassAdBlock" onClick={reportOnAd}>
+              <button className="button-4" onClick={reportOnAd}>
                 דווח
               </button>
             </div>
           </div>
           <div>
             <button
-              className="btnClassAdBlockEdit"
+              className="button-4"
               style={{
                 display:
                   (auth?.user != undefined &&
-                  data?.user?.mail === auth?.user) ||
+                    data?.user?.mail === auth?.user) ||
                   auth?.rule === "5150"
                     ? "block"
                     : "none",
@@ -222,7 +223,7 @@ function AdById(props) {
               מחק מודעה
             </button>
             <button
-              className="btnClassAdBlockEdit"
+              className="button-4"
               style={{
                 display:
                   auth?.user != undefined && data?.user?.mail === auth?.user

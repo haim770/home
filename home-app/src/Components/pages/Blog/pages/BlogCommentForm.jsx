@@ -110,7 +110,9 @@ function BlogCommentForm(props) {
           />
         </label>
         <p className="labelParamAdd">
-          <button onClick={submitComment}>הוספה</button>
+          <button className="button-4" onClick={submitComment}>
+            הוספה
+          </button>
         </p>
       </form>
       <Toaster />

@@ -254,6 +254,7 @@ const UserSettings = () => {
                 className="inputField"
               />
               <button
+                className="button-4"
                 style={{ marginRight: "2rem", cursor: "pointer" }}
                 onClick={changeMail}
               >
@@ -312,6 +313,7 @@ const UserSettings = () => {
               aria-describedby="uidnote"
               onFocus={() => setLastNameFocus(true)}
               onBlur={() => setLastNameFocus(false)}
+              className="inputField"
             />
           </div>
 
@@ -503,6 +505,7 @@ const UserSettings = () => {
           </div>
 
           <button
+            className="button-4"
             disabled={
               !validName ||
               !validOldPass ||

@@ -176,6 +176,7 @@ const AdsBlock = (props) => {
               <span className="buttonSpanLabel">התחל צ'ט</span>
             </button>
             <button
+              className="button-4"
               style={{
                 display: !auth?.user ? "none" : "flex",
                 backgroundColor: "green",
@@ -203,7 +204,7 @@ const AdsBlock = (props) => {
         <div className="buttonPart">
           <div>
             <button
-              className="btnClassAdBlock"
+              className="button-4"
               style={{
                 display: !auth?.user ? "none" : "flex",
               }}
@@ -221,14 +222,14 @@ const AdsBlock = (props) => {
             </button>
           </div>
           <div>
-            <button className="btnClassAdBlock" onClick={reportOnAd}>
+            <button className="button-4" onClick={reportOnAd}>
               דווח
             </button>
           </div>
         </div>
         <div>
           <button
-            className="btnClassAdBlockEdit"
+            className="button-4"
             style={{
               display:
                 props.adBlock.user[0].mail === auth?.user ? "block" : "none",
@@ -238,7 +239,7 @@ const AdsBlock = (props) => {
             ערוך מודעה
           </button>
           <button
-            className="btnClassAdBlockEdit"
+            className="button-4"
             style={{
               display:
                 props.adBlock.user[0].mail === auth?.user ||

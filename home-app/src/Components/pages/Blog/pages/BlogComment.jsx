@@ -62,11 +62,11 @@ function LinkRecord(props) {
           <li>{props.blogComment.content}</li>
           {auth?.roles == "5150" ? (
             <li>
-              <button className="linkButton" onClick={deleteComment}>
+              <button className="button-4" onClick={deleteComment}>
                 מחיקת תגובה
               </button>
               <button
-                className="linkButton"
+                className="button-4"
                 onClick={(e) => {
                   e.preventDefault();
                   setReportShow("showCommentEditForm");

@@ -93,7 +93,9 @@ function AddParameterToAds(props) {
           />
         </label>
         <p className="labelParamAdd">
-          <button onClick={submitReason}>הוספה</button>
+          <button className="button-4" onClick={submitReason}>
+            הוספה
+          </button>
         </p>
       </form>
       <Toaster />

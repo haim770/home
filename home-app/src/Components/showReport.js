@@ -183,6 +183,7 @@ function Report(props) {
         <button
           style={{ display: showManagerResponse ? "none" : "block" }}
           onClick={changeReportManagerResponse}
+          className="button-4"
         >
           ערוך תגובת מנהל
         </button>
@@ -199,19 +200,29 @@ function Report(props) {
           </label>
           <ul>
             <li>
-              <button onClick={confirmChangeManagerFeedback}>אישור</button>
+              <button
+                onClick={confirmChangeManagerFeedback}
+                className="button-4"
+              >
+                אישור
+              </button>
             </li>
             <li
               style={{
                 display: props.element_type != "blog" ? "block" : "none",
               }}
             >
-              <button onClick={sendFeedbackToOWnerOfTheAd}>
+              <button onClick={sendFeedbackToOWnerOfTheAd} className="button-4">
                 שלח משוב על המודעה לבעל המודעה
               </button>
             </li>
             <li>
-              <button onClick={cancelChangeManagerFeedback}>בטל פעולה</button>
+              <button
+                onClick={cancelChangeManagerFeedback}
+                className="button-4"
+              >
+                בטל פעולה
+              </button>
             </li>
           </ul>
         </div>
@@ -222,6 +233,7 @@ function Report(props) {
         <button
           style={{ display: showInputStatus ? "none" : "block" }}
           onClick={changeReportStatus}
+          className="button-4"
         >
           ערוך סטטוס
         </button>
@@ -241,10 +253,14 @@ function Report(props) {
           </label>
           <ul>
             <li>
-              <button onClick={confirmChangeStatus}>אישור</button>
+              <button onClick={confirmChangeStatus} className="button-4">
+                אישור
+              </button>
             </li>
             <li>
-              <button onClick={cancelChangeStatus}>בטל פעולה</button>
+              <button onClick={cancelChangeStatus} className="button-4">
+                בטל פעולה
+              </button>
             </li>
           </ul>
         </div>

@@ -93,8 +93,12 @@ const ConfirmAdBlock = (props) => {
         adContent={props.adBlock.adContent}
         className="adContentPartList"
       />
-      <button onClick={(e) => confirmAd(e)}>אשר מודעה</button>
-      <button onClick={(e) => declineAd(e)}>פסול מודעה</button>
+      <button onClick={(e) => confirmAd(e)} className="button-4">
+        אשר מודעה
+      </button>
+      <button onClick={(e) => declineAd(e)} className="button-4">
+        פסול מודעה
+      </button>
     </section>
   );
 };

@@ -215,12 +215,9 @@ const ChatWith = () => {
               placeholder="רשום את ההודעה שלך"
               onKeyPress={handleBtnlistener}
             />
-            <input
-              type="button"
-              value="שלח"
-              id="send_btn"
-              onClick={handleSubmit}
-            />
+            <button className="button-4" id="send_btn" onClick={handleSubmit}>
+              שלח
+            </button>
           </div>
         </div>
       </div>
