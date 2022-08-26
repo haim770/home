@@ -118,6 +118,31 @@ function checkIfReasonExist($reasonName,$category){
   }
   return true;
 }
+function requestChangeMail(){
+  //request from user to manager to change his mail
+  global $userType;
+  global $user;
+  global $db;
+  global $DATA_OBJ;
+  if($userType=="registered")
+    $userId= $user->getUuid();
+  else{
+    $userId="guest";
+    echo "not authorized";
+    die;
+  }
+  $userId=$user->getUuid();
+  $element_type=$DATA_OBJ->params->element_type;
+  $reportId=uniqid();
+  $content=$DATA_OBJ->params->freeText;
+  $title=$DATA_OBJ->params->title;
+  $reportType=$DATA_OBJ->params->reportType;
+  $query="INSERT INTO user_reports (id,element_id,userId,content,title,report_reason,element_type) VALUES ('$reportId','$userId','$userId','$content','$title','$reportType','$element_type') ";
+  $result=$db->readDBNoStoredProcedure($query);
+  echo json_encode($result);
+  die;
+
+}
 function getAllReports(){
   //get all reports
   global $user;
@@ -370,6 +395,11 @@ else{
                       else{
                         if($DATA_OBJ->data_type=="toggleReportReasons"){
                           ToggleActiveReportReason();
+                        }
+                        else{
+                          if($DATA_OBJ->data_type=="requestChangeMail"){
+                            requestChangeMail();
+                          }
                         }
                       }
                     }

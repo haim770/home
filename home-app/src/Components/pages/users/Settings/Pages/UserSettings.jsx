@@ -11,6 +11,7 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import IconButton from "@mui/material/IconButton";
 import useAuth from "../../../../../Auth/useAuth";
+import Report from "./../../../../Report.js";
 
 const USER_REGEX = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
 // minimum 2 chars , only letters.
@@ -61,6 +62,8 @@ const UserSettings = () => {
   const [validOldPass, setValidOldPass] = useState(false);
   const [changePassword, setChangePassword] = useState(false);
 
+  const [userForTheReport, setUserForTheReport] = useState({});
+  const [showReport, setReportShow] = useState("notShowReport");
   const handleClickShowPassword = () => {
     setShowPassword((current) => !current);
   };
@@ -201,7 +204,11 @@ const UserSettings = () => {
     getUserData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
+  const changeMail = async (e) => {
+    //func to send a request for changing mail to the manager
+    e.preventDefault();
+    setReportShow("showReport");
+  };
   return loading ? (
     <div className="loader"></div>
   ) : (
@@ -218,274 +225,303 @@ const UserSettings = () => {
         <h3>{userRule}</h3>
         <h3>יתרת מודעות לפרסום: {userRemainAds}</h3>
       </div>
-      <form onSubmit={handleSubmit}>
-        <div className="Icon-inside">
-          <label htmlFor="username">
-            מייל רישום:
-            <FontAwesomeIcon
-              icon={faCheck}
-              className={validName ? "valid" : "hide"}
-            />
-            <FontAwesomeIcon
-              icon={faTimes}
-              className={validName || !user ? "hide" : "invalid"}
-            />
-          </label>
-          <input
-            type="text"
-            id="username"
-            ref={userRef}
-            value={user}
-            aria-describedby="uidnote"
-            disabled
-            className="inputField"
-          />
-        </div>
+      {showReport == "notShowReport" ? (
+        <form onSubmit={handleSubmit}>
+          <div className="Icon-inside">
+            <label htmlFor="username">
+              מייל רישום:
+              <FontAwesomeIcon
+                icon={faCheck}
+                className={validName ? "valid" : "hide"}
+              />
+              <FontAwesomeIcon
+                icon={faTimes}
+                className={validName || !user ? "hide" : "invalid"}
+              />
+            </label>
+            <div
+              style={{
+                display: "flex",
+              }}
+            >
+              <input
+                type="text"
+                id="username"
+                ref={userRef}
+                value={user}
+                aria-describedby="uidnote"
+                disabled
+                className="inputField"
+              />
+              <button
+                style={{ marginRight: "2rem", cursor: "pointer" }}
+                onClick={changeMail}
+              >
+                שנה מייל
+              </button>
+            </div>
+          </div>
 
-        <div className="Icon-inside">
-          <label htmlFor="userfirstname">
-            שם פרטי:
-            <FontAwesomeIcon
-              icon={faCheck}
-              className={validFirstName ? "valid" : "hide"}
+          <div className="Icon-inside">
+            <label htmlFor="userfirstname">
+              שם פרטי:
+              <FontAwesomeIcon
+                icon={faCheck}
+                className={validFirstName ? "valid" : "hide"}
+              />
+              <FontAwesomeIcon
+                icon={faTimes}
+                className={validFirstName || !firstName ? "hide" : "invalid"}
+              />
+            </label>
+            <input
+              type="text"
+              id="userfirstname"
+              ref={userRef}
+              autoComplete="off"
+              onChange={(e) => setFirstName(e.target.value)}
+              value={firstName}
+              required
+              aria-invalid={validName ? "false" : "true"}
+              aria-describedby="uidnote"
+              onFocus={() => setFirstNameFocus(true)}
+              onBlur={() => setFirstNameFocus(false)}
+              className="inputField"
             />
-            <FontAwesomeIcon
-              icon={faTimes}
-              className={validFirstName || !firstName ? "hide" : "invalid"}
+          </div>
+          <div className="Icon-inside">
+            <label htmlFor="userlastname">
+              שם משפחה:
+              <FontAwesomeIcon
+                icon={faCheck}
+                className={validLastName ? "valid" : "hide"}
+              />
+              <FontAwesomeIcon
+                icon={faTimes}
+                className={validLastName || !lastName ? "hide" : "invalid"}
+              />
+            </label>
+            <input
+              type="text"
+              id="userlastname"
+              autoComplete="off"
+              onChange={(e) => setLastName(e.target.value)}
+              value={lastName}
+              required
+              aria-invalid={validLastName ? "false" : "true"}
+              aria-describedby="uidnote"
+              onFocus={() => setLastNameFocus(true)}
+              onBlur={() => setLastNameFocus(false)}
             />
-          </label>
-          <input
-            type="text"
-            id="userfirstname"
-            ref={userRef}
-            autoComplete="off"
-            onChange={(e) => setFirstName(e.target.value)}
-            value={firstName}
-            required
-            aria-invalid={validName ? "false" : "true"}
-            aria-describedby="uidnote"
-            onFocus={() => setFirstNameFocus(true)}
-            onBlur={() => setFirstNameFocus(false)}
-            className="inputField"
-          />
-        </div>
-        <div className="Icon-inside">
-          <label htmlFor="userlastname">
-            שם משפחה:
-            <FontAwesomeIcon
-              icon={faCheck}
-              className={validLastName ? "valid" : "hide"}
-            />
-            <FontAwesomeIcon
-              icon={faTimes}
-              className={validLastName || !lastName ? "hide" : "invalid"}
-            />
-          </label>
-          <input
-            type="text"
-            id="userlastname"
-            autoComplete="off"
-            onChange={(e) => setLastName(e.target.value)}
-            value={lastName}
-            required
-            aria-invalid={validLastName ? "false" : "true"}
-            aria-describedby="uidnote"
-            onFocus={() => setLastNameFocus(true)}
-            onBlur={() => setLastNameFocus(false)}
-          />
-        </div>
+          </div>
 
-        <div className="Icon-inside">
-          <label htmlFor="userphonenumber">
-            מספר פלאפון:
-            <FontAwesomeIcon
-              icon={faCheck}
-              className={validPhoneNumber ? "valid" : "hide"}
+          <div className="Icon-inside">
+            <label htmlFor="userphonenumber">
+              מספר פלאפון:
+              <FontAwesomeIcon
+                icon={faCheck}
+                className={validPhoneNumber ? "valid" : "hide"}
+              />
+              <FontAwesomeIcon
+                icon={faTimes}
+                className={
+                  validPhoneNumber || !phoneNumber ? "hide" : "invalid"
+                }
+              />
+            </label>
+            <input
+              type="text"
+              id="userphonenumber"
+              autoComplete="off"
+              onChange={(e) => setPhoneNumber(e.target.value)}
+              value={phoneNumber}
+              required
+              aria-invalid={validPhoneNumber ? "false" : "true"}
+              aria-describedby="uidnote"
+              onFocus={() => setPhoneNumberFocus(true)}
+              onBlur={() => setPhoneNumberFocus(false)}
+              className="inputField"
             />
-            <FontAwesomeIcon
-              icon={faTimes}
-              className={validPhoneNumber || !phoneNumber ? "hide" : "invalid"}
-            />
-          </label>
-          <input
-            type="text"
-            id="userphonenumber"
-            autoComplete="off"
-            onChange={(e) => setPhoneNumber(e.target.value)}
-            value={phoneNumber}
-            required
-            aria-invalid={validPhoneNumber ? "false" : "true"}
-            aria-describedby="uidnote"
-            onFocus={() => setPhoneNumberFocus(true)}
-            onBlur={() => setPhoneNumberFocus(false)}
-            className="inputField"
-          />
-          <p
-            id="pwdnote"
-            className={
-              phoneNumberFocus && !validPhoneNumber
-                ? "instructions"
-                : "offscreen"
+            <p
+              id="pwdnote"
+              className={
+                phoneNumberFocus && !validPhoneNumber
+                  ? "instructions"
+                  : "offscreen"
+              }
+            >
+              <FontAwesomeIcon icon={faInfoCircle} />
+              10 ספרות, ניתן לרשום קידומת מדינה אם נדרש.
+              <br />
+              ניתן לרשום בפורמט הבא:
+              <br /> {/* &#x200E; needed for numbers to be write currect */}
+              <span aria-label="bracket space">
+                &#x200E;(123) 456 7899
+              </span>{" "}
+              <span aria-label="bracket dots">&#x200E;(123).456.7899</span>{" "}
+              <span aria-label="bracket dash format">
+                &#x200E;(123)-456-7899
+              </span>
+              <br />
+              <span aria-label="one dash format">&#x200E;123-4567899</span>{" "}
+              <span aria-label="dash format">&#x200E;123-456-7899</span>{" "}
+              <span aria-label="space format">&#x200E;123 456 7899</span> <br />
+              <span aria-label="standart format">&#x200E;1234567899</span>{" "}
+              <span aria-label="extention space format">
+                &#x200E;+972 123 456 7899
+              </span>
+            </p>
+          </div>
+
+          <div className="Icon-inside">
+            <label htmlFor="password" className="sameLineLable">
+              סיסמה:
+              <FontAwesomeIcon
+                icon={faCheck}
+                className={validPwd ? "valid" : "hide"}
+              />
+              <FontAwesomeIcon
+                icon={faTimes}
+                className={validPwd || !pwd ? "hide" : "invalid"}
+              />
+            </label>
+            <div className="iconInput">
+              <input
+                type={showPassword ? "text" : "password"}
+                id="password"
+                onChange={(e) => setPwd(e.target.value)}
+                value={pwd}
+                aria-invalid={validPwd ? "false" : "true"}
+                aria-describedby="pwdnote"
+                onFocus={() => setPwdFocus(true)}
+                onBlur={() => setPwdFocus(false)}
+                className="inputField"
+              />
+              <span>
+                <IconButton
+                  className="IconButton"
+                  aria-label="toggle password visibility"
+                  onClick={handleClickShowPassword}
+                  onMouseDown={handleMouseDownPassword}
+                  edge="end"
+                >
+                  {showPassword ? <VisibilityOff /> : <Visibility />}
+                </IconButton>
+              </span>
+            </div>
+            <p
+              id="pwdnote"
+              className={pwdFocus && !validPwd ? "instructions" : "offscreen"}
+            >
+              <FontAwesomeIcon icon={faInfoCircle} />
+              4 עד 24 תווים.
+              <br />
+              אותיות, מספרים, קו תחתון ומקף מותרים.{" "}
+              <span aria-label="exclamation mark">!</span>{" "}
+              <span aria-label="at symbol">@</span>{" "}
+              <span aria-label="hashtag">#</span>{" "}
+              <span aria-label="dollar sign">$</span>{" "}
+              <span aria-label="percent">%</span>
+            </p>
+          </div>
+          <div className="Icon-inside">
+            <label htmlFor="confirm_pwd" className="sameLineLable">
+              אמת סיסמה:
+              <FontAwesomeIcon
+                icon={faCheck}
+                className={validMatch && matchPwd ? "valid" : "hide"}
+              />
+              <FontAwesomeIcon
+                icon={faTimes}
+                className={validMatch || !matchPwd ? "hide" : "invalid"}
+              />
+            </label>
+            <div className="iconInput">
+              <input
+                type={showPassword ? "text" : "password"}
+                id="confirm_pwd"
+                onChange={(e) => setMatchPwd(e.target.value)}
+                value={matchPwd}
+                aria-invalid={validMatch ? "false" : "true"}
+                aria-describedby="confirmnote"
+                onFocus={() => setMatchFocus(true)}
+                onBlur={() => setMatchFocus(false)}
+                className="inputField"
+              />
+              <span>
+                <IconButton
+                  className="IconButton"
+                  aria-label="toggle password visibility"
+                  onClick={handleClickShowPassword}
+                  onMouseDown={handleMouseDownPassword}
+                  edge="end"
+                >
+                  {showPassword ? <VisibilityOff /> : <Visibility />}
+                </IconButton>
+              </span>
+            </div>
+            <p
+              id="confirmnote"
+              className={
+                matchFocus && !validMatch ? "instructions" : "offscreen"
+              }
+            >
+              <FontAwesomeIcon icon={faInfoCircle} />
+              חייב לתאום את הסיסמה הקודמת.
+            </p>
+          </div>
+
+          <div className="Icon-inside">
+            <label htmlFor="confirm_pwd" className="sameLineLable">
+              הזן סיסמה ישנה לאישור:
+            </label>
+            <div className="iconInput">
+              <input
+                type={showPassword ? "text" : "password"}
+                id="confirm_old_password"
+                onChange={(e) => setConfirmOldPass(e.target.value)}
+                value={confirmOldPass}
+                required
+                aria-invalid={validMatch ? "false" : "true"}
+                aria-describedby="confirmnote"
+                onFocus={() => setMatchFocus(true)}
+                onBlur={() => setMatchFocus(false)}
+                className="inputField"
+              />
+              <span>
+                <IconButton
+                  className="IconButton"
+                  aria-label="toggle password visibility"
+                  onClick={handleClickShowPassword}
+                  onMouseDown={handleMouseDownPassword}
+                  edge="end"
+                >
+                  {showPassword ? <VisibilityOff /> : <Visibility />}
+                </IconButton>
+              </span>
+            </div>
+          </div>
+
+          <button
+            disabled={
+              !validName ||
+              !validOldPass ||
+              (changePassword && (!validPwd || !validMatch))
+                ? true
+                : false
             }
           >
-            <FontAwesomeIcon icon={faInfoCircle} />
-            10 ספרות, ניתן לרשום קידומת מדינה אם נדרש.
-            <br />
-            ניתן לרשום בפורמט הבא:
-            <br /> {/* &#x200E; needed for numbers to be write currect */}
-            <span aria-label="bracket space">&#x200E;(123) 456 7899</span>{" "}
-            <span aria-label="bracket dots">&#x200E;(123).456.7899</span>{" "}
-            <span aria-label="bracket dash format">&#x200E;(123)-456-7899</span>
-            <br />
-            <span aria-label="one dash format">&#x200E;123-4567899</span>{" "}
-            <span aria-label="dash format">&#x200E;123-456-7899</span>{" "}
-            <span aria-label="space format">&#x200E;123 456 7899</span> <br />
-            <span aria-label="standart format">&#x200E;1234567899</span>{" "}
-            <span aria-label="extention space format">
-              &#x200E;+972 123 456 7899
-            </span>
-          </p>
-        </div>
-
-        <div className="Icon-inside">
-          <label htmlFor="password" className="sameLineLable">
-            סיסמה:
-            <FontAwesomeIcon
-              icon={faCheck}
-              className={validPwd ? "valid" : "hide"}
-            />
-            <FontAwesomeIcon
-              icon={faTimes}
-              className={validPwd || !pwd ? "hide" : "invalid"}
-            />
-          </label>
-          <div className="iconInput">
-            <input
-              type={showPassword ? "text" : "password"}
-              id="password"
-              onChange={(e) => setPwd(e.target.value)}
-              value={pwd}
-              aria-invalid={validPwd ? "false" : "true"}
-              aria-describedby="pwdnote"
-              onFocus={() => setPwdFocus(true)}
-              onBlur={() => setPwdFocus(false)}
-              className="inputField"
-            />
-            <span>
-              <IconButton
-                className="IconButton"
-                aria-label="toggle password visibility"
-                onClick={handleClickShowPassword}
-                onMouseDown={handleMouseDownPassword}
-                edge="end"
-              >
-                {showPassword ? <VisibilityOff /> : <Visibility />}
-              </IconButton>
-            </span>
-          </div>
-          <p
-            id="pwdnote"
-            className={pwdFocus && !validPwd ? "instructions" : "offscreen"}
-          >
-            <FontAwesomeIcon icon={faInfoCircle} />
-            4 עד 24 תווים.
-            <br />
-            אותיות, מספרים, קו תחתון ומקף מותרים.{" "}
-            <span aria-label="exclamation mark">!</span>{" "}
-            <span aria-label="at symbol">@</span>{" "}
-            <span aria-label="hashtag">#</span>{" "}
-            <span aria-label="dollar sign">$</span>{" "}
-            <span aria-label="percent">%</span>
-          </p>
-        </div>
-        <div className="Icon-inside">
-          <label htmlFor="confirm_pwd" className="sameLineLable">
-            אמת סיסמה:
-            <FontAwesomeIcon
-              icon={faCheck}
-              className={validMatch && matchPwd ? "valid" : "hide"}
-            />
-            <FontAwesomeIcon
-              icon={faTimes}
-              className={validMatch || !matchPwd ? "hide" : "invalid"}
-            />
-          </label>
-          <div className="iconInput">
-            <input
-              type={showPassword ? "text" : "password"}
-              id="confirm_pwd"
-              onChange={(e) => setMatchPwd(e.target.value)}
-              value={matchPwd}
-              aria-invalid={validMatch ? "false" : "true"}
-              aria-describedby="confirmnote"
-              onFocus={() => setMatchFocus(true)}
-              onBlur={() => setMatchFocus(false)}
-              className="inputField"
-            />
-            <span>
-              <IconButton
-                className="IconButton"
-                aria-label="toggle password visibility"
-                onClick={handleClickShowPassword}
-                onMouseDown={handleMouseDownPassword}
-                edge="end"
-              >
-                {showPassword ? <VisibilityOff /> : <Visibility />}
-              </IconButton>
-            </span>
-          </div>
-          <p
-            id="confirmnote"
-            className={matchFocus && !validMatch ? "instructions" : "offscreen"}
-          >
-            <FontAwesomeIcon icon={faInfoCircle} />
-            חייב לתאום את הסיסמה הקודמת.
-          </p>
-        </div>
-
-        <div className="Icon-inside">
-          <label htmlFor="confirm_pwd" className="sameLineLable">
-            הזן סיסמה ישנה לאישור:
-          </label>
-          <div className="iconInput">
-            <input
-              type={showPassword ? "text" : "password"}
-              id="confirm_old_password"
-              onChange={(e) => setConfirmOldPass(e.target.value)}
-              value={confirmOldPass}
-              required
-              aria-invalid={validMatch ? "false" : "true"}
-              aria-describedby="confirmnote"
-              onFocus={() => setMatchFocus(true)}
-              onBlur={() => setMatchFocus(false)}
-              className="inputField"
-            />
-            <span>
-              <IconButton
-                className="IconButton"
-                aria-label="toggle password visibility"
-                onClick={handleClickShowPassword}
-                onMouseDown={handleMouseDownPassword}
-                edge="end"
-              >
-                {showPassword ? <VisibilityOff /> : <Visibility />}
-              </IconButton>
-            </span>
-          </div>
-        </div>
-
-        <button
-          disabled={
-            !validName ||
-            !validOldPass ||
-            (changePassword && (!validPwd || !validMatch))
-              ? true
-              : false
-          }
-        >
-          עדכן פרטים
-        </button>
-      </form>
+            עדכן פרטים
+          </button>
+        </form>
+      ) : (
+        <Report
+          className={showReport}
+          setClassName={setReportShow}
+          userMail={auth?.mail}
+          elementType="user"
+        />
+      )}
     </section>
   );
 };

@@ -57,6 +57,34 @@ function changeMailInDb(){
   }
 
 }
+function changeUserMailByManager(){
+  //change to a new mail by the manager
+  global $db;
+  global $DATA_OBJ;
+  global $user;
+  $oldMail=$DATA_OBJ->params->oldMail;
+  $query="select * from users where mail='{$DATA_OBJ->params->newMail}'";
+  $result=$db->readDBNoStoredProcedure($query);
+  if($result!=""&&$result!=[]&&$result!=false){
+    echo json_encode("mail exist");
+    die;
+  }
+  else{
+     $query="UPDATE users SET mail = '{$DATA_OBJ->params->newMail}' WHERE  mail = '{$oldMail}'";
+      $result=$db->readDBNoStoredProcedure($query);
+      echo json_encode($result);
+      die;
+  }
+}
+function getUserById(){
+  //get user by id
+  global $db;
+  global $DATA_OBJ;
+  $query="select * from users where uuid='{$DATA_OBJ->params->userId}'";
+  $result=$db->readDBNoStoredProcedure($query);
+  echo json_encode($result);
+  die;
+}
 function deleteOrRestoreUser(){
   //selete or restore user active change
   global $db;
@@ -93,6 +121,16 @@ else{
     else{
       if($DATA_OBJ->data_type=="changeMailInDb"){
         changeMailInDb();
+      }
+      else{
+        if($DATA_OBJ->data_type=="getUserById"){
+          getUserById();
+        }
+        else{
+          if($DATA_OBJ->data_type=="changeUserMailByManager"){
+            changeUserMailByManager();
+          }
+        }
       }
     }
   }

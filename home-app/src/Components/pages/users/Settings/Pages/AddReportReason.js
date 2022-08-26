@@ -39,7 +39,7 @@ function AddParameterToAds(props) {
         data_type: "addNewReportReason",
         params: {
           reasonName: reasonName,
-          category: category == "מודעה" ? "ad" : "blog",
+          category: category == "מודעה" ? "ad" :category== "בלוג"?"blog":"user",
           guest: auth.accessToken != undefined ? "registered" : "guest",
         },
       },
@@ -78,6 +78,7 @@ function AddParameterToAds(props) {
           >
             <option>מודעה</option>
             <option>בלוג</option>
+            <option>משתמש</option>
           </select>
         </label>
         <label className="labelParamAdd">

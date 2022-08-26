@@ -100,48 +100,92 @@ function Report(props) {
             return;
           }
           toast.dismiss();
+          toast.success("פניה נשלחה בהצלחה");
           props.setClassName("notShowReport");
         }
         console.log(result);
         returnStateToDefault();
       } else {
-        const result = await instance.request({
-          data: {
-            data_type: "reportOnElement",
-            params: {
-              guest: auth.accessToken != undefined ? "registered" : "guest",
-              freeText: freeText,
-              title: title,
-              reportType: reportType,
-              elementId: props.adBlock.ad[0].adID,
-              element_type: props.elementType,
+        if (props.elementType == "ad") {
+          console.log(props.elementType);
+          const result = await instance.request({
+            data: {
+              data_type: "reportOnElement",
+              params: {
+                guest: auth.accessToken != undefined ? "registered" : "guest",
+                freeText: freeText,
+                title: title,
+                reportType: reportType,
+                elementId: props.adBlock.ad[0].adID,
+                element_type: props.elementType,
+              },
             },
-          },
-          headers: {
-            Authorization: `Bearer ${auth.accessToken}`,
-          },
-        });
-        if (result) {
-          if (result.data === "mail exist") {
+            headers: {
+              Authorization: `Bearer ${auth.accessToken}`,
+            },
+          });
+          if (result) {
+            if (result.data === "mail exist") {
+              toast.dismiss();
+              toast.error("בעיה בשליחת דוח   ");
+              props.setClassName("notShowReport");
+              return;
+            }
+            toast.success("פניה נשלחה בהצלחה");
             toast.dismiss();
-            toast.error("בעיה בשליחת דוח   ");
             props.setClassName("notShowReport");
-            return;
           }
-          toast.dismiss();
-          props.setClassName("notShowReport");
+          console.log(result);
+          returnStateToDefault();
+        } else {
+          //the report on user part
+          const result = await instance.request({
+            data: {
+              data_type: "requestChangeMail",
+              params: {
+                guest: auth.accessToken != undefined ? "registered" : "guest",
+                freeText: freeText,
+                title: title,
+                reportType: reportType,
+                mail: props.userMail,
+                element_type: props.elementType,
+              },
+            },
+            headers: {
+              Authorization: `Bearer ${auth.accessToken}`,
+            },
+          });
+          if (result) {
+            if (result.data === "mail exist") {
+              toast.dismiss();
+              toast.error("בעיה בשליחת דוח   ");
+              props.setClassName("notShowReport");
+              return;
+            }
+            toast.dismiss();
+            toast.success("פניה נשלחה בהצלחה");
+            props.setClassName("notShowReport");
+          }
+          console.log(result);
+          returnStateToDefault();
         }
-        console.log(result);
-        returnStateToDefault();
       }
     }
   };
   return (
     <section className={props.className}>
       <form className="formReport">
-        <h1> דיווח על {props.elementType === "ad" ? "מודעה" : "בלוג"}</h1>
+        <h1>
+          {" "}
+          פנייה על{" "}
+          {props.elementType === "ad"
+            ? "מודעה"
+            : props.elementType === "blog"
+            ? "בלוג"
+            : "משתמש"}
+        </h1>
         <label>
-          <span className="reportLabel">סוג דוח</span>
+          <span className="reportLabel">סוג פנייה</span>
           <select
             value={reportType}
             onChange={(e) => setReportType(e.target.value)}
@@ -150,7 +194,7 @@ function Report(props) {
           </select>
         </label>
         <label className="reportLabel">
-          <span>כותרת</span>
+          <span>{props.elementType == "user" ? "הכנס מייל" : "כותרת"}</span>
           <input
             type="text"
             name="title"
@@ -160,7 +204,7 @@ function Report(props) {
           />
         </label>
         <label className="reportLabel">
-          <span>הכנס סיבת דיווח</span>
+          <span>הכנס סיבת פנייה</span>
           <textarea
             rows="4"
             type="text"
@@ -171,7 +215,7 @@ function Report(props) {
           />
         </label>
         <p>
-          <button onClick={submitReport}>שלח דיווח</button>
+          <button onClick={submitReport}>שלח פנייה</button>
           <button onClick={cancelReport}>בטל</button>
         </p>
       </form>
