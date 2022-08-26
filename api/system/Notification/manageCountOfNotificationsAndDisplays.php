@@ -41,10 +41,10 @@ function getNewItemsCountForDashboardForManager(){
   $query="SELECT COUNT(msgid) as total FROM messages where receiver='$userId' and seen='0'";
   $NewMessagesCount=$db->readDBNoStoredProcedure($query);
   $query="SELECT COUNT(msgId) as total FROM system_messages where userId='$userId' and seen='0'";
-  $new=$db->readDBNoStoredProcedure($query);
+  $newNotificationCount=$db->readDBNoStoredProcedure($query);
   $query="SELECT COUNT(adID) as total FROM ads where active='0' and approval_status='pending'";
   $newAdsWaitForAproval=$db->readDBNoStoredProcedure($query);
-  $query="SELECT COUNT(id) as total FROM user_reports where active='0'";
+  $query="SELECT COUNT(id) as total FROM user_reports where active='1'";
   $newReportForManager=$db->readDBNoStoredProcedure($query);
   $query="SELECT COUNT(id) as total FROM user_reports where element_id in (select adID from ads where user_id='$userId') and seen='0'";
   $newReportForTheUser=$db->readDBNoStoredProcedure($query);

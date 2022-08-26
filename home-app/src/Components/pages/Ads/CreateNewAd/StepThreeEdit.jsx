@@ -15,6 +15,10 @@ const StepThree = ({
   formDataStepThreeRent,
   setFormDataStepThreeRent,
   adBlock,
+  requiredFieldsStepThreeRent,
+  requiredFieldsStepThreeBuy,
+  setrequiredFieldsStepThreeRent,
+  setrequiredFieldsStepThreeBuy,
 }) => {
   const { auth } = useAuth();
   const handleOnFocusLost = (e, typeOfParam) => {
@@ -166,6 +170,12 @@ const StepThree = ({
       for (let index = 0; index < result.data.length; index++) {
         let name1 = result.data[index].name;
         if (result.data[index].category === "השכרה") {
+          if (result.data[index].required == 1) {
+            setrequiredFieldsStepThreeRent({
+              ...requiredFieldsStepThreeRent,
+              [result.data[index].name]: "",
+            });
+          }
           if (typeof formDataStepThreeRent[name1] !== "undefined") {
             continue;
           }
@@ -175,6 +185,12 @@ const StepThree = ({
           });
         } else {
           if (result.data[index].category === "קנייה") {
+            if (result.data[index].required == 1) {
+              setrequiredFieldsStepThreeBuy({
+                ...requiredFieldsStepThreeBuy,
+                [result.data[index].name]: "",
+              });
+            }
             if (typeof formDataStepThreeBuy[name1] !== "undefined") {
               continue;
             }

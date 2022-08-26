@@ -42,6 +42,11 @@ const Form = (props) => {
   const [formDataStepThreeRent, setFormDataStepThreeRent] = useState({});
   const [formDataImageUpload, setFormDataImageUpload] = useState("");
   const [picsForDelete, setPicsForDelete] = useState([]);
+  const [requiredFieldsStepThreeRent, setrequiredFieldsStepThreeRent] =
+    useState({});
+  const [requiredFieldsStepThreeBuy, setrequiredFieldsStepThreeBuy] = useState(
+    {}
+  );
   const { auth } = useAuth();
   // Page title, display accordin to our page index
   const FormTitles = [
@@ -50,7 +55,58 @@ const Form = (props) => {
     "הפרטים הקטנים",
     "קצת תמונות תמיד עוזר",
   ];
-
+  const checkIfAllRequiredFieldsInAdContentAreValid = () => {
+    if (formData.assetOption == "rent") {
+      for (const [keyForRequired, valueRequired] of Object.entries(
+        requiredFieldsStepThreeRent
+      )) {
+        let paramExist = false; //parameter exist in the adaContentObject
+        for (const [keyForAdContentRent, valueAdContentRent] of Object.entries(
+          formDataStepThreeRent
+        )) {
+          if (keyForAdContentRent == keyForRequired) {
+            if (valueAdContentRent == "") {
+              toast.dismiss();
+              toast.error("חייב למלא שדה " + keyForRequired);
+              return false;
+            } else {
+              paramExist = true;
+            }
+          }
+        }
+        if (!paramExist) {
+          toast.dismiss();
+          toast.error("חייב למלא שדה " + keyForRequired);
+          return false;
+        }
+      }
+    } else {
+      for (const [keyForRequired, value] of Object.entries(
+        requiredFieldsStepThreeBuy
+      )) {
+        let paramExist = false; //parameter exist in the adaContentObject
+        for (const [keyForAdContentBuy, valueAdContentBuy] of Object.entries(
+          formDataStepThreeBuy
+        )) {
+          if (keyForAdContentBuy == keyForRequired) {
+            if (valueAdContentBuy == "") {
+              toast.dismiss();
+              toast.error("חייב למלא שדה " + keyForRequired);
+              return false;
+            } else {
+              paramExist = true;
+            }
+          }
+        }
+        if (!paramExist) {
+          toast.dismiss();
+          toast.error("חייב למלא שדה " + keyForRequired);
+          return false;
+        }
+      }
+    }
+    return true;
+  };
   /**
    *Post form to server
    */
@@ -145,6 +201,10 @@ const Form = (props) => {
             formDataStepThreeRent={formDataStepThreeRent}
             setFormDataStepThreeRent={setFormDataStepThreeRent}
             adBlock={props.adBlock}
+            requiredFieldsStepThreeRent={requiredFieldsStepThreeRent}
+            requiredFieldsStepThreeBuy={requiredFieldsStepThreeBuy}
+            setrequiredFieldsStepThreeRent={setrequiredFieldsStepThreeRent}
+            setrequiredFieldsStepThreeBuy={setrequiredFieldsStepThreeBuy}
           />
         );
       case 3:
@@ -191,11 +251,20 @@ const Form = (props) => {
         <div className="createNewForm-body">{PageDisplay()}</div>
         <div className="createNewForm-footer">
           <button
-            onClick={() => {
+            onClick={(e) => {
+              e.preventDefault();
               if (page === FormTitles.length - 1) {
                 postNewAdd();
               } else {
-                setPage((currPage) => currPage + 1);
+                if (page === FormTitles.length - 2) {
+                  if (checkIfAllRequiredFieldsInAdContentAreValid()) {
+                    setPage((currPage) => currPage + 1);
+                  } else {
+                    return;
+                  }
+                } else {
+                  setPage((currPage) => currPage + 1);
+                }
               }
             }}
           >
