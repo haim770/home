@@ -8,6 +8,7 @@ import toast, { Toaster } from "react-hot-toast";
 import "./Styles/loginStyles.css";
 import useDH from "../../Auth/DH/DHUseContext";
 
+const MAIL_REGEX = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 const Login = () => {
   const { setAuth } = useAuth();
   const { generateAlicePKA, generateSharedKey, alicePKA } = useDH();
@@ -20,6 +21,9 @@ const Login = () => {
   const [user, resetUser, userAttribs] = useInput("user", "");
   const [pwd, setPwd] = useState("");
   const [errMsg, setErrMsg] = useState("");
+
+  const [forgetPassword, setForgetPassword] = useState(false);
+  const [resetMail, setResetMail] = useState("");
 
   const cookies = new Cookies();
 
@@ -39,7 +43,7 @@ const Login = () => {
       const response = await instance.request({
         data: {
           data_type: "Login",
-          params: { user, pwd,alicePKA },
+          params: { user, pwd, alicePKA },
         },
       });
 
@@ -72,6 +76,42 @@ const Login = () => {
     }
   };
 
+  const showForgetPassword = () => {
+    setForgetPassword(true);
+  };
+  const delay = (ms) => new Promise((res) => setTimeout(res, ms));
+  const handleSubmitForgotPassword = async (e) => {
+    e.preventDefault();
+    const v1 = MAIL_REGEX.test(resetMail);
+    if (v1) {
+      try {
+        const response = await instance.request({
+          data: {
+            data_type: "resetPasswordRequest",
+            params: { resetMail },
+          },
+        });
+        toast.success("מייל שחזור נשלח בהצלחה");
+        await delay(3000);
+        navigate(from, { replace: true });
+      } catch (err) {
+        if (!err?.response) {
+          setErrMsg("No Server Response");
+        } else if (err.response?.status === 400) {
+          setErrMsg("Missing Username or Password");
+        } else if (err.response?.status === 401) {
+          setErrMsg("Unauthorized");
+        } else {
+          setErrMsg("Login Failed");
+        }
+        errRef.current.focus();
+      }
+    } else {
+      setErrMsg("כתובת מייל לא חוקית");
+    }
+  };
+
+  const mailRef = useRef();
   return (
     <section className="loginContainer">
       <h1>התחברות</h1>
@@ -96,14 +136,18 @@ const Login = () => {
           required
           className="rounded-input"
         />
-        <button>התחבר</button>
+        <button className="button-4">התחבר</button>
       </form>
       <div className="bottom_container">
         <div>
-          <Link to="/register">שכחת סיסמה? </Link>{" "}
+          <button onClick={showForgetPassword} className="fpass_btn">
+            שכחת סיסמה?{" "}
+          </button>{" "}
         </div>
         <div>
-          <Link to="/register">הירשם </Link>{" "}
+          <Link to="/register" className="fpass_btn">
+            הירשם{" "}
+          </Link>{" "}
         </div>
       </div>
       <p
@@ -113,8 +157,28 @@ const Login = () => {
       >
         {errMsg}
       </p>
+      {forgetPassword ? (
+        <div className="forgotPasswordContainer">
+          <form onSubmit={handleSubmitForgotPassword}>
+            <label htmlFor="resetMail">כתובת מייל</label>
+            <input
+              type="text"
+              id="resetMail"
+              ref={mailRef}
+              autoComplete="off"
+              {...userAttribs}
+              required
+              className="rounded-input"
+              onChange={(e) => setResetMail(e.target.value)}
+              value={resetMail}
+            />
+            <button className="button-4">שחזר סיסמה</button>
+          </form>
+        </div>
+      ) : (
+        <></>
+      )}
       <Toaster />
-
     </section>
   );
 };
