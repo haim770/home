@@ -127,7 +127,17 @@ function ChangeUserRule(props) {
           aria-label="users"
         />
       </label>
-      {UserSelected ? <UserShow user={UserSelected} act="userIsIn" /> : ""}
+      {UserSelected ? (
+        <UserShow
+          user={UserSelected}
+          act="userIsIn"
+          getAllUsers={getAllUsers}
+          setUserSelected={setUserSelected}
+          setMailOptions={setMailOptions} 
+          setMailSelected={setMailSelected}/>
+      ) : (
+        ""
+      )}
     </section>
   );
 }

@@ -136,7 +136,10 @@ function AdById(props) {
           {/** This will contain the Ad footer inner wrapper  */}
           <div
             style={{
-              display: data?.user?.mail === auth?.user ? "none" : "flex",
+              display:
+                data?.user?.mail === auth?.user && auth?.accessToken != ""
+                  ? "none"
+                  : "flex",
             }}
           >
             <div className="jss142">
@@ -148,7 +151,10 @@ function AdById(props) {
               </button>
               <button
                 style={{
-                  display: data?.user?.phone ? "block" : "none",
+                  display:
+                    data?.user?.phone != "" && auth?.accessToken != ""
+                      ? "block"
+                      : "none",
                   backgroundColor: "green",
                   marginRight: "1rem",
                   padding: "1rem",
@@ -175,6 +181,12 @@ function AdById(props) {
             <div>
               <button
                 className="btnClassAdBlock"
+                style={{
+                  display:
+                    data?.user?.phone && auth?.accessToken != ""
+                      ? "block"
+                      : "none",
+                }}
                 onClick={(e) => {
                   e.preventDefault();
                   console.log(e.target.tagName);
@@ -199,7 +211,9 @@ function AdById(props) {
               className="btnClassAdBlockEdit"
               style={{
                 display:
-                  data?.user?.mail === auth?.user || auth?.rule === "5150"
+                  (auth?.user != undefined &&
+                  data?.user?.mail === auth?.user) ||
+                  auth?.rule === "5150"
                     ? "block"
                     : "none",
               }}
@@ -210,10 +224,14 @@ function AdById(props) {
             <button
               className="btnClassAdBlockEdit"
               style={{
-                display: data?.user?.mail === auth?.user ? "block" : "none",
+                display:
+                  auth?.user != undefined && data?.user?.mail === auth?.user
+                    ? "block"
+                    : "none",
               }}
               onClick={editAd}
             >
+              {console.log(auth)}
               ערוך מודעה
             </button>
           </div>

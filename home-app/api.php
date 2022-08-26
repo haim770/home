@@ -484,6 +484,9 @@ if (isset($DATA_OBJ->data_type)) {
         case "changeRemainingAdsInDb":
             include_once("../api/system/user/deleteOrRestoreUserAndChangeRule.php");
             break;
+        case "changeMailInDb":
+           include_once("../api/system/user/deleteOrRestoreUserAndChangeRule.php");
+            break; 
         case "changeUserRule":
             include_once("../api/system/user/deleteOrRestoreUserAndChangeRule.php");
             break;
@@ -646,6 +649,9 @@ if (isset($DATA_OBJ->data_type)) {
         case "toggleReportReasons":
             include_once('../api/system/Ads/reports.php');
             break;
+        case "requestChangeMail":
+             include_once('../api/system/Ads/reports.php');
+            break;
         case "editReportReason":
              include_once('../api/system/Ads/reports.php');
             break;
@@ -792,14 +798,15 @@ if (isset($DATA_OBJ->data_type)) {
         case "getBlogsTop":
             include("../api/system/Blog/getBlogTop.php");
             break;
-
-            
-
+        case "changeUserMailByManager":
+            include_once("../api/system/user/deleteOrRestoreUserAndChangeRule.php");
+            break; 
+        case "getUserById":
+            include_once("../api/system/user/deleteOrRestoreUserAndChangeRule.php");
+            break; 
         case "getBlogById":
             include("../api/system/Blog/getBlogById.php");
             break;
-            
-            
         case "getAllAds":
             getAllAds();
             break;

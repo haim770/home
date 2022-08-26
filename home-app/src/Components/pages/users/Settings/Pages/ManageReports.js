@@ -7,16 +7,17 @@ import useAuth from "../../../../../Auth/useAuth";
 import instance from "../../../../../api/AxiosInstance";
 import HandleComplainOnAd from "./HandleComplainOnAd.js";
 import HandleComplainOnBlog from "./HandleComplainOnBlog.jsx";
+import HandleRequestOnUser from "./HandleRequestOnUser.js";
 const columns = [
-  { field: "id", headerName: "מס תלונה" },
+  { field: "id", headerName: "מס פניה" },
   { field: "element_id", headerName: "מספר אלמנט" },
-  { field: "userId", headerName: "משתמש שהתלונן" },
+  { field: "userId", headerName: "משתמש שפנה" },
   { field: "create_time", headerName: "תאריך" },
-  { field: "active", headerName: "סטטוס תלונה" },
-  { field: "content", headerName: "תוכן תלונה" },
-  { field: "title", headerName: "כותרת תלונה" },
-  { field: "manage_feedback", headerName: "תגובת מנהל לתלונה" },
-  { field: "report_reason", headerName: "סיבת תלונה" },
+  { field: "active", headerName: "סטטוס פניה" },
+  { field: "content", headerName: "תוכן פניה" },
+  { field: "title", headerName: "כותרת פניה" },
+  { field: "manage_feedback", headerName: "תגובת מנהל לפניה" },
+  { field: "report_reason", headerName: "סיבת פניה" },
   { field: "element_type", headerName: "סוג אלמנט" },
 ];
 
@@ -69,6 +70,24 @@ const ManageReports = () => {
         }
         console.log(result.data);
         setSelectedAd(result.data);
+      } else {
+        if (row.element_type == "user") {
+          let result = await instance.request({
+            data: {
+              data_type: "getUserById",
+              params: { userId: row.element_id },
+              guest: "guest",
+            },
+            headers: {
+              Authorization: `Bearer ${auth.accessToken}`,
+            },
+          });
+          if (result.data == "") {
+            return;
+          }
+          console.log(result.data);
+          setSelectedAd(result.data);
+        }
       }
     }
   };
@@ -89,9 +108,7 @@ const ManageReports = () => {
         alert("not authorized");
         return;
       }
-
       console.log(result.data);
-
       setRows(result.data);
     }
     console.log(result.data);
@@ -112,9 +129,9 @@ const ManageReports = () => {
       return;
     }
     const data_type =
-      searchReports === "דוחות שטופלו בעבר"
+      searchReports === "פניות שטופלו בעבר"
         ? "getReportsThatAreNotActive"
-        : searchReports === "דוחות חדשים"
+        : searchReports === "פניות חדשות"
         ? "getNewReports"
         : "getAllReports";
     const result = await instance.request({
@@ -145,10 +162,10 @@ const ManageReports = () => {
     }
   };
   return (
-    <div className="tableContainer ">
+    <div className="tableContainer">
       <nav>
         <label>
-          <span>בחר איזה דוחות ברצונך לראות </span>
+          <span>בחר איזה פניות ברצונך לראות </span>
           <select
             value={searchReports}
             onChange={(e) => {
@@ -156,12 +173,12 @@ const ManageReports = () => {
             }}
           >
             <option></option>
-            <option>דוחות חדשים</option>
-            <option>כל הדוחות</option>
-            <option>דוחות שטופלו בעבר</option>
+            <option>פניות חדשות</option>
+            <option>כל הפניות</option>
+            <option>פניות שטופלו בעבר</option>
           </select>
         </label>
-        <button onClick={serchReportsByParam}>חפש דוחות</button>
+        <button onClick={serchReportsByParam}>חפש פניות</button>
       </nav>
       <div style={{ height: 700, width: "100%" }} className={tableClassName}>
         <DataGrid
@@ -194,16 +211,28 @@ const ManageReports = () => {
         />
       ) : showSelected == "showSelected" &&
         selectedReport.element_type == "blog" ? (
-          <HandleComplainOnBlog
-            className={showSelected}
-            setClassName={setShowSelected}
-            setTableClassName={setTableClassName}
-            selectedReport={selectedReport}
-            selectedBlog={selectedAd}
-            setSelectedBlog={setSelectedAd}
-            setSelectedReport={setSelectedReport}
-            getAllReports={getAllReports}
-          />
+        <HandleComplainOnBlog
+          className={showSelected}
+          setClassName={setShowSelected}
+          setTableClassName={setTableClassName}
+          selectedReport={selectedReport}
+          selectedBlog={selectedAd}
+          setSelectedBlog={setSelectedAd}
+          setSelectedReport={setSelectedReport}
+          getAllReports={getAllReports}
+        />
+      ) : showSelected == "showSelected" &&
+        selectedReport.element_type == "user" ? (
+        <HandleRequestOnUser
+          className={showSelected}
+          setClassName={setShowSelected}
+          setTableClassName={setTableClassName}
+          selectedReport={selectedReport}
+          selectedUser={selectedAd}
+          setSelectedUser={setSelectedAd}
+          setSelectedReport={setSelectedReport}
+          getAllReports={getAllReports}
+        />
       ) : (
         ""
       )}
