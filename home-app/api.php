@@ -484,6 +484,9 @@ if (isset($DATA_OBJ->data_type)) {
         case "changeRemainingAdsInDb":
             include_once("../api/system/user/deleteOrRestoreUserAndChangeRule.php");
             break;
+        case "changeMailInDb":
+           include_once("../api/system/user/deleteOrRestoreUserAndChangeRule.php");
+            break; 
         case "changeUserRule":
             include_once("../api/system/user/deleteOrRestoreUserAndChangeRule.php");
             break;

@@ -9,6 +9,7 @@ import { v4 as uuidv4 } from "uuid";
 import instance from "../api/AxiosInstance";
 import Select from "react-select";
 import useAuth from "../Auth/useAuth";
+import toast, { Toaster } from "react-hot-toast";
 function UserShow(props) {
   const [showRemainingAdsInput, setShowRemainingAdsInput] =
     useState("notShowInput");
@@ -17,6 +18,8 @@ function UserShow(props) {
   const [valueRemainingInput1, setValueRemainingInput1] = useState(
     props.user.remaining_ads
   );
+  const [valueMailInput, setValueMailInput] = useState("");
+  const [showChangeMail, setShowChangeMail] = useState("notShowInput");
   const [activeStatus, setActiveStatus] = useState(props.user.active);
   const deleteOrRestoreUser = async () => {
     //add ad to the db, returns true/false
@@ -32,11 +35,16 @@ function UserShow(props) {
     console.log(result.data);
     if (result) {
       if (result.data === "changed active status") {
-        console.log("succeeds");
+        toast.dismiss();
+        toast.success("פעולה הצליחה");
+        props.setMailOptions([{}]);
+        props.setMailSelected({});
+        props.setUserSelected(false);
         setActiveStatus(activeStatus == "0" ? "1" : "0");
       }
     } else {
-      console.log("failed");
+      toast.dismiss();
+      toast.error("פעולה נכשלה");
     }
   };
   const changeUserRule = async () => {
@@ -55,9 +63,17 @@ function UserShow(props) {
     });
     console.log(result.data);
     if (result) {
-      if (result.data === "changed active status") console.log("succeeds");
+      if (result.data === "changed active status") {
+        props.getAllUsers();
+        props.setMailOptions([{}]);
+        props.setMailSelected({});
+        props.setUserSelected(false);
+        toast.dismiss();
+        toast.success("פעולה הצליחה");
+      }
     } else {
-      console.log("failed");
+      toast.dismiss();
+      toast.error("פעולה נכשלה");
     }
   };
   const changeRemainingAdsInDb = async () => {
@@ -76,10 +92,51 @@ function UserShow(props) {
     });
     console.log(result.data);
     if (result) {
-      if (result.data === "changed remaining ads") console.log("succeeds");
+      if (result.data === "changed remaining ads") {
+        toast.dismiss();
+        toast.success("פעולה הצליחה");
+        props.getAllUsers();
+        props.setMailOptions([{}]);
+        props.setMailSelected({});
+      }
     } else {
-      console.log("failed");
+      toast.dismiss();
+      toast.success("פעולה נכשלה");
     }
+    setShowRemainingAdsInput("notShowInput");
+    props.setUserSelected(false);
+    props.getAllUsers();
+  };
+  const changeMailInDb = async () => {
+    //add ad to the db, returns true/false
+    if (props.act === "nothing") {
+      return;
+    }
+    const result = await instance.request({
+      data: {
+        data_type: "changeMailInDb",
+        params: { mail: props.user.mail, newMail: valueMailInput },
+      },
+      headers: {
+        Authorization: `Bearer ${auth.accessToken}`,
+      },
+    });
+    console.log(result.data);
+    if (result) {
+      if (result.data === "success") {
+        toast.dismiss();
+        toast.success("פעולה הצליחה");
+        props.getAllUsers();
+        props.setUserSelected(false);
+        props.setMailOptions([{}]);
+        props.setMailSelected({});
+      }
+    } else {
+      toast.dismiss();
+      toast.success("פעולה נכשלה");
+    }
+    props.setUserSelected(false);
+    setShowChangeMail("notShowInput");
   };
   const deleteOrRestore = (e) => {
     console.log(activeStatus);
@@ -89,6 +146,43 @@ function UserShow(props) {
       return;
     } else {
       deleteOrRestoreUser();
+    }
+  };
+  const mailChecker = (userMail) => {
+    if (userMail.length < 6) {
+      toast.dismiss();
+      toast.error("מייל חייב להכיל מינימום 6 תווים");
+      return false;
+    }
+    if (userMail.substring(userMail.length - 4, userMail.length) !== ".com") {
+      toast.dismiss();
+      toast.error("אין סיומת נכונה");
+      return false;
+    }
+    if (userMail.substring(userMail.length - 5, userMail.length) === "@.com") {
+      toast.dismiss();
+      toast.error("מייל חייב  להכיל תוכן בין @ לסיומת");
+      return false;
+    }
+    if (!userMail.includes("@")) {
+      toast.dismiss();
+      toast.error("אין @");
+
+      return false;
+    }
+    return true;
+  };
+  const changeMail = (e) => {
+    e.preventDefault();
+    if (showChangeMail === "notShowInput") {
+      setShowChangeMail("showInput");
+
+      return;
+    } else {
+      if (mailChecker(valueMailInput)) changeMailInDb();
+      else {
+        return;
+      }
     }
   };
   const changeRemainingAds = (e) => {
@@ -159,6 +253,21 @@ function UserShow(props) {
             onChange={handleChangeRemainingAds}
           />
         </label>
+        <label
+          style={{
+            display: showChangeMail === "notShowInput" ? "none" : "block",
+          }}
+          key="changeMailInput"
+        >
+          <span>הכנס מייל</span>
+          <input
+            type="text"
+            name="mailInput"
+            id="mailInput"
+            value={valueMailInput || ""}
+            onChange={(e) => setValueMailInput(e.target.value)}
+          />
+        </label>
       </p>
       <div className="buttonsList">
         <button onClick={changeRule}>
@@ -168,7 +277,9 @@ function UserShow(props) {
           {activeStatus === "1" ? "מחק משתמש" : " שחזר למשתמש"}
         </button>
         <button onClick={(e) => changeRemainingAds(e)}>שנה יתרת מודעות</button>
+        <button onClick={(e) => changeMail(e)}>שנה מייל </button>
       </div>
+      <Toaster />
     </section>
   );
 }

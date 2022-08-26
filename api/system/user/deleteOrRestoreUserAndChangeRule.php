@@ -3,15 +3,17 @@
 function changeRemainingAdsInDb(){
   global $db;
   global $DATA_OBJ;
-
-    $query="UPDATE users SET remaining_ads = '{$DATA_OBJ->params->remainingAds}' WHERE  mail = '{$DATA_OBJ->params->mail}'";
-
-  
+  $query="UPDATE users SET remaining_ads = '{$DATA_OBJ->params->remainingAds}' WHERE  mail = '{$DATA_OBJ->params->mail}'";
   $result=$db->readDBNoStoredProcedure($query);
-  $query=$query="select remaining_ads from users WHERE  mail = '{$DATA_OBJ->params->mail}'";
+  $query="select remaining_ads from users WHERE mail = '{$DATA_OBJ->params->mail}'";
   $result=$db->readDBNoStoredProcedure($query);
+  echo json_encode($result);
+  if($result==[]||$result==false||$result==""){
+    echo json_encode("failed");
+    die;
+  }
   if($result[0]->remaining_ads==$DATA_OBJ->params->remainingAds){
-echo json_encode("changed remaining ads");
+    echo json_encode("changed remaining ads");
 die;
 }
 echo json_encode("failed changed remaining ads");
@@ -36,6 +38,24 @@ die;
 }
 echo json_encode("failed changed rule of user");
 die;
+}
+function changeMailInDb(){
+  //change mail of user by manager
+  global $db;
+  global $DATA_OBJ;
+  $newMail=$DATA_OBJ->params->newMail;
+  $oldMail=$DATA_OBJ->params->mail;
+  $query="UPDATE users SET mail = '$newMail' WHERE  mail = '$oldMail'";
+  $result=$db->readDBNoStoredProcedure($query);
+  $query="select * from users where mail='$newMail'";
+  $result=$db->readDBNoStoredProcedure($query);
+  if($result==false||$result==""||$result==[]){
+    echo "failed";
+  }
+  else{
+    echo "success";
+  }
+
 }
 function deleteOrRestoreUser(){
   //selete or restore user active change
@@ -69,6 +89,11 @@ else{
   else{
     if($DATA_OBJ->data_type=="changeRemainingAdsInDb"){
       changeRemainingAdsInDb();
+    }
+    else{
+      if($DATA_OBJ->data_type=="changeMailInDb"){
+        changeMailInDb();
+      }
     }
   }
 }
