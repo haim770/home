@@ -8,6 +8,20 @@ $info = (object)[];
 // our uuid
 $arr["alice"] = $user->getUuid();
 
+// update lest time seen
+$expFormat = mktime(
+    date("H"),
+    date("i"),
+    date("s"),
+    date("m"),
+    date("d"),
+    date("Y")
+);
+$expDate = date("Y-m-d H:i:s", strtotime('+1 hours'));
+$arr2["user"]= $arr["alice"];
+$arr2["utime"] = $expDate;
+$query= "UPDATE `users` SET `last_seen`=:utime WHERE `uuid`=:user";
+$db->writeDBNotStoredProcedure($query, $arr2);
 //read new messages we got
 // >= NOW()-2 => get all new data got in last 2 seconds
 $query = "SELECT messages.message, users.first_name, users.last_name, users.uuid FROM messages INNER JOIN users ON messages.sender = users.uuid where messages.receiver =:alice and dateMsg >= NOW() - INTERVAL 2 SECOND";

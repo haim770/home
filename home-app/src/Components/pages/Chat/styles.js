@@ -59,7 +59,6 @@ export const styles = {
   },
   chatBoxWindowContant: {
     display: "flex",
-    justifyContent: "center",
     marginTop: "0.4rem",
     zIndex: "1000",
     height: "2rem",
