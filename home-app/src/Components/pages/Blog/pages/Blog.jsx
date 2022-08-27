@@ -8,12 +8,15 @@ import instance from "../../../../api/AxiosInstance";
 import Report from "../../../Report.js";
 import BlogCommentForm from "./BlogCommentForm";
 import CommentsForBlog from "./CommentsForBlog";
+import useAuth from "../../../../Auth/useAuth";
 
 const Blog = () => {
   const { id } = useParams();
   const [blog, setBlog] = useState(null);
   const [loading, setLoading] = useState(true);
   const [showReport, setReportShow] = useState("notShowReport");
+  const { auth } = useAuth();
+
   const reportOnBlog = (e) => {
     //report on BLOG
     e.preventDefault();
@@ -57,6 +60,18 @@ const Blog = () => {
       <Link className="blog-goBack" to="/Blog">
         <span> &#8594;</span> <span>חזור</span>
       </Link>
+      {auth?.roles === "5150" ? (
+        <>
+          {" "}
+          <Link to={"/Blog/Create?editblog=" + id}>
+            <button className="button-4">
+              <p>ערוך בלוג</p>
+            </button>
+          </Link>
+        </>
+      ) : (
+        <></>
+      )}
       {blog && showReport != "showReport" && showReport != "showComment" ? (
         <div className="blog-wrap">
           <header>
@@ -82,7 +97,7 @@ const Blog = () => {
             {" "}
             דווח על בלוג
           </button>
-          <button className="button-4"  onClick={insertComment}>
+          <button className="button-4" onClick={insertComment}>
             הגב
           </button>
           <CommentsForBlog blogId={id} />

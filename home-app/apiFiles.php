@@ -28,4 +28,9 @@ if ($DATA_OBJ["data_type"] == "postNewBlog") {
     include("../api/system/Blog/postNewBlog.php");
     die;
 }
+
+if ($DATA_OBJ["data_type"] == "updateBlog") {
+    include("../api/system/Blog/updateBlog.php");
+    die;
+}
 ?>
