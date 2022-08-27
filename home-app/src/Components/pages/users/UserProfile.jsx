@@ -171,19 +171,19 @@ const UserProfile = () => {
                 <div className="body-user-profile">
                   <ul>
                     <li>
-                      <NavLink to="Settings/Notifications" key="התראות">
+                      <Link to="Settings/Notifications" key="התראות">
                         <div key="התראות">התראות</div>
-                      </NavLink>
+                      </Link>
                     </li>
                     <li>
-                      <NavLink to="Settings/Messages" key="הודעות">
+                      <Link to="Settings/Messages" key="הודעות">
                         <div key="הודעות">הודעות</div>
-                      </NavLink>
+                      </Link>
                     </li>
                     <li>
-                      <NavLink to="Settings" key="הגדרות">
+                      <Link to="Settings" key="הגדרות">
                         <div key="הגדרות">הגדרות</div>
-                      </NavLink>
+                      </Link>
                     </li>
                     <li onClick={signOut}>{<BiLogOut />} התנתק </li>
                   </ul>
@@ -194,22 +194,30 @@ const UserProfile = () => {
         </div>
         <div className="message-conatiner">
           {prvMsgCount > 0 ? (
-            <span className="bell">
-              <IoMailUnreadOutline />
-              <span className="bellnumbers">{prvMsgCount}</span>
-            </span>
+            <Link to="Settings/Messages" key="הודעות">
+              <span className="bell">
+                <IoMailUnreadOutline />
+                <span className="bellnumbers">{prvMsgCount}</span>
+              </span>
+            </Link>
           ) : (
-            <IoMailOutline />
+            <Link to="Settings/Messages" key="הודעות">
+              <IoMailOutline />
+            </Link>
           )}
         </div>
         <div className="message-conatiner">
           {sysMsgCount > 0 ? (
-            <span className="bell">
-              <BsBell />
-              <span className="bellnumbers">{sysMsgCount}</span>
-            </span>
+            <Link to="Settings/Notifications" key="התראות">
+              <span className="bell">
+                <BsBell />
+                <span className="bellnumbers">{sysMsgCount}</span>
+              </span>
+            </Link>
           ) : (
-            <BsBell />
+            <Link to="Settings/Notifications" key="התראות">
+              <BsBell />
+            </Link>
           )}
         </div>
       </div>
