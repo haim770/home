@@ -14,6 +14,13 @@ $query = "SELECT messages.message, users.first_name, users.last_name, users.uuid
 $chats = $db->readDBNoStoredProcedure($query, $arr);
 $info->chatMessages = $chats;
 
+$query = "SELECT COUNT(`seen`) as new_sys_msg FROM `system_messages` WHERE `seen`=0 and `userId`=:alice";
+$sys_msg_count = $db->readDBNoStoredProcedure($query, $arr);
+$info->system_messages = $sys_msg_count;
+
+$query = "SELECT COUNT(`seen`) as new_prv_msg FROM `messages` WHERE `seen`=0 AND `receiver`=:alice";
+$prv_msg_count = $db->readDBNoStoredProcedure($query, $arr);
+$info->personal_messages = $prv_msg_count;
 
 $info->data_type = "refresh";
 echo json_encode($info);
