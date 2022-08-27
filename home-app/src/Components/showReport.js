@@ -62,7 +62,7 @@ function Report(props) {
         data_type: "changeReportStatus",
         params: {
           guest: auth.accessToken != undefined ? "registered" : "guest",
-          active: reportStatus,
+          active: reportStatus == "טופל" ? "0" : "1",
           id: props.report.id,
         },
       },
@@ -70,7 +70,10 @@ function Report(props) {
         Authorization: `Bearer ${auth.accessToken}`,
       },
     });
+    await confirmChangeManagerFeedback(e);
     props.getAllReports();
+    props.setTableClassName("showTable");
+    props.setClassName("notShowSelected");
     console.log(result.data);
     setShowInputStatus(false);
   };
@@ -110,6 +113,7 @@ function Report(props) {
       },
     });
     console.log(result.data);
+    props.setTableClassName("showTable");
     setShowInputManagerResponse(false);
   };
   const cancelChangeStatus = async (e) => {
@@ -151,6 +155,7 @@ function Report(props) {
     });
     alert("report sent to user");
     props.getAllReports();
+    props.setTableClassName("showTable");
     console.log(result.data);
   };
   return (
@@ -231,7 +236,7 @@ function Report(props) {
             <select
               value={reportStatus}
               onChange={(e) => {
-                setReportStatus(e.target.value === "טופל" ? "0" : "1");
+                setReportStatus(e.target.value);
               }}
             >
               <option></option>
