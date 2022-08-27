@@ -212,6 +212,7 @@ const Register = () => {
             </p>
 
             <button
+              className="button-4"
               disabled={!validName || !validPwd || !validMatch ? true : false}
             >
               הירשם

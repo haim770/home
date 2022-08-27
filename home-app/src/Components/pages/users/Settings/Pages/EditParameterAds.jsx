@@ -116,7 +116,9 @@ function EditParameterAds(props) {
   };
   return (
     <section>
-      <button onClick={closeParam}>x</button>
+      <button className="button-4" onClick={closeParam}>
+        x
+      </button>
       <form className="formAddParameter">
         <label className="labelParamAdd">
           <span>סוג תצוגה של פרמטר</span>
@@ -217,8 +219,12 @@ function EditParameterAds(props) {
         </label>
 
         <p className="labelParamAdd">
-          <button onClick={submitParameter}>ערוך פרמטר</button>
-          <button onClick={deleteParameter}>מחק פרמטר</button>
+          <button className="button-4" onClick={submitParameter}>
+            ערוך פרמטר
+          </button>
+          <button className="button-4" onClick={deleteParameter}>
+            מחק פרמטר
+          </button>
         </p>
       </form>
       <Toaster />

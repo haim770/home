@@ -215,8 +215,12 @@ function Report(props) {
           />
         </label>
         <p>
-          <button onClick={submitReport}>שלח פנייה</button>
-          <button onClick={cancelReport}>בטל</button>
+          <button onClick={submitReport} className="button-4">
+            שלח פנייה
+          </button>
+          <button onClick={cancelReport} className="button-4">
+            בטל
+          </button>
         </p>
       </form>
       <Toaster />

@@ -475,6 +475,16 @@ function seeWhatInAuth()
 
 if (isset($DATA_OBJ->data_type)) {
     switch ($DATA_OBJ->data_type) {
+        case "resetPasswordRequest":
+            include_once("../api/system/EmailSystem/UserRecovery.php");
+            break;
+        case "testRecoveryParams":
+            include_once("../api/system/EmailSystem/GetRecoveryAccess.php");
+            break;
+        case "updateRecoveryPassword":
+            include_once("../api/system/EmailSystem/updateRecoveryPassword.php");
+            break;
+            
         case "seeWhatInAuth":
             seeWhatInAuth();
             break;

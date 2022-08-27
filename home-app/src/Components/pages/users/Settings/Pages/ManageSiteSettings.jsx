@@ -115,18 +115,15 @@ function ManageSiteSettings(props) {
           </label>
         </div>
         <div className="btnClassForSiteSettings">
-          <button
-            onClick={makeParamEditable}
-            className="btnInsideTheSiteSettings"
-          >
+          <button onClick={makeParamEditable} className="button-4">
             {!editableParams
               ? "הפוך את הפרמטרים לזמינים לעריכה"
               : "סגור אפשרות עריכה"}
           </button>
-          <button className="btnInsideTheSiteSettings" onClick={submitChanges}>
+          <button className="button-4" onClick={submitChanges}>
             העלה שינויים לאתר
           </button>
-          <button className="btnInsideTheSiteSettings" onClick={cancel}>
+          <button className="button-4" onClick={cancel}>
             בטל שינויים
           </button>
         </div>

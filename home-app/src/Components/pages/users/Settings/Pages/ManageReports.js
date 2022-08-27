@@ -178,7 +178,9 @@ const ManageReports = () => {
             <option>פניות שטופלו בעבר</option>
           </select>
         </label>
-        <button onClick={serchReportsByParam}>חפש פניות</button>
+        <button className="button-4" onClick={serchReportsByParam}>
+          חפש פניות
+        </button>
       </nav>
       <div style={{ height: 700, width: "100%" }} className={tableClassName}>
         <DataGrid

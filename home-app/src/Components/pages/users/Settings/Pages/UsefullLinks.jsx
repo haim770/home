@@ -63,6 +63,7 @@ const UsefullLinks = (props) => {
       <h1>תצוגת לינקים</h1>
       {auth?.roles == "5150" ? (
         <button
+          className="button-4"
           style={{
             padding: "0.5rem",
             margin: "1rem",

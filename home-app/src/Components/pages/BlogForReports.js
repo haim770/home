@@ -69,7 +69,9 @@ const BlogForReports = (props) => {
           alt="cover"
         />
         <p className="blog-desc">{props.selectedBlog.Blogs[0].description}</p>
-        <button onClick={deleteBlog}>מחק </button>
+        <button onClick={deleteBlog} className="button-4">
+          מחק{" "}
+        </button>
       </div>
     </section>
   );

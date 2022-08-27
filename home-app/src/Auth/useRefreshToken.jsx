@@ -4,9 +4,10 @@ import Cookies from "universal-cookie";
 import useDH from "./DH/DHUseContext";
 
 const useRefreshToken = () => {
+  //console.log("refresh_token_called");
   const { setAuth } = useAuth();
   const { generateAlicePKA, generateSharedKey, alicePKA } = useDH();
-    const cookies = new Cookies();
+  const cookies = new Cookies();
 
   const myCookie = cookies.get("refreshToken");
   if(!(myCookie === undefined)){

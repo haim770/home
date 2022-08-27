@@ -2,6 +2,12 @@
   display: flex;
   align-content: center;
   min-height: 4rem;
+
+}
+
+.btnClassForSiteSettings > * {
+  margin-left: 1rem;
+  margin-right: 1rem;
 }
 .btnInsideTheSiteSettings{
   margin: 1rem;

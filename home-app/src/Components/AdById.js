@@ -44,7 +44,6 @@ function AdById(props) {
         params: { adID: props.adID }, //window.location.href gets the urlline
       },
     });
-    //console.log(res.data);
     props.startNewChat(chatWith);
   };
   const editAd = (e) => {
@@ -62,7 +61,7 @@ function AdById(props) {
         Authorization: `Bearer ${auth.accessToken}`,
       },
     });
-    console.log(res.data);
+
     alert("deleted");
     window.open("http://localhost:3000" + "/AdsWithSearch/", "_self");
   };
@@ -86,8 +85,6 @@ function AdById(props) {
     if (result?.data) {
       setData(result.data);
     }
-    //console.log(result.data);
-    //console.log(data);
   };
   useEffect(() => {
     getAd();
@@ -150,6 +147,7 @@ function AdById(props) {
                 <span className="buttonSpanLabel">התחל צ'ט</span>
               </button>
               <button
+                className="button-4"
                 style={{
                   display:
                     data?.user?.phone != "" && auth?.accessToken != ""
@@ -180,7 +178,7 @@ function AdById(props) {
           <div className="buttonPart">
             <div>
               <button
-                className="btnClassAdBlock"
+                className="button-4"
                 style={{
                   display:
                     data?.user?.phone && auth?.accessToken != ""
@@ -189,7 +187,7 @@ function AdById(props) {
                 }}
                 onClick={(e) => {
                   e.preventDefault();
-                  console.log(e.target.tagName);
+                  
                   setTogglePhone(
                     togglePhone === "הצג טלפון" ? "הסתר טלפון" : "הצג טלפון"
                   );
@@ -201,18 +199,18 @@ function AdById(props) {
               </button>
             </div>
             <div>
-              <button className="btnClassAdBlock" onClick={reportOnAd}>
+              <button className="button-4" onClick={reportOnAd}>
                 דווח
               </button>
             </div>
           </div>
           <div>
             <button
-              className="btnClassAdBlockEdit"
+              className="button-4"
               style={{
                 display:
                   (auth?.user != undefined &&
-                  data?.user?.mail === auth?.user) ||
+                    data?.user?.mail === auth?.user) ||
                   auth?.rule === "5150"
                     ? "block"
                     : "none",
@@ -222,7 +220,7 @@ function AdById(props) {
               מחק מודעה
             </button>
             <button
-              className="btnClassAdBlockEdit"
+              className="button-4"
               style={{
                 display:
                   auth?.user != undefined && data?.user?.mail === auth?.user
@@ -231,7 +229,7 @@ function AdById(props) {
               }}
               onClick={editAd}
             >
-              {console.log(auth)}
+              
               ערוך מודעה
             </button>
           </div>

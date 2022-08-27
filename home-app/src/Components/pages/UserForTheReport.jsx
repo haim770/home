@@ -42,10 +42,15 @@ const UserForTheReport = (props) => {
           paramName="מודעות שנשארו"
           paramValue={props.user[0].remaining_ads}
         />
-        <Parameter paramName="נראה לאחרונה" paramValue={props.user[0].last_seen} />
+        <Parameter
+          paramName="נראה לאחרונה"
+          paramValue={props.user[0].last_seen}
+        />
         <Parameter paramName="מידע נוסף" paramValue={props.user[0].prompt} />
       </p>
-      <button onClick={props.changeMail}>שנה מייל</button>
+      <button onClick={props.changeMail} className="button-4">
+        שנה מייל
+      </button>
     </section>
   );
 };

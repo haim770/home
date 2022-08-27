@@ -127,7 +127,7 @@ const ChatWith = () => {
           Authorization: `Bearer ${auth.accessToken}`,
         },
       });
-      console.log(result.data);
+      //console.log(result.data);
       // check if we got new data from server or any response
       if (result?.data) {
           if (result?.data?.chatMessages) {
@@ -215,12 +215,9 @@ const ChatWith = () => {
               placeholder="רשום את ההודעה שלך"
               onKeyPress={handleBtnlistener}
             />
-            <input
-              type="button"
-              value="שלח"
-              id="send_btn"
-              onClick={handleSubmit}
-            />
+            <button className="button-4" id="send_btn" onClick={handleSubmit}>
+              שלח
+            </button>
           </div>
         </div>
       </div>

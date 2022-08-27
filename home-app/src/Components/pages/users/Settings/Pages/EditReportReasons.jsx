@@ -117,8 +117,10 @@ function EditReportReasons(props) {
           />
         </label>
         <p className="labelParamAdd">
-          <button onClick={editReason}>ערוך סיבה</button>
-          <button onClick={toggleReportReasons}>
+          <button className="button-4" onClick={editReason}>
+            ערוך סיבה
+          </button>
+          <button className="button-4" onClick={toggleReportReasons}>
             {props.selectedReason.active == 1 ? "מחק סיבה" : "שחזר סיבה"}
           </button>
         </p>

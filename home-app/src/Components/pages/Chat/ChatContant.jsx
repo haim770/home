@@ -74,20 +74,13 @@ const ChatContant = () => {
         Object.values(contacts).map((contact) => (
           <div
             key={contact["uuid"]}
-            className="transition-3 contactWindow"
+            className="transition-3 contactWindow contentHover"
             onClick={function () {
               handleClick(
                 contact["first_name"],
                 contact["last_name"],
                 contact["uuid"]
               );
-            }}
-            onMouseEnter={() => setHovered(true)}
-            onMouseLeave={() => setHovered(false)}
-            style={{
-              ...{
-                backgroundColor: hovered ? "#E0E0E0" : "#ffffff",
-              },
             }}
           >
             {`${contact["first_name"]} ${contact["last_name"]}`}

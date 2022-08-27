@@ -9,7 +9,7 @@ const CreateBlog = () => {
     <div className="addBlog">
       {" "}
       <Link to="/Blog/Create">
-        <button>
+        <button className="button-4">
           <p>צור בלוג</p>
         </button>
       </Link>

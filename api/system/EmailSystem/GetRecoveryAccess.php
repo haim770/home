@@ -14,17 +14,10 @@ if (!$email) {
 } else {
     // check the values from url.
     // if valid retrun the Expiration date else false.
-    $val = checkRecoveryTokenMail($email, $key);
-    if ($val) {
         $info = (object)[];
-        $info->isValid = "true";
+        $info->isValid = checkRecoveryTokenMail($email, $token);
         echo json_encode($info);
         exit;
-    }
-    $info = (object)[];
-    $info->isValid = "false";
-    echo json_encode($info);
-    exit;
 }
      /**
 	 * Method checkRecoveryTokenMail check if the mail and token key are vaild and the 
@@ -41,12 +34,11 @@ if (!$email) {
         $arr["userMail"]= $mail;
         $arr["token"] = $tokenKey;
 		$curDate = date("Y-m-d H:i:s"); // set server current time.
-        $query= "SELECT expDate FROM recoverymaill WHERE userMail =:userMail and token =:token";
+        $query= "SELECT exp_date FROM password_recovery WHERE userMail =:userMail and token =:token";
 		$result = $db->readDBNoStoredProcedure($query, $arr);
-		self::disconnect();
 		if ($result != null)
-			// retrun the recovery mail Expiration date
-			return $result["expDate"] > $curDate;
+        // retrun the recovery mail Expiration date
+			return $result[0]->exp_date > $curDate;
 		else
 			return false;
 	}

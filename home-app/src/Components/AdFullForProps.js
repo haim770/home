@@ -103,6 +103,7 @@ function AdFullForProps(props) {
                 <span className="buttonSpanLabel">התחל צ'ט</span>
               </button>
               <button
+                className="button-4"
                 style={{
                   display: !auth?.user ? "none" : "flex",
                   backgroundColor: "green",
@@ -130,7 +131,7 @@ function AdFullForProps(props) {
           <div className="buttonPart">
             <div>
               <button
-                className="btnClassAdBlock"
+                className="button-4"
                 style={{
                   display: !auth?.user ? "none" : "flex",
                 }}
@@ -148,13 +149,13 @@ function AdFullForProps(props) {
               </button>
             </div>
             <div>
-              <button className="btnClassAdBlock" onClick={reportOnAd}>
+              <button className="button-4" onClick={reportOnAd}>
                 דווח על מודעה
               </button>
             </div>
             <div>
               <button
-                className="btnClassAdBlockEdit"
+                className="button-4"
                 style={{
                   display:
                     props.adBlock.user[0].mail === auth?.user ||
@@ -167,7 +168,7 @@ function AdFullForProps(props) {
                 מחק מודעה
               </button>
               <button
-                className="btnClassAdBlock"
+                className="button-4"
                 style={{
                   display:
                     props.adBlock.user[0].mail === auth?.user

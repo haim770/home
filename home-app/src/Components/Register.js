@@ -65,9 +65,7 @@ function Register(props) {
     setfirst_name("");
   };
   const checkPasswordValidity = (pass) => {
-    console.log(
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/.test("ldkd")
-    );
+
     if (pass.length > 5) {
       return true;
     } else {
@@ -122,7 +120,6 @@ function Register(props) {
         setRegisterStatus("ההרשמה נקלטה במערכת");
         toast.dismiss();
       }
-      console.log(result);
     }
   };
   return (
@@ -198,7 +195,9 @@ function Register(props) {
           />
         </label>
         <p>
-          <button onClick={register}>הרשמה</button>
+          <button onClick={register} className="button-4">
+            הרשמה
+          </button>
         </p>
         <p
           className={registerStatusDisplay}

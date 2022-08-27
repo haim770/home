@@ -270,14 +270,18 @@ function UserShow(props) {
         </label>
       </p>
       <div className="buttonsList">
-        <button onClick={changeRule}>
+        <button onClick={changeRule} className="button-4">
           {props.user.rule === "2001" ? "הפוך משתמש למנהל" : "הפוך מנהל למשתמש"}
         </button>
-        <button onClick={deleteOrRestore}>
+        <button onClick={deleteOrRestore} className="button-4">
           {activeStatus === "1" ? "מחק משתמש" : " שחזר למשתמש"}
         </button>
-        <button onClick={(e) => changeRemainingAds(e)}>שנה יתרת מודעות</button>
-        <button onClick={(e) => changeMail(e)}>שנה מייל </button>
+        <button onClick={(e) => changeRemainingAds(e)} className="button-4">
+          שנה יתרת מודעות
+        </button>
+        <button onClick={(e) => changeMail(e)} className="button-4">
+          שנה מייל{" "}
+        </button>
       </div>
       <Toaster />
     </section>

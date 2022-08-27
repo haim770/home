@@ -113,7 +113,7 @@ function CreatePackage(props) {
           </textarea>
         </label>
         <p>
-          <button onClick={submitPackage}>
+          <button onClick={submitPackage} className="button-4">
             {props.typeOfForm === "create" ? "צור חבילה" : "ערוך חבילה"}
           </button>
           {/* <Button onClick={submitPackage} content="צור חבילה" /> */}

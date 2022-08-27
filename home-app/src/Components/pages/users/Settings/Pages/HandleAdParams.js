@@ -102,8 +102,11 @@ const HandleAdParams = () => {
             <option>כל הפרמטרים</option>
           </select>
         </label>
-        <button onClick={serchParamssByParam}>חפש פרמטרים</button>
+        <button className="button-4" onClick={serchParamssByParam}>
+          חפש פרמטרים
+        </button>
         <button
+          className="button-4"
           onClick={(e) => {
             setShowSelected("createParam");
             setTableClassName("notShowTable");

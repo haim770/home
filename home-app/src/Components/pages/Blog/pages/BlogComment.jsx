@@ -21,7 +21,7 @@ function LinkRecord(props) {
         Authorization: `Bearer ${auth.accessToken}`,
       },
     });
-    console.log(result);
+    
     if (result?.data == "not authorized") {
       alert("error");
     } else {
@@ -31,7 +31,7 @@ function LinkRecord(props) {
   };
   return (
     <section>
-      {console.log(props)}
+      
       {showReport === "showCommentEditForm" ? (
         <BlogCommentForm
           className={showReport}
@@ -50,7 +50,7 @@ function LinkRecord(props) {
             display: showReport != "showCommentEditForm" ? "block" : "none",
           }}
         >
-          {console.log(auth)}
+         
           <li className="commentsHeaderPart">
             <li>{props.blogComment.userId}</li>
             <li>{props.blogComment.create_time}</li>
@@ -62,11 +62,11 @@ function LinkRecord(props) {
           <li>{props.blogComment.content}</li>
           {auth?.roles == "5150" ? (
             <li>
-              <button className="linkButton" onClick={deleteComment}>
+              <button className="button-4" onClick={deleteComment}>
                 מחיקת תגובה
               </button>
               <button
-                className="linkButton"
+                className="button-4"
                 onClick={(e) => {
                   e.preventDefault();
                   setReportShow("showCommentEditForm");

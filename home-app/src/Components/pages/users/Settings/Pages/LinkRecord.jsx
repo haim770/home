@@ -106,11 +106,11 @@ function LinkRecord(props) {
         />
       </label>
       <li className="linkButtons">
-        <button className="linkButton" onClick={cancelInsert}>
+        <button className="button-4" onClick={cancelInsert}>
           {" "}
           ביטול
         </button>
-        <button className="linkButton" onClick={insertLink}>
+        <button className="button-4" onClick={insertLink}>
           הוספה{" "}
         </button>
       </li>
@@ -140,11 +140,11 @@ function LinkRecord(props) {
         />
       </label>
       <li className="linkButtons">
-        <button className="linkButton" onClick={cancelInsert}>
+        <button className="button-4" onClick={cancelInsert}>
           {" "}
           ביטול
         </button>
-        <button className="linkButton" onClick={editLink}>
+        <button className="button-4" onClick={editLink}>
           עריכה{" "}
         </button>
       </li>
@@ -158,10 +158,10 @@ function LinkRecord(props) {
       <li className="linkAddress">{props.link.link}</li>
       {auth?.roles == "5150" ? (
         <li className="linkButtons">
-          <button className="linkButton" onClick={(e) => setType("editLink")}>
+          <button className="button-4" onClick={(e) => setType("editLink")}>
             עריכת לינק
           </button>
-          <button className="linkButton" onClick={deleteLink}>
+          <button className="button-4" onClick={deleteLink}>
             מחיקת לינק
           </button>
         </li>

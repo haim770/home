@@ -99,8 +99,6 @@ const isDuplicate = (data, obj) =>
     //update the offset value to zero
     currentOffset = filteredBlogs.length;
     prvScrollHeight=0;
-    console.log(currentOffset);
-    console.log(searchElement);
   };
 
   // Clear search and show all blogs

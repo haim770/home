@@ -21,3 +21,25 @@ box-shadow: 0 0 1.5rem 0.4rem rgba(0, 0, 0, 0.06);
 h1 {
     margin: 0.4rem;
 }
+
+.fpass_btn {
+  background: none!important;
+  border: none;
+  padding: 0!important;
+  /*optional*/
+  font-family: arial, sans-serif;
+  /*input has OS specific font-family*/
+  color: #069;
+  cursor: pointer;
+  font-family: 'Rubik', sans-serif;
+  font-weight: 300;
+  font-size: 3.5rem;
+}
+
+.forgotPasswordContainer {
+    display: flex;
+    flex-direction: column;
+    margin-top: 6rem;
+}
+
+

@@ -10,6 +10,7 @@ function PopupModal() {
       <div className="modalContainer">
         <div className="titleCloseBtn">
           <button
+            className="button-4"
             onClick={() => {
               closePopAd();
             }}
@@ -22,10 +23,10 @@ function PopupModal() {
         </div>
         <div className="body">
           <AdById adID={openModalAdId} user_id={openModalUserId} />
-        
         </div>
         <div className="footer">
           <button
+            className="button-4"
             onClick={() => {
               closePopAd();
             }}
@@ -33,7 +34,7 @@ function PopupModal() {
           >
             Cancel
           </button>
-          <button>Continue</button>
+          <button className="button-4">Continue</button>
         </div>
       </div>
     </div>

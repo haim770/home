@@ -38,8 +38,7 @@ function BlogCommentForm(props) {
           Authorization: `Bearer ${auth.accessToken}`,
         },
       });
-      console.log(result);
-      console.log(result.data);
+      
       if (result.data == "not authorized") {
         toast.dismiss(); // remove loading toast
         toast.error("משהו השתבש");
@@ -64,8 +63,7 @@ function BlogCommentForm(props) {
           Authorization: `Bearer ${auth.accessToken}`,
         },
       });
-      console.log(result);
-      console.log(result.data);
+  
       if (result.data == "not authorized") {
         toast.dismiss(); // remove loading toast
         toast.error("משהו השתבש");
@@ -110,7 +108,9 @@ function BlogCommentForm(props) {
           />
         </label>
         <p className="labelParamAdd">
-          <button onClick={submitComment}>הוספה</button>
+          <button className="button-4" onClick={submitComment}>
+            הוספה
+          </button>
         </p>
       </form>
       <Toaster />

@@ -126,7 +126,9 @@ const UserReportsToAds = () => {
             <option>הודעות שנקראו</option>
           </select>
         </label>
-        <button onClick={serchReportsByParam}>חפש דוחות</button>
+        <button className="button-4"  onClick={serchReportsByParam}>
+          חפש דוחות
+        </button>
       </nav>
       <div style={{ height: 700, width: "100%" }} className={tableClassName}>
         <DataGrid

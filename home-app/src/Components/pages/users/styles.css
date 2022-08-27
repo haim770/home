@@ -1,19 +1,15 @@
 .welcom-user {
-    cursor: pointer;
-    display: flex;
-    
+  cursor: pointer;
+  display: flex;
 }
-
 .user-profile {
-    border-radius: 10% 30% 50% 70%;
-    width: 80%;
-    height: 80%;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    background-color: #5b6dcd;
-    color: #fff;
-    padding: 1rem;
+  border-radius: 10% 30% 50% 70%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  background-color: #5b6dcd;
+  color: #fff;
+  padding: 1rem;
 }
 
 .container-user-profile {
@@ -40,10 +36,11 @@
   width: 300px;
   z-index: 2500;
   border: 1px solid rgba(0, 0, 0, 0.04);
-  box-shadow: 0px 2px 4px -1px rgb(0 0 0 / 20%), 0px 4px 5px 0px rgb(0 0 0 / 14%), 0px 1px 10px 0px rgb(0 0 0 / 12%);
-background-color: #fff;
-    margin-top: 1rem;
-    border-radius: 10px 10px;
+  box-shadow: 0px 2px 4px -1px rgb(0 0 0 / 20%),
+    0px 4px 5px 0px rgb(0 0 0 / 14%), 0px 1px 10px 0px rgb(0 0 0 / 12%);
+  background-color: #fff;
+  margin-top: 1rem;
+  border-radius: 10px 10px;
 }
 
 .dropdown-user-profile ul {
@@ -60,21 +57,20 @@ background-color: #fff;
   cursor: pointer;
 }
 
-.header-user-profile{
+.header-user-profile {
   border-radius: 10px 10px 0px 0px;
   padding: 5px;
-  background-color: #2A3942;
+  background-color: #2a3942;
 }
 
 .header-user-profile > h3 {
-    color: #FFFFFF;
+  color: #ffffff;
   margin-left: 1rem;
 }
 
-
-.body-user-profile li{
+.body-user-profile li {
   transition: 1s all;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   font-size: 1.8rem;
   padding: 1.5rem;
   margin-top: 0px;
@@ -86,13 +82,12 @@ background-color: #fff;
   align-items: center;
 }
 
-
-.body-user-profile>li{
-    float: left;
+.body-user-profile > li {
+  float: left;
 }
 
-.body-user-profile li ul{
-  background: #1E2B32;
+.body-user-profile li ul {
+  background: #1e2b32;
   margin-left: 28rem;
   margin-top: -3.8rem;
   display: none;
@@ -101,7 +96,41 @@ background-color: #fff;
   border-bottom-right-radius: 1.5rem 1.5rem;
 }
 
-.body-user-profile li:hover > ul{
+.body-user-profile li:hover > ul {
   display: block;
   cursor: pointer;
+}
+
+.user-pannel-container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100%;
+  direction: ltr;
+  align-items: center;
+}
+
+.user-pannel-container > div {
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+}
+
+.bellnumbers {
+  font-size: 1.8rem;
+  background-color: red;
+  line-height: 1.8rem;
+  text-align: center;
+  color: #fff;
+  z-index: 8;
+  border-radius: 0.3rem;
+  position: absolute;
+  left: -2rem;
+  top: -0.8rem;
+}
+
+.bell {
+  display: inline-block;
+  position: relative;
+  text-align: center;
+  padding-top: 0.6rem;
 }

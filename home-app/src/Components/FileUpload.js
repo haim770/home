@@ -31,7 +31,10 @@ const FileUpload = () => {
   return (
     <form>
       <input type="file" onChange={handleFileSelect} />
-      <button onClick={handleSubmit}> "Upload File"</button>
+      <button onClick={handleSubmit} className="button-4">
+        {" "}
+        "Upload File"
+      </button>
     </form>
   );
 };

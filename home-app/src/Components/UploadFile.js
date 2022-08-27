@@ -47,7 +47,9 @@ const UploadFile = (props) => {
       ) : (
         <p>Select a file to show details</p>
       )}
-      <button onClick={handleSubmission}>Submit</button>
+      <button onClick={handleSubmission} className="button-4">
+        Submit
+      </button>
     </div>
   );
 };
