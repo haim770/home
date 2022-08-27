@@ -173,11 +173,21 @@ const UserProfile = () => {
                     <li>
                       <Link to="Settings/Notifications" key="התראות">
                         <div key="התראות">התראות</div>
+                        {sysMsgCount > 0 ? (
+                          <span>{sysMsgCount} חדשות</span>
+                        ) : (
+                          <></>
+                        )}
                       </Link>
                     </li>
                     <li>
                       <Link to="Settings/Messages" key="הודעות">
                         <div key="הודעות">הודעות</div>
+                        {prvMsgCount > 0 ? (
+                          <span>{prvMsgCount} חדשות</span>
+                        ) : (
+                          <></>
+                        )}
                       </Link>
                     </li>
                     <li>
