@@ -481,7 +481,10 @@ if (isset($DATA_OBJ->data_type)) {
         case "testRecoveryParams":
             include_once("../api/system/EmailSystem/GetRecoveryAccess.php");
             break;
-
+        case "updateRecoveryPassword":
+            include_once("../api/system/EmailSystem/updateRecoveryPassword.php");
+            break;
+            
         case "seeWhatInAuth":
             seeWhatInAuth();
             break;

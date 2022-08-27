@@ -30,9 +30,9 @@ const RecoveryPage = () => {
   const [validMatch, setValidMatch] = useState(false);
   const [matchFocus, setMatchFocus] = useState(false);
 
+  const [errMessage,setErrMessage]=useState(true);
   const [errMsg, setErrMsg] = useState("");
   const errRef = useRef();
-  let errMessage = true;
 
   /**
    * Get Chat from server
@@ -44,10 +44,10 @@ const RecoveryPage = () => {
         params: { token: token, email: userMail },
       },
     });
-    console.log(result?.data.isValid);
+    console.log(result?.data);
     // check if we got new data from server or any response
     if (result?.data) {
-      errMessage = result?.data.isValid == "true" ? true : false;
+      setErrMessage(result?.data.isValid);
     }
   };
 
@@ -94,7 +94,7 @@ const RecoveryPage = () => {
         },
       });
       // check if we got new data from server or any response
-      if (response?.data) {
+      if (response?.data.message === "success") {
         toast.success("סיסמה עודכנה בהצלחה");
         <Navigate to="/Login" state={{ from: location }} replace />;
       }
