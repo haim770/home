@@ -76,7 +76,7 @@ function getUsersCount(){
 function getAvgWatchPerAd(){
   //get avg watches on ad where the ad is active
   global $db;
-  $query="select avg(watch) as total from ads where active='1'";
+  $query="select avg(watch) as total from ads";
   $result=$db->readDBNoStoredProcedure($query);
   return $result;
 }
