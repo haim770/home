@@ -212,20 +212,9 @@ const ChatWith = () => {
                    msgData: message["msgData"],
                  }
            )
-
-         //item.msgData.msgid === msgid ? { ...item, msgData: msgData } : item
        )
      );
 
-    // chatContact.map((msg) =>
-    //   msg.map((message) => 
-    //     {
-    //       if(message["msgData"].msgid === msgid)
-    //        console.log(message["msgData"].msgid)
-           
-    //        }
-    //   )
-    // );
   };
 
   // this function will scroll down to button when we load our messages
