@@ -185,6 +185,19 @@ const AdsInformation = (props) => {
             onClick={(e) => {
               e.preventDefault();
               setPriceQuery(true);
+              getAds("getAdsCloseToday");
+            }}
+          >
+            מודעות פגות תוקף היום  
+          </button>
+        </div>
+        <div>
+          <button
+            className="button-4"
+            style={{ margin: "2rem" }}
+            onClick={(e) => {
+              e.preventDefault();
+              setPriceQuery(true);
               getAdsCityPrice(e);
             }}
           >

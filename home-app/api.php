@@ -622,6 +622,9 @@ if (isset($DATA_OBJ->data_type)) {
         case "getAdsForMain":
              include_once('../api/system/Ads/searchAds.php');
             break;
+        case "getAdsCloseToday":
+             include_once('../api/system/Ads/searchAds.php');
+            break;
         case "getAdsFromToday":
               include_once('../api/system/Ads/searchAds.php');
             break;

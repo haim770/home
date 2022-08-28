@@ -60,7 +60,6 @@ a {
   -webkit-user-select: none;
   touch-action: manipulation;
   vertical-align: middle;
-  white-space: nowrap;
   word-wrap: break-word;
   width: fit-content;
 }
@@ -95,4 +94,3 @@ a {
 .button-4:-webkit-details-marker {
   display: none;
 }
-

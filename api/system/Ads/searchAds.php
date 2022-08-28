@@ -189,8 +189,32 @@ function getUserForUserId1($user_id){
     $arr=[];
     return $result;
 }
+function getAdsCloseToday(){
+    //get all ads close today
+    global $userType;
+    if($userType=="guest"){
+        echo json_encode("not authorized");
+        die;
+    }
+    global $db;
+    global $DATA_OBJ;
+    $date=date('Y/m/d', time());
+    $query = "select adID,user_id from ads where date(expire_date)='$date' order by create_time DESC limit ".$DATA_OBJ->params->end." OFFSET ".$DATA_OBJ->params->start;
+    $adIdsForTheSearch = $db->readDBNoStoredProcedure($query);
+    $i=0;
+    if(gettype($adIdsForTheSearch)!="array"&&gettype($adIdsForTheSearch)!="Array"&&gettype($adIdsForTheSearch)!="Object"){
+        $arr=[];
+        echo json_encode($arr);
+        return;
+    }
+    else
+    foreach ($adIdsForTheSearch as $key => $value) {
+        $result[$i++]=getAdWithAdContentForAdId1($value->adID,$value->user_id);
+    }
+    echo json_encode($result);
+}
 function getAdsFromToday(){
-//get all ads from spesific date
+//get all ads created today
     global $userType;
     if($userType=="guest"){
         echo json_encode("not authorized");
@@ -213,6 +237,7 @@ function getAdsFromToday(){
     }
     echo json_encode($result);
 }
+
 function getOpenAds(){
     //get all open ads
     global $userType;
@@ -493,6 +518,10 @@ else{
     }
 }
 }
+if($DATA_OBJ->data_type=="getAdsCloseToday"){
+    getAdsCloseToday();
+}
+else{
 if($DATA_OBJ->data_type=="addMoreTimeToAd"){
     addMoreTimeToAd();
 }
@@ -553,5 +582,5 @@ else{
 }
 }
 }
-}}
+}}}
 ?>
