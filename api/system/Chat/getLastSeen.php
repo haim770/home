@@ -34,7 +34,7 @@ function check_if_onlice($date)
     $expFormat = mktime(
         date("H"),
         date("i"),
-        date("s") - 8,
+        date("s") - 12,
         date("m"),
         date("d"),
         date("Y")
