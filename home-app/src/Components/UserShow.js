@@ -26,7 +26,7 @@ function UserShow(props) {
     const result = await instance.request({
       data: {
         data_type: "deleteOrRestoreUser",
-        params: { mail: props.user.mail, active: activeStatus },
+        params: { mail: props.user.mail, active: activeStatus,userId:props.user.uuid },
       },
       headers: {
         Authorization: `Bearer ${auth.accessToken}`,
@@ -176,14 +176,17 @@ function UserShow(props) {
     e.preventDefault();
     if (showChangeMail === "notShowInput") {
       setShowChangeMail("showInput");
-
       return;
     } else {
-      if (mailChecker(valueMailInput)) changeMailInDb();
-      else {
+      if (mailChecker(valueMailInput)) {
+        changeMailInDb();
+        setShowChangeMail("notShowInput");
+      } else {
+        setShowChangeMail("notShowInput");
         return;
       }
     }
+    setShowChangeMail("notShowInput");
   };
   const changeRemainingAds = (e) => {
     //change remainng ads to whatever user puts in
@@ -220,7 +223,7 @@ function UserShow(props) {
           paramName="תאריך רישום"
           paramValue={props.user.create_time}
         />
-        <Parameter paramName="טלפון" paramValue={props.user.phone} />
+        <Parameter paramName="טלפון" paramValue={props.user.phone || ""} />
         <Parameter
           paramName="תפקיד"
           paramValue={activeStatus === "1" ? "פעיל" : "מחוק"}
@@ -231,7 +234,7 @@ function UserShow(props) {
         />
         <Parameter
           paramName="מודעות שנשארו"
-          paramValue={props.user.remaining_ads}
+          paramValue={props.user.remaining_ads || ""}
         />
         <Parameter paramName="נראה לאחרונה" paramValue={props.user.last_seen} />
         <Parameter paramName="מידע נוסף" paramValue={props.user.prompt} />
@@ -249,7 +252,7 @@ function UserShow(props) {
             type="text"
             name="remainingAds"
             id="remainingAds"
-            value={valueRemainingInput}
+            value={valueRemainingInput || ""}
             onChange={handleChangeRemainingAds}
           />
         </label>
