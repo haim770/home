@@ -38,7 +38,7 @@ const ChatWith = () => {
     /**
      * After we load all user message we want to show only new messages.
      */
-    setShowNewMessages("refreshData");
+    
     // check if we got new data from server or any response
     if (result?.data) {
       if (result?.data?.chatMessages) {
@@ -55,10 +55,13 @@ const ChatWith = () => {
         ]);
       }
     }
+
     if (showNewMessages === "refreshData")
-    //console.log(result?.data);
+      //console.log(result?.data);
       // after finish load all data stop loading
       setLoading(false);
+
+      setShowNewMessages("refreshData");
   };
 
   /**
@@ -100,8 +103,8 @@ const ChatWith = () => {
       //console.log(result?.data);
       if (result?.data?.updates) {
         Object.values(result.data.updates).map((anObjectMapped, index) => {
-            //console.log(anObjectMapped)
-            toggleSeenStatus(anObjectMapped.msgid, anObjectMapped);
+          //console.log(anObjectMapped)
+          toggleSeenStatus(anObjectMapped.msgid, anObjectMapped);
         });
       }
     }
@@ -198,12 +201,23 @@ const ChatWith = () => {
   };
 
   const toggleSeenStatus = (msgid, msgData) => {
-    // setChatContact(
-    //   chatContact.map((item) =>
-    //     item.msgData.msgid === msgid ? { ...item, msgData: msgData } : item
-    //   )
-    // );
-      //chatContact.map((item) => console.log(item));
+     setChatContact(
+       chatContact.map(
+         (item) =>
+           item.map((message) =>
+             message["msgData"].msgid === msgid
+               ? {
+                   key: uuidv4(),
+                   msgData: msgData,
+                 }
+               : {
+                   key: uuidv4(),
+                   msgData: message["msgData"],
+                 }
+           )
+       )
+     );
+
   };
 
   // this function will scroll down to button when we load our messages
@@ -212,8 +226,13 @@ const ChatWith = () => {
   }, [divRef]);
   // this function will scroll down to button when we load our messages
   useEffect(() => {
-    if (divRef.current) divRef.current.scrollTo(0, divRef.current.scrollHeight);
+   //divRef.current?.scrollIntoView({ behavior: "smooth" });
+   if (divRef.current) divRef.current.scrollTo(0, divRef.current.scrollHeight);
   }, [chatContact]);
+
+    const scrollToBottom = () => {
+      divRef.current?.scrollTo(0, divRef.current.scrollHeight);
+    };
 
   // scroll down when new messages comes
   useEffect(() => {
@@ -257,6 +276,7 @@ const ChatWith = () => {
               </>
             ))
           )}
+          {scrollToBottom()}
         </div>
         {/* Footer */}
         <div className="chatWindowFooter">

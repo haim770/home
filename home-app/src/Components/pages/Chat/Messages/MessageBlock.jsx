@@ -29,7 +29,7 @@ const data = props.props;
     const msgID = data.msgid;
     const date = new Date(data.dateMsg);
     let timeShow = (date.getHours() + ":" + date.getMinutes());
-    
+
       if (!isToday(date)) {
               timeShow = (
                 date.getDate() +
