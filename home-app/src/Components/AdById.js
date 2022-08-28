@@ -53,7 +53,7 @@ function AdById(props) {
   const changeExpDateByTheTimeInTheSettings = async (e) => {
     //change exp date
     e.preventDefault();
-    console.log(props.adBlock.ad[0].expire_date);
+    //console.log(props.adBlock.ad[0].expire_date);
     const res = await instance.request({
       data: {
         data_type: "addMoreTimeToAd",
@@ -68,7 +68,7 @@ function AdById(props) {
         Authorization: `Bearer ${auth.accessToken}`,
       },
     });
-    console.log("res");
+    //console.log("res");
     if (res.data == "expire changed") {
       alert("ביצעת שינוי תאריך פג תוקף");
     }
@@ -78,7 +78,7 @@ function AdById(props) {
       alert("משהו השתבש");
     }
 
-    console.log(res.data);
+    //console.log(res.data);
     await props.getAds();
   };
   const deleteAd = async (e) => {
@@ -272,7 +272,7 @@ function AdById(props) {
             >
               ערוך מודעה
             </button>
-            {console.log(data)}
+            
             <button
               className="button-4"
               style={{

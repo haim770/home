@@ -173,7 +173,7 @@ O(logy) */
   $bobPublicKey = power($g, $bobPrivateKey, $p);
 
   $alicePublicKey = $DATA_OBJ->params->alicePKA;
-  $sharedSecretKey_Bob = "" . power((int) $alicePublicKey, (int) $bobPrivateKey, $p);
+  $sharedSecretKey_Bob = "" . power($alicePublicKey, $bobPrivateKey, $p);
 
 /**
  * Create session to story the Shared private key

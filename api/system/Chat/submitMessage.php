@@ -28,7 +28,7 @@ $db->writeDBNotStoredProcedure($query, $arr);
 $query = "select * from messages where msgid = :msgid limit 1";
 $a['msgid'] = $arr['msgid'];
 $myLastMessage = $db->readDBNoStoredProcedure($query, $a); // return array of object 
-$myLastMessage = CryptoAes::cryptoJsAesEncrypt($secretKey, $myLastMessage);
+$myLastMessage[0]->message = CryptoAes::cryptoJsAesEncrypt($secretKey, $myLastMessage[0]->message);
 
 $info = (object)[];
 $info->chatMessages = $myLastMessage;

@@ -1,12 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { NavLink, Link } from "react-router-dom";
 import "../styles/navigation/navStyle.css";
 import "../styles/navigation/responsiveNavigation.css";
 import useAuth from "../Auth/useAuth";
 import UserProfile from "./pages/users/UserProfile";
+import useDH from "../Auth/DH/DHUseContext";
 const NavRoot = () => {
   const { auth } = useAuth();
-
+  const { generateAlicePKA } = useDH();
+   useEffect(() => {
+     generateAlicePKA();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   const menuData = [
     {
       path: "/",

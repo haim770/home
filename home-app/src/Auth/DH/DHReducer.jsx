@@ -1,7 +1,9 @@
 import CryptoJS from "crypto-js";
 
 // initial the view states
+
 export const initialState = {
+  PKA: "95150999",
   alicePrivateKey: "",
   alicePublicKey: "",
   sharedSecretKey: "",
@@ -9,7 +11,7 @@ export const initialState = {
    * PKA - Public Key
    * For simplfy this algorithem we will choose PKA
    */
-  PKA: "95150999",
+
   useMessage: "",
 };
 
@@ -28,10 +30,10 @@ const dhReducer = (state, action) => {
 
     case "GENERATE_SHARED_KEY":
       const ssk = generateSharedPrivateKey(
-          payload.PKA,
-          payload.bobPKA,
-          payload.AlicePrivateKey
-        );
+        payload.PKA,
+        payload.bobPKA,
+        payload.AlicePrivateKey
+      );
       return {
         ...state,
         sharedSecretKey: ssk,
@@ -40,16 +42,27 @@ const dhReducer = (state, action) => {
     case "ENCRYPT_AES":
       return {
         ...state,
-        useMessage: encryptAES(
-          payload.messageUse,
-          payload.sharedSecretKey
-        ),
+        useMessage: encryptAES(payload.messageUse, payload.sharedSecretKey),
       };
     case "DECRYPT_AES":
       return {
         ...state,
         useMessage: decryptAES(payload.messageUse, payload.sharedSecretKey),
       };
+
+    case "SET_ALICE_PKA":
+      return {
+        ...state,
+        alicePrivateKey: payload.pvKey,
+        alicePublicKey: payload.PKA_ALICE,
+      };
+
+    case "SET_SHARED_KEY":
+      return {
+        ...state,
+        sharedSecretKey: payload.shared,
+      };
+
     default:
       // only for the dev
       throw new Error(`No case for type ${type} in chat reducer`);
@@ -58,12 +71,24 @@ const dhReducer = (state, action) => {
 
 export default dhReducer;
 
+/**
+ * Generate random Prime number in range
+ *
+ */
+
+const getRandPrime = (min, max) => {
+  let rnd = Math.floor(Math.random() * (max - min) + min);
+  if (isPrime(rnd)) return rnd;
+  return getRandPrime(min, max);
+};
+
+
 function generateAlicePrivateKey(p) {
   /**
    * Varibales
    */
-  const alicePrivateKey = getRandPrime(2, p);
-  return alicePrivateKey;
+  const thealicePrivateKey = getRandPrime(2, p);
+  return thealicePrivateKey;
 }
 
 function generateAlicePKA(p,alicePrivateKey) {
@@ -81,16 +106,6 @@ function generateSharedPrivateKey(p,bobPKA,alicePrivateKey) {
   return "" + power(bobPKA, alicePrivateKey, p);
 }
 
-/**
- * Generate random Prime number in range
- *
- */
-
-const getRandPrime = (min, max) => {
-  let rnd = Math.floor(Math.random() * (max - min) + min);
-  if (isPrime(rnd)) return rnd;
-  return getRandPrime(min, max);
-};
 
 // Returns true if n is prime
 function isPrime(n) {
@@ -206,7 +221,7 @@ function findPrimitive(n) {
 const encryptAES = (text, key) => {
     var JsonFormatter = CryptoJS.JsonFormatter;
     const crypted = CryptoJS.AES.encrypt(text, key, { format: JsonFormatter });
-    console.log(crypted);
+    //console.log(crypted);
     //return tt;
 };
 /**

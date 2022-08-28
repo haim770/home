@@ -1,4 +1,4 @@
-import React, { useState , useRef, useEffect} from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { styles } from "./styles";
 import "./styles.css";
 import BackImg from "../../../pics/chat/back-arrow.png";
@@ -8,6 +8,7 @@ import instance from "../../../api/AxiosInstance";
 import MessageBlock from "./Messages/MessageBlock";
 import { AiOutlineClose } from "react-icons/ai";
 import useDH from "../../../Auth/DH/DHUseContext";
+import { v4 as uuidv4 } from "uuid";
 
 const ChatWith = () => {
   const { chatView, showContacts, chatInfo, closeWindow } = useView();
@@ -39,20 +40,21 @@ const ChatWith = () => {
     setShowNewMessages("refreshData");
     // check if we got new data from server or any response
     if (result?.data) {
-        if (result?.data?.chatMessages) {
+      if (result?.data?.chatMessages) {
         setChatContact([
           ...chatContact,
-          Object.values(result.data.chatMessages).map((anObjectMapped, index) => {
-            return {
-              key: anObjectMapped["msgid"],
-              msgData: anObjectMapped,
-            };
-          }),
+          Object.values(result.data.chatMessages).map(
+            (anObjectMapped, index) => {
+              return {
+                key: uuidv4(),
+                msgData: anObjectMapped,
+              };
+            }
+          ),
         ]);
       }
 
       if (result?.data?.newMessageUpdate > 0) {
-        //console.log(result.data);
       }
     }
     // after finish load all data stop loading
@@ -114,7 +116,7 @@ const ChatWith = () => {
 
   const handleSubmit = async () => {
     if (input.trim().length !== 0) {
-     let encryptMessage = encryptAES(input);
+      let encryptMessage = encryptAES(input);
       const result = await instance.request({
         data: {
           data_type: "submitMessage",
@@ -127,23 +129,27 @@ const ChatWith = () => {
           Authorization: `Bearer ${auth.accessToken}`,
         },
       });
-      //console.log(result.data);
+      //console.log(result.data.chatMessages);
+      //const lestMsg = [{ key: uuidv4(), msgData: result.data.chatMessages }];
+      //console.log(lestMsg);
       // check if we got new data from server or any response
       if (result?.data) {
-          if (result?.data?.chatMessages) {
-            setChatContact([
-              ...chatContact,
-              Object.values(result.data.chatMessages).map(
-                (anObjectMapped, index) => {
-                  return {
-                    key: anObjectMapped["msgid"],
-                    msgData: anObjectMapped,
-                  };
-                }
-              ),
-            ]);
-          }
+        if (result?.data?.chatMessages) {
+          setChatContact([
+            ...chatContact,
+            Object.values(result.data.chatMessages).map(
+              (anObjectMapped, index) => {
+                return {
+                  key: uuidv4(),
+                  msgData: anObjectMapped,
+                };
+              }
+            ),
+          ]);
+
+        }
       }
+      //console.log(chatContact);
     }
     // reset our input to empty string
     setInput("");

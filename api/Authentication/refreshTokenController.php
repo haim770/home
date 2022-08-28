@@ -107,6 +107,7 @@ if (isset($DATA_OBJ->params->myCookie)) {
             "firstName" => $foundUser[0]->first_name,
             "lastName" => $foundUser[0]->last_name,
             'publicKey' => $bobPublicKey,
+            "sharedKey" => $sharedSecretKey_Bob,
         )
     );
 }

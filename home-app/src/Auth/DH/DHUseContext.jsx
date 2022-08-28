@@ -61,7 +61,28 @@ export const DHProvidor = ({ children }) => {
     dispatch({
       type: "GENERATE_ALICE_PKA",
       payload: {
-        PKA: state.PKA,
+        PKA: "95150999",
+      },
+    });
+  };
+
+  // Open user contacts list
+  const setAlicePKA = (pvKey, PKA_ALICE) => {
+    dispatch({
+      type: "SET_ALICE_PKA",
+      payload: {
+        AlicePrivateKey: pvKey,
+        alicePKA: PKA_ALICE,
+      },
+    });
+  };
+
+  // Open user contacts list
+  const setPrivateShareKey = (shared_key) => {
+    dispatch({
+      type: "SET_SHARED_KEY",
+      payload: {
+        shared: shared_key,
       },
     });
   };
@@ -73,41 +94,30 @@ export const DHProvidor = ({ children }) => {
       state.sharedSecretKey,
       { format: CryptoJSAesJson }
     ).toString();
-   return crypted;
+    return crypted;
   };
   // Starting new chat
   const decryptAES = (messageEncrypted) => {
-    const decrypted = JSON.parse(
-      CryptoJS.AES.decrypt(messageEncrypted, state.sharedSecretKey, {
-        format: CryptoJSAesJson,
-      }).toString(CryptoJS.enc.Utf8)
-    );
-    return decrypted;
-    /*
-      const decrypted = CryptoJS.AES.decrypt(
-        messageToDEcrypt,
-        state.sharedSecretKey
+    try {
+      const decrypted = JSON.parse(
+        CryptoJS.AES.decrypt(messageEncrypted, state.sharedSecretKey, {
+          format: CryptoJSAesJson,
+        }).toString(CryptoJS.enc.Utf8)
       );
-      if (decrypted) {
-        try {
-          const str = decrypted.toString(CryptoJS.enc.Utf8);
-          if (str.length > 0) {
-            return str;
-          } else {
-            return "error 1";
-          }
-        } catch (e) {
-          return "error 2";
-        }
-      }
-      return "error 3";*/
+      return decrypted;
+    } catch (err) {
+      //console.log('error', err);
+      //console.log("error messageEncrypted ", messageEncrypted);
+      //console.log("secret key: ", state.sharedSecretKey);
+    }
   };
 
   // the values we want to make global
   const value = {
     messageUse: state.useMessage,
     alicePKA: state.alicePublicKey,
-
+    setPrivateShareKey,
+    setAlicePKA,
     encryptAES,
     decryptAES,
     generateSharedKey,
