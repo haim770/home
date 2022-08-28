@@ -484,6 +484,10 @@ if (isset($DATA_OBJ->data_type)) {
         case "getLastSeenChat":
             include_once("../api/system/Chat/getLastSeen.php");
             break;
+        case "getUpdateSeenChat":
+            include_once("../api/system/Chat/getUpdateSeenChat.php");
+            break;
+            
         case "testRecoveryParams":
             include_once("../api/system/EmailSystem/GetRecoveryAccess.php");
             break;

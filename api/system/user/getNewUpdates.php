@@ -7,6 +7,8 @@ $arr = []; //for global scope var
 $info = (object)[];
 // our uuid
 $arr["alice"] = $user->getUuid();
+$query = "UPDATE `messages` SET `received`=1,`newUpdate`=1 WHERE `newUpdate`=0 AND `received`=0 AND `receiver`=:alice";
+$db->writeDBNotStoredProcedure($query, $arr);
 
 // update lest time seen
 $expFormat = mktime(
@@ -19,6 +21,9 @@ $expFormat = mktime(
 );
 $expDate = date("Y-m-d H:i:s", strtotime('+1 hours'));
 $arr2["user"]= $arr["alice"];
+// update we recived all messages
+
+
 $arr2["utime"] = $expDate;
 $query= "UPDATE `users` SET `last_seen`=:utime WHERE `uuid`=:user";
 $db->writeDBNotStoredProcedure($query, $arr2);

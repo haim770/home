@@ -54,16 +54,15 @@ const ChatWith = () => {
           ),
         ]);
       }
-
-      if (result?.data?.newMessageUpdate > 0) {
-      }
     }
-    // after finish load all data stop loading
-    setLoading(false);
+    if (showNewMessages === "refreshData")
+    //console.log(result?.data);
+      // after finish load all data stop loading
+      setLoading(false);
   };
 
   /**
-   * Get Chat from server
+   * Get lest seen from server
    */
   const getLastSeenChat = async () => {
     const result = await instance.request({
@@ -84,6 +83,31 @@ const ChatWith = () => {
   };
 
   /**
+   * Get Chat update from server
+   */
+  const getUpdateSeenChat = async () => {
+    const result = await instance.request({
+      data: {
+        data_type: "getUpdateSeenChat",
+        params: { chatWith: chatInfo.uuid },
+      },
+      headers: {
+        Authorization: `Bearer ${auth.accessToken}`,
+      },
+    });
+
+    if (result?.data) {
+      //console.log(result?.data);
+      if (result?.data?.updates) {
+        Object.values(result.data.updates).map((anObjectMapped, index) => {
+            //console.log(anObjectMapped)
+            toggleSeenStatus(anObjectMapped.msgid, anObjectMapped);
+        });
+      }
+    }
+  };
+
+  /**
    * This use effect will render only once when the component loaded,
    * when we close the contacts it will end the interval.
    * Will refesh contacts every 1 second.
@@ -93,6 +117,7 @@ const ChatWith = () => {
       const Interval = setInterval(() => {
         getChat();
         getLastSeenChat();
+        getUpdateSeenChat();
       }, 1000);
       return () => clearInterval(Interval);
     }
@@ -170,6 +195,15 @@ const ChatWith = () => {
     }
     // reset our input to empty string
     setInput("");
+  };
+
+  const toggleSeenStatus = (msgid, msgData) => {
+    // setChatContact(
+    //   chatContact.map((item) =>
+    //     item.msgData.msgid === msgid ? { ...item, msgData: msgData } : item
+    //   )
+    // );
+      //chatContact.map((item) => console.log(item));
   };
 
   // this function will scroll down to button when we load our messages

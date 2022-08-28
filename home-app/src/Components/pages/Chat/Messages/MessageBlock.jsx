@@ -1,6 +1,9 @@
 import React, { useLayoutEffect, useState } from "react";
 import useDH from "../../../../Auth/DH/DHUseContext";
 import useView from "../ChatUseContext";
+import { BsCheck2 } from "react-icons/bs";
+import { BsCheck2All } from "react-icons/bs";
+
 const MessageBlock = (props) => {
 const { chatInfo } = useView();
 const { decryptAES } = useDH();
@@ -54,7 +57,7 @@ const data = props.props;
         <p>{decryptAES(data.message)}</p>
         <div className="alice_container">
           <span>{timeShow}</span>
-          <span>V</span>
+          <span>{data.seen == "1" ? <BsCheck2All /> : data.received== "1" ? <BsCheck2 /> : ""}</span>
         </div>
       </div>
     );
