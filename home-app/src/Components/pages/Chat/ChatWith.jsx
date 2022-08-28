@@ -56,7 +56,7 @@ const ChatWith = () => {
       }
     }
     if (showNewMessages === "refreshData")
-    //console.log(result?.data);
+      //console.log(result?.data);
       // after finish load all data stop loading
       setLoading(false);
   };
@@ -100,8 +100,8 @@ const ChatWith = () => {
       //console.log(result?.data);
       if (result?.data?.updates) {
         Object.values(result.data.updates).map((anObjectMapped, index) => {
-            //console.log(anObjectMapped)
-            toggleSeenStatus(anObjectMapped.msgid, anObjectMapped);
+          //console.log(anObjectMapped)
+          toggleSeenStatus(anObjectMapped.msgid, anObjectMapped);
         });
       }
     }
@@ -198,12 +198,34 @@ const ChatWith = () => {
   };
 
   const toggleSeenStatus = (msgid, msgData) => {
-    // setChatContact(
-    //   chatContact.map((item) =>
-    //     item.msgData.msgid === msgid ? { ...item, msgData: msgData } : item
+     setChatContact(
+       chatContact.map(
+         (item) =>
+           item.map((message) =>
+             message["msgData"].msgid === msgid
+               ? {
+                   key: uuidv4(),
+                   msgData: msgData,
+                 }
+               : {
+                   key: uuidv4(),
+                   msgData: message["msgData"],
+                 }
+           )
+
+         //item.msgData.msgid === msgid ? { ...item, msgData: msgData } : item
+       )
+     );
+
+    // chatContact.map((msg) =>
+    //   msg.map((message) => 
+    //     {
+    //       if(message["msgData"].msgid === msgid)
+    //        console.log(message["msgData"].msgid)
+           
+    //        }
     //   )
     // );
-      //chatContact.map((item) => console.log(item));
   };
 
   // this function will scroll down to button when we load our messages

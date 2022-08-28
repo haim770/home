@@ -26,6 +26,7 @@ const data = props.props;
   }
 
   // function to return bob message template(other msg)
+  console.log(data);
     const msgID = data.msgid;
     const date = new Date(data.dateMsg);
     let timeShow = (date.getHours() + ":" + date.getMinutes());
