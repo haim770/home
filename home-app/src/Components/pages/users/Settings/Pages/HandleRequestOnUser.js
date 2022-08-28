@@ -37,11 +37,7 @@ function HandleRequestOnUser(props) {
     console.log(result.data);
     if (result.data != "didnt succeed" && result.data != "not authorized") {
       alert("mail changed");
-      props.setSelectedReport({});
-      props.setSelectedUser({});
-      props.setClassName("notShowSelected");
-      props.setTableClassName("showTable");
-      await props.getAllReports();
+      //await props.getAllReports();
     } else {
       alert("no change");
     }
@@ -65,6 +61,8 @@ function HandleRequestOnUser(props) {
             report={props.selectedReport}
             adBlock={props.selectedUser}
             getAllReports={props.getAllReports}
+            setClassName={props.setClassName}
+            setTableClassName={props.setTableClassName}
           />
         </section>
       </div>

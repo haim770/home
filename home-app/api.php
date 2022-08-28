@@ -583,6 +583,9 @@ if (isset($DATA_OBJ->data_type)) {
         case "updateContacted":
             include_once('../api/system/Ads/updateWatchAndContactCounter.php');
             break;
+        case "pricesPerCity":
+             include_once('../api/system/statistics.php');
+                  break;
         case "getAllAdsByMonthsChart":
             include_once('../api/system/statistics.php');
                   break;
@@ -619,6 +622,15 @@ if (isset($DATA_OBJ->data_type)) {
         case "getAdsForMain":
              include_once('../api/system/Ads/searchAds.php');
             break;
+        case "getAdsFromToday":
+              include_once('../api/system/Ads/searchAds.php');
+            break;
+        case "getOpenAds":
+             include_once('../api/system/Ads/searchAds.php');
+            break;
+        case "getClosedAds":
+              include_once('../api/system/Ads/searchAds.php');
+            break;
         case "getAllOfMyAds":
              include_once('../api/system/Ads/searchAds.php');
             break;
@@ -635,6 +647,9 @@ if (isset($DATA_OBJ->data_type)) {
              include_once('../api/system/Ads/searchAds.php');
             break;
         case "getAllAdContentAndAdAndUsersForArrOfAds":
+            include_once('../api/system/Ads/searchAds.php');
+            break;
+        case "addMoreTimeToAd":
             include_once('../api/system/Ads/searchAds.php');
             break;
         case "deleteAdById":

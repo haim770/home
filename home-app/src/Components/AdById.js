@@ -50,6 +50,37 @@ function AdById(props) {
     e.preventDefault();
     setGoToEditPage(true);
   };
+  const changeExpDateByTheTimeInTheSettings = async (e) => {
+    //change exp date
+    e.preventDefault();
+    console.log(props.adBlock.ad[0].expire_date);
+    const res = await instance.request({
+      data: {
+        data_type: "addMoreTimeToAd",
+        params: {
+          adID: data.ad[0].adID,
+          userId: data.ad[0].user_id,
+          expireDate: data.ad[0].expire_date,
+        },
+        guest: auth.accessToken != undefined ? "registered" : "guest",
+      },
+      headers: {
+        Authorization: `Bearer ${auth.accessToken}`,
+      },
+    });
+    console.log("res");
+    if (res.data == "expire changed") {
+      alert("ביצעת שינוי תאריך פג תוקף");
+    }
+    if (res.data == "need remaining ads") {
+      alert("נגמרו לך המודעות גש לרכוש חבילה");
+    } else {
+      alert("משהו השתבש");
+    }
+
+    console.log(res.data);
+    await props.getAds();
+  };
   const deleteAd = async (e) => {
     const res = await instance.request({
       data: {
@@ -134,7 +165,9 @@ function AdById(props) {
           <div
             style={{
               display:
-                data?.user?.mail === auth?.user && auth?.accessToken != ""
+                Array.isArray(data?.user) &&
+                data?.user[0].mail === auth?.user &&
+                auth?.accessToken != ""
                   ? "none"
                   : "flex",
             }}
@@ -150,7 +183,9 @@ function AdById(props) {
                 className="button-4"
                 style={{
                   display:
-                    data?.user?.phone != "" && auth?.accessToken != ""
+                    Array.isArray(data?.user) &&
+                    data?.user[0].phone != "" &&
+                    auth?.accessToken != ""
                       ? "block"
                       : "none",
                   backgroundColor: "green",
@@ -181,13 +216,15 @@ function AdById(props) {
                 className="button-4"
                 style={{
                   display:
-                    data?.user?.phone && auth?.accessToken != ""
+                    Array.isArray(data?.user) &&
+                    data?.user?.phone &&
+                    auth?.accessToken != ""
                       ? "block"
                       : "none",
                 }}
                 onClick={(e) => {
                   e.preventDefault();
-                  
+
                   setTogglePhone(
                     togglePhone === "הצג טלפון" ? "הסתר טלפון" : "הצג טלפון"
                   );
@@ -209,8 +246,9 @@ function AdById(props) {
               className="button-4"
               style={{
                 display:
-                  (auth?.user != undefined &&
-                    data?.user?.mail === auth?.user) ||
+                  auth?.roles === "5150" ||
+                  (Array.isArray(data?.user) &&
+                    data?.user[0].mail === auth?.user) ||
                   auth?.rule === "5150"
                     ? "block"
                     : "none",
@@ -223,14 +261,33 @@ function AdById(props) {
               className="button-4"
               style={{
                 display:
-                  auth?.user != undefined && data?.user?.mail === auth?.user
+                  auth?.roles === "5150" ||
+                  (Array.isArray(data?.user) &&
+                    data?.user[0].mail === auth?.user) ||
+                  auth?.rule === "5150"
                     ? "block"
                     : "none",
               }}
               onClick={editAd}
             >
-              
               ערוך מודעה
+            </button>
+            {console.log(data)}
+            <button
+              className="button-4"
+              style={{
+                display:
+                  auth?.roles === "5150" ||
+                  (Array.isArray(data?.user) &&
+                    data?.user[0].mail === auth?.user) ||
+                  auth?.rule === "5150"
+                    ? "block"
+                    : "none",
+                margin: "1rem",
+              }}
+              onClick={changeExpDateByTheTimeInTheSettings}
+            >
+              הוספת ימים למודעה
             </button>
           </div>
           {goToEditPage ? (

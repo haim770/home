@@ -91,8 +91,8 @@ export default function RecipeReviewCard(props) {
         title={<AdUserPart key={uuidv4()} user={props.adBlock.user} />}
         subheader={
           <Parameter
-            paramName="תאריך יצירת המודעה "
-            paramValue={props.adBlock.ad[0].create_time}
+            paramName="תאריך פג תוקף "
+            paramValue={props.adBlock.ad[0].expire_date}
           />
         }
       />

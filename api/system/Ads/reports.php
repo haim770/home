@@ -172,7 +172,8 @@ function changeReportStatus(){
     global $db;
     global $DATA_OBJ;
     $active=$DATA_OBJ->params->active;
-    $query="UPDATE user_reports SET active = '$active' WHERE id = '{$DATA_OBJ->params->id}'";
+    $manager_feedback=$DATA_OBJ->params->manager_feedback;
+    $query="UPDATE user_reports SET active = '$active',manage_feedback='$manager_feedback' WHERE id = '{$DATA_OBJ->params->id}'";
     $result=$db->readDBNoStoredProcedure($query);
     echo json_encode($result);
     die;

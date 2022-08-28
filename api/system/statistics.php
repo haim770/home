@@ -261,6 +261,19 @@ function UserTodayPurchase(){
   }
   return $result;
 }
+function pricesPerCity(){
+  //present prices per city for all city in the db
+  global $DATA_OBJ;
+  global $db;
+  $query="SELECT city ,COUNT(*) as countTransactions,AVG(price) as avg,rooms,adType from ads group by city,adType,rooms order by city,adType,rooms";
+  $result=$db->readDBNoStoredProcedure($query);
+  if($result==false||$result=="")
+  $result=[];
+  for ($i=0; $i < count($result); $i++) { 
+    $result[$i]->id=$i;
+  }
+  echo json_encode($result);
+}
 function getUserPurchasesStats(){
   //statistics for user purchases for the chart divide the avg of users and target
   global $DATA_OBJ;
@@ -461,9 +474,16 @@ else{
             if($DATA_OBJ->data_type=="getAllAdsByMonthsChart"){
               getAllAdsByMonthsChart();
             }
-            else{if($DATA_OBJ->data_type=="getAllAdsByMonthsForUserChart"){
+            else{
+              if($DATA_OBJ->data_type=="getAllAdsByMonthsForUserChart"){
               getAllAdsByMonthsForUserChart();
-            }}
+            }
+            else{
+              if($DATA_OBJ->data_type=="pricesPerCity"){
+                pricesPerCity();
+              }
+            }
+          }
           }
         }
         }

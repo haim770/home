@@ -269,6 +269,19 @@ const Sidebar = () => {
           ) : (
             <></>
           )}
+          {auth?.roles === "5150" ? (
+            <li>
+              <Link
+                to="/Settings/AdsInformation"
+                style={{ textDecoration: "none" }}
+              >
+                <BsClockHistory className="icon" />
+                <span>מידע על מודעות</span>
+              </Link>
+            </li>
+          ) : (
+            <></>
+          )}
         </ul>
       </div>
     </div>
