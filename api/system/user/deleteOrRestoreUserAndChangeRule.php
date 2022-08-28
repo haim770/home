@@ -91,9 +91,13 @@ function deleteOrRestoreUser(){
   global $DATA_OBJ;
   if($DATA_OBJ->params->active==1){
     $query="UPDATE users SET active = '0' WHERE  mail = '{$DATA_OBJ->params->mail}'";
+    $queryForAdsDeactive="update ads set active='0' where user_id='{$DATA_OBJ->params->userId}'";
   }
   else{
     $query="UPDATE users SET active = '1' WHERE  mail = '{$DATA_OBJ->params->mail}'";
+  }
+  if(isset($queryForAdsDeactive)){
+    $result=$db->readDBNoStoredProcedure($queryForAdsDeactive);
   }
   $result=$db->readDBNoStoredProcedure($query);
   $query=$query="select active from users WHERE  mail = '{$DATA_OBJ->params->mail}'";

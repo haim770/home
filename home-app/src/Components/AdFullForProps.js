@@ -52,6 +52,37 @@ function AdFullForProps(props) {
     e.preventDefault();
     setGoToEditPage(true);
   };
+  const changeExpDateByTheTimeInTheSettings = async (e) => {
+    //change exp date
+    e.preventDefault();
+    console.log(props.adBlock.ad[0].expire_date);
+    const res = await instance.request({
+      data: {
+        data_type: "addMoreTimeToAd",
+        params: {
+          adID: props.adBlock.ad[0].adID,
+          userId: props.adBlock.ad[0].user_id,
+          expireDate: props.adBlock.ad[0].expire_date,
+        },
+        guest: auth.accessToken != undefined ? "registered" : "guest",
+      },
+      headers: {
+        Authorization: `Bearer ${auth.accessToken}`,
+      },
+    });
+    console.log("res");
+    if (res.data == "expire changed") {
+      alert("ביצעת שינוי תאריך פג תוקף");
+    }
+    if (res.data == "need remaining ads") {
+      alert("נגמרו לך המודעות גש לרכוש חבילה");
+    } else {
+      alert("משהו השתבש");
+    }
+
+    console.log(res.data);
+    await props.getAds();
+  };
   useEffect(() => {
     const result = instance.request({
       data: {
@@ -178,6 +209,21 @@ function AdFullForProps(props) {
                 onClick={editAd}
               >
                 ערוך מודעה
+              </button>
+              <button
+                className="button-4"
+                style={{
+                  display:
+                    auth?.roles === "5150" ||
+                    props.adBlock.user[0].mail === auth?.user ||
+                    auth?.rule === "5150"
+                      ? "block"
+                      : "none",
+                  margin: "1rem",
+                }}
+                onClick={changeExpDateByTheTimeInTheSettings}
+              >
+                הוספת ימים למודעה
               </button>
             </div>
           </div>

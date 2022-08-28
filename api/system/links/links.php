@@ -14,7 +14,7 @@ else{
 global $user;
 function showAllLinks(){
   global $db;
-  $query= "select * from links where status= 'active'";
+  $query= "select * from links where status= 'active' order by create_time desc";
   $result=$db->readDBNoStoredProcedure($query);
   echo json_encode($result);
   die;

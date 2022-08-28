@@ -189,6 +189,102 @@ function getUserForUserId1($user_id){
     $arr=[];
     return $result;
 }
+function getAdsCloseToday(){
+    //get all ads close today
+    global $userType;
+    if($userType=="guest"){
+        echo json_encode("not authorized");
+        die;
+    }
+    global $db;
+    global $DATA_OBJ;
+    $date=date('Y/m/d', time());
+    $query = "select adID,user_id from ads where date(expire_date)='$date' order by create_time DESC limit ".$DATA_OBJ->params->end." OFFSET ".$DATA_OBJ->params->start;
+    $adIdsForTheSearch = $db->readDBNoStoredProcedure($query);
+    $i=0;
+    if(gettype($adIdsForTheSearch)!="array"&&gettype($adIdsForTheSearch)!="Array"&&gettype($adIdsForTheSearch)!="Object"){
+        $arr=[];
+        echo json_encode($arr);
+        return;
+    }
+    else
+    foreach ($adIdsForTheSearch as $key => $value) {
+        $result[$i++]=getAdWithAdContentForAdId1($value->adID,$value->user_id);
+    }
+    echo json_encode($result);
+}
+function getAdsFromToday(){
+//get all ads created today
+    global $userType;
+    if($userType=="guest"){
+        echo json_encode("not authorized");
+        die;
+    }
+    global $db;
+    global $DATA_OBJ;
+    $date=date('Y/m/d', time());
+    $query = "select adID,user_id from ads where date(create_time)='$date' order by create_time DESC limit ".$DATA_OBJ->params->end." OFFSET ".$DATA_OBJ->params->start;
+    $adIdsForTheSearch = $db->readDBNoStoredProcedure($query);
+    $i=0;
+    if(gettype($adIdsForTheSearch)!="array"&&gettype($adIdsForTheSearch)!="Array"&&gettype($adIdsForTheSearch)!="Object"){
+        $arr=[];
+        echo json_encode($arr);
+        return;
+    }
+    else
+    foreach ($adIdsForTheSearch as $key => $value) {
+        $result[$i++]=getAdWithAdContentForAdId1($value->adID,$value->user_id);
+    }
+    echo json_encode($result);
+}
+
+function getOpenAds(){
+    //get all open ads
+    global $userType;
+    if($userType=="guest"){
+        echo json_encode("not authorized");
+        die;
+    }
+    global $db;
+    global $DATA_OBJ;
+    $time=time();
+    $query = "select adID,user_id from ads where active='1' and expire_date
+    >='$time' order by create_time DESC limit ".$DATA_OBJ->params->end." OFFSET ".$DATA_OBJ->params->start;
+    $adIdsForTheSearch = $db->readDBNoStoredProcedure($query);
+    $i=0;
+    if(gettype($adIdsForTheSearch)!="array"&&gettype($adIdsForTheSearch)!="Array"&&gettype($adIdsForTheSearch)!="Object"){
+        $arr=[];
+        return;
+    }
+    else
+    foreach ($adIdsForTheSearch as $key => $value) {
+        $result[$i++]=getAdWithAdContentForAdId1($value->adID,$value->user_id);
+    }
+    echo json_encode($result);
+}
+function getClosedAds(){
+    //get all closed ads
+    global $userType;
+    if($userType=="guest"){
+        echo json_encode("not authorized");
+        die;
+    }
+    global $db;
+    global $DATA_OBJ;
+    $time=time();
+    $query = "select adID,user_id from ads where active='0' or expire_date<'$time' order by create_time DESC limit ".$DATA_OBJ->params->end." OFFSET ".$DATA_OBJ->params->start;
+    $adIdsForTheSearch = $db->readDBNoStoredProcedure($query);
+    $i=0;
+    if(gettype($adIdsForTheSearch)!="array"&&gettype($adIdsForTheSearch)!="Array"&&gettype($adIdsForTheSearch)!="Object"){
+        $arr=[];
+        return;
+    }
+    else
+    foreach ($adIdsForTheSearch as $key => $value) {
+        $result[$i++]=getAdWithAdContentForAdId1($value->adID,$value->user_id);
+    }
+    echo json_encode($result);
+}
 function getAdByAdId($adId){
     //echo the ad for the id we got in dataObj
     global $db;
@@ -338,6 +434,46 @@ function checkIfHistoryItemExist($adId,$userId){
     return true;
 
 }
+function addMoreTimeToAd(){
+    //add more time to ad
+    global $userType;
+    global $user;
+    if($userType!="registered"||($user->getRule()!="5150"&&$user->getRule()!="2001"&&$user->getUuid()==$DATA_OBJ->params->userId)){
+    echo "not authorized";
+    die;
+}
+global $db;
+global $DATA_OBJ;
+$userId=$user->getUuid();
+$query="select expireDateAds from settings";
+$result=$db->readDBNoStoredProcedure($query);
+if($user->getRule()!="5150"&&checkRemainingAds($userId)==0){
+    echo json_encode("need remaining ads");
+    die;
+}
+$timeToAddInDays=$result[0]->expireDateAds;
+$newTime= date('Y-m-d', strtotime($DATA_OBJ->params->expireDate. ' +'.(int)$timeToAddInDays.' days'));
+$query="update ads set expire_date='$newTime' where adID='{$DATA_OBJ->params->adID}'";
+$result=$db->readDBNoStoredProcedure($query);
+if($user->getRule()=="5150"){
+    echo json_encode("expire changed");
+    die;
+}
+$query="update users set remaining_ads='remaining_ads-1' where uuid='{$userId}'";
+$result=$db->readDBNoStoredProcedure($query);
+echo json_encode("expire changed");
+}
+function checkRemainingAds($userId){
+    //return remaining ads
+    global $db;
+    global $DATA_OBJ;
+    $query="select remaining_ads from users where uuid='$userId'";
+    $result=$db->readDBNoStoredProcedure($query);
+    if($result==""||$result==[]||$result==false){
+        return 0;
+    }
+    return $result[0]->remaining_ads;
+}
 function addItmeToHistory($adId){
     //add item to history on deep watch
      global $userType;
@@ -382,7 +518,26 @@ else{
     }
 }
 }
-
+if($DATA_OBJ->data_type=="getAdsCloseToday"){
+    getAdsCloseToday();
+}
+else{
+if($DATA_OBJ->data_type=="addMoreTimeToAd"){
+    addMoreTimeToAd();
+}
+else{
+if($DATA_OBJ->data_type=="getOpenAds"){
+    getOpenAds();
+}
+else{
+if($DATA_OBJ->data_type=="getAdsFromToday"){
+    getAdsFromToday();
+}
+else{
+if($DATA_OBJ->data_type=="getClosedAds"){
+    getClosedAds();                     
+}
+else{
 if($DATA_OBJ->data_type=="getAdByAdId"){
     getAdByAdId($DATA_OBJ->params->adId);
 }
@@ -424,6 +579,8 @@ else{
             }
         }
     }
-        
 }
+}
+}
+}}}
 ?>

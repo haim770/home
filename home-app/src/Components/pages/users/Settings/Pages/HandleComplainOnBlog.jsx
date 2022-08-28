@@ -36,6 +36,8 @@ function HandleComplainOnAd(props) {
             report={props.selectedReport}
             selectedBlog={props.selectedBlog}
             getAllReports={props.getAllReports}
+            setTableClassName={props.setTableClassName}
+            setClassName={props.setClassName}
           />
         </section>
       </div>

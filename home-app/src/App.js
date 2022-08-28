@@ -56,6 +56,7 @@ import HandlePackages from "./Components/pages/users/Settings/Pages/HandlePackag
 import HandleAdParams from "./Components/pages/users/Settings/Pages/HandleAdParams";
 import EditParameterAds from "./Components/pages/users/Settings/Pages/EditParameterAds";
 import ManageSiteSettings from "./Components/pages/users/Settings/Pages/ManageSiteSettings";
+import AdsInformation from "./Components/pages/users/Settings/Pages/AdsInformation.jsx";
 
 /**
  * Diffi helman
@@ -268,6 +269,16 @@ export default function App() {
                           <Route
                             path="SitePurchase"
                             element={<SitePurchase />}
+                          />
+                        </Route>
+                      </Route>
+                      <Route element={<PersistLogin />}>
+                        <Route
+                          element={<RequireAuth allowedRoles={[ROLES.Admin]} />}
+                        >
+                          <Route
+                            path="AdsInformation"
+                            element={<AdsInformation />}
                           />
                         </Route>
                       </Route>
