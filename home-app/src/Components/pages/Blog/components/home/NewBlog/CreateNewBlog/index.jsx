@@ -19,7 +19,7 @@ const CreateBlog = () => {
   const [formDataImageUpload, setFormDataImageUpload] = useState([]);
   const [editMode, setEditMode] = useState(false);
   const [searchParams] = useSearchParams();
-  const [imagePath,setImagePath]=useState("");
+  const [imagePath, setImagePath] = useState("");
   const editBlogId = searchParams.get("editblog");
   const fileName = uuidv4();
   const { auth } = useAuth();
@@ -41,6 +41,9 @@ const CreateBlog = () => {
       data: {
         data_type: "getBlogById",
         params: { blogId: editBlogId },
+      },
+      headers: {
+        Authorization: `Bearer ${auth.accessToken}`,
       },
     });
     // check if we got new data from server or any response
@@ -64,10 +67,8 @@ const CreateBlog = () => {
      * Build the post data
      */
     let data = new FormData();
-    if(imagePath > 2)
-      data.append("image_name", imagePath);
-    else
-      data.append("files[]",formDataImageUpload);
+    if (imagePath > 2) data.append("image_name", imagePath);
+    else data.append("files[]", formDataImageUpload);
     data.append("data_type", editMode ? "updateBlog" : "postNewBlog");
     data.append("blogTitle", JSON.stringify(blogTitle));
     data.append("blogBody", JSON.stringify(blogBody));
@@ -83,7 +84,7 @@ const CreateBlog = () => {
         Authorization: `Bearer ${auth.accessToken}`,
       },
     });
-    console.log(result);
+    //console.log(result);
     if (result?.data === "publish") {
       toast.dismiss(); // remove loading toast
       toast.success("בלוג פורסם בהצלחה!");
@@ -93,8 +94,35 @@ const CreateBlog = () => {
     }
   };
 
+  /**
+   *delete form to server
+   */
+  const postDel = async () => {
+    let isExecuted = window.confirm("האם אתה בטוח שברצונך למחוק את הבלוג?");
+    if (isExecuted) {
+      toast.loading("מוחק...");
+          const result = await instanceA.request({
+            data: {
+              data_type: "delBlogById",
+              params: { blogId: editBlogId },
+            },
+            headers: {
+              Authorization: `Bearer ${auth.accessToken}`,
+            },
+          });
+          console.log(result)
+      if (result?.data === "closed") {
+        toast.dismiss(); // remove loading toast
+        toast.success("בלוג הוסר בהצלחה!");
+      } else {
+        toast.dismiss(); // remove loading toast
+        toast.error("אוי לא, משהו השתבש בדרך והבלוג לא הוסר!");
+      }
+    }
+  };
+
   const fileSelectedHandler = (e) => {
-    setImagePath("")
+    setImagePath("");
     if (e.target.files) {
       setFormDataImageUpload(e.target.files[0]);
       const filesArray = Array.from(e.target.files).map((file) =>
@@ -137,9 +165,7 @@ const CreateBlog = () => {
               <img
                 src={
                   process.env.PUBLIC_URL +
-                  require(
-                  "../../../../../../../../../api/Images/" +
-                  imagePath)
+                  require("../../../../../../../../../api/Images/" + imagePath)
                 }
                 alt="image_"
               />
@@ -211,6 +237,21 @@ const CreateBlog = () => {
           {editMode ? "עדכן בלוג" : "פרסם בלוג"}
         </button>
       </div>
+
+      {editMode ? (
+        <div className="delBlogFooter">
+          <button
+            className="button-4"
+            onClick={() => {
+              postDel();
+            }}
+          >
+            מחק בלוג
+          </button>
+        </div>
+      ) : (
+        <></>
+      )}
     </div>
   ) : (
     <></>

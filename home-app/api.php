@@ -478,6 +478,9 @@ if (isset($DATA_OBJ->data_type)) {
         case "resetPasswordRequest":
             include_once("../api/system/EmailSystem/UserRecovery.php");
             break;
+        case "delBlogById":
+            include_once("../api/system/Blog/delBlog.php");
+            break;
         case "testRecoveryParams":
             include_once("../api/system/EmailSystem/GetRecoveryAccess.php");
             break;

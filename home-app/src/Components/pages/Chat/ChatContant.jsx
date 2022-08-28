@@ -83,7 +83,7 @@ const ChatContant = () => {
               );
             }}
           >
-            {`${contact["first_name"]} ${contact["last_name"]}`}
+            {`${contact["first_name"]} ${contact["last_name"]} ${contact["new_prv_msg"]>0?contact["new_prv_msg"]:""}`}
           </div>
         ))
       ) : (
