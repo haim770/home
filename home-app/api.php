@@ -481,6 +481,9 @@ if (isset($DATA_OBJ->data_type)) {
         case "delBlogById":
             include_once("../api/system/Blog/delBlog.php");
             break;
+        case "getLastSeenChat":
+            include_once("../api/system/Chat/getLastSeen.php");
+            break;
         case "testRecoveryParams":
             include_once("../api/system/EmailSystem/GetRecoveryAccess.php");
             break;

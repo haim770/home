@@ -16,6 +16,7 @@ const ChatWith = () => {
   const [chatContact, setChatContact] = useState([]);
   const [showNewMessages, setShowNewMessages] = useState("getChat");
   const [loading, setLoading] = useState(true);
+  const [lastSeen, setLastSeen] = useState("");
   const divRef = useRef();
   const inputRef = useRef();
   const [input, setInput] = useState("");
@@ -62,6 +63,27 @@ const ChatWith = () => {
   };
 
   /**
+   * Get Chat from server
+   */
+  const getLastSeenChat = async () => {
+    const result = await instance.request({
+      data: {
+        data_type: "getLastSeenChat",
+        params: { chatWith: chatInfo.uuid },
+      },
+      headers: {
+        Authorization: `Bearer ${auth.accessToken}`,
+      },
+    });
+
+    if (result?.data) {
+      if (result?.data?.last_seen) {
+        setLastSeen(result?.data?.last_seen);
+      }
+    }
+  };
+
+  /**
    * This use effect will render only once when the component loaded,
    * when we close the contacts it will end the interval.
    * Will refesh contacts every 1 second.
@@ -70,6 +92,7 @@ const ChatWith = () => {
     if (chatContact) {
       const Interval = setInterval(() => {
         getChat();
+        getLastSeenChat();
       }, 1000);
       return () => clearInterval(Interval);
     }
@@ -129,10 +152,6 @@ const ChatWith = () => {
           Authorization: `Bearer ${auth.accessToken}`,
         },
       });
-      //console.log(result.data.chatMessages);
-      //const lestMsg = [{ key: uuidv4(), msgData: result.data.chatMessages }];
-      //console.log(lestMsg);
-      // check if we got new data from server or any response
       if (result?.data) {
         if (result?.data?.chatMessages) {
           setChatContact([
@@ -146,10 +165,8 @@ const ChatWith = () => {
               }
             ),
           ]);
-
         }
       }
-      //console.log(chatContact);
     }
     // reset our input to empty string
     setInput("");
@@ -185,7 +202,7 @@ const ChatWith = () => {
           </div>
           <div className="userInfo">
             <div>{`${chatInfo.username}`}</div>
-            <div>{`${chatInfo.uuid}`}</div>
+            <div>{lastSeen}</div>
           </div>
           <div className="closeButton" onClick={handleClickClose}>
             <AiOutlineClose />
