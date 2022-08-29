@@ -14,6 +14,7 @@ else{
 global $user;
 
 function getAllSiteSettings(){
+  //get all site settings and pass to js
 global $user;
 global $DATA_OBJ;
 global $db;
@@ -36,6 +37,7 @@ global $db;
   return $result;
 }
 function updateSiteSettings(){
+  //update the site settings with the input from $data_obj
 global $user;
 global $DATA_OBJ;
 global $db;
@@ -52,9 +54,6 @@ global $db;
   }
   echo json_encode("update bad");
   die;
-
-    
-    
 }
 if($DATA_OBJ->data_type=="getAllSiteSettings"){
   getAllSiteSettings();

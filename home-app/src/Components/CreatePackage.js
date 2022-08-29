@@ -35,6 +35,10 @@ function CreatePackage(props) {
   const submitPackage = async (e) => {
     //add ad to the db, returns true/false
     e.preventDefault();
+    if (price == "0" || price < 0 || price == 0 || isNaN(price)) {
+      alert("מחיר לא יכול להיות 0 ומטה");
+      return;
+    }
     const result = await instance.request({
       data: {
         data_type: "insertPack",

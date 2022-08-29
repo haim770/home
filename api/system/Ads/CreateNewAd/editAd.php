@@ -141,6 +141,7 @@ else{
     echo json_encode("error");
 }
 function deleteSpesificPic($picUrl,$adId){
+    //delete pic by adId and url of pic
     global $DATA_OBJ;
     global $db;
     $query="Delete from pictures where element_id='$adId' and picture_url='$picUrl'";

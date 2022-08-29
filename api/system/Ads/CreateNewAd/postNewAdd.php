@@ -150,6 +150,7 @@ else{
     echo json_encode("error"+$e);
 }
 function decreaseAdValueBy1ToUser($userId){
+    //decrease user remaining ads by 1
     global $db;
     global $user;
     global $DATA_OBJ;

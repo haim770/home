@@ -2,6 +2,7 @@
  $authPath = "../../Authentication/authTest.php";
  include_once(dirname(__FILE__) . DIRECTORY_SEPARATOR . $authPath);
 function addToFavorites(){
+  //add ad to the user favorites
   global $user;
   global $db;
   global $DATA_OBJ;
@@ -16,7 +17,7 @@ function addToFavorites(){
   die;
 }
 function removeFromFavorites(){
-  //remove favorite
+  //remove ad from user favorites
   global $user;
    global $db;
   global $DATA_OBJ;
@@ -31,7 +32,7 @@ function removeFromFavorites(){
   die;
 }
 function getAllFavorites($userId){
-  //get all favorites for user
+  //get all favorite ads for user
   global $db;
   $query="select * from favorites where userId = '$userId'";
   $result=$db->readDBNoStoredProcedure($query);
@@ -39,6 +40,7 @@ function getAllFavorites($userId){
 
 }
 function getImagesForAdIdFav($adID){
+  //get images for favorite ad
 global $db;
     global $DATA_OBJ;
     global $arr;
@@ -52,6 +54,7 @@ global $db;
     return $result;
 }
 function getAdForAdIdFav($adId){
+  //get the ad for the adID for favorite ad
     global $db;
     global $DATA_OBJ;
     global $arr;
@@ -64,6 +67,7 @@ function getAdForAdIdFav($adId){
     
 }
 function getAdContentForAdIdFav($adID){
+  //get ad content for the ad id favorite
  global $db;
     global $DATA_OBJ;
     global $arr;
@@ -74,6 +78,7 @@ function getAdContentForAdIdFav($adID){
     return $resultAdContentTable;
 }
 function getUserForAdIdFav($userID){
+  //get the user record associated with the user id
 global $db;
     global $DATA_OBJ;
     global $arr;

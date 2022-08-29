@@ -12,6 +12,7 @@ else{
 }
 global $user;
 function editPack(){
+  //edit existing pack
         global $db;
     global $DATA_OBJ;
     global $arr;
@@ -44,7 +45,7 @@ function editPack(){
     $arr=[];
 }
 function insertPack(){
-    //insert package
+    //insert new package
     global $db;
     global $DATA_OBJ;
     global $arr;
@@ -82,10 +83,27 @@ function findPack($packId){
     return $result;
 }
 function checkIfTitleOfPackExist($title){
+  //check if title of pack exist already
 global $db;
 $query="SELECT * FROM package WHERE title = '$title' and is_active = '1'";
 $result=$db->readDBNoStoredProcedure($query,[]);
 return $result;
+}
+function createQueryForPacksBySelector($selector){
+  //create the query we want by the selector
+  $query="";
+  if($selector=="getActivePacks"){
+         $query="select * from package where is_active='1'";
+    }
+  else{
+    if($selector=="getNotActivePacks"){
+      $query="select * from package where is_active='0'";
+    }
+    else{
+      $query="select * from package";
+    }
+  }
+  return $query;
 }
 function getPackages($selector){
     //get  packages by selector
@@ -104,17 +122,7 @@ function getPackages($selector){
     echo "not autorized";
     die;
   }
-    if($selector=="getActivePacks"){
-         $query="select * from package where is_active='1'";
-    }
-    else{
-        if($selector=="getNotActivePacks"){
-         $query="select * from package where is_active='0'";
-        }
-        else{
-            $query="select * from package";
-        }
-    }
+    $query=createQueryForPacksBySelector($selector);
     $result=$db->readDBNoStoredProcedure($query);
     if($result==false||$result==[]){
         echo json_encode([]);
@@ -125,7 +133,19 @@ function getPackages($selector){
     if($result!=false){
     for ($i=0; $i <count($result) ; $i++) {
       //we split the msg content to report id and adId
-    $packId=$result[$i]->packageId;
+      $resultForTheTable=createPackForTheTableFormPackRecord($result,$i,$resultForTheTable);
+    }
+  }
+  else{
+    $result=[];
+  }
+    echo json_encode($resultForTheTable);
+    die;
+}
+function createPackForTheTableFormPackRecord($result,$i,$resultForTheTable){
+  //create a package stat to display in the table with sum of all purchases to pack and count purchases
+  global $db;
+      $packId=$result[$i]->packageId;
       $query="select COUNT(packageId) AS numOfPurchases FROM purchase_history where packageId= '$packId'";
       $numOfPurchases=$db->readDBNoStoredProcedure($query);
       $numOfPurchases=$numOfPurchases[0]->numOfPurchases;
@@ -135,14 +155,7 @@ function getPackages($selector){
       $objForRow=array("id"=>$result[$i]->packageId,"price"=>$result[$i]->price,"is_active"=>$result[$i]->is_active=="1"?"כן":"לא","title"=>$result[$i]->title,"content"=>$result[$i]->content,"create_time"=>$result[$i]->create_time,"ad_value"=>$result[$i]->ad_value,"update_time"=>$result[$i]->update_time,"countPurchases"=>$numOfPurchases,"sumPurchases"=>$sumOfPurchases);
       // $objForRow=json_encode($objForRow);
       $resultForTheTable[$i]=$objForRow;
-    }
-  }
-  else{
-    $result=[];
-  }
-    echo json_encode($resultForTheTable);
-    die;
-
+      return $resultForTheTable;
 }
 if($DATA_OBJ->data_type=="insertPack")
 insertPack();

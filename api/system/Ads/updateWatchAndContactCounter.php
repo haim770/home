@@ -1,5 +1,6 @@
 <?php
 function getUserIdContactSetter(){
+//set user that is currently update
   global $DATA_OBJ;
   global $db;
   $query="select userIdContactSet from ads where adID ='{$DATA_OBJ->params->adID}'";
@@ -7,6 +8,7 @@ function getUserIdContactSetter(){
   return $result[0]->userIdContactSet;
 }
 function getUserIdWatch(){
+  //set user that is currently update
   global $DATA_OBJ;
   global $db;
   $query="select userIdWatchSet from ads where adID ='{$DATA_OBJ->params->adID}'";
@@ -44,6 +46,7 @@ function getContactCounter(){
     }
 }
 function updateContacted(){
+  //update contacted for the ad
     global $db;
     global $DATA_OBJ;
     global $arr;
@@ -63,6 +66,7 @@ function updateContacted(){
 }
 function updateWatch()
 {
+  //update watch the ad
 
     global $db;
     global $DATA_OBJ;

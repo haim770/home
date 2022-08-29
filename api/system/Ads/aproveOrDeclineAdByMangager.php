@@ -13,6 +13,7 @@ else{
 }
 global $user;
 function getAllWaitingAdsForAproval(){
+  //get all ads that wait for approval
   global $userType;
   global $user;
   if($userType!="registered"||$user->getRule()!="5150"){
@@ -38,6 +39,7 @@ function getAllWaitingAdsForAproval(){
     $arr=[];
 }
 function getAllAdIdWaitForAproval(){
+  //get all adiD THAT ARE WAIT TO BE APPROVED BY MANAGER RETURNS all relevant id's a array
   global $userType;
   global $user;
   if($userType!="registered"||$user->getRule()!="5150"){
@@ -57,7 +59,7 @@ return $result;
 }
 
 function getUserForUserIdAproval($user_id){
-    //return user record for param user_id
+    //return user record for param user_id for the ad that waits for approval
     global $userType;
   global $user;
   if($userType!="registered"||$user->getRule()!="5150"){
@@ -75,7 +77,7 @@ function getUserForUserIdAproval($user_id){
     return $result;
 }
 function getImagesForAdIdAproval($adId){
-    //return the images for the adId
+    //return the images for the adId that waits for approval
     global $userType;
   global $user;
   if($userType!="registered"||$user->getRule()!="5150"){
@@ -93,7 +95,7 @@ function getImagesForAdIdAproval($adId){
     return $result;
 }
 function getAdWithAdContentForAdIdAproval($adId,$user_id){
-    //get adcontent+ad for adid
+    //get adcontent+ad for adid and userId that are waiting for approval by manager
     global $userType;
   global $user;
   if($userType!="registered"||$user->getRule()!="5150"){
@@ -120,6 +122,7 @@ function getAdWithAdContentForAdIdAproval($adId,$user_id){
     return $result;
 }
 function declineAd(){
+  //decline ad by manager
   global $userType;
   global $user;
   if($userType!="registered"||$user->getRule()!="5150"){

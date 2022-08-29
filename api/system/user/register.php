@@ -11,6 +11,7 @@ function checkIfMailExist($mail){
 
 }
 function getFreeAdsFromSettings(){
+  //get count of free ads we give at register
   global $db;
   $query="select * from settings limit 1";
   $result=$db->readDBNoStoredProcedure($query);

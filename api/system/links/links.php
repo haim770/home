@@ -13,6 +13,7 @@ else{
 }
 global $user;
 function showAllLinks(){
+  //pass to frontend all active links
   global $db;
   $query= "select * from links where status= 'active' order by create_time desc";
   $result=$db->readDBNoStoredProcedure($query);

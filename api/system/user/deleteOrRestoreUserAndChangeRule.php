@@ -1,6 +1,6 @@
 <?php
-
 function changeRemainingAdsInDb(){
+  //change remaining ads for user mail we got from data_obj
   global $db;
   global $DATA_OBJ;
   $query="UPDATE users SET remaining_ads = '{$DATA_OBJ->params->remainingAds}' WHERE  mail = '{$DATA_OBJ->params->mail}'";
@@ -55,7 +55,6 @@ function changeMailInDb(){
   else{
     echo "success";
   }
-
 }
 function changeUserMailByManager(){
   //change to a new mail by the manager
@@ -75,6 +74,17 @@ function changeUserMailByManager(){
       echo json_encode($result);
       die;
   }
+}
+function getAllUsers()
+{
+  //get all users from the db
+    global $db;
+    global $DATA_OBJ;
+    global $arr;
+    $arr = [];
+    $query = "select * from users";
+    $result = $db->readDBNoStoredProcedure($query);
+    echo json_encode($result);
 }
 function getUserById(){
   //get user by id
@@ -112,8 +122,9 @@ die;
 $authPath = "../../Authentication/authTest.php";
 include_once(dirname(__FILE__) . DIRECTORY_SEPARATOR . $authPath);
 if($user->getRule() == "5150"){
-if($DATA_OBJ->data_type=="deleteOrRestoreUser")
+if($DATA_OBJ->data_type=="deleteOrRestoreUser"){
 deleteOrRestoreUser();
+}
 else{
   if($DATA_OBJ->data_type=="changeUserRule"){
     changeRule();
@@ -133,6 +144,11 @@ else{
         else{
           if($DATA_OBJ->data_type=="changeUserMailByManager"){
             changeUserMailByManager();
+          }
+          else{
+            if($DATA_OBJ->data_type=="getAllUsers"){
+              getAllUsers();
+            }
           }
         }
       }
