@@ -9,6 +9,7 @@ import instance from "../api/AxiosInstance.jsx";
 import useAuth from "../Auth/useAuth";
 import toast, { Toaster } from "react-hot-toast"; // https://react-hot-toast.com/docs && https://react-hot-toast.com/
 function EditPackage(props) {
+  //comp for editing pack
   const [price, setPrice] = useState(props.price); //hook for parameter name
   const [title, setTitle] = useState(props.title); //hook for parameter max value
   const [content, setContent] = useState(props.content); //hook for parameter min value
@@ -31,7 +32,7 @@ function EditPackage(props) {
   };
 
   const submitPackage = async (e) => {
-    //add ad to the db, returns true/false
+    //update pack in the db, returns true/false
     e.preventDefault();
     if (price == "0" || price < 0 || price == 0 || isNaN(price)) {
       alert("מחיר לא יכול להיות 0 ומטה");
@@ -66,6 +67,7 @@ function EditPackage(props) {
     returnStateToDefault();
   };
   const closePack = (e) => {
+    //get back to table view
     e.preventDefault();
     props.setClassName("notShowSelected");
     props.setTableClassName("showTable");

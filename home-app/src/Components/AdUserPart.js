@@ -2,6 +2,7 @@ import React from "react";
 import { Link, NavLink, Outlet } from "react-router-dom";
 import Parameter from "./Parameter.js";
 const AdUserPart = (props) => {
+  //display the user part
   const renderComp = () => {
     let code = (
       <div>

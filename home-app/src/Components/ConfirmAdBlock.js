@@ -14,12 +14,11 @@ import useAuth from "../Auth/useAuth";
 import { useState } from "react";
 
 const ConfirmAdBlock = (props) => {
-  /**
-   * Add function of start new chat with user ad publisher
-   */
+  //comp for confirm/decline ads
   const { auth } = useAuth();
   const [className, setClassName] = useState("cardBlock");
   const confirmAd = async (e) => {
+    //confirm ad
     e.preventDefault();
     const result = await instance.request({
       data: {
@@ -40,6 +39,7 @@ const ConfirmAdBlock = (props) => {
     setClassName(className + "invisible");
   };
   const declineAd = async (e) => {
+    //decline ad
     e.preventDefault();
     const result = await instance.request({
       data: {

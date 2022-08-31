@@ -9,6 +9,7 @@ import instance from "../api/AxiosInstance.jsx";
 import toast, { Toaster } from "react-hot-toast"; // https://react-hot-toast.com/docs && https://react-hot-toast.com/
 import useAuth from "../Auth/useAuth";
 function CreatePackage(props) {
+  //comp for create package
   const [price, setPrice] = useState(""); //hook for parameter name
   const [title, setTitle] = useState(""); //hook for parameter max value
   const [content, setContent] = useState(""); //hook for parameter min value
@@ -22,18 +23,20 @@ function CreatePackage(props) {
     setStateName(event.target.value);
   };
   const returnStateToDefault = () => {
+    //default the fields
     setContent("");
     setTitle("");
     setPrice("");
     setAdValue("");
   };
   const closePack = (e) => {
+    //get back to table show
     e.preventDefault();
     props.setClassName("notShowSelected");
     props.setTableClassName("showTable");
   };
   const submitPackage = async (e) => {
-    //add ad to the db, returns true/false
+    //add pack to the db, returns true/false
     e.preventDefault();
     if (price == "0" || price < 0 || price == 0 || isNaN(price)) {
       alert("מחיר לא יכול להיות 0 ומטה");

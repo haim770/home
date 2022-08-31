@@ -7,6 +7,7 @@ import "../styles/Main.css";
 import "../styles/Ads.css";
 import ConfirmAdBlock from "./ConfirmAdBlock";
 const ConfirmAdManager = (props) => {
+  //comp for list of ads waiting for confirmationn
   const [ads, setAds] = useState([]);
   const [loading, setLoading] = useState(false);
   const [indexStart, setindexStart] = useState(0); //index to start get ads from db
@@ -64,6 +65,7 @@ const ConfirmAdManager = (props) => {
     setLoading(true);
   };
   const getAds = async () => {
+    //get ads wait for approval
     setLoading(false);
     setNoMoreAdsForSearch(false);
     const result = await instance.request({

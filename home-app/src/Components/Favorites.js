@@ -6,12 +6,14 @@ import "../styles/Main.css";
 import "../styles/Ads.css";
 import AdsBlock from "./pages/AdsBlock";
 const Ads = (props) => {
+  //display favorites for user connected
   const [ads, setAds] = useState([]);
   const [loading, setLoading] = useState(false);
   const [noMoreAdsForSearch, setNoMoreAdsForSearch] = useState(false); //control on weather we will scroll for more result changes to true if no more result are available
   const [changed, setChanged] = useState(false);
 
   const getAds = async () => {
+    //get all favorites of the user
     setLoading(false);
     setNoMoreAdsForSearch(false);
     const result = await instance.request({

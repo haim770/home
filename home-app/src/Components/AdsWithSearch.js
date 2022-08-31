@@ -5,6 +5,7 @@ import "../styles/AdsWithSearch.css";
 import instance from "../api/AxiosInstance";
 import Ads from "./pages/Ads.jsx";
 function AdsWithSearch(props) {
+  //container for the list ads and the search comp
   const [indexStart, setindexStart] = useState(0); //index to start get ads from db
   const [indexEnd, setindexEnd] = useState(10); //index to end get ads from db
   const [lastSearch, setLastSearch] = useState("");
@@ -18,6 +19,7 @@ function AdsWithSearch(props) {
     params: [],
   }); //search ads
   const getParameters = async () => {
+    //get masterds from db
     const result = await instance.request({
       data: {
         data_type: "getAllMasters",

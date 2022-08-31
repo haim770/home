@@ -4,6 +4,7 @@ import useAuth from "../Auth/useAuth";
 import instance from "../api/AxiosInstance";
 import "../styles/Footer.css";
 function Footer(props) {
+  //footer display
   const [totalAdCount, setTotalAdCount] = useState("");
   const [activeAdCount, setActiveAdCount] = useState("");
   const [countBlogs, setCountBlogs] = useState("");
@@ -14,6 +15,7 @@ function Footer(props) {
   const [usersCount, setUsersCount] = useState("");
   const { auth } = useAuth();
   const getStats = async () => {
+    //get statistics for the footer
     const result = await instance.request({
       data: {
         data_type: "getFooterStats",

@@ -4,6 +4,7 @@ import Checkout from "./Checkout";
 import "../styles/Package1.css";
 import Button from "./Button";
 const Package1 = (props) => {
+  //display packs with connection to paypal
   return (
     <Link
       to={`/packages/${props.pack.packageId}`}
