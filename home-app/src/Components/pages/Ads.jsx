@@ -16,6 +16,7 @@ import AdsBlock from "./AdsBlock";
 import AdFullForProps from "../AdFullForProps";
 import useAuth from "../../Auth/useAuth";
 const Ads = (props) => {
+  //comp for display list ads
   const [ads, setAds] = useState([]);
   const [loading, setLoading] = useState(false);
   const [lastSearch, setLastSearch] = useState("");
@@ -47,6 +48,7 @@ const Ads = (props) => {
     }
   };
   const getAdScroll = async () => {
+    //scroll down and recieve more ads
     setLoading(false);
     const result = await instance.request({
       data: {
@@ -96,6 +98,7 @@ const Ads = (props) => {
     );
   };
   const getAds = async () => {
+    //get ads by the sort of search
     setLoading(false);
     setNoMoreAdsForSearch(false);
     console.log(auth);

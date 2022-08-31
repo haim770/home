@@ -5,6 +5,7 @@ import instance from "../../../../../api/AxiosInstance";
 import toast, { Toaster } from "react-hot-toast"; // https://react-hot-toast.com/docs && https://react-hot-toast.com/
 
 function EditReportReasons(props) {
+  //comp for edit report reason
   const { auth } = useAuth();
   const [reasonName, setReasonName] = useState(
     props.selectedReason.reason_name

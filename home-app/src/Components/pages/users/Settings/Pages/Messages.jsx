@@ -9,6 +9,7 @@ import useView from "../../../Chat/ChatUseContext";
 
 
 const Messages = () => {
+  //messages display
   const { auth } = useAuth();
 
   const [hovered, setHovered] = useState(false);

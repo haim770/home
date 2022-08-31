@@ -14,6 +14,7 @@ import useAuth from "../../../../../Auth/useAuth";
 import { useState, useEffect } from "react";
 import instance from "../../../../../api/AxiosInstance";
 const Sidebar = () => {
+  //the sidebar with manager and user widgets
   const { auth } = useAuth();
   const [newNotification, setNewNotification] = useState(0);
   const [newMsgForUser, setNewMsgForUser] = useState(0);

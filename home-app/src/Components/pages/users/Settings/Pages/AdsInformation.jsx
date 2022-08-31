@@ -15,6 +15,7 @@ const columns = [
   { field: "countTransactions", headerName: "מונה מודעות" },
 ];
 const AdsInformation = (props) => {
+  //show info about ads
   const [ads, setAds] = useState([]);
   const [loading, setLoading] = useState(false);
   const [start, setStart] = useState(0);

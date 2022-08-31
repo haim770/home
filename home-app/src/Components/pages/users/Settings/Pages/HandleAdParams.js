@@ -23,6 +23,7 @@ const columns = [
 ];
 
 const HandleAdParams = () => {
+  //manage ad content params in a table view
   const { auth } = useAuth();
   const location = useLocation();
   const [rows, setRows] = useState([]);
@@ -35,7 +36,7 @@ const HandleAdParams = () => {
    * Get Data from server
    */
   const getMasters = async () => {
-    //get all reports
+    //get all masters
     console.log(auth);
     const result = await instance.request({
       data: {

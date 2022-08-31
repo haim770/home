@@ -15,6 +15,7 @@ import Parameter from "../Parameter.js";
 import useAuth from "../../Auth/useAuth";
 
 const BlogForReports = (props) => {
+  //blog display with report
   console.log(props);
   /**
    * Add function of start new chat with user ad publisher

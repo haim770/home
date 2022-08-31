@@ -8,6 +8,7 @@ import AdsBlock from "../../../AdsBlock";
 import AdFullForProps from "../../../../AdFullForProps";
 import useAuth from "../../../../../Auth/useAuth";
 const UserAds = (props) => {
+  //show user's ads
   const [ads, setAds] = useState([]);
   const [loading, setLoading] = useState(false);
   const [lastSearch, setLastSearch] = useState("getAllOfMyAds");
@@ -86,6 +87,7 @@ const UserAds = (props) => {
     setLoading(true);
   };
   const getAds = async () => {
+    //get user ads
     setLoading(false);
     setNoMoreAdsForSearch(false);
     const result = await instance.request({

@@ -26,9 +26,7 @@ import useAuth from "../../Auth/useAuth";
 import { gridColumnsTotalWidthSelector } from "@mui/x-data-grid";
 
 const AdsBlock = (props) => {
-  /**
-   * Add function of start new chat with user ad publisher
-   */
+  //ad block display
   const [phone, setPhone] = useState(
     props.adBlock.user[0] ? props.adBlock.user[0].phone : 0
   );
@@ -42,6 +40,7 @@ const AdsBlock = (props) => {
   const { auth } = useAuth();
   const { startNewChat } = useView();
   const handleClickChatWith = async () => {
+    //handle the chat and when it happen ads 1 to contacted
     const chatWith = {
       adBlock: props.adBlock.ad[0],
       username: `${props.adBlock.user[0].first_name} ${props.adBlock.user[0].last_name}`,

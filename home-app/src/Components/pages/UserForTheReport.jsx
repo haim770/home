@@ -4,9 +4,6 @@ import { FcSms } from "react-icons/fc";
 import { Link, NavLink, Outlet } from "react-router-dom";
 import styles from "../../styles/AdsBlockForReports.module.css";
 import "../../styles/Report.css";
-
-// view component for the chat
-
 import { v4 as uuidv4 } from "uuid";
 import RecipeReviewCard from "../RecipeReviewCard.js";
 import instance from "../../api/AxiosInstance.jsx";
@@ -14,9 +11,7 @@ import Parameter from "../Parameter.js";
 import useAuth from "../../Auth/useAuth";
 
 const UserForTheReport = (props) => {
-  /**
-   * Add function of start new chat with user ad publisher
-   */
+  //user display near report
   const { auth } = useAuth();
   return (
     <section className={styles.cardBlock}>

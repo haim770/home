@@ -6,6 +6,7 @@ import instance from "../../../../../api/AxiosInstance";
 import toast, { Toaster } from "react-hot-toast"; // https://react-hot-toast.com/docs && https://react-hot-toast.com/
 
 function ManageSiteSettings(props) {
+  //comp for manageing site settings
   const { auth } = useAuth();
   const [adValue, setAdValue] = useState(""); //hook for initial ad value per register
   const [editableParams, setEditableParams] = useState(false);
@@ -18,11 +19,13 @@ function ManageSiteSettings(props) {
     setHook(e.target.value); //int number inside
   };
   const makeParamEditable = (e) => {
+    //make params editable
     e.preventDefault();
     setEditableParams(!editableParams);
     console.log(editableParams);
   };
   const getAllSiteSettings = async () => {
+    //get all site settings and place them in fields
     const result = await instance.request({
       data: {
         data_type: "getAllSiteSettings",
@@ -47,12 +50,13 @@ function ManageSiteSettings(props) {
     getAllSiteSettings();
   }, []);
   const cancel = (e) => {
+    //cancell operation
     e.preventDefault();
     getAllSiteSettings();
     setEditableParams(false);
   };
   const submitChanges = async (e) => {
-    //add ad to the db, returns true/false
+    //submit changes
     e.preventDefault();
     const result = await instance.request({
       data: {

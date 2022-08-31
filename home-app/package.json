@@ -30,6 +30,7 @@
     "react-select": "^5.3.2",
     "react-swipeable-views": "^0.14.0",
     "react-tooltip": "^4.2.21",
+    "react-whatsapp": "^0.3.0",
     "recharts": "^2.1.10",
     "slate": "^0.82.0",
     "slate-react": "^0.82.0",

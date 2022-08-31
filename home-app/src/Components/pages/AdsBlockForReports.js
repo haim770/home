@@ -14,9 +14,7 @@ import Parameter from "../Parameter.js";
 import useAuth from "../../Auth/useAuth";
 
 const AdsBlockForReports = (props) => {
-  /**
-   * Add function of start new chat with user ad publisher
-   */
+  //ads block to display with report
   const [phone, setPhone] = useState(
     props.adBlock.user ? props.adBlock.user[0].phone : 0
   );
@@ -27,7 +25,7 @@ const AdsBlockForReports = (props) => {
   const [showReport, setReportShow] = useState("notShowReport");
   const { auth } = useAuth();
   const deleteAd = async (e) => {
-    //get all reports
+    //delete ad
     const result = await instance.request({
       data: {
         data_type: "deleteAdById",

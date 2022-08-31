@@ -9,6 +9,7 @@ import instance from "../../../../../../api/AxiosInstance";
 import useAuth from "../../../../../../Auth/useAuth";
 
 const Featured = (props) => {
+  //show fetured by the stats we will recieve
   const [todaySales, setTodaySales] = useState("");
   const { auth } = useAuth();
 
@@ -16,6 +17,7 @@ const Featured = (props) => {
   const [weekSales, setWeekSales] = useState("");
   const [targetProfit, setTargetProfit] = useState("");
   const getSalesStats = async () => {
+    //get all saes stats
     const result = await instance.request({
       data: {
         data_type: "getSalesStats",
@@ -35,6 +37,7 @@ const Featured = (props) => {
     }
   };
   const getUserPurchasesStats = async () => {
+    //get user purchases from db
     const result = await instance.request({
       data: {
         data_type: "getUserPurchasesStats",

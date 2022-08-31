@@ -13,6 +13,7 @@ import {
 import { useState } from "react";
 
 const Chart = ({ aspect, title }) => {
+  //chart show comp
   const { auth } = useAuth();
 
   const [data, setData] = useState([
@@ -30,6 +31,7 @@ const Chart = ({ aspect, title }) => {
   ]);
   console.log(data);
   const getAllAdsByMonths = async () => {
+    //get ads by month last 6
     const result = await instance.request({
       data: {
         data_type: "getAllAdsByMonthsChart",

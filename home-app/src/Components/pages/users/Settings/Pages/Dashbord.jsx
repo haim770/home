@@ -6,6 +6,7 @@ import "../styles.css";
 import Widgets from "../widgets/widgets";
 import instance from "../../../../../api/AxiosInstance";
 const Dashbord = () => {
+  //show the dashboard of th widgets
   return (
     <div>
       <div className="widgets">

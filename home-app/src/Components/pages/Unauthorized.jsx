@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 
 const Unauthorized = () => {
+  //page for unautorized
   const navigate = useNavigate();
 
   const goBack = () => navigate(-1);
