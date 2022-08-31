@@ -20,6 +20,7 @@ import RecipeReviewCardUrl from "./RecipeReviewCardUrl";
 import { FaEye } from "react-icons/fa";
 import { FcSms } from "react-icons/fc";
 function AdById(props) {
+//comp for getting ad by its id
   const [togglePhone, setTogglePhone] = useState("הצג טלפון");
   const [showReport, setReportShow] = useState("notShowReport");
   const [adForTheReport, setAdForTheReport] = useState({});
@@ -31,6 +32,7 @@ function AdById(props) {
   const [renderCookie, setRenderCookie] = useState(true);
   let refreshTimes = 1;
   const handleClickChatWith = async () => {
+  //handle chat
     const chatWith = {
       adBlock: data.ad[0],
       username: `${data.user[0].first_name} ${data.user[0].last_name}`,
