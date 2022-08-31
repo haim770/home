@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * AES-256-CBC Encryption / Decryption imlement for CryproJS :
+ *
+ * @category Cryptography
+ * @package  Cryptography_CryproJS_AES
+ * @author   Lidor Ben Shimol
+ */
 class CryptoAes
 {
     /**
@@ -7,7 +14,7 @@ class CryptoAes
      *
      * @param mixed $passphrase
      * @param mixed $value
-     * @return string
+     * @return string encrypted message
      */
     public static function cryptoJsAesEncrypt($passphrase, $value)
     {
@@ -30,7 +37,7 @@ class CryptoAes
      *
      * @param mixed $passphrase
      * @param mixed $jsonString
-     * @return mixed
+     * @return mixed decrypted message
      */
     public static function  cryptoJsAesDecrypt($passphrase, $jsonString)
     {

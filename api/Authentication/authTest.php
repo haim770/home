@@ -1,4 +1,13 @@
 <?php
+
+/**
+ * User Authentication test :
+ * This script will prevent from unauthrized users get into auth user.
+ * This script use JWT to valid the user
+ * @category Authentication
+ * @package  Authentication_auth
+ * @author   Lidor Ben Shimol
+ */
 // required headers
 header("Access-Control-Allow-Origin: *"); // we can put our website link here
 header("Content-Type: application/json; charset=UTF-8");
@@ -33,6 +42,7 @@ if (!$jwt) {
     header('HTTP/1.0 400 Bad Request');
     exit;
 }
+
 
 function base64url_encode($str)
 {
