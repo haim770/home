@@ -2,6 +2,7 @@
 // get authTest file
 $authPath = "../../../Authentication/authTest.php";
 include_once(dirname(__FILE__) . DIRECTORY_SEPARATOR . $authPath);
+require_once(__DIR__.'/../../queries.php');
 deleteInputPics();
 
 /**
@@ -59,7 +60,7 @@ if(!empty($fileNames)){
              */
             if (!empty($arr["insertValuesSQL"])) {
                 $arr["uuid"] = uniqid(); // image uniq id
-                $query = "INSERT INTO `pictures`(`pictureID`, `element_id`, `serial_number`, `picture_url`, `upload_time`, `alt`) VALUES (:uuid,:adUuid,:serial_number,:insertValuesSQL,:curDate,:alt)";
+                $query = $queryArr["insertPictures"];
                 $db->writeDBNotStoredProcedure($query, $arr);
                 $arr["serial_number"] = 1 + $arr["serial_number"]; // image counter
             } else {
