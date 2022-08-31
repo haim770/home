@@ -15,6 +15,7 @@ import RecipeReviewCard from "./RecipeReviewCard";
 import useView from "./pages/Chat/ChatUseContext";
 import useAuth from "../Auth/useAuth";
 function AdFullForProps(props) {
+//show full screen ad by props it gets
   const [isFavorite, setIsFavorite] = useState(props.adBlock.favorite);
   const [goToEditPage, setGoToEditPage] = useState(false);
   const location = useLocation();
@@ -25,6 +26,7 @@ function AdFullForProps(props) {
   const { auth } = useAuth();
   const { startNewChat } = useView();
   const handleClickChatWith = () => {
+  //handle chat
     const chatWith = {
       adBlock: props.adBlock.ad[0],
       username: `${props.adBlock.user[0].first_name} ${props.adBlock.user[0].last_name}`,
@@ -34,6 +36,7 @@ function AdFullForProps(props) {
     startNewChat(chatWith);
   };
   const deleteAd = async (e) => {
+  //delete the ad
     const res = await instance.request({
       data: {
         data_type: "deleteAdById",
@@ -49,6 +52,7 @@ function AdFullForProps(props) {
     changeToListView(e);
   };
   const editAd = (e) => {
+  //edit the ad
     e.preventDefault();
     setGoToEditPage(true);
   };
@@ -92,6 +96,7 @@ function AdFullForProps(props) {
     });
   }, []);
   const changeToListView = (e) => {
+  //toggle view to list
     e.preventDefault();
     props.setListShow("showList");
     props.setFullShow("notShowFull");
