@@ -95,7 +95,13 @@ const StepTwo = ({ formData, setFormData }) => {
       name === "localTax" ||
       name === "houseTax"
     ) {
-      if (isNaN(value)) return;
+      if (
+        isNaN(value) ||
+        event.target.value == "00" ||
+        event.target.value == "--" ||
+        event.target.value == "e"
+      )
+        return;
     }
     setFormData((values) => ({ ...values, [name]: value }));
   };
@@ -195,7 +201,7 @@ const StepTwo = ({ formData, setFormData }) => {
             {" "}
             <span> קומה</span>
             <input
-              type="text"
+              type="number"
               placeholder="קומה"
               className="rounded-input"
               name="floor"
@@ -329,7 +335,7 @@ const StepTwo = ({ formData, setFormData }) => {
             {" "}
             <span>שטח</span>
             <input
-              type="number"
+              type="text"
               className="rounded-input"
               placeholder="סהכ שטח"
               name="area"
@@ -344,7 +350,7 @@ const StepTwo = ({ formData, setFormData }) => {
             {" "}
             <span>מחיר</span>
             <input
-              type="number"
+              type="text"
               className="rounded-input"
               placeholder="מחיר"
               name="price"
@@ -357,7 +363,7 @@ const StepTwo = ({ formData, setFormData }) => {
             {" "}
             <span>ארנונה</span>
             <input
-              type="number"
+              type="text"
               className="rounded-input"
               placeholder="ארנונה"
               name="localTax"
@@ -369,7 +375,7 @@ const StepTwo = ({ formData, setFormData }) => {
             {" "}
             <span>ועד בית</span>
             <input
-              type="number"
+              type="text"
               className="rounded-input"
               placeholder="ועד בית"
               name="houseTax"
