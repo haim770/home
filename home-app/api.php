@@ -25,26 +25,6 @@ require_once('../api/system/classes/useDBs.php');
 $db = dbClass::GetInstance();
 $arr = [];
 $error = "";
-if (isset($_POST['data'])) {
-    $dataType = $_POST['data'];
-    if (isset($_POST['params'])) {
-        $params = $_POST['params'];
-    }
-    if ($dataType == "ads")
-        getAllAds();
-    if (
-        $dataType == "getSelectedAdByIdAndCity"
-    ) {
-        getSelectedAdByIdAndCity();
-    }
-    if ($dataType == 'insertAd') {
-        insertAd();
-    }
-
-    if ($dataType == 'getAdByLink') {
-        getAdByLink();
-    }
-}
 function getAllMasters()
 {
     //get masters from adcontent table
@@ -420,50 +400,6 @@ function insertNewAd()
     echo json_encode($result);
     $arr = [];
 }
-// function updateContacted(){
-//      global $db;
-//     global $DATA_OBJ;
-//     global $arr;
-//     $arr = [];
-
-//     $query = "update ads set contact_counter=contact_counter+1 where adID ='{$DATA_OBJ->params->adID}'";
-//     $result = $db->writeDBNotStoredProcedure($query);
-//     echo json_encode($result);
-// }
-// function updateWatch()
-// {
-
-//     global $db;
-//     global $DATA_OBJ;
-//     global $arr;
-//     $arr = [];
-
-//     $query = "update ads set watch=watch+1 where adID ='{$DATA_OBJ->params->adID}'";
-//     $result = $db->writeDBNotStoredProcedure($query);
-//     echo json_encode($result);
-// }
-/*
-function getPackById(){
-    //get package by its id
-    global $arr;
-    global $db;
-    global $DATA_OBJ;
-   // $packId=$DATA_OBJ->$params->packId;
-    $query="select * from package where packageId='$packId'";
-    $result = $db->writeDBNotStoredProcedure($query);
-    echo json_encode($result);
-
-}*/
-function getAllUsers()
-{
-    global $db;
-    global $DATA_OBJ;
-    global $arr;
-    $arr = [];
-    $query = "select * from users";
-    $result = $db->readDBNoStoredProcedure($query);
-    echo json_encode($result);
-}
 
 function seeWhatInAuth()
 {
@@ -514,7 +450,7 @@ if (isset($DATA_OBJ->data_type)) {
             include_once("../api/system/user/deleteOrRestoreUserAndChangeRule.php");
             break;
         case "getAllUsers":
-            getAllUsers();
+            include_once("../api/system/user/deleteOrRestoreUserAndChangeRule.php");
             break;
         case "register":
             include_once("../api/system/user/register.php");
@@ -871,175 +807,6 @@ if (isset($DATA_OBJ->data_type)) {
             
     }
 }
-
-/*
-if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "seeWhatInAuth") {
-    seeWhatInAuth();
-} else
-if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "showFavoritesAds") {
-    include_once("../api/system/ads/showFavoritesAds.php");
-} else
-if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "changeRemainingAdsInDb") {
-    include_once("../api/system/user/deleteOrRestoreUserAndChangeRule.php");
-} else
-if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "changeUserRule") {
-
-    include_once("../api/system/user/deleteOrRestoreUserAndChangeRule.php");
-} else
-if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "deleteOrRestoreUser") {
-
-    include_once("../api/system/user/deleteOrRestoreUserAndChangeRule.php");
-} else
-if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "getAllUsers") {
-    getAllUsers();
-} else
-if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "register") {
-    include_once("../api/system/user/register.php");
-} else
-if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "removeFromFavorites") {
-    include_once("../api/system/ads/favorites.php");
-    removeFromFavorites();
-} else
-    // get all users from server, use for manager settings
-    if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "getSettingsUsers") {
-        include("../api/system/user/settingsUsers.php");
-    } else
-if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "addNewMasterToAdContentTable") {
-        addNewMasterToAdContentTable();
-    } else
-if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "getFavoritesForUserId") {
-        include("../api/system/ads/favorites.php");
-        getFavoritesForUserId();
-    } else
-if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "addToFavorites") {
-        include("../api/system/ads/favorites.php");
-        addToFavorites();
-    } else
-if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == 'getPackById') {
-        // getPackById();
-    } else
-if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == 'buyPack') {
-        include("../api/system/packages/buyPackage.php");
-        buyPack();
-    } else
-if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == 'declineAd') {
-        declineAd();
-    } else
-if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == 'aproveAd') {
-        aproveAd();
-    } else
-if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == 'getAllWaitingAdsForAproval') {
-        getAllWaitingAdsForAproval();
-    } else
-
-if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == 'getAdByID') {
-        if (isset($DATA_OBJ->params))
-            echo json_encode(getAdWithAdContentForAdId($DATA_OBJ->params->adID, $DATA_OBJ->params->user_id));
-    } else
-if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == 'insertNewAd') {
-        insertNewAd();
-    } else
-if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == 'updateWatch') {
-        updateWatch();
-    } else
-if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == 'getAllAdContentAndAdAndUsersForArrOfAds') {
-        include_once('../api/system/Ads/searchAds.php');
-    } else
-if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == 'getAllPackages') {
-        getAllPackages();
-    } else
-if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == 'addPackage') {
-    } else
-if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == 'getAllMasters') {
-        getAllMasters();
-    } else
-if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type ==  'searchAdByParameters') {
-        searchAdByParameters();
-    } else
-        // proccess the data
-        if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "searchAdByParameterswithAdContent") {
-            searchAdByParameterswithAdContent();
-        }
-if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "searchInDbWithUnknownParamsAndTable") {
-    searchInDbWithUnknownParamsAndTable("ads");
-} else
-    // Proccess login
-    if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "Login") {
-        include("../api/Authentication/login.php");
-    } else
-        // Proccess get user contacts getChat
-        if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "getContacts") {
-            include("../api/system/chat/getContacts.php");
-        } else
-            // Proccess get user updates
-            if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "getNewUpdates") {
-                include("../api/system/user/getNewUpdates.php");
-            } else
-
-                // Proccess get user Chat
-                if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "getChat") {
-                    include("../api/system/chat/getChatWith.php");
-                } else
-                    // Proccess get Test image
-                    if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "getImage") {
-                        include("../api/system/Ads/getData/getImage.php");
-                    } else
-                        // Proccess submit Message 
-                        if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "submitMessage") {
-                            include("../api/system/chat/submitMessage.php");
-                        } else
-                            // Proccess refreshData Message 
-                            if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "refreshData") {
-                                include("../api/system/chat/refreshData.php");
-                            } else
-                                // Proccess getAnalysticAdsHomePage 
-                                if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "getSomeAds") {
-                                    include("../api/system/Ads/getAnalysticAdsHomePage.php");
-                                } else
-                                    // Proccess get seclect data for ads form
-                                    if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "getSelectData") {
-                                        include("../api/system/Ads/Search/dataSearch.php");
-                                    } else
-                                        // Proccess postNewAdd
-                                        if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "postNewAdd") {
-                                            include("../api/system/Ads/CreateNewAd/postNewAdd.php");
-                                        } else
-                                            // Proccess get Additional Ad Contact Data
-                                            if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "getAdditionalAdContactData") {
-                                                include("../api/system/Ads/CreateNewAd/getAdContent.php");
-                                            } else
-                                                // Proccess testAuth 
-                                                if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "testAuth") {
-                                                    include("../api/Authentication/authTest.php");
-                                                } else
-if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "Logout") {
-                                                    include("../api/Authentication/logout.php");
-                                                } else
-if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "Refresh") {
-                                                    // echo "refreshCall";
-                                                    include("../api/Authentication/refreshTokenController.php");
-                                                } else
-if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "Regist") {
-                                                    include("../api/Authentication/regist.php");
-                                                } else // proccess the data - Contact
-
-                                                    if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "contacts") {
-                                                        include("contact.php");
-                                                    } else
-        if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "getAllAds") {
-                                                        getAllAds();
-                                                    } else // proccess the data - Contact
-                                                        if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "TEST2") {
-                                                            getAllAds();
-                                                        } else // proccess the data - get Settings User Purchase
-                                                            if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "getSettingsUserPurchase") {
-                                                                include("getSettingsUserPurchase.php");
-                                                            }
-
-
-                                                            */
-
-
 
 
 

@@ -6,6 +6,7 @@ import { v4 as uuidv4 } from "uuid";
 import Select from "react-select";
 
 function SearchAds(props) {
+  //comp for the search
   const [adContentClass, setAdContentClass] = useState("notVisible");
   const [minPrice, setMinPrice] = useState(""); //hook for the price state
   const [maxPrice, setMaxPrice] = useState(""); //hook for the price state
@@ -80,6 +81,7 @@ function SearchAds(props) {
   }, [selectedOption]);
 
   const getSearchOprions = async () => {
+    //get the city list from the db
     const result = await instance.request({
       data: {
         data_type: "getSelectData",
@@ -94,17 +96,20 @@ function SearchAds(props) {
     else setStreetOptions(result.data.searchOption);
   };
   const handleChangeCity = (event) => {
+    //handle city change
     const value = event.label;
     setInputsAd((values) => ({ ...values, city: value }));
     setSelectedOption(event);
   };
   const handleChangeStreet = (event) => {
+    //handle street change
     const value = event.label;
     setInputsAd((values) => ({ ...values, street: value }));
     setStreetSelectedOption(event);
   };
 
   const handleChangeAd = (event) => {
+    //handle change of adType(rent/buy)
     const name = event.target.name;
     const value = event.target.value;
     if (name === "adType") {
@@ -125,6 +130,7 @@ function SearchAds(props) {
     setInputsAd({ ...inputsAd, [name]: value });
   };
   const handleChangeAdContentBuyCheckBox = (event) => {
+    //change of checkbox in ad content
     const name = event.target.name;
     setInputsAdContentBuy({
       ...inputsAdContentBuy,
@@ -132,6 +138,7 @@ function SearchAds(props) {
     });
   };
   const handleChangeAdContentBuy = (e) => {
+    //handle change of ad content buy
     let num = e.target.value.replace(/\D/g, "");
     const name = e.target.name;
     const value = e.target.value;
@@ -176,6 +183,7 @@ function SearchAds(props) {
     }
   };
   const handleChangeAdContentRentCheckBox = (event) => {
+    //chnage rent adcontent checkbox
     const name = event.target.name;
     setInputAdConentRent({
       ...inputAdConentRent,
@@ -335,7 +343,7 @@ function SearchAds(props) {
     );
     code.push(
       <label key="maxArea">
-        <span> מינימום שטח בית</span>
+        <span> מקסימום שטח בית</span>
         <input
           type="text"
           name="maxArea"

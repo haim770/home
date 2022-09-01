@@ -2,6 +2,7 @@
 // get authTest file
 $authPath = "../../../Authentication/authTest.php";
 include_once(dirname(__FILE__) . DIRECTORY_SEPARATOR . $authPath);
+require_once(__DIR__.'/../../queries.php');
 deleteInputPics();
 
 /**
@@ -59,7 +60,7 @@ if(!empty($fileNames)){
              */
             if (!empty($arr["insertValuesSQL"])) {
                 $arr["uuid"] = uniqid(); // image uniq id
-                $query = "INSERT INTO `pictures`(`pictureID`, `element_id`, `serial_number`, `picture_url`, `upload_time`, `alt`) VALUES (:uuid,:adUuid,:serial_number,:insertValuesSQL,:curDate,:alt)";
+                $query = $queryArr["insertPictures"];
                 $db->writeDBNotStoredProcedure($query, $arr);
                 $arr["serial_number"] = 1 + $arr["serial_number"]; // image counter
             } else {
@@ -109,16 +110,19 @@ if(!empty($fileNames)){
     else{
         $entryDate=isset($formData->assetEntry)?$formData->assetEntry:"";
     }
-    $query="UPDATE ads SET city = '$city', street = '$street',propertyTaxes ='$propertyTaxes', houseCommittee ='$houseCommittee',floor ='$floor',maxFloor ='$maxFloor',price='$price',rooms='$rooms',adType='$adType',entry='$entry',building_number='$building_number',expire_date='$expire_date',area= '$area',property_type='$property_type',entry_date='$entryDate',active ='0' ,approval_status ='pending' WHERE adID = '$adID'";
+    $query=queryForUpdateAdPardOfTheAd($city,$street,$propertyTaxes,$houseCommittee,$floor,$maxFloor,$price,$rooms,$adType,$entry,$building_number,$expire_date,$area,$property_type,$entryDate,$adID);
     $db->writeDBNotStoredProcedure($query,[]);
 
 /**
  * Step 3 - ad contact
  */
+    $arr3=[];
+    $arr3["adID"]=$adID;
     $formDataStepThree = json_decode($DATA_OBJ["formDataStepThree"]);
     $category=$formData->assetOption=="buy"?"קנייה":"השכרה";
-    $query="Delete from ad_content where adID='$adID'";
-    $db->writeDBNotStoredProcedure($query,[]);
+    $query=$queryArr["deleteAdContentForAdId"];
+    $db->writeDBNotStoredProcedure($query,$arr3);
+    $arr3=[];
     foreach ($formDataStepThree as $key => $value) {
       if($value!=""&&$value!=false){
         // create new element id
@@ -141,6 +145,7 @@ else{
     echo json_encode("error");
 }
 function deleteSpesificPic($picUrl,$adId){
+    //delete pic by adId and url of pic
     global $DATA_OBJ;
     global $db;
     $query="Delete from pictures where element_id='$adId' and picture_url='$picUrl'";

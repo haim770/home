@@ -22,6 +22,7 @@ const columns = [
 ];
 
 const ManageReports = () => {
+  //manage reports in a table
   const { auth } = useAuth();
   const [rows, setRows] = useState([]);
   const [tableClassName, setTableClassName] = useState("showTable");
@@ -34,6 +35,7 @@ const ManageReports = () => {
    * Get Data from server
    */
   const getSelectedAd = async (row) => {
+    //get selected element (ad/blog/user)
     if (row.element_type == "ad") {
       let result = await instance.request({
         data: {
@@ -92,10 +94,10 @@ const ManageReports = () => {
     }
   };
   const getAllReports = async () => {
-    //get all reports
+    //get new  reports
     const result = await instance.request({
       data: {
-        data_type: "getAllReports",
+        data_type: "getNewReports",
         params: { guest: "registered" },
       },
       headers: {

@@ -2,6 +2,7 @@
 // get authTest file
 $authPath = "../../../Authentication/authTest.php";
 include_once(dirname(__FILE__) . DIRECTORY_SEPARATOR . $authPath);
+require_once(__DIR__.'/../../queries.php');
 
 /**
  * Check if user got enoght ads to publish or user is admin, if user is admin he can publish as much as he want
@@ -55,7 +56,7 @@ if(!empty($fileNames)){
              */
             if (!empty($arr["insertValuesSQL"])) {
                 $arr["uuid"] = uniqid(); // image uniq id
-                $query = "INSERT INTO `pictures`(`pictureID`, `element_id`, `serial_number`, `picture_url`, `upload_time`, `alt`) VALUES (:uuid,:adUuid,:serial_number,:insertValuesSQL,:curDate,:alt)";
+                $query = $queryArr["insertPictures"];
                 $db->writeDBNotStoredProcedure($query, $arr);
                 $arr["serial_number"] = 1 + $arr["serial_number"]; // image counter
             } else {
@@ -118,7 +119,7 @@ if(!empty($fileNames)){
     else{
         $property_type="דירה";
     }
-    $query="INSERT INTO ads (adID,user_id,city,street,propertyTaxes,houseCommittee,floor,maxFloor,price,rooms,adType,entry,building_number,expire_date,area,entry_date,property_type,ad_link) VALUES('$adID','$user_id','$city','$street','$propertyTaxes','$houseCommittee','$floor','$maxFloor','$price','$rooms','$adType','$entry','$building_number','$expire_date','$area','$entryDate','$property_type','$adID')";
+    $query=queryForInsertAdPardOfTheAd($city,$street,$propertyTaxes,$houseCommittee,$floor,$maxFloor,$price,$rooms,$adType,$entry,$building_number,$expire_date,$area,$property_type,$entryDate,$adID,$user_id);
     $db->writeDBNotStoredProcedure($query,[]);
     /////////////////////////////////////////////////
 
@@ -150,18 +151,23 @@ else{
     echo json_encode("error"+$e);
 }
 function decreaseAdValueBy1ToUser($userId){
+    //decrease user remaining ads by 1
     global $db;
     global $user;
+    $arrParams=[];
+    $arrParams["uuid"]=$userId;
+    global $queryArr;
     global $DATA_OBJ;
-    $query="UPDATE users SET remaining_ads = remaining_ads-1 WHERE uuid = '$userId'";
-    $result=$db->writeDBNotStoredProcedure($query,[]);
+    $query=$queryArr["decreaseRemainingAdsByOne"];
+    $result=$db->writeDBNotStoredProcedure($query,$arrParams);
 }
 function getExpireDateFromSiteSettings(){
     //gets num of days till expire from the settings
     global $db;
     global $user;
     global $DATA_OBJ;
-    $query="select expireDateAds from settings";
+    global $queryArr;
+    $query=$queryArr["getExpireDateFromSettings"];
     $result=$db->readDBNoStoredProcedure($query,[]);
     return $result[0]->expireDateAds;
 }

@@ -19,6 +19,7 @@ const columns = [
 ];
 
 const SiteSales = () => {
+  //all site purchases
   const { auth } = useAuth();
   const [rows, setRows] = useState([]);
   const [countSales, setCountSales] = useState("");
@@ -30,6 +31,7 @@ const SiteSales = () => {
    * Get Data from server
    */
   const getUserPurchase = async () => {
+    //get all purchases for the manager to see
     const result = await instance.request({
       data: {
         data_type: "getAllPurchases",

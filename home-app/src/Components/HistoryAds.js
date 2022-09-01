@@ -8,6 +8,7 @@ import "../styles/Ads.css";
 import AdsBlock from "./pages/AdsBlock";
 import AdFullForProps from "./AdFullForProps";
 const HistoryAds = (props) => {
+  //show history of user
   const [ads, setAds] = useState([]);
   const [loading, setLoading] = useState(false);
   const [noMoreAdsForSearch, setNoMoreAdsForSearch] = useState(false); //control on weather we will scroll for more result changes to true if no more result are available
@@ -17,6 +18,7 @@ const HistoryAds = (props) => {
   const { auth } = useAuth();
 
   const getAds = async () => {
+    //get history of the user
     setLoading(false);
     setNoMoreAdsForSearch(false);
     const result = await instance.request({

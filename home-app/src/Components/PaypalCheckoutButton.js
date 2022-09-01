@@ -3,12 +3,13 @@ import { React, useState } from "react";
 import instance from "../api/AxiosInstance";
 import useAuth from "../Auth/useAuth";
 const PaypalCheckoutButton = (props) => {
+  //the paypal comp
   const { product } = props; //must be named product for the api
   const { auth } = useAuth();
   const [paidFor, setPaidFor] = useState(false);
   const [error, setError] = useState(false);
   const handleApprove = async (orderId) => {
-    // Call backend function to fulfill order
+    // Call backend function to fulfill order and buy
     const result = await instance.request({
       data: {
         data_type: "buyPack",

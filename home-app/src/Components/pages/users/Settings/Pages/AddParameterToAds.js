@@ -4,6 +4,7 @@ import useAuth from "../../../../../Auth/useAuth";
 import toast, { Toaster } from "react-hot-toast"; // https://react-hot-toast.com/docs && https://react-hot-toast.com/
 import instance from "../../../../../api/AxiosInstance";
 function AddParameterToAds(props) {
+  //add parameter to ad content
   const { auth } = useAuth();
   const [paramName, setParamName] = useState(""); //hook for parameter name
   const [maxValue, setMaxVlue] = useState(""); //hook for parameter max value
@@ -30,7 +31,7 @@ function AddParameterToAds(props) {
     setRequired("רשות");
   };
   const submitParameter = async (e) => {
-    //add ad to the db, returns true/false
+    //submit the param
     e.preventDefault();
     if (minValue > maxValue && maxValue != "") {
       alert("min is bigger then max");

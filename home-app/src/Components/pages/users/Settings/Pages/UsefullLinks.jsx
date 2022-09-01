@@ -7,6 +7,7 @@ import useAuth from "../../../../../Auth/useAuth";
 import LinkRecord from "./LinkRecord.jsx";
 import { display } from "@mui/system";
 const UsefullLinks = (props) => {
+  //dsplay links
   const [links, setLinks] = useState([]);
   const [loading, setLoading] = useState(false);
   const [linkContent, setLinkContent] = useState(""); //link name

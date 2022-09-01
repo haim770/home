@@ -11,6 +11,7 @@ import instance from "../api/AxiosInstance";
 import useAuth from "../Auth/useAuth";
 import Select from "react-select";
 function ChangeUserRule(props) {
+  //comp for handling users by manager
   const [first_name, setfirst_name] = useState(""); //hook for parameter name
   const [last_name, setLast_name] = useState(""); //hook for parameter max value
   const [mail, setMail] = useState(""); //hook for parameter min value
@@ -27,7 +28,7 @@ function ChangeUserRule(props) {
     setStateName(e.target.value);
   };
   const getAllUsers = async () => {
-    //add ad to the db, returns true/false
+    //get users from the db and put it in the selects
     const result = await instance.request({
       data: {
         data_type: "getAllUsers",

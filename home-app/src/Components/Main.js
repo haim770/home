@@ -12,6 +12,7 @@ import useView from "./pages/Chat/ChatUseContext";
 import useAuth from "../Auth/useAuth";
 import AdById from "./AdById";
 const Home = () => {
+  //main page
   const [blogs, setBlogs] = useState([]);
   const [ads, setAds] = useState([]);
   const [indexStartAds, setIndexStartAds] = useState(0);
@@ -23,6 +24,7 @@ const Home = () => {
    * Get Blogs from server
    */
   const getBlogs = async () => {
+    //get top 3 blogs
     const result = await instance.request({
       data: {
         data_type: "getBlogsTop",
@@ -44,6 +46,7 @@ const Home = () => {
    *
    */
   const getAds = async () => {
+    //get ads
     if (!midSend) {
       setMidSend(true);
       const result = await instance.request({

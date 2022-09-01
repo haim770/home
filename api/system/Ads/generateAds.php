@@ -1,5 +1,5 @@
 <?php
-
+ require_once(__DIR__.'/../queries.php');
 function generateSearchFromBothAdContentAndAds()
 {
     //make a search arr from the params we got and based on adcontent and ads gets a start of the search query

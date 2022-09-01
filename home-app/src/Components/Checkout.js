@@ -1,7 +1,7 @@
 import PaypalCheckoutButton from "./PaypalCheckoutButton";
 
 const Checkout = (props) => {
-  //the product is the pack
+  //the product is the pack pay pal
   const product = {
     description: props.title,
     price: props.price,

@@ -76,7 +76,7 @@ function getUsersCount(){
 function getAvgWatchPerAd(){
   //get avg watches on ad where the ad is active
   global $db;
-  $query="select avg(watch) as total from ads where active='1'";
+  $query="select avg(watch) as total from ads";
   $result=$db->readDBNoStoredProcedure($query);
   return $result;
 }
@@ -101,6 +101,7 @@ function getFooterStats(){
   die;
 }
 function getTodaySales(){
+  //return sum of sales today
 global $db;
   $time=date('y.m.d',time());
   $query="select sum(price) as sum from purchase_history where DATE(purchase_time) >= '$time'";
@@ -111,6 +112,7 @@ global $db;
   return $result;
 }
 function getMonthSales(){
+   //return sum of sales month
   global $db;
    $time=date('y.m.d',time()-30*24*60*60);
   $query="select sum(price) as sum from purchase_history where DATE(purchase_time) >= '$time'";
@@ -121,6 +123,7 @@ function getMonthSales(){
   return $result;
 }
 function getWeekSales(){
+   //return sum of sales week
   global $db;
   $time=date('y.m.d',time()-7*24*60*60);
   $query="select sum(price) as sum from purchase_history where DATE(purchase_time) >= '$time'";
@@ -131,6 +134,7 @@ function getWeekSales(){
   return $result;
 }
 function getSalesTarget(){
+  //get sales target from site settings
   global $db;
   $query="select expectedProfit from settings";
   $result=$db->readDBNoStoredProcedure($query);
@@ -140,6 +144,7 @@ function getSalesTarget(){
   return $result;
 }
 function getSalesStats(){
+  //get all sales stats and pass to js
    global $DATA_OBJ;
   global $user;
   global $userType;
@@ -175,6 +180,7 @@ function getUsersRegisteredLastMonth(){
   return $result;
 }
 function getAdPostedThisMonth(){
+  //get count of ads posted this month
    global $db;
    $time=date('y.m.d',time()-30*24*60*60);
   $query="select count(adID) as count from ads where create_time>='$time'";
@@ -207,6 +213,7 @@ function getCountPurchases(){
   return $result;
 }
 function getWidgetStats(){
+  //gets the widget stats for the js
    global $DATA_OBJ;
   global $user;
   global $userType;
@@ -226,6 +233,7 @@ function getWidgetStats(){
   echo json_encode($arr);
 }
 function UserMonthPurchase(){
+  //get sum of specific user  purchase this month
   global $db;
   global $user;
   $uuid=$user->getUuid();
@@ -238,6 +246,7 @@ function UserMonthPurchase(){
   return $result;
 }
 function UserWeekPurchase(){
+   //get sum of specific user  purchase this week
   global $db;
   global $user;
   $uuid=$user->getUuid();
@@ -250,6 +259,7 @@ function UserWeekPurchase(){
   return $result;
 }
 function UserTodayPurchase(){
+   //get sum of specific user  purchase today
   global $db;
   global $user;
   $uuid=$user->getUuid();

@@ -4,6 +4,7 @@ import useAuth from "../../../../../Auth/useAuth";
 import toast, { Toaster } from "react-hot-toast"; // https://react-hot-toast.com/docs && https://react-hot-toast.com/
 import instance from "../../../../../api/AxiosInstance";
 function AddParameterToAds(props) {
+  //comp for adding reason
   const { auth } = useAuth();
   const [reasonName, setReasonName] = useState(""); //hook for reason name
   const [minValue, setMinValue] = useState(""); //hook fr parameter min value
@@ -27,7 +28,7 @@ function AddParameterToAds(props) {
     setDataType("השכרה");
   };
   const submitReason = async (e) => {
-    //add ad to the db, returns true/false
+    //submit new reason
     e.preventDefault();
 
     if (reasonName.trim() === "") {
@@ -62,6 +63,7 @@ function AddParameterToAds(props) {
     }
   };
   const closeParam = (e) => {
+    //go back to table
     e.preventDefault();
     props.setClassName("notShowSelected");
     props.setTableClassName("showTable");

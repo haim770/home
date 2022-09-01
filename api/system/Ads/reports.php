@@ -199,7 +199,7 @@ function changeReportManagerFeedback(){
 
 }
 function  getNewReports(){
-  //get new reports
+  //get new reports for manager
   global $user;
   if($user->getRule()!="5150"){
     //not manager
@@ -252,6 +252,7 @@ function sendReportToUser(){
   die;
 }
 function getReportsOnAdsForUserIdByParam($seenStatus){
+  //get all report that apply to the seen status param
   global $userType;
   global $user;
   global $db;

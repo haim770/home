@@ -3,6 +3,7 @@ import Parameter from "./Parameter.js";
 import { NavLink, Link } from "react-router-dom";
 import "../styles/adPart.css";
 const AdPart = (props) => {
+  //display the ad part of the ad
   const renderComp = () => {
     let code = [];
     for (const [key, value] of Object.entries(props.ad[0])) {
@@ -25,6 +26,7 @@ const AdPart = (props) => {
         continue;
       }
       let hebrewKey = "";
+      //make hebrew key for display
       switch (key) {
         case "adID":
           hebrewKey = "מספר מודעה";
@@ -105,6 +107,7 @@ const AdPart = (props) => {
       }
       //we get an object of ad in the props and get out the 0 place which is the ads params
       if (hebrewKey == "לינק") {
+        //if we have link we make a custome parameter
         code.push(
           <Parameter
             key={props.ad[0].adID + key}

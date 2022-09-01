@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import "../styles/imageComponent.css";
 const ImageComponent = (props) => {
+  //component for the pics
   return (
     <div key={uuidv4()} className="picContainer" >
       <img

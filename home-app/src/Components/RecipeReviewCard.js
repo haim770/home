@@ -23,7 +23,10 @@ import instance from "../api/AxiosInstance";
 import useAuth from "../Auth/useAuth";
 import "../styles/RecipeReviewCard.css";
 const ExpandMore = styled((props) => {
+  //the part for the ad content
   const { expand, ...other } = props;
+  const date=new Date();
+  console.log(date.getDate());
   return <IconButton {...other} />;
 })(({ theme, expand }) => ({
   transform: !expand ? "rotate(0deg)" : "rotate(180deg)",
@@ -34,9 +37,11 @@ const ExpandMore = styled((props) => {
 }));
 
 export default function RecipeReviewCard(props) {
+  //display of ad pretty
   const { auth } = useAuth();
   const [expanded, setExpanded] = React.useState(false);
   const addOrRemoveToFavorites = async (e) => {
+    //handle favorivetes operations
     e.preventDefault();
     if (props.isFavorite) {
       const result = await instance.request({
@@ -77,10 +82,12 @@ export default function RecipeReviewCard(props) {
     }
   };
   const shareWhatsapp = (e) => {
+    //share in whatsapp
     e.preventDefault();
     console.log("share link in whatsapp");
   };
   const handleExpandClick = (e) => {
+    //expand to see ad content
     e.preventDefault();
     setExpanded(!expanded);
   };

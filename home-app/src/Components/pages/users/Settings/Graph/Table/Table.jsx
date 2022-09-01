@@ -12,6 +12,7 @@ import Paper from "@mui/material/Paper";
 import instance from "../../../../../../api/AxiosInstance";
 import useAuth from "../../../../../../Auth/useAuth";
 const List = () => {
+  //list of cols for the table
   const columns = [
     { field: "id", headerName: "מזהה רכישה", flex: 1 },
     { field: "pack_id", headerName: "מזהה חבילה", flex: 1 },
@@ -26,6 +27,7 @@ const List = () => {
   const { auth } = useAuth();
   const [rows, setRows] = useState([]);
   const getAllPurchases = async () => {
+    //get all purchases in the site(manager ops)
     const result = await instance.request({
       data: {
         data_type: "getAllPurchases",
@@ -40,6 +42,7 @@ const List = () => {
     setRows(result.data.result);
   };
   const getAllPurchasesForUser = async () => {
+    //get purchases of specific user(user part)
     const result = await instance.request({
       data: {
         data_type: "getAllPurchasesForUser",

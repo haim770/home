@@ -13,6 +13,7 @@ else{
 }
 global $user;
 function getAllAdContentAndAdAndUsersForArrOfAds(){
+    //get all ditails for the ads we want it prints to the frontend
     global $userType;
     global $user;
     //returns the wanted ads with all their data and user created the ad
@@ -85,6 +86,7 @@ function getAdWithAdContentForAdId1($adId,$user_id){
     $resultUserForTheAd=getUserForUserId1($user_id);
     $resultImagesForAdId=getImagesForAdId1($adId);
     $result = [];
+    //generate the ad record from the queries
     $result["ad"] = $resultAdTable;
     $result["adContent"] = $resultAdContentTable;
     $result["user"]=$resultUserForTheAd;
@@ -112,16 +114,18 @@ function generateSearchFromBothAdContentAndAds1(){
     global $arr;
     global $DATA_OBJ;
     $hasAdContentAtSearch=false;
+    $time= $time=date('y-m-d',time());
     if(!isset($DATA_OBJ->params)||$DATA_OBJ->params==[]){
         //if there is no params
-        return "select  DISTINCT ads.adID,ads.user_id from ads where ads.active =1 order by create_time DESC limit ".$DATA_OBJ->limitBy->end." OFFSET ".$DATA_OBJ->limitBy->start.";";
+        return "select  DISTINCT ads.adID,ads.user_id from ads where ads.active =1 and expire_date>='$time' order by create_time DESC limit ".$DATA_OBJ->limitBy->end." OFFSET ".$DATA_OBJ->limitBy->start.";";
     }
     //if there is parameters to search by
-    $query="select DISTINCT ads.adID,ads.user_id from ads,ad_content where ads.adID=ad_content.adID and active =1" ;
-    $queryWithoutAdContentParams="select DISTINCT ads.adID,ads.user_id from ads where 1=1 and ads.active =1" ;
+    $query="select DISTINCT ads.adID,ads.user_id from ads,ad_content where ads.adID=ad_content.adID and active =1 and expire_date>='$time'" ;
+    $queryWithoutAdContentParams="select DISTINCT ads.adID,ads.user_id from ads where 1=1 and ads.active =1 and expire_date>='$time' " ;
     $queryAdTableParams="";//the part for querying ads table
     $queryAdContentTableParams="";//the part for querying adcontent
     if (isset($DATA_OBJ->params)) {
+        //check the params to create the query
         foreach ($DATA_OBJ->params as $key => $value) {
             if ($value=="") {
                 continue;
@@ -153,16 +157,16 @@ function generateSearchFromBothAdContentAndAds1(){
             if($key=="create_time"||$key=="user_id"||$key=="active"||$key=="contact_counter"||$key=="watch"||$key=="close_reason"||$key=="expire_date"||$key=="approval_status"||$key=="ad_link"||$key=="city"||$key=="street"||$key=="building_number"||$key=="entry"||$key=="apartment"||$key=="zip_code"||$key=="map_X"||$key=="map_Y"||$key=="price"||$key=="rooms"||$key=="adType"||$key=="floor"||$key=="maxFloor"||$key=="houseCommittee"||$key=="propertyTaxes"||$key=="enteringDate"){
                 $queryAdTableParams.=" and $key = '$value' ";
                 $arr[$key] = $value;
-
             }
             else{
                 $hasAdContentAtSearch=true;
-               $queryAdContentTableParams.="and ad_content.name = '$key' and ad_content.value ='$value'"; 
+                $queryAdContentTableParams.="and ad_content.name = '$key' and ad_content.value ='$value'"; 
                $arr[$key] = $key;
                $arr[$value] = $value;
             }
             
         }
+        //check for the limit part
         if (isset($DATA_OBJ->limitBy)){
             if(!$hasAdContentAtSearch){
                 $query=$queryWithoutAdContentParams;
@@ -353,13 +357,14 @@ function getAllOfMyActiveAds(){
     global $user;
     global $db;
     global $DATA_OBJ;
+    $time=time();
     global $arr;
     if($userType!="registered"||($user->getRule()!="5150"&&$user->getRule()!="2001")){
     echo "not authorized";
     die;
     }
     $userId=$user->getUuid();
-    $query="select adID from ads where user_id ='$userId' and active ='1'";
+    $query="select adID from ads where user_id ='$userId' and active ='1' and expire_date>='$time'";
     $adIdForTheSearch = $db->readDBNoStoredProcedure($query,[]);
     $i=0;
     if(gettype($adIdForTheSearch)!="array"&&gettype($adIdForTheSearch)!="Array"&&gettype($adIdForTheSearch)!="Object"){
@@ -385,8 +390,9 @@ function getAllOfMyNotActiveAds(){
     echo "not authorized";
     die;
     }
+    $time=time();
     $userId=$user->getUuid();
-    $query="select adID from ads where user_id ='$userId' and active ='0'";
+    $query="select adID from ads where user_id ='$userId' and active ='0' or expire_date<'$time'";
     $adIdForTheSearch = $db->readDBNoStoredProcedure($query,[]);
     $i=0;
     if(gettype($adIdForTheSearch)!="array"&&gettype($adIdForTheSearch)!="Array"&&gettype($adIdForTheSearch)!="Object"){
@@ -402,6 +408,7 @@ function getAllOfMyNotActiveAds(){
     die;
 }
 function showHistory(){
+    //get history from the db
   global $userType;
     global $user;
     global $db;
@@ -410,8 +417,9 @@ if($userType!="registered"||($user->getRule()!="5150"&&$user->getRule()!="2001")
     echo "not authorized";
     die;
 }
+$time=time();
     $userId=$user->getUuid();
-    $query="select adId from history where userId='$userId' order by create_time desc limit 20";
+    $query="select adId from history,ads where history.userId='$userId' and ads.user_id='$userId'and active='1' and expire_date>='$time' order by create_time desc limit 20";
     $adIdForTheSearch=$db->readDBNoStoredProcedure($query);
     $i=0;
     if($adIdForTheSearch==[]||$adIdForTheSearch==""||$adIdForTheSearch==false){
@@ -442,27 +450,34 @@ function addMoreTimeToAd(){
     echo "not authorized";
     die;
 }
-global $db;
-global $DATA_OBJ;
-$userId=$user->getUuid();
-$query="select expireDateAds from settings";
-$result=$db->readDBNoStoredProcedure($query);
-if($user->getRule()!="5150"&&checkRemainingAds($userId)==0){
-    echo json_encode("need remaining ads");
-    die;
+    global $db;
+    global $DATA_OBJ;
+    $userId=$user->getUuid();
+    $query="select expireDateAds from settings";
+    $result=$db->readDBNoStoredProcedure($query);
+    if($user->getRule()!="5150"&&checkRemainingAds($userId)==0){
+        echo json_encode("need remaining ads");
+        die;
 }
-$timeToAddInDays=$result[0]->expireDateAds;
-$newTime= date('Y-m-d', strtotime($DATA_OBJ->params->expireDate. ' +'.(int)$timeToAddInDays.' days'));
-$query="update ads set expire_date='$newTime' where adID='{$DATA_OBJ->params->adID}'";
-$result=$db->readDBNoStoredProcedure($query);
-if($user->getRule()=="5150"){
+    $timeToAddInDays=$result[0]->expireDateAds;
+    $newTime= date('Y-m-d', strtotime($DATA_OBJ->params->expireDate. ' +'.(int)$timeToAddInDays.' days'));
+    $query="update ads set expire_date='$newTime' where adID='{$DATA_OBJ->params->adID}'";
+    $result=$db->readDBNoStoredProcedure($query);
+    if($user->getRule()=="5150"){
+        echo json_encode("expire changed");
+        die;
+    }
+    //update the remaining ads for the user
+    $query="update users set remaining_ads='remaining_ads-1' where uuid='{$userId}'";
+    $result=$db->readDBNoStoredProcedure($query);
     echo json_encode("expire changed");
-    die;
 }
-$query="update users set remaining_ads='remaining_ads-1' where uuid='{$userId}'";
-$result=$db->readDBNoStoredProcedure($query);
-echo json_encode("expire changed");
-}
+function updateRemainingAds($userId){
+    //update remaining ads for user id
+    global $db;
+    $query="update users set remaining_ads='remaining_ads-1' where uuid='{$userId}'";
+    $result=$db->readDBNoStoredProcedure($query);
+ }
 function checkRemainingAds($userId){
     //return remaining ads
     global $db;
@@ -495,6 +510,7 @@ if($userType!="registered"||($user->getRule()!="5150"&&$user->getRule()!="2001")
     $result=$db->readDBNoStoredProcedure($query);
 }
 function deleteAdById(){
+    //delete ad by adId we got at dataObj
     global $userType;
     global $user;
     global $db;

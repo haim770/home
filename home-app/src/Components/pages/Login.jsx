@@ -10,6 +10,7 @@ import useDH from "../../Auth/DH/DHUseContext";
 
 const MAIL_REGEX = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 const Login = () => {
+  //login page
   const { setAuth } = useAuth();
   const { generateAlicePKA, generateSharedKey, alicePKA } = useDH();
   const navigate = useNavigate();
@@ -36,6 +37,7 @@ const Login = () => {
   }, [user, pwd]);
 
   const handleSubmit = async (e) => {
+    //login
     e.preventDefault();
 
     try {
@@ -81,6 +83,7 @@ const Login = () => {
   };
   const delay = (ms) => new Promise((res) => setTimeout(res, ms));
   const handleSubmitForgotPassword = async (e) => {
+    //forget password
     e.preventDefault();
     const v1 = MAIL_REGEX.test(resetMail);
     if (v1) {

@@ -18,6 +18,7 @@ const columns = [
 ];
 
 const HandleReportReasons = () => {
+  //manage report reasons in table
   const { auth } = useAuth();
   const [rows, setRows] = useState([]);
   const [tableClassName, setTableClassName] = useState("showTable");

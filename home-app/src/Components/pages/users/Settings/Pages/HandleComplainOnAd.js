@@ -10,6 +10,7 @@ import Report from "../../../../Report.js";
 import ShowReport from "../../../../showReport.js";
 import AdsBlockForReports from "../../../AdsBlockForReports.js";
 function HandleComplainOnAd(props) {
+  //comp for handling complain on ad
   const { auth } = useAuth();
   const [isFavorite, setIsFavorite] = useState(props.isFavorite);
   const changeToListView = (e) => {

@@ -16,7 +16,7 @@ function BlogCommentForm(props) {
     setTitle("");
   };
   const submitComment = async (e) => {
-    //add ad to the db, returns true/false
+    //add comment to the db, returns true/false
     e.preventDefault();
 
     if (title.trim() === "") {

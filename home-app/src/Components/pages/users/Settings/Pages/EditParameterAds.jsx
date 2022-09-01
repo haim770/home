@@ -5,6 +5,7 @@ import instance from "../../../../../api/AxiosInstance";
 import toast, { Toaster } from "react-hot-toast"; // https://react-hot-toast.com/docs && https://react-hot-toast.com/
 
 function EditParameterAds(props) {
+  //edit ad content param
   const { auth } = useAuth();
   const [paramName, setParamName] = useState(props.paramName); //hook for parameter name
   const [maxValue, setMaxVlue] = useState(
@@ -40,6 +41,7 @@ function EditParameterAds(props) {
     setRequired("רשות");
   };
   const deleteParameter = async (e) => {
+    //delete param
     e.preventDefault();
     const result = await instance.request({
       data: {
@@ -67,7 +69,7 @@ function EditParameterAds(props) {
     }
   };
   const submitParameter = async (e) => {
-    //add ad to the db, returns true/false
+    //edit param in db
     e.preventDefault();
     if (minValue > maxValue && maxValue != "") {
       alert("min is bigger then max");

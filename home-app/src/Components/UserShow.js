@@ -11,6 +11,7 @@ import Select from "react-select";
 import useAuth from "../Auth/useAuth";
 import toast, { Toaster } from "react-hot-toast";
 function UserShow(props) {
+  //user show comp for manager
   const [showRemainingAdsInput, setShowRemainingAdsInput] =
     useState("notShowInput");
   const [valueRemainingInput, setValueRemainingInput] = useState("0");
@@ -22,7 +23,7 @@ function UserShow(props) {
   const [showChangeMail, setShowChangeMail] = useState("notShowInput");
   const [activeStatus, setActiveStatus] = useState(props.user.active);
   const deleteOrRestoreUser = async () => {
-    //add ad to the db, returns true/false
+    //delete or restore user
     const result = await instance.request({
       data: {
         data_type: "deleteOrRestoreUser",
@@ -48,7 +49,7 @@ function UserShow(props) {
     }
   };
   const changeUserRule = async () => {
-    //add ad to the db, returns true/false
+    //change the user rule
     if (props.act === "nothing") {
       return;
     }
@@ -77,7 +78,7 @@ function UserShow(props) {
     }
   };
   const changeRemainingAdsInDb = async () => {
-    //add ad to the db, returns true/false
+    //change remaining ads
     if (props.act === "nothing") {
       return;
     }
@@ -108,7 +109,7 @@ function UserShow(props) {
     props.getAllUsers();
   };
   const changeMailInDb = async () => {
-    //add ad to the db, returns true/false
+    //change the user mail
     if (props.act === "nothing") {
       return;
     }
@@ -149,6 +150,7 @@ function UserShow(props) {
     }
   };
   const mailChecker = (userMail) => {
+    //check if mail valid
     if (userMail.length < 6) {
       toast.dismiss();
       toast.error("מייל חייב להכיל מינימום 6 תווים");

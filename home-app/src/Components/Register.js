@@ -9,6 +9,7 @@ import { v4 as uuidv4 } from "uuid";
 import instance from "../api/AxiosInstance";
 import toast, { Toaster } from "react-hot-toast";
 function Register(props) {
+  //comp for register
   const location = useLocation();
   const [first_name, setfirst_name] = useState(""); //hook for parameter name
   const [last_name, setLast_name] = useState(""); //hook for parameter max value

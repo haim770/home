@@ -3,6 +3,7 @@ import "../../../../../styles/usefullLinks.css";
 import instance from "../../../../../api/AxiosInstance";
 import useAuth from "../../../../../Auth/useAuth";
 function LinkRecord(props) {
+  //link record in the list
   const { auth } = useAuth();
   const [link, setLink] = useState(props.link.link);
   const [linkContent, setLinkContent] = useState(props.link.link_content);
@@ -13,6 +14,7 @@ function LinkRecord(props) {
     props.setShowAddLink(false);
   };
   const editLink = async (e) => {
+    //edit link
     e.preventDefault();
     const result = await instance.request({
       data: {

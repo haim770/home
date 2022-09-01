@@ -36,7 +36,7 @@ const HandlePackages = () => {
    * Get Data from server
    */
   const getPackages = async () => {
-    //get all reports
+    //get all packages
     const result = await instance.request({
       data: {
         data_type: "getPackages",
@@ -76,7 +76,7 @@ const HandlePackages = () => {
   useLayoutEffect(() => {
     getPackages();
   }, []);
-  const serchReportsByParam = async (e) => {
+  const serchPacksByParam = async (e) => {
     console.log(searchPacks);
     e.preventDefault();
     if (searchPacks == "") {
@@ -105,7 +105,7 @@ const HandlePackages = () => {
         </label>
         <button
           className="button-4"
-          onClick={serchReportsByParam}
+          onClick={serchPacksByParam}
         >
           חפש חבילות
         </button>

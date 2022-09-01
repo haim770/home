@@ -62,7 +62,14 @@ function getAllReportsOnAdsForUserIdFromMassages(){
     $userId= $user->getUuid();
     $msgId=uniqid();
     //we will contain the element id and the report id at the content
-    $query="select * from system_messages where userId = '$userId' and msgType= 'report'";
+    echo json_encode(getAllSystemMessagesReportsForUserIdToTheTable($userId));
+    die;
+  }
+}
+function getAllSystemMessagesReportsForUserIdToTheTable($userId){
+  //get all system messages for specific userId where the type is report ready for the table
+  global $db;
+   $query="select * from system_messages where userId = '$userId' and msgType= 'report'";
     $result=$db->readDBNoStoredProcedure($query);
     $resultForTheTable=[];
     $objForRow=[];
@@ -74,9 +81,7 @@ function getAllReportsOnAdsForUserIdFromMassages(){
       $resultForTheTable[$i]=$objForRow;
     }
   }
-    echo json_encode($resultForTheTable);
-    die;
-  }
+    return $resultForTheTable;
 }
  if($DATA_OBJ->data_type=="changeMessageToSeen"){
     changeMessageToSeen($DATA_OBJ->params->msgId,$DATA_OBJ->params->seen);

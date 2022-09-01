@@ -10,6 +10,7 @@ import PaypalCheckoutButton from "./PaypalCheckoutButton";
 import Checkout from "./Checkout";
 import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 function PackageFull(props) {
+  //display pack full screen
   const location = useLocation();
   const [dataForUrl, setDataForUrl] = useState({});
   const data = location.state;

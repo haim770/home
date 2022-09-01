@@ -11,9 +11,11 @@ import NotificationList from "./Notification";
 import EmptyList from "../../../Blog/components/common/EmptyList";
 
 const Notifications = () => {
+  //notification display
   const { auth } = useAuth();
   const [notifications, setNotifications] = useState([]);
   const getAllNotifications = async () => {
+    //get all notifications
     const result = await instance.request({
       data: {
         data_type: "getAllNotifications",

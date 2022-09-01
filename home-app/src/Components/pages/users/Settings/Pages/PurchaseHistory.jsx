@@ -18,6 +18,7 @@ const columns = [
 ];
 
 const PurchaseHistory = () => {
+  //purchase history 
   const { auth } = useAuth();
   const [rows, setRows] = useState([]);
 
@@ -25,6 +26,7 @@ const PurchaseHistory = () => {
    * Get Data from server
    */
   const getUserPurchase = async () => {
+    //all user purchases
     const result = await instance.request({
       data: {
         data_type: "getSettingsUserPurchase",

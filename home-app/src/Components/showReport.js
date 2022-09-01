@@ -7,6 +7,7 @@ import "../styles/showReport.css";
 import instance from "../api/AxiosInstance";
 import toast, { Toaster } from "react-hot-toast";
 function Report(props) {
+  //comp for report display
   const location = useLocation();
   const [reportType, setReportType] = useState(""); //hook for report type e.g language abuse
   const [reportReasons, setReportReasons] = useState([]);
@@ -26,6 +27,7 @@ function Report(props) {
   //   getReasonsForReports();
   // }, []);
   const cancelReport = (e) => {
+    //cancel operation on report
     e.preventDefault();
     props.setClassName("notShowReport");
     props.setAdForTheReport({});
@@ -40,6 +42,7 @@ function Report(props) {
     setTitle("");
   };
   const checkForValidFields = () => {
+    //check if report type is valid
     if (!reportType) {
       toast.dismiss();
       toast.error("אין סוג דוח");
@@ -47,7 +50,7 @@ function Report(props) {
     }
     return true;
   };
-  const changeReportStatus = () => {
+  const changeReportStatus = () => { 
     setShowInputStatus(true);
   };
   const changeReportManagerResponse = () => {
@@ -79,7 +82,7 @@ function Report(props) {
     setShowInputStatus(false);
   };
   const confirmChangeManagerFeedback = async (e) => {
-    //confirm changes on active field on report
+    //send feedback by manager
     e.preventDefault();
     const result = await instance.request({
       data: {
@@ -119,7 +122,7 @@ function Report(props) {
     console.log(result.data);
   };
   const sendFeedbackToOWnerOfTheAd = async (e) => {
-    //send feedback to user
+    //send feedback to user by the type of the report
     e.preventDefault();
     if (props.report.userId == "guest") return;
     console.log(props.adBlock);

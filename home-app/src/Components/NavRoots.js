@@ -6,6 +6,7 @@ import useAuth from "../Auth/useAuth";
 import UserProfile from "./pages/users/UserProfile";
 import useDH from "../Auth/DH/DHUseContext";
 const NavRoot = () => {
+  //the roots at the top of page
   const { auth } = useAuth();
   const { generateAlicePKA } = useDH();
    useEffect(() => {

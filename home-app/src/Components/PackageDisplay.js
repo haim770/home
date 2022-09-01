@@ -4,6 +4,7 @@ import Package1 from "./Package1.js";
 import "../styles/PackageDisplay.css";
 import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 const PackageDisplay = (props) => {
+  //display all packs
   /*
   const [adsTop, setAdsTop] = useState(10);
   const [adsMin, setAdsMin] = useState(0);
@@ -31,6 +32,7 @@ const PackageDisplay = (props) => {
   };
 
   const getPackages = async () => {
+    //get all packs
     const result = await instance.request({
       data: {
         data_type: "getAllPackages",

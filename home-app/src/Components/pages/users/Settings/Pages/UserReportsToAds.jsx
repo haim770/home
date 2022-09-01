@@ -32,6 +32,7 @@ const UserReportsToAds = () => {
    * Get Data from server
    */
   const getSelectedAdWithReportFeedback = async (row) => {
+    //get ad with her report
     setSelectedMsg(row);
     let result = await instance.request({
       data: {

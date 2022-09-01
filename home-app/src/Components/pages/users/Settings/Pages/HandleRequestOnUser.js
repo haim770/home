@@ -10,6 +10,7 @@ import Report from "../../../../Report.js";
 import ShowReport from "../../../../showReport.js";
 import UserForTheReport from "../../../UserForTheReport.jsx";
 function HandleRequestOnUser(props) {
+  //handle the request on the user i.e change mail
   const { auth } = useAuth();
   const changeToListView = (e) => {
     e.preventDefault();

@@ -16,6 +16,7 @@ import toast, { Toaster } from "react-hot-toast";
   const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 
 const RecoveryPage = () => {
+  //password recovery page
   const [searchParams] = useSearchParams();
   const location = useLocation();
   const token = searchParams.get("token");
@@ -38,6 +39,7 @@ const RecoveryPage = () => {
    * Get Chat from server
    */
   const testCredentials = async () => {
+    //check if token and mail are good
     const result = await instance.request({
       data: {
         data_type: "testRecoveryParams",
@@ -73,6 +75,7 @@ const RecoveryPage = () => {
   };
 
   const handleSubmit = async (e) => {
+    //update the password
     e.preventDefault();
     // if button enabled with JS hack
     const v2 = PWD_REGEX.test(pwd);

@@ -7,7 +7,7 @@ function LinkRecord(props) {
   const { auth } = useAuth();
   const [showReport, setReportShow] = useState("notShowReport");
   const deleteComment = async (e) => {
-    //delete link
+    //delete comment
     e.preventDefault();
     const result = await instance.request({
       data: {

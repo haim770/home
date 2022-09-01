@@ -6,12 +6,14 @@ import { Link, NavLink, Outlet } from "react-router-dom";
 import instance from "../api/AxiosInstance";
 
 function ListAds(props) {
+  //comp for display list of the ads
   let obj = {};
   const [adClass, setAdClass] = useState("ad"); //className of ads
   const [searchAd, setSearchAd] = useState(""); //search ads by city
   const [ads, setAds] = useState(props.adsShow);
   const [loading, setLoading] = useState(false);
    const getAds = async () => {
+    //get aads feet to search
      //setAds(result.data);
      //console.log(typeof ads);
      setAds(

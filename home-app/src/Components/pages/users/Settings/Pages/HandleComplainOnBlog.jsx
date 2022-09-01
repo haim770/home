@@ -10,6 +10,7 @@ import Report from "../../../../Report.js";
 import ShowReport from "../../../../showReport.js";
 import BlogForReports from "../../../BlogForReports";
 function HandleComplainOnAd(props) {
+  //comp for handle complain on blog
   const { auth } = useAuth();
   const changeToListView = (e) => {
     e.preventDefault();

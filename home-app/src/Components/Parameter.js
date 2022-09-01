@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "../styles/Parameter.css";
 function Parameter(props) {
+  //parameter of key++value display
   // const [classParam, setClassParam] = useState(props.className);
 
   const buildShowForParam = () => {
