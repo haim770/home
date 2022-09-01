@@ -207,7 +207,7 @@ function changeReportStatus(){
     global $queryArr;
     $arr["id"]=$DATA_OBJ->params->id;
     $arr["active"]=$DATA_OBJ->params->active;
-    $arr["manager_feedback"]=$DATA_OBJ->params->manager_feedback;
+    $arr["manage_feedback"]=$DATA_OBJ->params->manage_feedback;
     $query=$queryArr["updateReportStatus"];
     $result=$db->readDBNoStoredProcedure($query,$arr);
     $arr=[];
@@ -278,6 +278,9 @@ function sendReportToUser(){
     //send msg to user about a report
   global $userType;
   global $user;
+  global $arr;
+  global $queryArr;
+  $arr=[];
   global $db;
   global $DATA_OBJ;
   if($userType!="registered"){
@@ -288,9 +291,9 @@ function sendReportToUser(){
   $arr["userId"]=$DATA_OBJ->params->userId;
   $reportId=$DATA_OBJ->params->reportId;
   $arr["message_content"]=$reportId." ".$elementId;//we will contain the element id and the report id at the content
-  $arr["msgType"]="report"
+  $arr["msgType"]="report";
   $query=$queryArr["sendReportToSystemMsg"];
-  $result=$db->readDBNoStoredProcedure($query);
+  $result=$db->readDBNoStoredProcedure($query,$arr);
   $arr=[];
   echo json_encode($result);
   die;
@@ -319,6 +322,9 @@ function getReportsOnAdsForUserIdByParam($seenStatus){
     $arr=[];
     $resultForTheTable=[];
     $objForRow=[];
+    if(gettype($result)!="array"){
+      $result=[];
+    }
     for ($i=0; $i <count($result) ; $i++) {
       //we split the msg content to report id and adId
       $objForRow=array("id"=>$result[$i]->msgId,"reportId"=>explode(" ", $result[$i]->message_content)[0],"adId"=>explode(" ", $result[$i]->message_content)[1],"createTime"=>$result[$i]->create_time,"seen"=>$result[$i]->seen=="1"?"כן":"לא");
@@ -383,7 +389,8 @@ function getReportById($elementId){
   $arr=[];
   $arr["id"]=$elementId;
   $query=$queryArr["getUser_reportById"];
-  $result=$db->readDBNoStoredProcedure($query);
+  $result=$db->readDBNoStoredProcedure($query,$arr);
+  $arr=[];
   return $result;
 }
 function getSelectedAdWithReportFeedback(){

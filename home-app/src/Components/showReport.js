@@ -50,7 +50,7 @@ function Report(props) {
     }
     return true;
   };
-  const changeReportStatus = () => { 
+  const changeReportStatus = () => {
     setShowInputStatus(true);
   };
   const changeReportManagerResponse = () => {
@@ -67,13 +67,14 @@ function Report(props) {
           guest: auth.accessToken != undefined ? "registered" : "guest",
           active: reportStatus == "טופל" ? "0" : "1",
           id: props.report.id,
-          manager_feedback: managerResponse,
+          manage_feedback: managerResponse,
         },
       },
       headers: {
         Authorization: `Bearer ${auth.accessToken}`,
       },
     });
+    //await confirmChangeManagerFeedback(e);
     await sendFeedbackToOWnerOfTheAd(e);
     props.getAllReports();
     props.setTableClassName("showTable");
@@ -83,13 +84,12 @@ function Report(props) {
   };
   const confirmChangeManagerFeedback = async (e) => {
     //send feedback by manager
-    e.preventDefault();
     const result = await instance.request({
       data: {
         data_type: "changeReportManagerFeedback",
         params: {
           guest: auth.accessToken != undefined ? "registered" : "guest",
-          manager_feedback: managerResponse,
+          manage_feedback: managerResponse,
           id: props.report.id,
         },
       },
@@ -103,8 +103,11 @@ function Report(props) {
   const cancelChangeStatus = async (e) => {
     //cancel all actions done at this open of the report on the status
     e.preventDefault();
+    console.log("Ddd");
     setReportStatus(props.report.active);
     setShowInputStatus(false);
+    setManagerResponse(props.report.manage_feedback);
+    console.log(props.report);
     const result = await instance.request({
       data: {
         data_type: "changeReportStatus",
@@ -112,7 +115,7 @@ function Report(props) {
           guest: auth.accessToken != undefined ? "registered" : "guest",
           active: props.report.active,
           id: props.report.id,
-          manager_feedback: props.report.manager_feedback,
+          manage_feedback: props.report.manage_feedback || "",
         },
       },
       headers: {
@@ -120,19 +123,19 @@ function Report(props) {
       },
     });
     console.log(result.data);
+    props.setClassName("notShowSelected");
+    props.setTableClassName("showTable");
   };
   const sendFeedbackToOWnerOfTheAd = async (e) => {
     //send feedback to user by the type of the report
-    e.preventDefault();
     if (props.report.userId == "guest") return;
-    console.log(props.adBlock);
-    let elementId = "";
     let userId = "";
-    if (props.elementType == "ad") {
+    let elementId = "";
+    if (props.element_type == "ad") {
       elementId = props.adBlock.ad[0].adID;
       userId = props.adBlock.user[0].uuid;
     } else {
-      if (props.elementType == "blog") {
+      if (props.element_type == "blog") {
         elementId = props.report.elementId;
         userId = props.report.userId;
       } else {

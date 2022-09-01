@@ -33,6 +33,7 @@ function Report(props) {
         Authorization: `Bearer ${auth.accessToken}`,
       },
     });
+    console.log(res.data);
     if (res.data) {
       setReportReasons(res.data);
       setReportOptionsElement((reasons) => {
