@@ -1,4 +1,5 @@
 <?php
+ require_once(__DIR__.'/../queries.php');
 $userType="";//guest or registered
 if($DATA_OBJ->params->guest=="guest"){
     $userType="guest";
@@ -14,13 +15,18 @@ function getAllReportReasons(){
     //get all reasons for report on element from a kind blog/ad
   global $DATA_OBJ;
   global $db;
+  global $arr;
+  global $queryArr;
+  $arr=[];
   if(isset($DATA_OBJ->params->elementType)){
-  $elementType=$DATA_OBJ->params->elementType;
-  $query="select * from report_reason where element_type = '$elementType'";}
-  else{
-    $query="select  reason_id as id ,element_type, reason_name, create_time, active from report_reason"; 
+  $arr["element_type"]=$DATA_OBJ->params->elementType;
+  $query=$queryArr["getAllReportReasonsForElementType"];
   }
-  $result=$db->readDBNoStoredProcedure($query);
+  else{
+    $query=$queryArr["getAllReportReasons"]; 
+  }
+  $result=$db->readDBNoStoredProcedure($query,$arr);
+  $arr=[];
   echo json_encode($result);
 }
 
@@ -28,6 +34,9 @@ function createReportOnAd(){
   //open report on ad (complain)
   global $userType;
   global $user;
+  global $arr;
+  $arr=[];
+  global $queryArr;
   global $db;
   global $DATA_OBJ;
   if($userType=="registered")
@@ -35,14 +44,16 @@ function createReportOnAd(){
   else{
     $userId="guest";
   }
-  $element_type=$DATA_OBJ->params->element_type;
-  $adID=$DATA_OBJ->params->elementId;
-  $reportId=uniqid();
-  $content=$DATA_OBJ->params->freeText;
-  $title=$DATA_OBJ->params->title;
-  $reportType=$DATA_OBJ->params->reportType;
-  $query="INSERT INTO user_reports (id,element_id,userId,content,title,report_reason,element_type) VALUES ('$reportId','$adID','$userId','$content','$title','$reportType','$element_type') ";
-  $result=$db->readDBNoStoredProcedure($query);
+  $arr["userId"]=$userId;
+  $arr["element_type"]=$DATA_OBJ->params->element_type;
+  $arr["element_id"]=$DATA_OBJ->params->elementId;
+  $arr["id"]=uniqid();
+  $arr["content"]=$DATA_OBJ->params->freeText;
+  $arr["title"]=$DATA_OBJ->params->title;
+  $arr["report_reason"]=$DATA_OBJ->params->reportType;
+  $query=$queryArr["createReportOnElement"];
+  $result=$db->readDBNoStoredProcedure($query,$arr);
+  $arr=[];
   echo json_encode($result);
   die;
 }
@@ -51,16 +62,19 @@ function ToggleActiveReportReason(){
   global $userType;
   global $user;
   global $db;
+  global $arr;
+  $arr=[];
+  global $queryArr;
   global $DATA_OBJ;
   if($userType!="registered"||$user->getRule()!="5150"){
     echo "not authorized";
     die;
   }
-  $reasonId= $DATA_OBJ->params->reasonId;
-  $active=$DATA_OBJ->params->active=='1'?0:1;
-  $query="UPDATE report_reason SET active = '$active' WHERE reason_id = '{$reasonId}'";
+  $arr["reason_id"]= $DATA_OBJ->params->reasonId;
+  $arr["active"]=$DATA_OBJ->params->active=='1'?0:1;
+  $query=$queryArr["updateActiveStatusOfReport"];
   $result=$db->readDBNoStoredProcedure($query);
-  var_dump($result);
+  $arr=[];
   echo json_encode(checkIfReasonExist($reasonId,"checkById"));
   die;
 
@@ -70,15 +84,18 @@ function editReportReason(){
    global $userType;
   global $user;
   global $db;
+  global $arr;
+  $arr=[];
+  global $queryArr;
   global $DATA_OBJ;
   if($userType!="registered"||$user->getRule()!="5150"){
     echo "not authorized";
     die;
   }
-    $reasonId= $DATA_OBJ->params->reasonId;
-    $category=$DATA_OBJ->params->category;
-    $reasonName=$DATA_OBJ->params->reasonName;
-    $query="UPDATE report_reason SET active = '1', reason_name= '$reasonName', element_type='$category' WHERE reason_id = '{$reasonId}'";
+    $arr["reason_id"]= $DATA_OBJ->params->reasonId;
+    $arr["element_type"]=$DATA_OBJ->params->category;
+    $arr["reason_name"]=$DATA_OBJ->params->reasonName;
+    $query=$queryArr["editReportReason"];
     $result=$db->readDBNoStoredProcedure($query);
     echo json_encode(checkIfReasonExist($reasonName,$category));
     die;
@@ -88,16 +105,19 @@ function addNewReportReason(){
    global $userType;
   global $user;
   global $db;
+  global $arr;
+  $arr=[];
+  global $queryArr;
   global $DATA_OBJ;
   if($userType!="registered"||$user->getRule()!="5150"){
     echo "not authorized";
     die;
   }
   else{
-    $reasonId= uniqid();
-    $category=$DATA_OBJ->params->category;
-    $reasonName=$DATA_OBJ->params->reasonName;
-    $query="INSERT INTO report_reason (reason_id,element_type,reason_name) VALUES ('$reasonId','$category','$reasonName')";
+    $arr["reason_id"]= uniqid();
+    $arr["element_type"]=$DATA_OBJ->params->category;
+    $arr["reason_name"]=$DATA_OBJ->params->reasonName;
+    $query=$queryArr["insertNewReportReason"];
     $result=$db->readDBNoStoredProcedure($query);
     echo json_encode(checkIfReasonExist($reasonName,$category));
     die;
@@ -106,11 +126,16 @@ function addNewReportReason(){
 function checkIfReasonExist($reasonName,$category){
   //check if reason exist
   global $db;
+  global $arr;
+  global $queryArr;
   if($category=="checkById"){
-    $query="select * from report_reason where reason_id='$reasonName' and active='1'";
+    $arr["reason_id"]=$reasonName;
+    $query=$queryArr["getReportByActiveAndById"];
   }
   else{
-  $query="select * from report_reason where element_type='$category' and reason_name='$reasonName' and active='1'";
+    $arr["reason_name"]=$reasonName;
+    $arr["element_type"]=$category;
+  $query=$queryArr["getReportByActiveReaonNameAndElementType"];
 }
   $result=$db->readDBNoStoredProcedure($query);
   if($result==[]||$result==false||$result==""){
@@ -124,6 +149,9 @@ function requestChangeMail(){
   global $user;
   global $db;
   global $DATA_OBJ;
+  global $arr;
+  $arr=[];
+  global $queryArr;
   if($userType=="registered")
     $userId= $user->getUuid();
   else{
@@ -131,14 +159,16 @@ function requestChangeMail(){
     echo "not authorized";
     die;
   }
-  $userId=$user->getUuid();
-  $element_type=$DATA_OBJ->params->element_type;
-  $reportId=uniqid();
-  $content=$DATA_OBJ->params->freeText;
-  $title=$DATA_OBJ->params->title;
-  $reportType=$DATA_OBJ->params->reportType;
-  $query="INSERT INTO user_reports (id,element_id,userId,content,title,report_reason,element_type) VALUES ('$reportId','$userId','$userId','$content','$title','$reportType','$element_type') ";
-  $result=$db->readDBNoStoredProcedure($query);
+  $arr["element_id"]=$user->getUuid();
+  $arr["userId"]=$user->getUuid();
+  $arr["element_type"]=$DATA_OBJ->params->element_type;
+  $arr["id"]=uniqid();
+  $arr["content"]=$DATA_OBJ->params->freeText;
+  $arr["title"]=$DATA_OBJ->params->title;
+  $arr["report_reason"]=$DATA_OBJ->params->reportType;
+  $query=$queryArr["insertUserReport"];
+  $result=$db->readDBNoStoredProcedure($query,$arr);
+  $arr=[];
   echo json_encode($result);
   die;
 
@@ -154,7 +184,8 @@ function getAllReports(){
   else{
     global $db;
     global $DATA_OBJ;
-    $query="select * from user_reports";
+    global $queryArr;
+    $query=$queryArr["getAllReports"];
     $result=$db->readDBNoStoredProcedure($query);
     echo json_encode($result);
     die;
@@ -171,10 +202,15 @@ function changeReportStatus(){
   else{
     global $db;
     global $DATA_OBJ;
-    $active=$DATA_OBJ->params->active;
-    $manager_feedback=$DATA_OBJ->params->manager_feedback;
-    $query="UPDATE user_reports SET active = '$active',manage_feedback='$manager_feedback' WHERE id = '{$DATA_OBJ->params->id}'";
-    $result=$db->readDBNoStoredProcedure($query);
+    global $arr;
+    $arr=[];
+    global $queryArr;
+    $arr["id"]=$DATA_OBJ->params->id;
+    $arr["active"]=$DATA_OBJ->params->active;
+    $arr["manager_feedback"]=$DATA_OBJ->params->manager_feedback;
+    $query=$queryArr["updateReportStatus"];
+    $result=$db->readDBNoStoredProcedure($query,$arr);
+    $arr=[];
     echo json_encode($result);
     die;
   }
@@ -189,10 +225,14 @@ function changeReportManagerFeedback(){
   }
   else{
     global $db;
+    global $arr;
+    global $queryArr;
     global $DATA_OBJ;
-    $manager_feedback=$DATA_OBJ->params->manager_feedback;
-    $query="UPDATE user_reports SET manage_feedback = '$manager_feedback' WHERE id = '{$DATA_OBJ->params->id}'";
-    $result=$db->readDBNoStoredProcedure($query);
+    $arr["id"]=$DATA_OBJ->params->id;
+    $arr["manager_feedback"]=$DATA_OBJ->params->manager_feedback;
+    $query=$queryArr["updateManagerFeedback"];
+    $result=$db->readDBNoStoredProcedure($query,$arr);
+    $arr=[];
     echo json_encode($result);
     die;
   }
@@ -201,6 +241,7 @@ function changeReportManagerFeedback(){
 function  getNewReports(){
   //get new reports for manager
   global $user;
+  global $queryArr;
   if($user->getRule()!="5150"){
     //not manager
     echo "not authorized";
@@ -209,7 +250,7 @@ function  getNewReports(){
   else{
     global $db;
     global $DATA_OBJ;
-    $query="select * from user_reports where active = '1'";
+    $query=$queryArr["getActiveReports"];
     $result=$db->readDBNoStoredProcedure($query);
     echo json_encode($result);
     die;
@@ -226,7 +267,8 @@ function getReportsThatAreNotActive(){
   else{
     global $db;
     global $DATA_OBJ;
-    $query="select * from user_reports where active = '0'";
+    global $queryArr;
+    $query=$queryArr["getNotActiveReports"];
     $result=$db->readDBNoStoredProcedure($query);
     echo json_encode($result);
     die;
@@ -241,13 +283,15 @@ function sendReportToUser(){
   if($userType!="registered"){
     die;
   }
-  $msgId=uniqid();
+  $arr["msgId"]=uniqid();
   $elementId=$DATA_OBJ->params->elementId;
-  $userId=$DATA_OBJ->params->userId;
+  $arr["userId"]=$DATA_OBJ->params->userId;
   $reportId=$DATA_OBJ->params->reportId;
-  $content=$reportId." ".$elementId;//we will contain the element id and the report id at the content
-  $query="INSERT INTO system_messages (msgId,userId,message_content,msgType) VALUES ('$msgId','$userId','$content','report')";
+  $arr["message_content"]=$reportId." ".$elementId;//we will contain the element id and the report id at the content
+  $arr["msgType"]="report"
+  $query=$queryArr["sendReportToSystemMsg"];
   $result=$db->readDBNoStoredProcedure($query);
+  $arr=[];
   echo json_encode($result);
   die;
 }
@@ -255,6 +299,9 @@ function getReportsOnAdsForUserIdByParam($seenStatus){
   //get all report that apply to the seen status param
   global $userType;
   global $user;
+  global $arr;
+  global $queryArr;
+  $arr=[];
   global $db;
   global $DATA_OBJ;
   if($userType!="registered"){
@@ -262,11 +309,14 @@ function getReportsOnAdsForUserIdByParam($seenStatus){
     die;
   }
   else{
-    $userId= $user->getUuid();
+    $arr["userId"]= $user->getUuid();
+    $arr["msgType"]="report";
+    $arr["seen"]=$seenStatus;
     $msgId=uniqid();
     //we will contain the element id and the report id at the content
-    $query="select * from system_messages where userId = '$userId' and msgType= 'report' and seen='$seenStatus'";
-    $result=$db->readDBNoStoredProcedure($query);
+    $query=$queryArr["getSystemMsgBySeenStatus"];
+    $result=$db->readDBNoStoredProcedure($query,$arr);
+    $arr=[];
     $resultForTheTable=[];
     $objForRow=[];
     for ($i=0; $i <count($result) ; $i++) {
@@ -284,17 +334,22 @@ function getAllReportsOnAdsForUserId(){
   global $userType;
   global $user;
   global $db;
+  global $queryArr;
+  global $arr;
+  $arr=[];
   global $DATA_OBJ;
   if($userType!="registered"){
     echo "not authorized";
     die;
   }
   else{
-    $userId= $user->getUuid();
+    $arr["userId"]= $user->getUuid();
     $msgId=uniqid();
+    $arr["msgType"]="report";
     //we will contain the element id and the report id at the content
-    $query="select * from system_messages where userId = '$userId' and msgType= 'report'";
-    $result=$db->readDBNoStoredProcedure($query);
+    $query=$queryArr["getSystemMessagesByUserIdAndTypeOfReport"];
+    $result=$db->readDBNoStoredProcedure($query,$arr);
+    $arr=[];
     $resultForTheTable=[];
     $objForRow=[];
     if($result!=false){
@@ -308,9 +363,12 @@ function getAllReportsOnAdsForUserId(){
     else{
       $reusut=[];
     }
-    $query="UPDATE user_reports SET seen = '1' WHERE userId = '{$userId}'";
-    $result=$db->readDBNoStoredProcedure($query);
+    $arr["seen"]="1";
+    $arr["userId"]=$user->getUuid();
+    $query=$queryArr["updateReportSeenByUserId"];
+    $result=$db->readDBNoStoredProcedure($query,$arr);
     echo json_encode($resultForTheTable);
+    $arr=[];
     die;
 }
 }
@@ -320,7 +378,11 @@ function getReportById($elementId){
   global $user;
   global $db;
   global $DATA_OBJ;
-  $query="select * from user_reports where id='$elementId'";
+  global $queryArr;
+  global $arr;
+  $arr=[];
+  $arr["id"]=$elementId;
+  $query=$queryArr["getUser_reportById"];
   $result=$db->readDBNoStoredProcedure($query);
   return $result;
 }
