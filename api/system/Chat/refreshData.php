@@ -20,6 +20,7 @@ $arr['chatWith'] = $DATA_OBJ->params->chatWith ?? "null";
 //read new messages we got
 $query = "select * from messages where (sender =:chatWith and receiver =:alice and seen = 0)";
 $chatMessages = $db->readDBNoStoredProcedure($query, $arr);
+// Encrypt the messages we send to the user
 if(is_array($chatMessages))
 foreach ($chatMessages as $row) {
     $row->message = CryptoAes::cryptoJsAesEncrypt($secretKey, $row->message);
