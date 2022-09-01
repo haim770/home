@@ -17,6 +17,7 @@ $arr["alice"] = ($db->readDBNoStoredProcedure($query, $arr))[0]->uuid;
 $arr['chatWith'] = $DATA_OBJ->params->chatWith ?? "null";
 //$arr['date'] = date("Y-m-d H:i:s");
 
+// Decrypt the incoming message
 $arr['message'] = CryptoAes::cryptoJsAesDecrypt($secretKey, $DATA_OBJ->params->message); // message we got from the user.
 $arr['msgid'] = uniqid(); // generate rnd msgid
 
