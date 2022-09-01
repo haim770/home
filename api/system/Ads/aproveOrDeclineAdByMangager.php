@@ -1,5 +1,6 @@
 <?php
 $userType="";//guest or registered
+require_once(__DIR__.'/../queries.php');
 global $DATA_OBJ;
 global $db;
 if($DATA_OBJ->params->guest=="guest"){
@@ -49,10 +50,11 @@ function getAllAdIdWaitForAproval(){
   global $db;
   global $DATA_OBJ;
   if(isset($DATA_OBJ->limitBy->start)&&isset($DATA_OBJ->limitBy->end)){
-  $query="select  DISTINCT ads.adID,ads.user_id from ads where approval_status= 'pending' limit ".$DATA_OBJ->limitBy->end." OFFSET ".$DATA_OBJ->limitBy->start;
-}
+  $query=queryForGetAdsWaitForApprovalByParams($DATA_OBJ->limitBy->end,$DATA_OBJ->limitBy->start);
+  }
     else{
-$query="select adID,user_id from ads where approval_status= 'pending'";
+
+  $query=$queryArr["getAllAdsWaitForApproval"];
 }
 $result=$db->readDBNoStoredProcedure($query);
 return $result;
@@ -61,7 +63,8 @@ return $result;
 function getUserForUserIdAproval($user_id){
     //return user record for param user_id for the ad that waits for approval
     global $userType;
-  global $user;
+    global $queryArr;
+    global $user;
   if($userType!="registered"||$user->getRule()!="5150"){
      header('HTTP/1.1 401 Unauthorized');
     exit;
@@ -71,7 +74,7 @@ function getUserForUserIdAproval($user_id){
     global $arr;
     $arr=[];
     $arr['uuid'] = $user_id; //the userId
-    $query = "select * from users where uuid =:uuid";
+    $query = $queryArr["getUserById"];
     $result = $db->readDBNoStoredProcedure($query, $arr);
     $arr=[];
     return $result;
@@ -79,6 +82,7 @@ function getUserForUserIdAproval($user_id){
 function getImagesForAdIdAproval($adId){
     //return the images for the adId that waits for approval
     global $userType;
+    global $queryArr;
   global $user;
   if($userType!="registered"||$user->getRule()!="5150"){
      header('HTTP/1.1 401 Unauthorized');
@@ -89,7 +93,7 @@ function getImagesForAdIdAproval($adId){
     global $arr;
     $arr=[];
     $arr['element_id'] = $adId; //the adid
-    $query = "select * from pictures where element_id =:element_id order by serial_number";
+    $query = $queryArr["getPicsForElementId"];
     $result = $db->readDBNoStoredProcedure($query, $arr);
     $arr=[];
     return $result;
@@ -131,17 +135,23 @@ function declineAd(){
   }
   global $db;
   global $DATA_OBJ;
+   global $queryArr;
+  global $arr;
+  $arr=[];
+  $arr["adID"]=$DATA_OBJ->params->adID;
   if(isset($DATA_OBJ->params->adID)){
-    $query="UPDATE ads SET approval_status = 'declined', active= false WHERE adID = '{$DATA_OBJ->params->adID}'";
-  $result=$db->readDBNoStoredProcedure($query);
+    $query=$queryArr["declineAd"];
+  $result=$db->readDBNoStoredProcedure($query,$arr);
   $db->createSystemMessage(" מודעה מספר "."{$DATA_OBJ->params->adID}"." לא אושרה ",$DATA_OBJ->params->userId,"declineAd", "Error");
   echo json_encode($result);}
+  $arr=[];
   die;
 }
 function aproveAd(){
   //aprove ad by update ad to change approval status to aproved and active to true
   global $userType;
   global $user;
+  global $queryArr;
   if($userType!="registered"||$user->getRule()!="5150"){
      header('HTTP/1.1 401 Unauthorized');
     exit;
@@ -149,8 +159,11 @@ function aproveAd(){
  global $db;
   global $DATA_OBJ;
   if(isset($DATA_OBJ->params->adID)){
-    $query="UPDATE ads SET approval_status = 'aproved', active= true WHERE adID = '{$DATA_OBJ->params->adID}'";
-  $result=$db->readDBNoStoredProcedure($query);
+    global $arr;
+  $arr=[];
+  $arr["adID"]=$DATA_OBJ->params->adID;
+    $query=$queryArr["aproveAd"];
+  $result=$db->readDBNoStoredProcedure($query,$arr);
    $db->createSystemMessage(" מודעה מספר "."{$DATA_OBJ->params->adID}"." אושרה ",$DATA_OBJ->params->userId,"aproveAd", "Success");
   echo json_encode($result);}
   die;
