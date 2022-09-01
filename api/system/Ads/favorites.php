@@ -1,5 +1,6 @@
 <?php
  $authPath = "../../Authentication/authTest.php";
+ require_once(__DIR__.'/../queries.php');
  include_once(dirname(__FILE__) . DIRECTORY_SEPARATOR . $authPath);
 function addToFavorites(){
   //add ad to the user favorites
@@ -7,12 +8,15 @@ function addToFavorites(){
   global $db;
   global $DATA_OBJ;
   global $arr;
+  global $queryArr;
   $arr=[];
+  $arr["favorite_id"]=uniqid();
   $favorite_id=uniqid();
-  $userId= $user->getUuid();
-  $adID=$DATA_OBJ->params->adID;
-  $query="INSERT INTO favorites (favorite_id,userId,AdId) VALUES ('$favorite_id', '$userId', '$adID') ";
-  $result=$db->readDBNoStoredProcedure($query);
+  $arr["userId"]= $user->getUuid();
+  $arr["adID"]=$DATA_OBJ->params->adID;
+  $query=$queryArr["insertFavoriteAd"];
+  $result=$db->readDBNoStoredProcedure($query,$arr);
+  $arr=[];
   echo json_encode($result);
   die;
 }
@@ -23,19 +27,24 @@ function removeFromFavorites(){
   global $DATA_OBJ;
   global $arr;
   $arr=[];
-  $favorite_id=uniqid();
-  $userId = $user->getUuid();
-  $adID=$DATA_OBJ->params->adID;
-  $query="DELETE from favorites where userId='$userId' and AdId= '$adID'";
-  $result=$db->readDBNoStoredProcedure($query);
+  $arr["userId"] = $user->getUuid();
+  $arr["adID"]=$DATA_OBJ->params->adID;
+  $query="DELETE from favorites where userId=:userId and AdId=:adID";
+  $result=$db->readDBNoStoredProcedure($query,$arr);
   echo json_encode($result);
+  $arr=[];
   die;
 }
 function getAllFavorites($userId){
   //get all favorite ads for user
   global $db;
-  $query="select * from favorites where userId = '$userId'";
-  $result=$db->readDBNoStoredProcedure($query);
+  global $queryArr;
+  global $arr;
+  $arr=[];
+  $arr["userId"]=$userId;
+  $query=$queryArr["getFavoritesTouserId"];
+  $result=$db->readDBNoStoredProcedure($query,$arr);
+  $arr=[];
   return $result;
 
 }
@@ -43,11 +52,12 @@ function getImagesForAdIdFav($adID){
   //get images for favorite ad
 global $db;
     global $DATA_OBJ;
+    global $queryArr;
     global $arr;
   global $user;
     $arr=[];
     $arr['element_id'] = $adID; //the adid
-    $query = "select * from pictures where element_id =:element_id order by serial_number";
+    $query = $queryArr["getImgesForAd"];
     $result = $db->readDBNoStoredProcedure($query, $arr);
     $arr=[];
     // print_r($result);
@@ -82,9 +92,10 @@ function getUserForAdIdFav($userID){
 global $db;
     global $DATA_OBJ;
     global $arr;
+    global $queryArr;
     $arr=[];
     $arr['uuid'] = $userID; //the userId
-    $query = "select * from users where uuid =:uuid";
+    $query = $queryArr["getUserByID"];
     $result = $db->readDBNoStoredProcedure($query, $arr);
     $arr=[];
     return $result;

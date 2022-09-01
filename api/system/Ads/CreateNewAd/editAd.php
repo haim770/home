@@ -110,16 +110,19 @@ if(!empty($fileNames)){
     else{
         $entryDate=isset($formData->assetEntry)?$formData->assetEntry:"";
     }
-    $query="UPDATE ads SET city = '$city', street = '$street',propertyTaxes ='$propertyTaxes', houseCommittee ='$houseCommittee',floor ='$floor',maxFloor ='$maxFloor',price='$price',rooms='$rooms',adType='$adType',entry='$entry',building_number='$building_number',expire_date='$expire_date',area= '$area',property_type='$property_type',entry_date='$entryDate',active ='0' ,approval_status ='pending' WHERE adID = '$adID'";
+    $query=queryForUpdateAdPardOfTheAd($city,$street,$propertyTaxes,$houseCommittee,$floor,$maxFloor,$price,$rooms,$adType,$entry,$building_number,$expire_date,$area,$property_type,$entryDate,$adID);
     $db->writeDBNotStoredProcedure($query,[]);
 
 /**
  * Step 3 - ad contact
  */
+    $arr3=[];
+    $arr3["adID"]=$adID;
     $formDataStepThree = json_decode($DATA_OBJ["formDataStepThree"]);
     $category=$formData->assetOption=="buy"?"קנייה":"השכרה";
-    $query="Delete from ad_content where adID='$adID'";
-    $db->writeDBNotStoredProcedure($query,[]);
+    $query=$queryArr["deleteAdContentForAdId"];
+    $db->writeDBNotStoredProcedure($query,$arr3);
+    $arr3=[];
     foreach ($formDataStepThree as $key => $value) {
       if($value!=""&&$value!=false){
         // create new element id
