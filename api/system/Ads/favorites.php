@@ -57,7 +57,7 @@ global $db;
   global $user;
     $arr=[];
     $arr['element_id'] = $adID; //the adid
-    $query = $queryArr["getImgesForAd"];
+    $query = $queryArr["getPicsForElementId"];
     $result = $db->readDBNoStoredProcedure($query, $arr);
     $arr=[];
     // print_r($result);
