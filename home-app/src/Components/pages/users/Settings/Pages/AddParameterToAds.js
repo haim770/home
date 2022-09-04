@@ -10,16 +10,27 @@ function AddParameterToAds(props) {
   const [maxValue, setMaxVlue] = useState(""); //hook for parameter max value
   const [minValue, setMinValue] = useState(""); //hook fr parameter min value
   const [paramStyle, setParamStyle] = useState("input"); //hook for parameter style
-  const [dataType, setDataType] = useState("INT"); //hook for parameter style
-  const [required,setRequired]=useState("רשות");
+  const [dataType, setDataType] = useState("מספר"); //hook for parameter style
+  const [required, setRequired] = useState("רשות");
   const [category, setCataegory] = useState("השכרה");
   const [numericParameterClass, setNumericParameterClass] =
     useState("not numeric");
   const [isCheckBox, setIsCheckBox] = useState(false); //determine if checkbox
   const onChangeState = (setStateName, e) => {
     //func that recieves setstate and the event and change value of state to the value of input
-    if (e.target.name === "")
-      if (e.target.name === "form_price") if (isNaN(e.target.value)) return;
+    if (e.target.name === "minValue" || e.target.name === "maxValue") {
+      if (isNaN(e.target.value)) return;
+      if (
+        (e.target.name === "minValue" &&
+          minValue[0] == "0" &&
+          e.target.value.length > 0) ||
+        (e.target.name === "maxValue" &&
+          maxValue[0] == "0" &&
+          e.target.value.length > 0)
+      ) {
+        return;
+      }
+    }
     setStateName(e.target.value);
   };
   const returnStateToDefault = () => {
@@ -51,7 +62,7 @@ function AddParameterToAds(props) {
           maxValue: maxValue,
           paramType: dataType,
           category: category,
-          required:required=="רשות"?"0":"1",
+          required: required == "רשות" ? "0" : "1",
           guest: auth.accessToken != undefined ? "registered" : "guest",
         },
       },
@@ -138,18 +149,16 @@ function AddParameterToAds(props) {
             value={dataType}
             onChange={(e) => {
               //console.log(e.target.value);
-              if (e.target.value === "VARCHAR") {
+              if (e.target.value === "טקסט") {
                 setNumericParameterClass("notNumeric");
               } else {
                 setNumericParameterClass("numeric");
               }
               setDataType(e.target.value);
-              console.log(dataType);
             }}
           >
-            <option>INT</option>
-            <option>DOUBLE</option>
-            <option>VARCHAR</option>
+            <option>מספר</option>
+            <option>טקסט</option>
           </select>
         </label>
         <label

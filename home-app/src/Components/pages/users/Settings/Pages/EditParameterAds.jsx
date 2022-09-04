@@ -14,22 +14,35 @@ function EditParameterAds(props) {
   const [minValue, setMinValue] = useState(
     props.min_value ? props.min_value : ""
   ); //hook fr parameter min value
+  console.log(props);
   const [paramStyle, setParamStyle] = useState(props.paramStyle); //hook for parameter style
   const [dataType, setDataType] = useState(
-    props.max_value || props.min_value ? "INT" : "VARCHAR"
+    props.max_value || props.min_value ? "מספר" : "טקסט"
   ); //hook for parameter style
   const [category, setCataegory] = useState(props.category);
   const [required, setRequired] = useState(
     props.required == "1" ? "חובה" : "רשות"
   );
+  console.log(dataType + "    data");
   const [numericParameterClass, setNumericParameterClass] = useState(
-    dataType === "INT" ? "numeric" : "not numeric"
+    dataType == "מספר" ? "numeric" : "not numeric"
   );
   const [isCheckBox, setIsCheckBox] = useState(false); //determine if checkbox
   const onChangeState = (setStateName, e) => {
     //func that recieves setstate and the event and change value of state to the value of input
-    if (e.target.name === "")
-      if (e.target.name === "form_price") if (isNaN(e.target.value)) return;
+    if (e.target.name === "minValue" || e.target.name === "maxValue") {
+      if (isNaN(e.target.value)) return;
+      if (
+        (e.target.name === "minValue" &&
+          minValue[0] == "0" &&
+          e.target.value.length > 0) ||
+        (e.target.name === "maxValue" &&
+          maxValue[0] == "0" &&
+          e.target.value.length > 0)
+      ) {
+        return;
+      }
+    }
     setStateName(e.target.value);
   };
   const returnStateToDefault = () => {
@@ -37,7 +50,7 @@ function EditParameterAds(props) {
     setMinValue("");
     setParamName("");
     setParamStyle("input");
-    setDataType("השכרה");
+    setDataType("מספר");
     setRequired("רשות");
   };
   const deleteParameter = async (e) => {
@@ -87,8 +100,8 @@ function EditParameterAds(props) {
           guest: "registered",
           paramName: paramName,
           paramStyle: paramStyle,
-          minValue: minValue,
-          maxValue: maxValue,
+          minValue: dataType == "טקסט" ? "" : minValue,
+          maxValue: dataType == "טקסט" ? "" : maxValue,
           paramType: dataType,
           category: category,
           required: required == "רשות" ? "0" : "1",
@@ -178,7 +191,7 @@ function EditParameterAds(props) {
             value={dataType}
             onChange={(e) => {
               console.log(e.target.value);
-              if (e.target.value === "VARCHAR") {
+              if (e.target.value === "טקסט") {
                 setNumericParameterClass("notNumeric");
               } else {
                 setNumericParameterClass("numeric");
@@ -186,13 +199,15 @@ function EditParameterAds(props) {
               setDataType(e.target.value);
             }}
           >
-            <option>INT</option>
-            <option>DOUBLE</option>
-            <option>VARCHAR</option>
+            <option>מספר</option>
+            <option>טקסט</option>
           </select>
         </label>
         <label
-          style={{ display: paramStyle === "checkBox" ? "none" : "" }}
+          style={{
+            display:
+              paramStyle === "checkBox" || dataType == "טקסט" ? "none" : "",
+          }}
           className={numericParameterClass + " labelParamAdd"}
         >
           <span>הכנס ערך מינימום</span>
@@ -206,7 +221,10 @@ function EditParameterAds(props) {
           />
         </label>
         <label
-          style={{ display: paramStyle === "checkBox" ? "none" : "" }}
+          style={{
+            display:
+              paramStyle === "checkBox" || dataType == "טקסט" ? "none" : "",
+          }}
           className={numericParameterClass + " labelParamAdd"}
         >
           <span>הכנס ערך מקסימום</span>
@@ -236,9 +254,8 @@ function EditParameterAds(props) {
 EditParameterAds.defaultProps = {
   paramName: "",
   min_value: "",
-  maxValue: "",
+  max_הalue: "",
   paramStyle: "input",
   category: "השכרה",
-  dataType: "VARCHAR",
 };
 export default EditParameterAds;

@@ -136,12 +136,5 @@ function ManageSiteSettings(props) {
     </section>
   );
 }
-ManageSiteSettings.defaultProps = {
-  paramName: "",
-  min_value: "",
-  maxValue: "",
-  paramStyle: "input",
-  category: "השכרה",
-  dataType: "VARCHAR",
-};
+ManageSiteSettings.defaultProps = {};
 export default ManageSiteSettings;

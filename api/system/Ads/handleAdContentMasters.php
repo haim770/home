@@ -45,7 +45,7 @@ function getMastersForAdsContentForTheTable()
     if($result!=false){
     for ($i=0; $i <count($result) ; $i++) {
       //we split the msg content to report id and adId
-      $typeOfVar=$result[$i]->max_value!=null||$result[$i]->min_value!=null?"numeric":"text";
+      $typeOfVar=$result[$i]->max_value!=null||$result[$i]->min_value!=null?"מספר":"טקסט";
       $objForRow=array("id"=>$result[$i]->element_id,"category"=>$result[$i]->category,"min_value"=>$result[$i]->min_value,"max_value"=>$result[$i]->max_value,"required"=>$result[$i]->required,"category"=>$result[$i]->category,"name"=>$result[$i]->name,"display_type"=>$result[$i]->display_type,"typeOfVar"=>$typeOfVar);
       // $objForRow=json_encode($objForRow);
       $resultForTheTable[$i]=$objForRow;
@@ -88,6 +88,7 @@ function generateQueryForEditParamAndPopulateArrWithMinMax(){
       $arr["max_value"]=$DATA_OBJ->params->maxValue; 
       $query=$queryArr["updateParamWithMinAndMaxValue"];
     }
+
 //only max value
   if($DATA_OBJ->params->minValue==""&&$DATA_OBJ->params->maxValue!=""){
      $arr["max_value"] =$DATA_OBJ->params->maxValue;
@@ -159,19 +160,19 @@ function generateQueryForInsertMasterAndChangeGlobalArr(){
   global $DATA_OBJ;
   global $queryArr;
   global $arr;
-  if(($DATA_OBJ->params->minValue==""&&$DATA_OBJ->params->maxValue=="")||$DATA_OBJ->params->paramType == "VARCHAR"){
+  if(($DATA_OBJ->params->minValue==""&&$DATA_OBJ->params->maxValue=="")||$DATA_OBJ->params->paramType == "טקסט"){
       return $queryArr["insertAdContentMasterWithoutMinAndMax"];
     }
     //only min value
-    if($DATA_OBJ->params->minValue!=""&&$DATA_OBJ->params->maxValue==""&&($DATA_OBJ->params->paramType== "DOUBLE"||$DATA_OBJ->params->paramType == "INT")){
+    if($DATA_OBJ->params->minValue!=""&&$DATA_OBJ->params->maxValue==""&&($DATA_OBJ->params->paramType== "מספר"||$DATA_OBJ->params->paramType == "INT")){
       $arr["min_value"]=$DATA_OBJ->params->minValue;
       return $queryArr["insertAdContentMasterWithMinNoMax"];
   }//only max
-    if($DATA_OBJ->params->maxValue!=""&&$DATA_OBJ->params->minValue==""&&($DATA_OBJ->params->paramType== "DOUBLE"||$DATA_OBJ->params->paramType == "INT")){ 
+    if($DATA_OBJ->params->maxValue!=""&&$DATA_OBJ->params->minValue==""&&($DATA_OBJ->params->paramType== "מספר"||$DATA_OBJ->params->paramType == "INT")){ 
       $arr["max_value"]=$DATA_OBJ->params->maxValue;
       return $queryArr["insertAdContentMasterWithMaxNoMin"];
   }//max and min values
-    if($DATA_OBJ->params->maxValue!=""&&$DATA_OBJ->params->minValue!=""&&($DATA_OBJ->params->paramType == "DOUBLE"||$DATA_OBJ->params->paramType== "INT")){
+    if($DATA_OBJ->params->maxValue!=""&&$DATA_OBJ->params->minValue!=""&&($DATA_OBJ->params->paramType == "מספר"||$DATA_OBJ->params->paramType== "INT")){
     $arr["max_value"]=$DATA_OBJ->params->maxValue;
     $arr["min_value"]=$DATA_OBJ->params->minValue;
     return $queryArr["insertAdContentMasterWithMinAndMax"];
