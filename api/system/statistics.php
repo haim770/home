@@ -281,7 +281,7 @@ function pricesPerCity(){
   $result=[];
   for ($i=0; $i < count($result); $i++) { 
     $result[$i]->id=$i;
-    $result[$i]->avg=$result[$i]->avg:number_format($result[$i]->avg, 2);
+    $result[$i]->avg=number_format($result[$i]->avg, 2);
   }
   echo json_encode($result);
 }
