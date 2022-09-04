@@ -7,12 +7,12 @@ import AdsBlock from "../../../AdsBlock";
 import useAuth from "../../../../../Auth/useAuth";
 import { DataGrid } from "@mui/x-data-grid";
 const columns = [
-  { field: "id", headerName: "מס סידורי" },
-  { field: "city", headerName: "עיר" },
-  { field: "adType", headerName: "סוג מודעה" },
-  { field: "avg", headerName: " מחיר ממוצע" },
-  { field: "rooms", headerName: "חדרים" },
-  { field: "countTransactions", headerName: "מונה מודעות" },
+  { field: "id", headerName: "מס סידורי", flex: 1 },
+  { field: "city", headerName: "עיר", flex: 1 },
+  { field: "adType", headerName: "סוג מודעה", flex: 1 },
+  { field: "avg", headerName: " מחיר ממוצע", flex: 2 },
+  { field: "rooms", headerName: "חדרים", flex: 1 },
+  { field: "countTransactions", headerName: "מונה מודעות", flex: 1 },
 ];
 const AdsInformation = (props) => {
   //show info about ads
@@ -189,7 +189,7 @@ const AdsInformation = (props) => {
               getAds("getAdsCloseToday");
             }}
           >
-            מודעות פגות תוקף היום  
+            מודעות פגות תוקף היום
           </button>
         </div>
         <div>
@@ -225,9 +225,9 @@ const AdsInformation = (props) => {
             className={tableClassName}
           >
             <DataGrid
+              autoPageSize
               rows={rows}
               columns={columns}
-              pageSize={15}
               rowsPerPageOptions={[15]}
               checkboxSelection={false}
               onRowClick={async (e) => {
