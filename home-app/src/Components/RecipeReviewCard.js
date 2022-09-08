@@ -136,6 +136,7 @@ export default function RecipeReviewCard(props) {
           expand={expanded}
           onClick={handleExpandClick}
           aria-expanded={expanded}
+          title="הצג יותר"
           aria-label="show more"
         >
           <ExpandMoreIcon fontSize={"large"} />

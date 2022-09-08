@@ -164,14 +164,18 @@ const AdsBlock = (props) => {
           {/* This div will contain data like how many days the add on the site */}
           <div>
             <h3 className="iconsAtTop">
-              <Parameter
-                paramName={<FaEye />}
-                paramValue={props.adBlock.ad[0].watch}
-              />
-              <Parameter
-                paramName={<FcSms />}
-                paramValue={props.adBlock.ad[0].contact_counter}
-              />
+              <span title="צפיות">
+                <Parameter
+                  paramName={<FaEye />}
+                  paramValue={props.adBlock.ad[0].watch}
+                />
+              </span>
+              <span title="יצרו קשר">
+                <Parameter
+                  paramName={<FcSms />}
+                  paramValue={props.adBlock.ad[0].contact_counter}
+                />
+              </span>
             </h3>
           </div>
         </header>
