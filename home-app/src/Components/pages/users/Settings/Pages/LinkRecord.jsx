@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import "../../../../../styles/usefullLinks.css";
 import instance from "../../../../../api/AxiosInstance";
+import { Link, NavLink, Outlet, Navigate, useNavigate } from "react-router-dom";
+
 import useAuth from "../../../../../Auth/useAuth";
 function LinkRecord(props) {
   //link record in the list
@@ -157,7 +159,11 @@ function LinkRecord(props) {
     >
       {console.log(auth)}
       <li className="linkName">{props.link.link_content}</li>
-      <li className="linkAddress">{props.link.link}</li>
+      <li className="linkAddress">
+        <a target="_blank" rel="noreferrer" href={"https://" + props.link.link}>
+          {props.link.link}
+        </a>
+      </li>
       {auth?.roles == "5150" ? (
         <li className="linkButtons">
           <button className="button-4" onClick={(e) => setType("editLink")}>
