@@ -213,7 +213,11 @@ const AdsInformation = (props) => {
               ? "מודעות שפורסמו היום"
               : typeOfReport == "getClosedAds"
               ? "מודעות שנסגרו"
-              : "מחיר למודעות לפי ערים"}
+              : typeOfReport == "getOpenAds"
+              ? "מודעות פתוחות "
+              : typeOfReport == "getAdsCloseToday"
+              ? "מודעות פגות תוקף היום"
+              : "מחיר לפי ערים"}
           </h1>
           <div className="listAds">{loading && ads}</div>
           {noMoreAdsForSearch ? <h2>אין יותר נתונים</h2> : ""}

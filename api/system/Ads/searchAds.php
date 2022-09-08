@@ -280,7 +280,7 @@ function getClosedAds(){
     $adIdsForTheSearch = $db->readDBNoStoredProcedure($query);
     $i=0;
     if(gettype($adIdsForTheSearch)!="array"&&gettype($adIdsForTheSearch)!="Array"&&gettype($adIdsForTheSearch)!="Object"){
-        $arr=[];
+        $result=[];
         return;
     }
     else
@@ -419,7 +419,7 @@ if($userType!="registered"||($user->getRule()!="5150"&&$user->getRule()!="2001")
 }
 $time=time();
     $userId=$user->getUuid();
-    $query="select adId from history,ads where history.userId='$userId' and ads.user_id='$userId'and active='1' and expire_date>='$time' order by create_time desc limit 20";
+    $query="select adId from history where userId='$userId' and history.adId in (select adID from ads where  active='1' and expire_date>='$time')  order by history.create_time limit 20";
     $adIdForTheSearch=$db->readDBNoStoredProcedure($query);
     $i=0;
     if($adIdForTheSearch==[]||$adIdForTheSearch==""||$adIdForTheSearch==false){
