@@ -20,6 +20,7 @@ function ImgCarousel(props) {
       <nav className="navArrows">
         <div
           className="left"
+          title="קודם"
           onClick={(e) => {
             e.preventDefault();
             //endless spinner
@@ -32,6 +33,7 @@ function ImgCarousel(props) {
         </div>
         <div
           className="right"
+          title="הבא"
           onClick={(e) => {
             //endless spinner
             e.preventDefault();
