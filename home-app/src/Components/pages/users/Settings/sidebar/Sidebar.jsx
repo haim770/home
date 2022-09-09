@@ -16,6 +16,7 @@ import instance from "../../../../../api/AxiosInstance";
 const Sidebar = () => {
   //the sidebar with manager and user widgets
   const { auth } = useAuth();
+  const [curUrl, setcurUrl] = useState("Dashboard");
   const [newNotification, setNewNotification] = useState(0);
   const [newMsgForUser, setNewMsgForUser] = useState(0);
   const [newRequestForAdsAproval, setNewRequestForAdsAproval] = useState(0);
@@ -65,13 +66,30 @@ const Sidebar = () => {
       <div className="settingsCenter">
         <ul>
           <p className="titleSet">ראשי</p>
-          <li>
+          <li
+            onClick={(e) => {
+              e.preventDefault();
+              setcurUrl("Dashboard");
+            }}
+            style={{
+              backgroundColor: curUrl == "Dashboard" ? "blue" : "white",
+            }}
+          >
             <Link to="/Settings/Dashbord" style={{ textDecoration: "none" }}>
               <RiDashboardLine className="icon" />
               <span>פאנל ניהול</span>
             </Link>
+            {console.log(window.location.pathname)}
           </li>
-          <li>
+          <li
+            onClick={(e) => {
+              e.preventDefault();
+              setcurUrl("UserSettings");
+            }}
+            style={{
+              backgroundColor: curUrl == "UserSettings" ? "blue" : "white",
+            }}
+          >
             <Link
               to="/Settings/UserSettings"
               style={{ textDecoration: "none" }}
@@ -80,7 +98,15 @@ const Sidebar = () => {
               <span>הגדרות</span>
             </Link>
           </li>
-          <li>
+          <li
+            onClick={(e) => {
+              e.preventDefault();
+              setcurUrl("Notifications");
+            }}
+            style={{
+              backgroundColor: curUrl == "Notifications" ? "blue" : "white",
+            }}
+          >
             <Link
               to="/Settings/Notifications"
               style={{ textDecoration: "none" }}
@@ -92,7 +118,15 @@ const Sidebar = () => {
               </span>
             </Link>
           </li>
-          <li>
+          <li
+            onClick={(e) => {
+              e.preventDefault();
+              setcurUrl("Messages");
+            }}
+            style={{
+              backgroundColor: curUrl == "Messages" ? "blue" : "white",
+            }}
+          >
             <Link to="/Settings/Messages" style={{ textDecoration: "none" }}>
               <IoLogoWechat className="icon" />
               <span>הודעות</span>
@@ -101,33 +135,74 @@ const Sidebar = () => {
               </span>
             </Link>
           </li>
-          <li>
+          <li
+            onClick={(e) => {
+              e.preventDefault();
+              setcurUrl("Purchase");
+            }}
+            style={{
+              backgroundColor: curUrl == "Purchase" ? "blue" : "white",
+            }}
+          >
             <Link to="/Settings/Purchase" style={{ textDecoration: "none" }}>
               <BiPurchaseTagAlt className="icon" />
               <span>רכישות</span>
             </Link>
           </li>
           <p className="titleSet">מודעות</p>
-          <li>
+          <li
+            onClick={(e) => {
+              e.preventDefault();
+              setcurUrl("Ads");
+            }}
+            style={{
+              backgroundColor: curUrl == "Ads" ? "blue" : "white",
+            }}
+          >
             <Link to="/Settings/Ads" style={{ textDecoration: "none" }}>
               <GoHome className="icon" />
               <span>מודעות</span>
             </Link>
           </li>
-          <li>
+          <li
+            onClick={(e) => {
+              e.preventDefault();
+              setcurUrl("Favorites");
+            }}
+            style={{
+              backgroundColor: curUrl == "Favorites" ? "blue" : "white",
+            }}
+          >
             <Link to="/Settings/Favorites" style={{ textDecoration: "none" }}>
               <MdOutlineFavoriteBorder className="icon" />
               <span>מועדפים</span>
             </Link>
           </li>
-          <li>
+          <li
+            onClick={(e) => {
+              e.preventDefault();
+              setcurUrl("History");
+            }}
+            style={{
+              backgroundColor: curUrl == "History" ? "blue" : "white",
+            }}
+          >
             <Link to="/Settings/History" style={{ textDecoration: "none" }}>
               <FiClock className="icon" />
               <span>היסטוריה</span>
             </Link>
           </li>
           {auth?.roles === "5150" || auth?.roles === "2001" ? (
-            <li>
+            <li
+              onClick={(e) => {
+                e.preventDefault();
+                setcurUrl("UserReportsToAds");
+              }}
+              style={{
+                backgroundColor:
+                  curUrl == "UserReportsToAds" ? "blue" : "white",
+              }}
+            >
               <Link
                 to="/Settings/UserReportsToAds"
                 style={{ textDecoration: "none" }}
@@ -144,7 +219,15 @@ const Sidebar = () => {
           )}
           {auth?.roles === "5150" ? <p className="titleSet">ניהול</p> : <></>}
           {auth?.roles === "5150" ? (
-            <li>
+            <li
+              onClick={(e) => {
+                e.preventDefault();
+                setcurUrl("Users");
+              }}
+              style={{
+                backgroundColor: curUrl == "Users" ? "blue" : "white",
+              }}
+            >
               <Link to="/Settings/Users" style={{ textDecoration: "none" }}>
                 <FiUsers className="icon" />
                 <span>משתמשים</span>
@@ -154,7 +237,15 @@ const Sidebar = () => {
             <></>
           )}
           {auth?.roles === "5150" ? (
-            <li>
+            <li
+              onClick={(e) => {
+                e.preventDefault();
+                setcurUrl("HandlePackages");
+              }}
+              style={{
+                backgroundColor: curUrl == "HandlePackages" ? "blue" : "white",
+              }}
+            >
               <Link
                 to="/Settings/HandlePackages"
                 style={{ textDecoration: "none" }}
@@ -167,7 +258,16 @@ const Sidebar = () => {
             <></>
           )}
           {auth?.roles === "5150" ? (
-            <li>
+            <li
+              onClick={(e) => {
+                e.preventDefault();
+                setcurUrl("confirmAdManagesr");
+              }}
+              style={{
+                backgroundColor:
+                  curUrl == "confirmAdManagesr" ? "blue" : "white",
+              }}
+            >
               <Link
                 to="/Settings/confirmAdManagesr"
                 style={{ textDecoration: "none" }}
@@ -182,7 +282,16 @@ const Sidebar = () => {
             <></>
           )}
           {auth?.roles === "5150" ? (
-            <li>
+            <li
+              onClick={(e) => {
+                e.preventDefault();
+                setcurUrl("handleReportReasons");
+              }}
+              style={{
+                backgroundColor:
+                  curUrl == "handleReportReasons" ? "blue" : "white",
+              }}
+            >
               <Link
                 to="/Settings/handleReportReasons"
                 style={{ textDecoration: "none" }}
@@ -194,7 +303,15 @@ const Sidebar = () => {
             <></>
           )}
           {auth?.roles === "5150" ? (
-            <li>
+            <li
+              onClick={(e) => {
+                e.preventDefault();
+                setcurUrl("handleAdParams");
+              }}
+              style={{
+                backgroundColor: curUrl == "handleAdParams" ? "blue" : "white",
+              }}
+            >
               <Link
                 to="/Settings/handleAdParams"
                 style={{ textDecoration: "none" }}
@@ -206,7 +323,15 @@ const Sidebar = () => {
             <></>
           )}
           {auth?.roles === "5150" ? (
-            <li>
+            <li
+              onClick={(e) => {
+                e.preventDefault();
+                setcurUrl("ChangeUserRule");
+              }}
+              style={{
+                backgroundColor: curUrl == "ChangeUserRule" ? "blue" : "white",
+              }}
+            >
               <Link
                 to="/Settings/ChangeUserRule"
                 style={{ textDecoration: "none" }}
@@ -218,7 +343,16 @@ const Sidebar = () => {
             <></>
           )}
           {auth?.roles === "5150" ? (
-            <li>
+            <li
+              onClick={(e) => {
+                e.preventDefault();
+                setcurUrl("ManageSiteSettings");
+              }}
+              style={{
+                backgroundColor:
+                  curUrl == "ManageSiteSettings" ? "blue" : "white",
+              }}
+            >
               <Link
                 to="/Settings/ManageSiteSettings"
                 style={{ textDecoration: "none" }}
@@ -230,7 +364,15 @@ const Sidebar = () => {
             <></>
           )}
           {auth?.roles === "5150" ? (
-            <li>
+            <li
+              onClick={(e) => {
+                e.preventDefault();
+                setcurUrl("Sales");
+              }}
+              style={{
+                backgroundColor: curUrl == "Sales" ? "blue" : "white",
+              }}
+            >
               <Link to="/Settings/Sales" style={{ textDecoration: "none" }}>
                 <FcSalesPerformance className="icon" />
                 <span>מכירות</span>
@@ -240,7 +382,15 @@ const Sidebar = () => {
             <></>
           )}
           {auth?.roles === "5150" ? (
-            <li>
+            <li
+              onClick={(e) => {
+                e.preventDefault();
+                setcurUrl("ManageReports");
+              }}
+              style={{
+                backgroundColor: curUrl == "ManageReports" ? "blue" : "white",
+              }}
+            >
               <Link
                 to="/Settings/ManageReports"
                 style={{ textDecoration: "none" }}
@@ -258,7 +408,15 @@ const Sidebar = () => {
             <></>
           )}
           {auth?.roles === "5150" ? (
-            <li>
+            <li
+              onClick={(e) => {
+                e.preventDefault();
+                setcurUrl("SitePurchase");
+              }}
+              style={{
+                backgroundColor: curUrl == "SitePurchase" ? "blue" : "white",
+              }}
+            >
               <Link
                 to="/Settings/SitePurchase"
                 style={{ textDecoration: "none" }}
@@ -271,7 +429,15 @@ const Sidebar = () => {
             <></>
           )}
           {auth?.roles === "5150" ? (
-            <li>
+            <li
+              onClick={(e) => {
+                e.preventDefault();
+                setcurUrl("AdsInformation");
+              }}
+              style={{
+                backgroundColor: curUrl == "AdsInformation" ? "blue" : "white",
+              }}
+            >
               <Link
                 to="/Settings/AdsInformation"
                 style={{ textDecoration: "none" }}
