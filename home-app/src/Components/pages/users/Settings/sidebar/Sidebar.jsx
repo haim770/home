@@ -70,6 +70,7 @@ const Sidebar = () => {
             onClick={(e) => {
               e.preventDefault();
               setcurUrl("Dashboard");
+              getAllNumbersOfNewItems();
             }}
             style={{
               backgroundColor: curUrl == "Dashboard" ? "blue" : "white",
@@ -85,6 +86,7 @@ const Sidebar = () => {
             onClick={(e) => {
               e.preventDefault();
               setcurUrl("UserSettings");
+              getAllNumbersOfNewItems();
             }}
             style={{
               backgroundColor: curUrl == "UserSettings" ? "blue" : "white",
@@ -102,6 +104,7 @@ const Sidebar = () => {
             onClick={(e) => {
               e.preventDefault();
               setcurUrl("Notifications");
+              getAllNumbersOfNewItems();
             }}
             style={{
               backgroundColor: curUrl == "Notifications" ? "blue" : "white",
@@ -122,6 +125,7 @@ const Sidebar = () => {
             onClick={(e) => {
               e.preventDefault();
               setcurUrl("Messages");
+              getAllNumbersOfNewItems();
             }}
             style={{
               backgroundColor: curUrl == "Messages" ? "blue" : "white",
@@ -131,7 +135,9 @@ const Sidebar = () => {
               <IoLogoWechat className="icon" />
               <span>הודעות</span>
               <span style={{ color: "red" }}>
-                {newMsgForUser == "0" ? "" : newMsgForUser}
+                {newMsgForUser == "0" || curUrl == "Messages"
+                  ? ""
+                  : newMsgForUser}
               </span>
             </Link>
           </li>
@@ -139,6 +145,7 @@ const Sidebar = () => {
             onClick={(e) => {
               e.preventDefault();
               setcurUrl("Purchase");
+              getAllNumbersOfNewItems();
             }}
             style={{
               backgroundColor: curUrl == "Purchase" ? "blue" : "white",
@@ -154,6 +161,7 @@ const Sidebar = () => {
             onClick={(e) => {
               e.preventDefault();
               setcurUrl("Ads");
+              getAllNumbersOfNewItems();
             }}
             style={{
               backgroundColor: curUrl == "Ads" ? "blue" : "white",
@@ -168,6 +176,7 @@ const Sidebar = () => {
             onClick={(e) => {
               e.preventDefault();
               setcurUrl("Favorites");
+              getAllNumbersOfNewItems();
             }}
             style={{
               backgroundColor: curUrl == "Favorites" ? "blue" : "white",
@@ -182,6 +191,7 @@ const Sidebar = () => {
             onClick={(e) => {
               e.preventDefault();
               setcurUrl("History");
+              getAllNumbersOfNewItems();
             }}
             style={{
               backgroundColor: curUrl == "History" ? "blue" : "white",
@@ -197,6 +207,7 @@ const Sidebar = () => {
               onClick={(e) => {
                 e.preventDefault();
                 setcurUrl("UserReportsToAds");
+                getAllNumbersOfNewItems();
               }}
               style={{
                 backgroundColor:
@@ -210,7 +221,9 @@ const Sidebar = () => {
                 <BiPurchaseTagAlt className="icon" />
                 <span>דוחות על מודעות של משתמש</span>
                 <span style={{ color: "red" }}>
-                  {newReportForTheUser == "0" ? "" : newReportForTheUser}
+                  {newReportForTheUser == "0" || curUrl == "UserReportsToAds"
+                    ? ""
+                    : newReportForTheUser}
                 </span>
               </Link>
             </li>
@@ -222,6 +235,7 @@ const Sidebar = () => {
             <li
               onClick={(e) => {
                 e.preventDefault();
+                getAllNumbersOfNewItems();
                 setcurUrl("Users");
               }}
               style={{
@@ -241,6 +255,7 @@ const Sidebar = () => {
               onClick={(e) => {
                 e.preventDefault();
                 setcurUrl("HandlePackages");
+                getAllNumbersOfNewItems();
               }}
               style={{
                 backgroundColor: curUrl == "HandlePackages" ? "blue" : "white",
@@ -261,11 +276,12 @@ const Sidebar = () => {
             <li
               onClick={(e) => {
                 e.preventDefault();
-                setcurUrl("confirmAdManagesr");
+                setcurUrl("confirmAdManager");
+                getAllNumbersOfNewItems();
               }}
               style={{
                 backgroundColor:
-                  curUrl == "confirmAdManagesr" ? "blue" : "white",
+                  curUrl == "confirmAdManager" ? "blue" : "white",
               }}
             >
               <Link
@@ -274,7 +290,9 @@ const Sidebar = () => {
               >
                 <span> אישור מודעות</span>
                 <span style={{ color: "red" }}>
-                  {newRequestForAdsAproval == 0 ? "" : newRequestForAdsAproval}
+                  {curUrl == "confirmAdManager" || newRequestForAdsAproval == 0
+                    ? ""
+                    : newRequestForAdsAproval}
                 </span>
               </Link>
             </li>
@@ -286,6 +304,7 @@ const Sidebar = () => {
               onClick={(e) => {
                 e.preventDefault();
                 setcurUrl("handleReportReasons");
+                getAllNumbersOfNewItems();
               }}
               style={{
                 backgroundColor:
@@ -307,6 +326,7 @@ const Sidebar = () => {
               onClick={(e) => {
                 e.preventDefault();
                 setcurUrl("handleAdParams");
+                getAllNumbersOfNewItems();
               }}
               style={{
                 backgroundColor: curUrl == "handleAdParams" ? "blue" : "white",
@@ -327,6 +347,7 @@ const Sidebar = () => {
               onClick={(e) => {
                 e.preventDefault();
                 setcurUrl("ChangeUserRule");
+                getAllNumbersOfNewItems();
               }}
               style={{
                 backgroundColor: curUrl == "ChangeUserRule" ? "blue" : "white",
@@ -346,6 +367,7 @@ const Sidebar = () => {
             <li
               onClick={(e) => {
                 e.preventDefault();
+                getAllNumbersOfNewItems();
                 setcurUrl("ManageSiteSettings");
               }}
               style={{
@@ -367,6 +389,7 @@ const Sidebar = () => {
             <li
               onClick={(e) => {
                 e.preventDefault();
+                getAllNumbersOfNewItems();
                 setcurUrl("Sales");
               }}
               style={{
@@ -385,6 +408,7 @@ const Sidebar = () => {
             <li
               onClick={(e) => {
                 e.preventDefault();
+                getAllNumbersOfNewItems();
                 setcurUrl("ManageReports");
               }}
               style={{
@@ -398,7 +422,7 @@ const Sidebar = () => {
                 <HiOutlineDocumentReport className="icon" />
                 <span>דוחות</span>
                 <span style={{ color: "red" }}>
-                  {newReportCountForManager == "0"
+                  {newReportCountForManager == "0" || curUrl == "ManageReports"
                     ? ""
                     : newReportCountForManager}
                 </span>
@@ -411,6 +435,7 @@ const Sidebar = () => {
             <li
               onClick={(e) => {
                 e.preventDefault();
+                getAllNumbersOfNewItems();
                 setcurUrl("SitePurchase");
               }}
               style={{
@@ -432,6 +457,7 @@ const Sidebar = () => {
             <li
               onClick={(e) => {
                 e.preventDefault();
+                getAllNumbersOfNewItems();
                 setcurUrl("AdsInformation");
               }}
               style={{
