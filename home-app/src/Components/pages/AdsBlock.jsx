@@ -30,6 +30,7 @@ const AdsBlock = (props) => {
   const [phone, setPhone] = useState(
     props.adBlock.user[0] ? props.adBlock.user[0].phone : 0
   );
+  console.log(props.adBlock);
   const location = useLocation();
   const [goToEditPage, setGoToEditPage] = useState(false);
   const [togglePhone, setTogglePhone] = useState("הסתר טלפון");

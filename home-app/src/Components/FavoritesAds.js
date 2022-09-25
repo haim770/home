@@ -87,6 +87,7 @@ const FavoritesAds = (props) => {
       setNoMoreAdsForSearch(true);
       return;
     } else {
+      console.log(result.data);
       setAds((prevAds) => {
         return new Set([
           ...prevAds,

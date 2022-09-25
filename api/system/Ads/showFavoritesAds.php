@@ -56,6 +56,7 @@ function getAdWithAdContentForAdIdFavorites($adId,$user_id){
     $result["adContent"] = $resultAdContentTable;
     $result["user"]=$resultUserForTheAd;
     $result["adImages"]=$resultImagesForAdId;
+    $result["favorite"]=true;
     $arr = [];
     return $result;
 }

@@ -13,6 +13,7 @@ function LinkRecord(props) {
   const cancelInsert = (e) => {
     //cancel insert
     e.preventDefault();
+    setType("showLink");
     props.setShowAddLink(false);
   };
   const editLink = async (e) => {
