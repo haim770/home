@@ -19,7 +19,7 @@ const RecoveryPage = () => {
   //password recovery page
   const [searchParams] = useSearchParams();
   const location = useLocation();
-  const token = searchParams.get("token");
+  const token = searchParams.get("key");
   const userMail = searchParams.get("email");
 
   const [showPassword, setShowPassword] = useState(false);
@@ -237,5 +237,5 @@ const RecoveryPage = () => {
     <Navigate to="/unauthorized" state={{ from: location }} replace />
   );
 };
-
+// 
 export default RecoveryPage;

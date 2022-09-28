@@ -36,6 +36,7 @@ if (!$email) {
 		$curDate = date("Y-m-d H:i:s"); // set server current time.
         $query= "SELECT exp_date FROM password_recovery WHERE userMail =:userMail and token =:token";
 		$result = $db->readDBNoStoredProcedure($query, $arr);
+        $info = (object)[];
 		if ($result != null)
         // retrun the recovery mail Expiration date
 			return $result[0]->exp_date > $curDate;

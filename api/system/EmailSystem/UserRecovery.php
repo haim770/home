@@ -68,11 +68,10 @@ if (!$email) {
         $headers = "MIME-Version: 1.0" . "\r\n";
         $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n"; // must have to make the email at html format.
         $headers .= "From: servicelhproj@gmail.com";
-
         if (mail($to_email, $subject, $body, $headers)) {
             echo " $to_email הודעת שחזור נשלחה בהצלחה ל";
         } else {
-            echo "Email sending failed...";
+            echo "Email sending failed... ";
         }
     }
 
