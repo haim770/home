@@ -21,7 +21,6 @@ function LinkRecord(props) {
         Authorization: `Bearer ${auth.accessToken}`,
       },
     });
-    
     if (result?.data == "not authorized") {
       alert("error");
     } else {
@@ -31,7 +30,6 @@ function LinkRecord(props) {
   };
   return (
     <section>
-      
       {showReport === "showCommentEditForm" ? (
         <BlogCommentForm
           className={showReport}
@@ -50,9 +48,8 @@ function LinkRecord(props) {
             display: showReport != "showCommentEditForm" ? "block" : "none",
           }}
         >
-         
           <li className="commentsHeaderPart">
-            <li>{props.blogComment.userId}</li>
+            <li>{props.blogComment.firstName}</li>
             <li>{props.blogComment.create_time}</li>
           </li>
           <li className="commentTitlePart">
