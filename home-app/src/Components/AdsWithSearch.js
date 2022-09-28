@@ -48,13 +48,6 @@ function AdsWithSearch(props) {
   const rendercomp = () => {
     return (
       <section className="adsWithSearch">
-        {/* <Try
-          parameters={parameters}
-          rentParams={rentParams}
-          buyParams={buyParams}
-          setRentParams={setRentParams}
-          setBuyParams={setBuyParams}
-        /> */}
         <SearchAds
           api={props.api}
           className="search"
