@@ -1,9 +1,6 @@
 .blogComment {
   display: flex;
   flex-direction: column;
-  background-color: aqua;
-  border-radius: 5px;
-  border: 2px solid black;
 }
 
 .titleComments {
@@ -20,5 +17,15 @@
 }
 .commentsHeaderPart {
   display: flex;
-  justify-content: space-between;
+  direction: ltr;
+  align-items: flex-end;
+}
+
+.userNameHeader {
+  color: rgb(42, 122, 226) !important;
+  font-size: 1.8rem;
+  
+}
+.timeHeader {
+  font-size: 1.6rem;
 }

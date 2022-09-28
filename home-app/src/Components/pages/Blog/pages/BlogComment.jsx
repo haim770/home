@@ -29,9 +29,22 @@ function LinkRecord(props) {
       props.getComments();
     }
   };
+
+  const getTime = (theTime) => {
+    const startTime = new Date();
+    const endTime = new Date(theTime);
+    // To calculate the time difference of two dates
+    var Difference_In_Time = startTime.getTime() - endTime.getTime();
+
+    // To calculate the no. of days between two dates
+    const numberOfDays = Math.round(Difference_In_Time / (1000 * 3600 * 24));
+    if (numberOfDays>365)
+      return "לפני " + Math.round(numberOfDays / 365) + " שנים";
+    else
+    return "לפני " + numberOfDays + " ימים";
+  }
   return (
     <section>
-      
       {showReport === "showCommentEditForm" ? (
         <BlogCommentForm
           className={showReport}
@@ -50,13 +63,13 @@ function LinkRecord(props) {
             display: showReport != "showCommentEditForm" ? "block" : "none",
           }}
         >
-         
           <li className="commentsHeaderPart">
-            <li>{props.blogComment.userId}</li>
-            <li>{props.blogComment.create_time}</li>
+            <li className="userNameHeader"> {props.blogComment.userId} </li>
+            <li className="timeHeader">
+              {getTime(props.blogComment.create_time)} •&nbsp;
+            </li>
           </li>
           <li className="commentTitlePart">
-            <li className="titleComments">כותרת</li>
             <li className="titleComments">{props.blogComment.title}</li>
           </li>
           <li>{props.blogComment.content}</li>
