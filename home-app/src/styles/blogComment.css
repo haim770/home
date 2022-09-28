@@ -1,16 +1,25 @@
 .blogComment {
   display: flex;
   flex-direction: column;
-  background-color: aqua;
-  border-radius: 5px;
-  border: 2px solid black;
 }
 
 .titleComments {
-  font-size: 1.5em;
-  border: 1px solid gray;
+  font-size: 3.2rem;
+  color:darkblue;
 }
 
+.userComment {
+  font-size: 2.4rem;
+  color: black;
+}
+
+.adminPanel {
+  margin: 0.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  
+}
 .blogComment li {
   list-style-type: none;
 }
@@ -20,5 +29,15 @@
 }
 .commentsHeaderPart {
   display: flex;
-  justify-content: space-between;
+  direction: ltr;
+  align-items: flex-end;
+}
+
+.userNameHeader {
+  color: rgb(42, 122, 226) !important;
+  font-size: 1.8rem;
+
+}
+.timeHeader {
+  font-size: 1.6rem;
 }
