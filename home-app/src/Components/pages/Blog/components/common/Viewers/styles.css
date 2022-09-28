@@ -1,0 +1,9 @@
+.viewers {
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: rgb(54, 54, 54);
+  padding: 0.3rem 0.5rem;
+  border-radius: 5px;
+  width: fit-content;
+  text-transform: capitalize;
+}

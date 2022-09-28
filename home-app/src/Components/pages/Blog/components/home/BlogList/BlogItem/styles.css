@@ -76,3 +76,8 @@
   margin-left: 2rem;
   margin-right: 2rem;
 }
+
+.chipWrapper {
+  display: flex;
+  justify-content: space-between;
+}

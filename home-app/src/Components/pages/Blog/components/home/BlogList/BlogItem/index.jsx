@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Chip from "../../../common/Chip";
+import Viewers from "../../../common/Viewers";
 import "./styles.css";
 
 const BlogItem = ({
@@ -12,6 +13,7 @@ const BlogItem = ({
     cover,
     category,
     id,
+    views,
   },
 }) => {
   const authorAvatar = "author.jpg";
@@ -27,7 +29,10 @@ const BlogItem = ({
           alt="cover"
         />
       </Link>
-      <Chip label={category} />
+      <div className="chipWrapper">
+        <Chip label={category} />
+        <Viewers label={views} />
+      </div>
       <Link className="blogItem-link" to={`/blog/${id}`}>
         <h3>{title}</h3>
       </Link>
