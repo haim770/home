@@ -9,6 +9,7 @@ import Report from "../../../Report.js";
 import BlogCommentForm from "./BlogCommentForm";
 import CommentsForBlog from "./CommentsForBlog";
 import useAuth from "../../../../Auth/useAuth";
+import Viewers from "../components/common/Viewers";
 
 const Blog = () => {
   const { id } = useParams();
@@ -75,7 +76,11 @@ const Blog = () => {
       {blog && showReport != "showReport" && showReport != "showComment" ? (
         <div className="blog-wrap">
           <header>
-            <p className="blog-date">פורסם ב {blog.createdAt}</p>
+            <div className="blog-date-views">
+              <p className="blog-date">פורסם ב {blog.createdAt}</p>
+              <Viewers label={blog.views} />
+            </div>
+
             <h1>{blog.title}</h1>
             <div className="blog-subCategory">
               {blog.subCategory.split(",").map((category, i) => (

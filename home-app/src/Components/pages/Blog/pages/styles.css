@@ -41,6 +41,10 @@
   margin: 5rem;
 }
 
+.blog-date-views{
+  display: flex;
+  justify-content: space-between;
+}
 /** 
 LOADING data
 */
