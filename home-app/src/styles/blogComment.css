@@ -6,6 +6,7 @@
 .titleComments {
   font-size: 3.2rem;
   color:darkblue;
+  justify-self: start;
 }
 
 .userComment {
@@ -25,7 +26,7 @@
 }
 .commentTitlePart {
   display: grid;
-  grid-template-columns: 1fr 5fr;
+  grid-template-columns: 5fr 1fr;
 }
 .commentsHeaderPart {
   display: flex;
