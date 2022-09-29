@@ -27,7 +27,7 @@ const CommentsForBlog = (props) => {
         Authorization: `Bearer ${auth.accessToken}`,
       },
     });
-    
+    console.log(result.data);
     if (result.data === false || result.data === "") {
       setNoMoreAdsForSearch(true);
       return;

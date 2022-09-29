@@ -21,7 +21,6 @@ function LinkRecord(props) {
         Authorization: `Bearer ${auth.accessToken}`,
       },
     });
-
     if (result?.data == "not authorized") {
       alert("error");
     } else {
