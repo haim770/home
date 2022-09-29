@@ -88,7 +88,7 @@ function LinkRecord(props) {
           }}
         >
           <li className="commentsHeaderPart">
-            <li className="userNameHeader"> {props.blogComment.userId} </li>
+            <li className="userNameHeader"> {props.blogComment.firstName} </li>
             <li className="timeHeader">
               {getTime(props.blogComment.create_time)} •&nbsp;
             </li>

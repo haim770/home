@@ -16,9 +16,27 @@ function getCommentsForBlogId($blogId){
   global $db;
   $query="select * from blogcomments where blogId='$blogId' and status= '1' order by create_time desc";
   $result=$db->readDBNoStoredProcedure($query);
+
   if($result==false){
     $result=[];
   }
+  else{
+    //get first name for the id
+    for ($i=0; $i < count($result); $i++) { 
+      if($result[$i]->userId=="guest"){
+        $result[$i]->first_name="guest";
+      }else{
+      $query="select first_name from users where uuid='{$result[$i]->userId}'"; 
+      $fName=$db->readDBNoStoredProcedure($query);
+      if(is_array($fName)&&isset($fName[0]->first_name)){
+        $result[$i]->firstName=$fName[0]->first_name;
+      }
+      else{
+         $result[$i]->firstName="no first name in db";
+      }
+  }   
+  }
+}
   echo json_encode($result);
   die;
 }
