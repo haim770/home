@@ -88,15 +88,15 @@ function LinkRecord(props) {
             display: showReport != "showCommentEditForm" ? "block" : "none",
           }}
         >
-          <li className="commentsHeaderPart">
+          <ul className="commentsHeaderPart">
             <li className="userNameHeader"> {props.blogComment.firstName} </li>
             <li className="timeHeader">
               {getTime(props.blogComment.create_time)} •&nbsp;
             </li>
-          </li>
-          <li className="commentTitlePart">
+          </ul>
+          <ul className="commentTitlePart">
             <li className="titleComments">{props.blogComment.title}</li>
-          </li>
+          </ul>
           <li className="userComment">{props.blogComment.content}</li>
           {auth?.roles == "5150" ? (
             <li className="adminPanel">
