@@ -8,3 +8,11 @@
   list-style-type: none;
   margin-top: 1rem;
 }
+
+@media (max-width: 700px) {
+  .footerFooter {
+    display: flex;
+    flex-direction: column;
+    max-width: 100%;
+  }
+}

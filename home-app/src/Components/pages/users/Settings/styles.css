@@ -2,26 +2,53 @@
 	display: flex;
 
 }
- .settings .settingsContainer {
-	 flex: 6;
+
+.settings .settingsContainer {
+	flex: 6;
 }
- .settings .settingsContainer .widgets, .settings .settingsContainer .charts {
-	 display: flex;
-	 padding: 2rem;
-	 gap: 2rem;
+
+.settings .settingsContainer .widgets,
+.settings .settingsContainer .charts {
+	display: flex;
+	padding: 2rem;
+	gap: 2rem;
 }
- .settings .settingsContainer .charts {
-	 padding: 0.5rem 2rem;
+
+.settings .settingsContainer .charts {
+	padding: 0.5rem 2rem;
 }
- .settings .settingsContainer .listContainer {
-	 -webkit-box-shadow: 0.2rem 0.4rem 1rem 0.1rem rgba(0, 0, 0, 0.47);
-	 box-shadow: 0.2rem 0.4rem 1rem 0.1rem rgba(201, 201, 201, 0.47);
-	 padding: 2rem;
-	 margin: 2rem;
+
+.settings .settingsContainer .listContainer {
+	-webkit-box-shadow: 0.2rem 0.4rem 1rem 0.1rem rgba(0, 0, 0, 0.47);
+	box-shadow: 0.2rem 0.4rem 1rem 0.1rem rgba(201, 201, 201, 0.47);
+	padding: 2rem;
+	margin: 2rem;
 }
- .settings .settingsContainer .listContainer .listTitle {
-	 font-weight: 500;
-	 color: gray;
-	 margin-bottom: 1.5rem;
+
+.settings .settingsContainer .listContainer .listTitle {
+	font-weight: 500;
+	color: gray;
+	margin-bottom: 1.5rem;
 }
- 
+
+@media (max-width: 700px) {
+	.settings {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.settingsContainer {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.widgets {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.charts {
+		display: flex;
+		flex-direction: column;
+	}
+}

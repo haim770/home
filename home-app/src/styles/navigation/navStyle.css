@@ -22,7 +22,6 @@
   display: flex;
   z-index: 1100;
   box-sizing: border-box;
-  flex-shrink: 0;
   flex-direction: column;
   direction: rtl;
 }
@@ -257,6 +256,26 @@
   }
 }
 
+.jss13 {
+  display: flex;
+  flex-direction: row;
+  padding-inline-start: 0;
+}
+
+@media (max-width: 700px) {
+  .MuiToolbar-root {
+    max-width: 100%;
+    padding: 1%;
+  }
+
+  .jss14 {}
+
+  .jss13 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border: 2px solid red;
+  }
+}
 
 .MuiToolbar-root {
   display: flex;
@@ -271,21 +290,16 @@
   display: flex;
   z-index: 1;
   justify-self: center;
-}
-
-.jss10 {
-  padding-top: 1rem;
   max-width: 20%;
 }
 
-@media (max-width: 650px) {
-  .jss10 {
-    max-width: 10%;
-  }
+.jss10 {
+  max-width: 100%;
 }
 
+
 @media (min-width: 960px) {
-  .jss10 {
+  .jss6 {
     max-width: 130px;
   }
 }
@@ -316,17 +330,7 @@
 /* End Main Links Style */
 
 /* Start Inner Links Style */
-.jss13 {
-  display: flex;
-  flex-direction: row;
-  padding-inline-start: 0;
-}
 
-@media only screen and (max-width: 600px) {
-  .jss13 {
-    font-size: 1rem;
-  }
-}
 
 /* Map style */
 .jss12 {
