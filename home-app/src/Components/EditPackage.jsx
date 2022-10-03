@@ -21,7 +21,13 @@ function EditPackage(props) {
   const onChangeState = (setStateName, event) => {
     //func that recieves setstate and the event and change value of state to the value of input
     if (event.target.name === "price" || event.target.name === "adValue")
-      if (isNaN(event.target.value) || event.target.value === "e") return;
+      if (
+        isNaN(event.target.value) ||
+        event.target.value === "e" ||
+        event.target.value == "0" ||
+        event.target.value[0] == "0"
+      )
+        return;
     setStateName(event.target.value);
   };
   const returnStateToDefault = () => {

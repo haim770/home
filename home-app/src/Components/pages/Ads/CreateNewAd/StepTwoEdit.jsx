@@ -99,9 +99,17 @@ const StepTwo = ({ formData, setFormData }) => {
         isNaN(value) ||
         event.target.value == "00" ||
         event.target.value == "--" ||
-        event.target.value == "e"
+        event.target.value == "e" ||
+        (event.target.value[0] == "0" && event.target.value.length > 1)
       )
         return;
+    }
+    if (
+      (name === "area" || name === "price" || name === "numberOfRooms") &&
+      event.target.value[0] == "0"
+    ) {
+      //area and price and number of rooms cant be 0
+      return;
     }
     setFormData((values) => ({ ...values, [name]: value }));
   };
