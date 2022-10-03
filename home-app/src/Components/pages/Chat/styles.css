@@ -9,10 +9,12 @@
   -webkit-transition: all 0.5s ease;
   -moz-transition: all 0.5s ease;
 }
+
 .contentHover:hover {
   background-color: #aaa;
   cursor: pointer;
 }
+
 .chatContactsWindow {
   flex-direction: column;
   text-align: center;
@@ -38,7 +40,6 @@
   align-items: center;
   font-size: 1.6rem;
   justify-content: space-between;
-  flex-wrap: wrap;
   direction: rtl;
   z-index: 1000;
 }

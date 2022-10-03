@@ -29,7 +29,12 @@ const ChatEngine = () => {
   return (
     // if we login show chat, else dont show
     auth.accessToken ? (
-      <div>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+        }}
+      >
         <div
           className="transition-5"
           key={uuidv4()}
@@ -42,6 +47,7 @@ const ChatEngine = () => {
               border: hovered ? "4px solid #f9f0ff" : "1px solid #f9f0ff",
               display: "flex",
               alignItems: "center",
+              alignSelf: "end",
               justifyContent: "center",
             },
           }}

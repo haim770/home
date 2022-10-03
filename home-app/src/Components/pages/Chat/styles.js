@@ -12,7 +12,7 @@ export const styles = {
     // Size
     width: "8rem",
     height: "8rem",
-    zIndex: "1000",
+    zIndex: "200000",
   },
   avatarHello: {
     // Position
@@ -36,31 +36,28 @@ export const styles = {
     flexDirection: "row-reverse",
     bottom: "3rem",
     right: "3rem",
-    zIndex: "1000",
+    zIndex: "200000",
   },
   chatBoxWindowWrapper: {
     // Position
-    position: "fixed",
-    bottom: "12.2rem",
-    right: "3.8rem",
     // Size
-    width: "42.0rem",
-    height: "53.0rem",
-    maxWidth: "calc(100% - 4.8rem)",
-    maxHeight: "calc(100% - 4.8rem)",
+
+    // maxWidth: "calc(100% - 4.8rem)",
+    // maxHeight: "calc(100% - 4.8rem)",
     backgroundColor: "white",
+    padding: "1rem",
+    maxHeight: "70vh",
     // Border
     borderRadius: "1.2rem",
     border: `0.2rem solid #f9f0ff`,
-    overflow: "hidden",
+
     // Shadow
     boxShadow: "0rem 0rem 0.4rem 0.2rem rgba(0, 0, 0, 0.33)",
-    zIndex: "1000",
+    zIndex: "200000",
   },
   chatBoxWindowContant: {
     display: "flex",
     marginTop: "0.4rem",
-    zIndex: "1000",
-    height: "2rem",
+    zIndex: "200000",
   },
 };
