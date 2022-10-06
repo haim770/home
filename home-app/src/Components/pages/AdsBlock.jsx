@@ -102,11 +102,12 @@ const AdsBlock = (props) => {
     console.log("res");
     if (res.data == "expire changed") {
       alert("ביצעת שינוי תאריך פג תוקף");
-    }
-    if (res.data == "need remaining ads") {
-      alert("נגמרו לך המודעות גש לרכוש חבילה");
     } else {
-      alert("משהו השתבש");
+      if (res.data == "need remaining ads") {
+        alert("נגמרו לך המודעות גש לרכוש חבילה");
+      } else {
+        alert("משהו השתבש");
+      }
     }
 
     console.log(res.data);
@@ -251,7 +252,7 @@ const AdsBlock = (props) => {
                 );
               }}
             >
-              {togglePhone === "הצג טלפון"
+              {togglePhone === "הסתר טלפון"
                 ? "" + togglePhone + " " + phone
                 : togglePhone}
             </button>

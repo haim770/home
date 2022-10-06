@@ -87,7 +87,7 @@ const AdsBlockForReports = (props) => {
                 );
               }}
             >
-              {togglePhone === "הצג טלפון"
+              {togglePhone === "הסתר טלפון"
                 ? "" + togglePhone + " " + phone
                 : togglePhone}
             </button>

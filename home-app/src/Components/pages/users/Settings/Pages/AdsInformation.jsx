@@ -135,7 +135,7 @@ const AdsInformation = (props) => {
 
   return (
     <article>
-      <nav style={{ display: "flex", justifyContent: "center" }}>
+      <nav className="navOfAdsInfo" style={{ display: "flex", justifyContent: "center" }}>
         <div>
           <button
             className="button-4"
@@ -185,7 +185,8 @@ const AdsInformation = (props) => {
             style={{ margin: "2rem" }}
             onClick={(e) => {
               e.preventDefault();
-              setPriceQuery(true);
+              setShowDate(false);
+              setPriceQuery(false);
               getAds("getAdsCloseToday");
             }}
           >
@@ -207,6 +208,7 @@ const AdsInformation = (props) => {
         </div>
       </nav>
       {priceQuery == false ? (
+        //every report but price by cities
         <section className="containerForAllAds">
           <h1>
             {typeOfReport == "getAdsFromToday"
@@ -223,6 +225,7 @@ const AdsInformation = (props) => {
           {noMoreAdsForSearch ? <h2>אין יותר נתונים</h2> : ""}
         </section>
       ) : (
+        //price query only
         <section>
           <div
             style={{ height: 700, width: "100%" }}

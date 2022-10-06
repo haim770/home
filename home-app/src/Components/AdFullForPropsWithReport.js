@@ -47,12 +47,12 @@ function AdFullForPropsWithReport(props) {
     changeSeenStatus();
   }, []);
   const changeToListView = (e) => {
-  e.preventDefault();
-  props.setTableClassName("showTable");
-  props.setClassName("notShowSelected");
-  props.setSelectedReport({});
+    e.preventDefault();
+    props.setTableClassName("showTable");
+    props.setClassName("notShowSelected");
+    props.setSelectedReport({});
   };
-   
+
   const reportOnAd = (e) => {
     //report on ad
     e.preventDefault();
@@ -100,7 +100,7 @@ function AdFullForPropsWithReport(props) {
                   );
                 }}
               >
-                {togglePhone === "הצג טלפון"
+                {togglePhone === "הסתר טלפון"
                   ? "" + togglePhone + " " + phone
                   : togglePhone}
               </button>

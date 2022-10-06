@@ -45,6 +45,7 @@ const HistoryAds = (props) => {
               adBlock={ad}
               setAdFull={setAdFull}
               setFullShow={setFullShow}
+              getAds={getAds}
               setListShow={setListShow}
             />
           )),
@@ -90,6 +91,7 @@ const HistoryAds = (props) => {
           className={fullShow}
           adBlock={adFull}
           setAdFull={setAdFull}
+          getAds={getAds}
           setFullShow={setFullShow}
           setListShow={setListShow}
         />

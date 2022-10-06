@@ -15,18 +15,18 @@ import RecipeReviewCard from "./RecipeReviewCard";
 import useView from "./pages/Chat/ChatUseContext";
 import useAuth from "../Auth/useAuth";
 function AdFullForProps(props) {
-//show full screen ad by props it gets
+  //show full screen ad by props it gets
   const [isFavorite, setIsFavorite] = useState(props.adBlock.favorite);
   const [goToEditPage, setGoToEditPage] = useState(false);
   const location = useLocation();
-  const [togglePhone, setTogglePhone] = useState("הסתר טלפון");
+  const [togglePhone, setTogglePhone] = useState("הצג טלפון");
   const [phone, setPhone] = useState(
     props.adBlock.user[0] ? props.adBlock.user[0].phone : 0
   );
   const { auth } = useAuth();
   const { startNewChat } = useView();
   const handleClickChatWith = () => {
-  //handle chat
+    //handle chat
     const chatWith = {
       adBlock: props.adBlock.ad[0],
       username: `${props.adBlock.user[0].first_name} ${props.adBlock.user[0].last_name}`,
@@ -36,7 +36,7 @@ function AdFullForProps(props) {
     startNewChat(chatWith);
   };
   const deleteAd = async (e) => {
-  //delete the ad
+    //delete the ad
     const res = await instance.request({
       data: {
         data_type: "deleteAdById",
@@ -52,7 +52,7 @@ function AdFullForProps(props) {
     changeToListView(e);
   };
   const editAd = (e) => {
-  //edit the ad
+    //edit the ad
     e.preventDefault();
     setGoToEditPage(true);
   };
@@ -78,11 +78,12 @@ function AdFullForProps(props) {
     if (res.data == "expire changed") {
       alert("ביצעת שינוי תאריך פג תוקף");
     }
+    else{
     if (res.data == "need remaining ads") {
       alert("נגמרו לך המודעות גש לרכוש חבילה");
     } else {
       alert("משהו השתבש");
-    }
+    }}
 
     console.log(res.data);
     await props.getAds();
@@ -96,7 +97,7 @@ function AdFullForProps(props) {
     });
   }, []);
   const changeToListView = (e) => {
-  //toggle view to list
+    //toggle view to list
     e.preventDefault();
     props.setListShow("showList");
     props.setFullShow("notShowFull");
@@ -179,7 +180,7 @@ function AdFullForProps(props) {
                   );
                 }}
               >
-                {togglePhone === "הצג טלפון"
+                {togglePhone === "הסתר טלפון"
                   ? "" + togglePhone + " " + phone
                   : togglePhone}
               </button>

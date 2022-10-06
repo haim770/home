@@ -134,4 +134,92 @@ function queryForInsertAdPardOfTheAd($city,$street,$propertyTaxes,$houseCommitte
   //returns query for inserting the ads part of ad
   return "INSERT INTO ads (adID,user_id,city,street,propertyTaxes,houseCommittee,floor,maxFloor,price,rooms,adType,entry,building_number,expire_date,area,entry_date,property_type,ad_link) VALUES('$adID','$user_id','$city','$street','$propertyTaxes','$houseCommittee','$floor','$maxFloor','$price','$rooms','$adType','$entry','$building_number','$expire_date','$area','$entryDate','$property_type','$adID')";
 }
+function makeQueryForCheckIfAdIsFavorite($adId,$userId){
+  //make query to check if ad is favorite by adid and userId
+  return "SELECT 1 where EXISTS(SELECT * from favorites WHERE adId= '$adId' and favorites.userId ='$userId');";
+}
+function makeQueryForTheParamsInAdTable($query,$DATA_OBJ,$time){
+  //make the query for the ad table
+}
+function makeQueryForParameter($DATA_OBJ){
+
+}
+function addParameterToQuery($key,$value,$query,$sign){
+  //add parameter to query string  with the sign(<>=)
+
+}
+function makeQueryFromDataObjToGetAdsByParamsFromUser($DATA_OBJ,$time){
+  //return query from $dataobj and a time to  get all active ads that match user params
+  $query="select DISTINCT ads.adID,ads.user_id from ads,ad_content where ads.adID=ad_content.adID and active =1 and expire_date>='$time'";
+  $queryWithoutAdContentParams="select DISTINCT ads.adID,ads.user_id from ads where 1=1 and ads.active =1 and expire_date>='$time' " ;
+  $hasAdContentAtSearch=false;
+  $queryAdTableParams="";//the part for querying ads table
+  $queryAdContentTableParams="";//the part for querying adcontent
+  if (isset($DATA_OBJ->params)) {
+    //check the params to create the query
+    foreach ($DATA_OBJ->params as $key => $value) {
+      if ($value=="") {
+        continue;
+      }
+      if($key=="maxPrice"){
+        $queryAdTableParams.=" and price <= '$value' ";
+        continue;
+      }
+      if($key=="minPrice"){
+        $queryAdTableParams.=" and price >= '$value' ";
+         continue;
+        }
+      if($key=="minRooms"){
+        $queryAdTableParams.=" and rooms>= '$value' ";
+        continue;
+       }
+      if($key=="maxRooms"){
+        $queryAdTableParams.=" and rooms<= '$value' ";
+        continue;
+       }
+      if($key=="minArea"){
+        $queryAdTableParams.=" and area>= '$value' ";
+        continue;
+      }
+      if($key=="maxArea"){
+        $queryAdTableParams.=" and area<= '$value' ";
+        continue;
+      }
+      if($key=="create_time"||$key=="user_id"||$key=="active"||$key=="contact_counter"||$key=="watch"||$key=="close_reason"||$key=="expire_date"||$key=="approval_status"||$key=="ad_link"||$key=="city"||$key=="street"||$key=="building_number"||$key=="entry"||$key=="apartment"||$key=="zip_code"||$key=="map_X"||$key=="map_Y"||$key=="price"||$key=="rooms"||$key=="adType"||$key=="floor"||$key=="maxFloor"||$key=="houseCommittee"||$key=="propertyTaxes"||$key=="enteringDate"){
+        $queryAdTableParams.=" and $key = '$value' ";
+        $arr[$key] = $value;
+      }
+      else{
+        $hasAdContentAtSearch=true;
+        $queryAdContentTableParams.="and ad_content.name = '$key' and ad_content.value ='$value'"; 
+        $arr[$key] = $key;
+        $arr[$value] = $value;
+      }
+    }
+    //check for the limit part
+    $query= makeTheQueryByQueryAdTableAndAdContentAndLimit($query,$queryWithoutAdContentParams,$hasAdContentAtSearch,$DATA_OBJ,$queryAdContentTableParams,$queryAdTableParams);
+  }
+  return $query;
+}
+function makeTheQueryByQueryAdTableAndAdContentAndLimit($query,$queryWithoutAdContentParams,$hasAdContentAtSearch,$DATA_OBJ,$queryAdContentTableParams,$queryAdTableParams){
+  //make the limit by part of the query and also make the concat the query from the queryForAdContent and query for adTable and the start of the query
+  if (isset($DATA_OBJ->limitBy)){
+    //query for limit part
+      if(!$hasAdContentAtSearch){
+        $query=$queryWithoutAdContentParams;
+      }
+      //query for there is adContent params
+      $query.=" ".$queryAdTableParams." ".$queryAdContentTableParams."order by create_time DESC limit ".$DATA_OBJ->limitBy->end." offset ".$DATA_OBJ->limitBy->start.";";
+    }
+    else{
+      //there is no limit part
+      $query.=" ".$queryAdTableParams." ".$queryAdContentTableParams.";";
+    }
+  //now we have full query
+  return $query;
+}
+function makeQueryFromDataObjToGetAdsOnlyByLimitAndNoParams($DATA_OBJ,$time){
+  //return query from $dataobj and a time to  get all active ads by limit and offset
+  return "select  DISTINCT ads.adID,ads.user_id from ads where ads.active =1 and expire_date>='$time' order by create_time DESC limit ".$DATA_OBJ->limitBy->end." OFFSET ".$DATA_OBJ->limitBy->start.";";
+}
 ?>

@@ -1,6 +1,7 @@
 <?php
 // require_once('../../home-app/api.php');
 // require_once('../classes.useDBs.php');
+ require_once(__DIR__.'/../queries.php');
 $userType="";//guest or registered
 if($DATA_OBJ->guest=="guest"){
     $userType="guest";
@@ -46,7 +47,7 @@ function checkIfAdIsFavoriteForUser($adId){
         return false;
     else{
     $userId=$user->getUUID(); 
-    $query="SELECT 1 where EXISTS(SELECT * from favorites WHERE adId= '$adId' and favorites.userId ='$userId');";
+    $query=makeQueryForCheckIfAdIsFavorite($adId,$userId);
     $result = $db->readDBNoStoredProcedure($query,[]);
     return $result;
     }
@@ -117,69 +118,10 @@ function generateSearchFromBothAdContentAndAds1(){
     $time= $time=date('y-m-d',time());
     if(!isset($DATA_OBJ->params)||$DATA_OBJ->params==[]){
         //if there is no params
-        return "select  DISTINCT ads.adID,ads.user_id from ads where ads.active =1 and expire_date>='$time' order by create_time DESC limit ".$DATA_OBJ->limitBy->end." OFFSET ".$DATA_OBJ->limitBy->start.";";
+        return makeQueryFromDataObjToGetAdsOnlyByLimitAndNoParams($DATA_OBJ,$time);
     }
     //if there is parameters to search by
-    $query="select DISTINCT ads.adID,ads.user_id from ads,ad_content where ads.adID=ad_content.adID and active =1 and expire_date>='$time'" ;
-    $queryWithoutAdContentParams="select DISTINCT ads.adID,ads.user_id from ads where 1=1 and ads.active =1 and expire_date>='$time' " ;
-    $queryAdTableParams="";//the part for querying ads table
-    $queryAdContentTableParams="";//the part for querying adcontent
-    if (isset($DATA_OBJ->params)) {
-        //check the params to create the query
-        foreach ($DATA_OBJ->params as $key => $value) {
-            if ($value=="") {
-                continue;
-            }
-            if($key=="maxPrice"){
-              $queryAdTableParams.=" and price <= '$value' ";
-              continue;
-            }
-            if($key=="minPrice"){
-              $queryAdTableParams.=" and price >= '$value' ";
-              continue;
-            }
-            if($key=="minRooms"){
-                $queryAdTableParams.=" and rooms>= '$value' ";
-                continue;
-            }
-            if($key=="maxRooms"){
-                $queryAdTableParams.=" and rooms<= '$value' ";
-                continue;
-            }
-            if($key=="minArea"){
-                $queryAdTableParams.=" and area>= '$value' ";
-                continue;
-            }
-            if($key=="maxArea"){
-                $queryAdTableParams.=" and area<= '$value' ";
-                continue;
-            }
-            if($key=="create_time"||$key=="user_id"||$key=="active"||$key=="contact_counter"||$key=="watch"||$key=="close_reason"||$key=="expire_date"||$key=="approval_status"||$key=="ad_link"||$key=="city"||$key=="street"||$key=="building_number"||$key=="entry"||$key=="apartment"||$key=="zip_code"||$key=="map_X"||$key=="map_Y"||$key=="price"||$key=="rooms"||$key=="adType"||$key=="floor"||$key=="maxFloor"||$key=="houseCommittee"||$key=="propertyTaxes"||$key=="enteringDate"){
-                $queryAdTableParams.=" and $key = '$value' ";
-                $arr[$key] = $value;
-            }
-            else{
-                $hasAdContentAtSearch=true;
-                $queryAdContentTableParams.="and ad_content.name = '$key' and ad_content.value ='$value'"; 
-               $arr[$key] = $key;
-               $arr[$value] = $value;
-            }
-            
-        }
-        //check for the limit part
-        if (isset($DATA_OBJ->limitBy)){
-            if(!$hasAdContentAtSearch){
-                $query=$queryWithoutAdContentParams;
-            }
-             $query.=" ".$queryAdTableParams." ".$queryAdContentTableParams."order by create_time DESC limit ".$DATA_OBJ->limitBy->end." offset ".$DATA_OBJ->limitBy->start.";";
-             
-        }
-        else{
-        $query.=" ".$queryAdTableParams." ".$queryAdContentTableParams.";";
-    }
-    }
-    
-    return $query;
+    return makeQueryFromDataObjToGetAdsByParamsFromUser($DATA_OBJ,$time);
 }
 function getUserForUserId1($user_id){
     //return user record for param user_id

@@ -20,7 +20,7 @@ import RecipeReviewCardUrl from "./RecipeReviewCardUrl";
 import { FaEye } from "react-icons/fa";
 import { FcSms } from "react-icons/fc";
 function AdById(props) {
-//comp for getting ad by its id
+  //comp for getting ad by its id
   const [togglePhone, setTogglePhone] = useState("הצג טלפון");
   const [showReport, setReportShow] = useState("notShowReport");
   const [adForTheReport, setAdForTheReport] = useState({});
@@ -32,7 +32,7 @@ function AdById(props) {
   const [renderCookie, setRenderCookie] = useState(true);
   let refreshTimes = 1;
   const handleClickChatWith = async () => {
-  //handle chat
+    //handle chat
     const chatWith = {
       adBlock: data.ad[0],
       username: `${data.user[0].first_name} ${data.user[0].last_name}`,
@@ -73,11 +73,12 @@ function AdById(props) {
     //console.log("res");
     if (res.data == "expire changed") {
       alert("ביצעת שינוי תאריך פג תוקף");
-    }
-    if (res.data == "need remaining ads") {
-      alert("נגמרו לך המודעות גש לרכוש חבילה");
     } else {
-      alert("משהו השתבש");
+      if (res.data == "need remaining ads") {
+        alert("נגמרו לך המודעות גש לרכוש חבילה");
+      } else {
+        alert("משהו השתבש");
+      }
     }
 
     //console.log(res.data);
@@ -228,11 +229,11 @@ function AdById(props) {
                   e.preventDefault();
 
                   setTogglePhone(
-                    togglePhone === "הצג טלפון" ? "הסתר טלפון" : "הצג טלפון"
+                    togglePhone === "הצג טלפון" ? "הצג טלפון" : "הסתר טלפון"
                   );
                 }}
               >
-                {togglePhone === "הצג טלפון"
+                {togglePhone === "הסתר טלפון"
                   ? "" + togglePhone + " " + data?.user?.phone
                   : togglePhone}
               </button>
@@ -274,7 +275,7 @@ function AdById(props) {
             >
               ערוך מודעה
             </button>
-            
+
             <button
               className="button-4"
               style={{
