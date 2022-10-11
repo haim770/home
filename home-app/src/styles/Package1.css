@@ -1,4 +1,4 @@
-.pack{
+.pack {
   display: flex;
   flex-direction: column;
   border: 7px outset #349FA4;
@@ -6,4 +6,25 @@
   justify-content: center;
   align-content: center;
   min-width: 30%;
+}
+
+.pack section h2 {
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+.pack section h1 {
+  text-align: center;
+}
+
+.pack section p {
+  text-align: center;
+  font-size: 1.5rem;
+}
+
+.pack section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
 }

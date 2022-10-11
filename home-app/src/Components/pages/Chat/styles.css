@@ -29,7 +29,7 @@
 
 .chatWrapper {
   display: inline-grid;
-  grid-template-rows: 12% 77% 10%;
+  /* grid-template-rows: 12% 77% 10%; */
   width: 100%;
 }
 

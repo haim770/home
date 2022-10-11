@@ -6,7 +6,7 @@ import ChatContant from "./ChatContant";
 import ChatWith from "./ChatWith";
 
 const ChatWindow = () => {
-  const { contactView, chatView, chatWindow  } = useView();
+  const { contactView, chatView, chatWindow } = useView();
 
   return chatWindow ? (
     <div
@@ -16,7 +16,7 @@ const ChatWindow = () => {
       }}
     >
       {contactView ? (
-        <div style={{ height: "100%" }}>
+        <div style={{ height: "100%", overflow: "scroll" }}>
           <ChatContant />
         </div>
       ) : (
