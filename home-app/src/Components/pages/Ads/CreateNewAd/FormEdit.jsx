@@ -152,9 +152,9 @@ const Form = (props) => {
     }
 
     // reload this compnent after 4 second
-    // setTimeout(function () {
-    //   window.location.reload(false);
-    // }, 4000);
+    setTimeout(function () {
+      window.location.reload(false);
+    }, 4000);
   };
   useEffect(() => {
     for (let index = 0; index < props.adBlock.adContent.length; index++) {

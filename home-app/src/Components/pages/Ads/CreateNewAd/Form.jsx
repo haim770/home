@@ -126,9 +126,9 @@ const Form = () => {
     }
 
     // reload this compnent after 4 second
-    // setTimeout(function () {
-    //   window.location.reload(false);
-    // }, 4000);
+    setTimeout(function () {
+      window.location.reload(false);
+    }, 4000);
   };
 
   const PageDisplay = () => {
