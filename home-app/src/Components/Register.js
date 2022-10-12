@@ -66,7 +66,6 @@ function Register(props) {
     setfirst_name("");
   };
   const checkPasswordValidity = (pass) => {
-
     if (pass.length > 5) {
       return true;
     } else {
@@ -104,7 +103,7 @@ function Register(props) {
             password: password,
             first_name: first_name,
             last_name: last_name,
-            prompt: prompt,
+            prompt: "",
             rule: "2001",
           },
         },
@@ -128,7 +127,7 @@ function Register(props) {
       <h1>הרשמה לאתר</h1>
       <form className={"register_form"}>
         <label>
-          <span>enter mail</span>
+          <span> מייל</span>
           <input
             type="email"
             pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
@@ -141,7 +140,7 @@ function Register(props) {
           />
         </label>
         <label>
-          <span>enter password</span>
+          <span> סיסמא</span>
           <input
             type="password"
             name="password"
@@ -152,7 +151,7 @@ function Register(props) {
           />
         </label>
         <label>
-          <span>enter first_name</span>
+          <span>שם פרטי </span>
           <input
             type="text"
             name="first_name"
@@ -163,7 +162,7 @@ function Register(props) {
           />
         </label>
         <label>
-          <span>enter last_name</span>
+          <span> שם משפחה</span>
           <input
             type="text"
             name="last_name"
@@ -174,7 +173,7 @@ function Register(props) {
           />
         </label>
         <label>
-          <span>enter phone</span>
+          <span> הכנס טלפון</span>
           <input
             type="text"
             name="phone"
@@ -182,17 +181,6 @@ function Register(props) {
             required
             value={phone}
             onChange={(e) => onChangeState(setPhone, e)}
-          />
-        </label>
-        <label>
-          <span>enter prompt</span>
-          <input
-            type="text"
-            name="prompt"
-            id="prompt"
-            required
-            value={prompt}
-            onChange={(e) => onChangeState(setPrompt, e)}
           />
         </label>
         <p>
