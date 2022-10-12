@@ -103,7 +103,7 @@ function AdById(props) {
     //report on ad
     e.preventDefault();
     setReportShow("showReport");
-    setAdForTheReport(props.adBlock);
+    setAdForTheReport(data);
   };
   const getAd = async () => {
     const result = await instance.request({

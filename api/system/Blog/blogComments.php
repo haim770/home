@@ -23,7 +23,7 @@ function getCommentsForBlogId($blogId){
     //get first name for the id
     for ($i=0; $i < count($result); $i++) { 
       if($result[$i]->userId=="guest"){
-        $result[$i]->firstName="guest";
+        $result[$i]->firstName="אורח";
       }else{
       $query="select first_name from users where uuid='{$result[$i]->userId}'"; 
       $fName=$db->readDBNoStoredProcedure($query);

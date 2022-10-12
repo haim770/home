@@ -3,7 +3,7 @@ import { Link, NavLink, Outlet } from "react-router-dom";
 import Button from "./Button.js";
 import Parameter from "./Parameter.js";
 const AdContentPart = (props) => {
-//component to display ad content part of ad
+  //component to display ad content part of ad
   const [classForParamsNotDefaultPrev, setClassForParamsNotDefaultPrev] =
     useState("paramVisible");
   const toggleDisplayParams = () => {
@@ -54,7 +54,7 @@ const AdContentPart = (props) => {
 
   return (
     <div className="adCardTitle">
-      {props.adContent ? renderComp() : <p>no ad content</p>}
+      {props.adContent ? renderComp() : ""}
       {/* <Button onClick={toggleDisplayParams} content="הראה פרמטרים נוספים" /> */}
     </div>
   );
