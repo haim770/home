@@ -47,7 +47,7 @@ export const styles = {
     backgroundColor: "white",
     padding: "1rem",
     maxHeight: "70vh",
-    minHeight: "50vh", //30b4
+    minHeight: "70vh", //30b4
     // overflow: "scroll",
     // Border
     borderRadius: "1.2rem",
