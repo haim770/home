@@ -8,10 +8,12 @@ import { useLocation } from "react-router-dom";
 import "../styles/packageFull.css";
 import PaypalCheckoutButton from "./PaypalCheckoutButton";
 import Checkout from "./Checkout";
+import useAuth from "../Auth/useAuth";
 import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 function PackageFull(props) {
   //display pack full screen
   const location = useLocation();
+  const { auth } = useAuth();
   const [dataForUrl, setDataForUrl] = useState({});
   const data = location.state;
   const getPackage = async () => {
@@ -38,12 +40,16 @@ function PackageFull(props) {
           <Parameter paramName="title" paramValue={data.pack.title} />
           <Parameter paramName="ad_value" paramValue={data.pack.ad_value} />
         </ul>
-        <Checkout
-          title={data.pack.title}
-          price={data.pack.price}
-          packId={data.pack.packageId}
-          adValue={data.pack.ad_value}
-        />
+        {auth?.accessToken ? (
+          <Checkout
+            title={data.pack.title}
+            price={data.pack.price}
+            packId={data.pack.packageId}
+            adValue={data.pack.ad_value}
+          />
+        ) : (
+          ""
+        )}
       </section>
     </PayPalScriptProvider>
   ) : (
@@ -63,12 +69,16 @@ function PackageFull(props) {
             paramValue={dataForUrl.pack.ad_value}
           />
         </ul>
-        <Checkout
-          title={dataForUrl.pack.title}
-          price={dataForUrl.pack.price}
-          packId={dataForUrl.pack.packageId}
-          adValue={dataForUrl.pack.ad_value}
-        />
+        {auth?.accessToken ? (
+          <Checkout
+            title={dataForUrl.pack.title}
+            price={dataForUrl.pack.price}
+            packId={dataForUrl.pack.packageId}
+            adValue={dataForUrl.pack.ad_value}
+          />
+        ) : (
+          ""
+        )}
       </section>
     </PayPalScriptProvider>
   );

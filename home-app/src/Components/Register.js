@@ -119,6 +119,7 @@ function Register(props) {
         setRegisterStatusDisplay("yes");
         setRegisterStatus("ההרשמה נקלטה במערכת");
         toast.dismiss();
+        toast.success("הרשמה נקלטה במערכת");
       }
     }
   };

@@ -2,9 +2,11 @@ import React from "react";
 import { Link, NavLink, Outlet } from "react-router-dom";
 import Checkout from "./Checkout";
 import "../styles/Package1.css";
+import useAuth from "../Auth/useAuth";
 import Button from "./Button";
 const Package1 = (props) => {
   //display packs with connection to paypal
+  const { auth } = useAuth();
   return (
     <Link
       to={`/packages/${props.pack.packageId}`}
@@ -20,12 +22,16 @@ const Package1 = (props) => {
           <p>{props.pack.price} is the price</p>
           <p>{props.pack.ad_value} value ads</p>
         </section>
-        <Checkout
-          title={props.pack.title}
-          price={props.pack.price}
-          packId={props.pack.packageId}
-          adValue={props.pack.ad_value}
-        />
+        {auth?.accessToken ? (
+          <Checkout
+            title={props.pack.title}
+            price={props.pack.price}
+            packId={props.pack.packageId}
+            adValue={props.pack.ad_value}
+          />
+        ) : (
+          ""
+        )}
       </div>
     </Link>
   );
