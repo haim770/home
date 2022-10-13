@@ -8,6 +8,7 @@ import Select from "react-select";
 function SearchAds(props) {
   //comp for the search
   const [adContentClass, setAdContentClass] = useState("notVisible");
+  const [idForSearch, setIdForSearch] = useState(""); //search by adid
   const [minPrice, setMinPrice] = useState(""); //hook for the price state
   const [maxPrice, setMaxPrice] = useState(""); //hook for the price state
   const [masters, setMasters] = useState("");
@@ -142,9 +143,9 @@ function SearchAds(props) {
     let num = e.target.value.replace(/\D/g, "");
     const name = e.target.name;
     const value = e.target.value;
-     if (inputsAdContentBuy[name] == "0" && e.target.value.length > 0) {
-       return;
-     }
+    if (inputsAdContentBuy[name] == "0" && e.target.value.length > 0) {
+      return;
+    }
     if (e.target.min || e.target.max) {
       if (isNaN(e.target.value) === true) {
         //value is not a number
@@ -386,6 +387,7 @@ function SearchAds(props) {
     makeFieldsOfAdColumnsWeKnow(code);
 
     for (let index = 0; index < masters.length; index++) {
+      console.log(masters[index].name);
       mastersName.push(masters[index].name);
 
       if (
@@ -581,9 +583,18 @@ function SearchAds(props) {
     return code;
   };
   const makeSearchFromScratch = () => {
-    // returnStateToDefault();
-    // setInputAdConentRent({});
-    // setInputsAdContentBuy({});
+    //change all inputs to empty fields
+    //change checkboxes
+    Array.from(document.querySelectorAll("input[type=checkbox]")).forEach(
+      (input) => (input.checked = false)
+    );
+    //reset text inputs
+    Array.from(document.querySelectorAll("input")).forEach(
+      (input) => (input.value = "")
+    );
+    returnStateToDefault();
+    setInputAdConentRent({});
+    setInputsAdContentBuy({});
   };
   const returnStateToDefault = () => {
     setInputsAd({
@@ -639,8 +650,30 @@ function SearchAds(props) {
     const obj = makeObjOfAllFields();
     props.setSearchParams(obj);
   };
+  const searchById = async (e) => {
+    //find the ad we want by id
+    window.open(
+      "http://localhost:3000" + "/AdsWithSearch/" + idForSearch,
+      "_self"
+    );
+  };
   return (
     <form className={props.className}>
+      <p style={{ border: "2px dashed blue" }}>
+        <label key="LableAdId">
+          <span> מס מודעה</span>
+          <input
+            type="text"
+            name="inputAdId"
+            id="inputAdId"
+            value={idForSearch}
+            onChange={(e) => setIdForSearch(e.target.value)}
+          />
+        </label>
+        <button onClick={searchById} className="button-4">
+          חפש מספר מודעה
+        </button>
+      </p>
       <label key="minPrice">
         <span>מחיר מינימום</span>
         <input
