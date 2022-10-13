@@ -11,6 +11,8 @@ import "../styles/MainPage.css";
 import useView from "./pages/Chat/ChatUseContext";
 import useAuth from "../Auth/useAuth";
 import AdById from "./AdById";
+import toast, { Toaster } from "react-hot-toast";
+
 const Home = () => {
   //main page
   const [blogs, setBlogs] = useState([]);
@@ -129,8 +131,7 @@ const Home = () => {
           next
         </button>
       </section>
-
-
+      <Toaster />
     </div>
   );
 };

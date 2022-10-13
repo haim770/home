@@ -4,6 +4,7 @@ import { v4 as uuidv4 } from "uuid";
 import Report from "../Report.js";
 import "../../styles/Main.css";
 import "../../styles/Ads.css";
+import toast, { Toaster } from "react-hot-toast";
 import {
   Link,
   NavLink,
@@ -260,6 +261,7 @@ const Ads = (props) => {
       ) : (
         ""
       )}
+      <Toaster />
     </section>
   );
 };

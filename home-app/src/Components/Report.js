@@ -102,6 +102,7 @@ function Report(props) {
           }
           toast.dismiss();
           toast.success("פניה נשלחה בהצלחה");
+          toast.success("פניה נשלחה בהצלחה");
           props.setClassName("notShowReport");
         }
         console.log(result);
