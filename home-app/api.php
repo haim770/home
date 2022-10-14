@@ -601,6 +601,10 @@ if (isset($DATA_OBJ->data_type)) {
         case "addMoreTimeToAd":
             include_once('../api/system/Ads/searchAds.php');
             break;
+        case "deleteAdByIdOrRestore":
+            //delete or restore ad by id we got in dataObj params must be manager
+            include_once('../api/system/Ads/searchAds.php');
+            break;
         case "deleteAdById":
             //delete ad by id we got in dataObj params must be manager
             include_once('../api/system/Ads/searchAds.php');

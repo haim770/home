@@ -73,7 +73,7 @@ function ToggleActiveReportReason(){
   $arr["reason_id"]= $DATA_OBJ->params->reasonId;
   $arr["active"]=$DATA_OBJ->params->active=='1'?0:1;
   $query=$queryArr["updateActiveStatusOfReport"];
-  $result=$db->readDBNoStoredProcedure($query);
+  $result=$db->readDBNoStoredProcedure($query,$arr);
   $arr=[];
   echo json_encode(checkIfReasonExist($reasonId,"checkById"));
   die;
@@ -96,7 +96,7 @@ function editReportReason(){
     $arr["element_type"]=$DATA_OBJ->params->category;
     $arr["reason_name"]=$DATA_OBJ->params->reasonName;
     $query=$queryArr["editReportReason"];
-    $result=$db->readDBNoStoredProcedure($query);
+    $result=$db->readDBNoStoredProcedure($query,$arr);
     echo json_encode(checkIfReasonExist($reasonName,$category));
     die;
 }
@@ -118,7 +118,7 @@ function addNewReportReason(){
     $arr["element_type"]=$DATA_OBJ->params->category;
     $arr["reason_name"]=$DATA_OBJ->params->reasonName;
     $query=$queryArr["insertNewReportReason"];
-    $result=$db->readDBNoStoredProcedure($query);
+    $result=$db->readDBNoStoredProcedure($query,$arr);
     echo json_encode(checkIfReasonExist($reasonName,$category));
     die;
   }

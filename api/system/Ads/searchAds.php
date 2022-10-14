@@ -451,6 +451,38 @@ if($userType!="registered"||($user->getRule()!="5150"&&$user->getRule()!="2001")
     $query="UPDATE history SET create_time = '$time' WHERE adId = '{$adId}' and userId='$userId'";
     $result=$db->readDBNoStoredProcedure($query);
 }
+function deleteAdByIdOrRestore(){
+    //delete ad or restore it by ad id
+    global $userType;
+    global $user;
+    global $db;
+    global $DATA_OBJ;
+if($userType!="registered"||!$user->getRule()=="5150"){
+    echo "not authorized";
+    die;
+}
+else{
+    if($DATA_OBJ->params->active==1){
+        //delete
+    $query="UPDATE ads SET active = '0', approval_status = 'reject' WHERE adID = '{$DATA_OBJ->params->adID}'";
+}
+else{
+     $query="UPDATE ads SET active = '1', approval_status = 'approved' WHERE adID = '{$DATA_OBJ->params->adID}'";
+}
+    $result=$db->readDBNoStoredProcedure($query);
+    $ad=getAdByAdIdWithReturn($DATA_OBJ->params->adID);
+    if($ad["ad"]["0"]->active==0){
+     $db->createSystemMessage(" מודעה מספר" ."{$DATA_OBJ->params->adID}"." נמחקה ",$ad["ad"]["0"]->user_id,"adClosed","Notice");
+     echo "deleted";
+     die;
+    }
+    if($ad["ad"]["0"]->active==1){
+         $db->createSystemMessage(" מודעה מספר" ."{$DATA_OBJ->params->adID}"." שוחזרה ",$ad["ad"]["0"]->user_id,"aproveAd","Notice");
+     echo "restored";
+     die;
+    }
+}
+}
 function deleteAdById(){
     //delete ad by adId we got at dataObj
     global $userType;
@@ -476,6 +508,10 @@ else{
     }
 }
 }
+if($DATA_OBJ->data_type=="deleteAdByIdOrRestore"){
+deleteAdByIdOrRestore();
+}
+else{
 if($DATA_OBJ->data_type=="getAdsCloseToday"){
     getAdsCloseToday();
 }
@@ -540,5 +576,8 @@ else{
 }
 }
 }
-}}}
+}
+}
+}
+}
 ?>

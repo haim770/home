@@ -24,12 +24,15 @@ const AdsBlockForReports = (props) => {
   const [didWatch, setDidWatch] = useState(0);
   const [showReport, setReportShow] = useState("notShowReport");
   const { auth } = useAuth();
-  const deleteAd = async (e) => {
+  const deleteAdOrRestore = async (e) => {
     //delete ad
     const result = await instance.request({
       data: {
-        data_type: "deleteAdById",
-        params: { adID: props.adBlock.ad[0].adID },
+        data_type: "deleteAdByIdOrRestore",
+        params: {
+          adID: props.adBlock.ad[0].adID,
+          active: props.adBlock.ad[0].active,
+        },
         guest: "registered",
       },
       headers: {
@@ -37,8 +40,11 @@ const AdsBlockForReports = (props) => {
       },
     });
     console.log(result.data);
-    if (result.data != "didnt succeed" && result.data != "not authorized") {
-      alert("ad deleted");
+    if (result.data == "didnt succeed" && result.data == "not authorized") {
+      alert("תקלה");
+      await props.getAllReports();
+    } else {
+      alert("פעולה בוצעה");
       await props.getAllReports();
     }
   };
@@ -91,8 +97,8 @@ const AdsBlockForReports = (props) => {
                 ? "" + togglePhone + " " + phone
                 : togglePhone}
             </button>
-            <button onClick={deleteAd} className="button-4">
-              מחק מודעה
+            <button onClick={deleteAdOrRestore} className="button-4">
+              {props.adBlock.ad[0].active=="1" ? "מחק מודעה" : "שחזר מודעה"}
             </button>
           </div>
         </div>
