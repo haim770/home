@@ -103,10 +103,7 @@ const HandlePackages = () => {
             <option>כל החבילות</option>
           </select>
         </label>
-        <button
-          className="button-4"
-          onClick={serchPacksByParam}
-        >
+        <button className="button-4" onClick={serchPacksByParam}>
           חפש חבילות
         </button>
         <button
@@ -146,6 +143,7 @@ const HandlePackages = () => {
           price={selectedPack.price}
           title={selectedPack.title}
           setSearchPacks={setSelectedPack}
+          getPackages={getPackages}
           id={selectedPack.id}
           adValue={selectedPack.ad_value}
           is_active={selectedPack.is_active}
@@ -161,6 +159,7 @@ const HandlePackages = () => {
           setSearchPacks={setSelectedPack}
           id={selectedPack.id}
           adValue={selectedPack.ad_value}
+          getPackages={getPackages}
           is_active={selectedPack.is_active}
           content={selectedPack.content}
         />

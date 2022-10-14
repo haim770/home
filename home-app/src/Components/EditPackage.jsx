@@ -65,6 +65,9 @@ function EditPackage(props) {
     if (result.data) {
       toast.dismiss();
       toast.success("עריכה בוצעה בהצלחה");
+      if (props.getPackages) {
+        props.getPackages();
+      }
     } else {
       toast.dismiss(); // remove loading toast
       toast.error("אוי לא, משהו השתבש בדרך   !");

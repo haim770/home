@@ -93,14 +93,14 @@ function createQueryForPacksBySelector($selector){
   //create the query we want by the selector
   $query="";
   if($selector=="getActivePacks"){
-         $query="select * from package where is_active='1'";
+         $query="select * from package where is_active='1' order by price";
     }
   else{
     if($selector=="getNotActivePacks"){
-      $query="select * from package where is_active='0'";
+      $query="select * from package where is_active='0' order by price";
     }
     else{
-      $query="select * from package";
+      $query="select * from package order by create_time desc,price";
     }
   }
   return $query;
