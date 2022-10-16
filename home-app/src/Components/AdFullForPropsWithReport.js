@@ -21,7 +21,25 @@ function AdFullForPropsWithReport(props) {
   const [phone, setPhone] = useState(
     props.adBlock.user[0] ? props.adBlock.user[0].phone : 0
   );
+  const { startNewChat } = useView();
   const { auth } = useAuth();
+  const handleClickChatWith = async () => {
+    //handle the chat and when it happen ads 1 to contacted
+    const chatWith = {
+      adBlock: props.adBlock.ad[0],
+      username: `${props.adBlock.user[0].first_name} ${props.adBlock.user[0].last_name}`,
+      uuid: props.adBlock.user[0].uuid,
+      adID: props.adBlock.ad[0].adID,
+    };
+    const res = await instance.request({
+      data: {
+        data_type: "updateContacted",
+        params: { adID: props.adBlock.ad[0].adID }, //window.location.href gets the urlline
+      },
+    });
+    console.log(res.data);
+    startNewChat(chatWith);
+  };
   const editAd = (e) => {
     e.preventDefault();
     setGoToEditPage(true);
@@ -134,7 +152,20 @@ function AdFullForPropsWithReport(props) {
             ""
           )}
         </div>
-        <Button content="contact seller" onclick={props.onclick} />
+        <div className="jss142">
+          <button
+            style={{
+              display:
+                !auth?.user || props.adBlock.user[0].mail === auth?.user
+                  ? "none"
+                  : "flex",
+            }}
+            className="MuiButtonBase-root MuiButton-root jss151 MuiButton-contained MuiButton-containedPrimary MuiButton-disableElevation MuiButton-fullWidth"
+            onClick={handleClickChatWith}
+          >
+            <span className="buttonSpanLabel">התחל צ'ט</span>
+          </button>
+        </div>
       </section>
     </article>
   );
