@@ -24,10 +24,18 @@ function UserShow(props) {
   const [activeStatus, setActiveStatus] = useState(props.user.active);
   const deleteOrRestoreUser = async () => {
     //delete or restore user
+    if (auth?.user == props.user.mail) {
+      alert("cant change self rule");
+      return;
+    }
     const result = await instance.request({
       data: {
         data_type: "deleteOrRestoreUser",
-        params: { mail: props.user.mail, active: activeStatus,userId:props.user.uuid },
+        params: {
+          mail: props.user.mail,
+          active: activeStatus,
+          userId: props.user.uuid,
+        },
       },
       headers: {
         Authorization: `Bearer ${auth.accessToken}`,
@@ -50,6 +58,10 @@ function UserShow(props) {
   };
   const changeUserRule = async () => {
     //change the user rule
+    if (auth?.user == props.user.mail) {
+      alert("cant change self rule");
+      return;
+    }
     if (props.act === "nothing") {
       return;
     }
@@ -275,10 +287,18 @@ function UserShow(props) {
         </label>
       </p>
       <div className="buttonsList">
-        <button onClick={changeRule} className="button-4">
+        <button
+          style={{ display: auth?.user == props.user.mail ? "none" : "flex" }}
+          onClick={changeRule}
+          className="button-4"
+        >
           {props.user.rule === "2001" ? "הפוך משתמש למנהל" : "הפוך מנהל למשתמש"}
         </button>
-        <button onClick={deleteOrRestore} className="button-4">
+        <button
+          style={{ display: auth?.user == props.user.mail ? "none" : "flex" }}
+          onClick={deleteOrRestore}
+          className="button-4"
+        >
           {activeStatus === "1" ? "מחק משתמש" : " שחזר למשתמש"}
         </button>
         <button onClick={(e) => changeRemainingAds(e)} className="button-4">
