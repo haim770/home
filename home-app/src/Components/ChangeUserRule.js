@@ -110,6 +110,8 @@ function ChangeUserRule(props) {
           onChange={(e) => {
             setFilter(e.target.value);
             filterRes(e.target.value);
+            setUserSelected(false);
+            setMailSelected({});
           }}
         >
           <option>כולם</option>
@@ -134,8 +136,9 @@ function ChangeUserRule(props) {
           act="userIsIn"
           getAllUsers={getAllUsers}
           setUserSelected={setUserSelected}
-          setMailOptions={setMailOptions} 
-          setMailSelected={setMailSelected}/>
+          setMailOptions={setMailOptions}
+          setMailSelected={setMailSelected}
+        />
       ) : (
         ""
       )}
