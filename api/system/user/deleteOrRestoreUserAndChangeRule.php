@@ -119,8 +119,14 @@ die;
 echo json_encode("failed changed active status");
 die;
 }
+if($DATA_OBJ->data_type=="getUserById"){
+  //b4 check the auth becqause this action doesnt require any permissions
+  getUserById();
+  die;
+}
 $authPath = "../../Authentication/authTest.php";
 include_once(dirname(__FILE__) . DIRECTORY_SEPARATOR . $authPath);
+
 if($user->getRule() == "5150"){
 if($DATA_OBJ->data_type=="deleteOrRestoreUser"){
 deleteOrRestoreUser();
