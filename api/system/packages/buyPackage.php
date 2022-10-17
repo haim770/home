@@ -4,7 +4,23 @@ $authPath = "../../Authentication/authTest.php";
 include_once(dirname(__FILE__) . DIRECTORY_SEPARATOR . $authPath);
 global $user;
 global $db;
-
+function getPackageById(){
+  //get package by id
+  
+  global $db;
+  global $DATA_OBJ;
+  global $arr;
+  global $user;
+  $packId=$DATA_OBJ->params->packId;
+  $query="select * from package  where packageId='$packId'";
+  $result=$db->readDBNoStoredProcedure($query);
+  if(isset($result)&&is_array($result)){
+    echo json_encode($result);
+  }
+  else{
+    echo "not authorized";
+  }
+}
 function buyPack(){
   //purchase package after pay in  paypl
   global $db;

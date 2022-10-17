@@ -4,6 +4,7 @@ import { DataGrid } from "@mui/x-data-grid";
 import "./Styles/collapsTableStyle.css";
 import useAuth from "../../../../../Auth/useAuth";
 import instance from "../../../../../api/AxiosInstance";
+import { NavLink, Link } from "react-router-dom";
 
 const columns = [
   { field: "id", headerName: "מזהה רכישה", flex: 1 },
@@ -72,7 +73,11 @@ const SiteSales = () => {
           <li>משתמש שרכש הכי הרבה הוא : {userWithMostBuy}</li>
           <li>סכום כל הרכישות {sumSales}</li>
           <li>מונה רכישות {countSales}</li>
-          <li> חבילה הכי פופולרית {packMost}</li>
+          <li>
+            {" "}
+            חבילה הכי פופולרית{" "}
+            <Link to={{ pathname: "/packages/" + packMost }}> {packMost}</Link>
+          </li>
         </ul>
       </section>
       <section className="tableContainer">

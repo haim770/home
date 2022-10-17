@@ -14,18 +14,26 @@ function PackageFull(props) {
   //display pack full screen
   const location = useLocation();
   const { auth } = useAuth();
-  const [dataForUrl, setDataForUrl] = useState({});
+  const [dataForUrl, setDataForUrl] = useState(false);
   const data = location.state;
   const getPackage = async () => {
     const arr = window.location.href.split("/");
+    console.log("s");
     const result = await instance.request({
       data: {
-        data_type: "getPackage",
+        data_type: "getPackageById",
         params: { packId: arr[arr.length - 1] }, //window.location.href gets the urlline
+      },
+      headers: {
+        Authorization: `Bearer ${auth.accessToken}`,
       },
     });
     setDataForUrl(result.data);
+    console.log(result.data);
   };
+  useEffect(() => {
+    if (!data && auth) getPackage();
+  }, [auth]);
   return data ? (
     <PayPalScriptProvider
       options={{
@@ -35,10 +43,10 @@ function PackageFull(props) {
     >
       <section className="adFull">
         <ul>
-          <Parameter paramName="price" paramValue={data.pack.price} />
-          <Parameter paramName="content" paramValue={data.pack.content} />
-          <Parameter paramName="title" paramValue={data.pack.title} />
-          <Parameter paramName="ad_value" paramValue={data.pack.ad_value} />
+          <Parameter paramName="מחיר" paramValue={data.pack.price} />
+          <Parameter paramName="תוכן" paramValue={data.pack.content} />
+          <Parameter paramName="כותרת" paramValue={data.pack.title} />
+          <Parameter paramName="כמות מודעות" paramValue={data.pack.ad_value} />
         </ul>
         {auth?.accessToken ? (
           <Checkout
@@ -52,7 +60,7 @@ function PackageFull(props) {
         )}
       </section>
     </PayPalScriptProvider>
-  ) : (
+  ) : dataForUrl ? (
     <PayPalScriptProvider
       options={{
         "client-id":
@@ -61,26 +69,29 @@ function PackageFull(props) {
     >
       <section className="packFull">
         <ul>
-          <Parameter paramName="price" paramValue={dataForUrl.pack.price} />
-          <Parameter paramName="content" paramValue={dataForUrl.pack.content} />
-          <Parameter paramName="title" paramValue={dataForUrl.pack.title} />
+          {console.log(dataForUrl)}
+          <Parameter paramName="מחיר" paramValue={dataForUrl[0].price} />
+          <Parameter paramName="תוכן" paramValue={dataForUrl[0].content} />
+          <Parameter paramName="כותרת" paramValue={dataForUrl[0].title} />
           <Parameter
-            paramName="ad_value"
-            paramValue={dataForUrl.pack.ad_value}
+            paramName="כמות מודעות"
+            paramValue={dataForUrl[0].ad_value}
           />
         </ul>
         {auth?.accessToken ? (
           <Checkout
-            title={dataForUrl.pack.title}
-            price={dataForUrl.pack.price}
-            packId={dataForUrl.pack.packageId}
-            adValue={dataForUrl.pack.ad_value}
+            title={dataForUrl[0].title}
+            price={dataForUrl[0].price}
+            packId={dataForUrl[0].packageId}
+            adValue={dataForUrl[0].ad_value}
           />
         ) : (
           ""
         )}
       </section>
     </PayPalScriptProvider>
+  ) : (
+    ""
   );
 }
 PackageFull.defaultProps = {};

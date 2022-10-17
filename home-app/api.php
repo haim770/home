@@ -411,6 +411,10 @@ function seeWhatInAuth()
 
 if (isset($DATA_OBJ->data_type)) {
     switch ($DATA_OBJ->data_type) {
+        case "getPackageById":
+            include("../api/system/packages/buyPackage.php");
+            getPackageById();
+            break;
         case "resetPasswordRequest":
             include_once("../api/system/EmailSystem/UserRecovery.php");
             break;
