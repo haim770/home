@@ -70,7 +70,13 @@ const SiteSales = () => {
       <section style={{ dispay: "flex" }}>
         <h1>נתונים כלליים</h1>
         <ul>
-          <li>משתמש שרכש הכי הרבה הוא : {userWithMostBuy}</li>
+          <li>
+            משתמש שרכש הכי הרבה הוא :{" "}
+            <Link to={{ pathname: "/userShowById/" + userWithMostBuy }}>
+              {" "}
+              {userWithMostBuy}
+            </Link>
+          </li>
           <li>סכום כל הרכישות {sumSales}</li>
           <li>מונה רכישות {countSales}</li>
           <li>

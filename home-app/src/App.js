@@ -65,6 +65,7 @@ import { DHProvidor } from "./Auth/DH/DHUseContext";
 import UsefullLinks from "./Components/pages/users/Settings/Pages/UsefullLinks";
 import HandleReportReasons from "./Components/pages/users/Settings/Pages/HandleReportReasons";
 import RecoveryPage from "./Components/pages/users/RecoveryPage";
+import UserShowById from "./Components/UserShowById";
 
 const ROLES = {
   User: 2001,
@@ -72,7 +73,6 @@ const ROLES = {
 };
 //the outlet is in the middle part just after nav b4 footer
 export default function App() {
-
   return (
     <div className="App">
       {/* viewprovidor let all children of this provider to use the chat */}
@@ -94,6 +94,11 @@ export default function App() {
                   exact
                   path="/adsWithSearch/:linkAd"
                   element={<AdFull />}
+                />
+                <Route
+                  exact
+                  path="/userShowById/:UserId"
+                  element={<UserShowById />}
                 />
                 <Route path="/blog/:id" element={<BlogId />} />
                 <Route
