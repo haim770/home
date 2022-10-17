@@ -9,18 +9,18 @@ const AdUserPart = (props) => {
         <Parameter
           key={props.user[0].first_name}
           paramName="שם מעלה המודעה הוא :"
-          paramValue={props.user[0].first_name}
+          paramValue={
+            <Link to={{ pathname: "/userShowById/" + props.user[0].uuid }}>
+              {props.user[0].first_name}
+            </Link>
+          }
         />
       </div>
     );
     return code;
   };
 
-  return (
-    <div>
-      {props.user ? renderComp() : <p>no user content</p>}
-    </div>
-  );
+  return <div>{props.user ? renderComp() : <p>no user content</p>}</div>;
 };
 
 export default AdUserPart;
