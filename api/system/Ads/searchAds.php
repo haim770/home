@@ -20,7 +20,6 @@ function getAllAdContentAndAdAndUsersForArrOfAds(){
     //returns the wanted ads with all their data and user created the ad
     $arr=[];
     $adIdsForTheSearch=getAdsIdAndUserIdThatFeetSearch1();
-    
     // $adIdsForTheSearch= json_decode(json_encode($adIdsForTheSearch));
     $result=[];
     // echo count($adIdsForTheSearch);
@@ -451,6 +450,24 @@ if($userType!="registered"||($user->getRule()!="5150"&&$user->getRule()!="2001")
     $query="UPDATE history SET create_time = '$time' WHERE adId = '{$adId}' and userId='$userId'";
     $result=$db->readDBNoStoredProcedure($query);
 }
+function getAdsByUserId(){
+    //get  active ads by userId
+    global $userType;
+    global $user;
+    global $db;
+    global $DATA_OBJ;
+    $i=0;
+    $userId=$DATA_OBJ->params[0]->userId;
+    $query="select adID from ads where user_id='$userId' and active='1'";
+    $result=[];
+    $adIdsForTheSearch=$db->readDBNoStoredProcedure($query);
+    if(isset($adIdsForTheSearch)&&is_array($adIdsForTheSearch)){
+        foreach ($adIdsForTheSearch as $key => $value) {
+        $result[$i++]=getAdWithAdContentForAdId1($value->adID,$userId);
+    }
+    }
+    echo json_encode($result);
+}
 function deleteAdByIdOrRestore(){
     //delete ad or restore it by ad id
     global $userType;
@@ -565,6 +582,10 @@ else{
                             showHistory();
                         }
                         
+                        else
+                        if($DATA_OBJ->data_type=="getAdsByUserId"){
+                            getAdsByUserId();
+                        }
                         else
                             getAllAdContentAndAdAndUsersForArrOfAds();
                         }

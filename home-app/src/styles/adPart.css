@@ -1,18 +1,21 @@
-.adPartList{
+.adPartList {
   border: 2px solid blue;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-content: flex-start;
 }
-.adPartFull{
+
+.adPartFull {
   max-height: 100vw;
   border: 2px solid blue;
   display: grid;
   grid-template-columns: 50% 50%;
 }
-.adPart{
-  display:grid;
-   grid-template-columns: 50% 50%;
+
+.adPart {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  max-width: 100%;
 
 }

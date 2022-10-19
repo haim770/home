@@ -441,7 +441,7 @@ MuiButtonBase-root MuiFab-root jss2248 */
   flex-direction: column;
   justify-items: center;
   justify-content: space-between;
-  align-items: center;
+  /* align-items: center; */
   align-content: space-between;
 }
 

@@ -211,27 +211,6 @@ const Ads = (props) => {
         elementType="ad"
       />
       <h1>תצוגת מודעות</h1>
-      <p
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          flexDirection: "column",
-        }}
-      >
-        <label key="LableAdId">
-          <span> מס מודעה</span>
-          <input
-            type="text"
-            name="inputAdId"
-            id="inputAdId"
-            value={idForSearch}
-            onChange={(e) => setIdForSearch(e.target.value)}
-          />
-        </label>
-        <button onClick={searchById} className="button-4">
-          חפש מספר מודעה
-        </button>
-      </p>
       {loading && props.listShow === "showList" ? (
         <div className="listAds">
           {loading && props.listShow === "showList" && ads}

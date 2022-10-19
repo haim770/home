@@ -510,6 +510,9 @@ if (isset($DATA_OBJ->data_type)) {
         case "getAdByAdId":
                 include_once('../api/system/Ads/searchAds.php');
                 break;
+        case "getAdsByUserId":
+            include_once('../api/system/Ads/searchAds.php');
+                break;
         case "changeMessageToSeen":
             //change message status to seen
             include_once('../api/system/systemMessages/handleSystemMassages.php');
@@ -785,7 +788,7 @@ if (isset($DATA_OBJ->data_type)) {
             break; 
         case "getUserById":
             include_once("../api/system/user/deleteOrRestoreUserAndChangeRule.php");
-            break; 
+            break;
         case "getBlogById":
             include("../api/system/Blog/getBlogById.php");
             break;

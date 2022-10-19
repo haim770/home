@@ -77,13 +77,13 @@ function AdFullForProps(props) {
     console.log("res");
     if (res.data == "expire changed") {
       alert("ביצעת שינוי תאריך פג תוקף");
-    }
-    else{
-    if (res.data == "need remaining ads") {
-      alert("נגמרו לך המודעות גש לרכוש חבילה");
     } else {
-      alert("משהו השתבש");
-    }}
+      if (res.data == "need remaining ads") {
+        alert("נגמרו לך המודעות גש לרכוש חבילה");
+      } else {
+        alert("משהו השתבש");
+      }
+    }
 
     console.log(res.data);
     await props.getAds();
@@ -165,40 +165,56 @@ function AdFullForProps(props) {
               </button>
             </div>
           </div>
-          <div className="buttonPart">
-            <div>
-              <button
-                className="button-4"
-                style={{
-                  display: !auth?.user ? "none" : "flex",
-                }}
-                onClick={(e) => {
-                  e.preventDefault();
-                  console.log(e.target.tagName);
-                  setTogglePhone(
-                    togglePhone === "הצג טלפון" ? "הסתר טלפון" : "הצג טלפון"
-                  );
-                }}
-              >
-                {togglePhone === "הסתר טלפון"
-                  ? "" + togglePhone + " " + phone
-                  : togglePhone}
-              </button>
+          <div
+            className="buttonPart"
+            style={{
+              display: "grid",
+              gridTemplateColumns: "1fr 1fr",
+            }}
+          >
+            <div style={{ display: "flex", flexDirection: "column" }}>
+              <div>
+                <button
+                  className="button-4"
+                  style={{
+                    marginBottom: "1rem",
+                    display: !auth?.user ? "none" : "flex",
+                  }}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    console.log(e.target.tagName);
+                    setTogglePhone(
+                      togglePhone === "הצג טלפון" ? "הסתר טלפון" : "הצג טלפון"
+                    );
+                  }}
+                >
+                  {togglePhone === "הסתר טלפון"
+                    ? "" + togglePhone + " " + phone
+                    : togglePhone}
+                </button>
+              </div>
+              <div style={{ alignSelf: "flex-start" }}>
+                <button className="button-4" onClick={reportOnAd}>
+                  דווח על מודעה
+                </button>
+              </div>
             </div>
-            <div>
-              <button className="button-4" onClick={reportOnAd}>
-                דווח על מודעה
-              </button>
-            </div>
-            <div>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                justifySelf: "flex-end",
+              }}
+            >
               <button
                 className="button-4"
                 style={{
                   display:
                     props.adBlock.user[0].mail === auth?.user ||
-                    auth?.rule === "5150"
+                    auth?.roles === "5150"
                       ? "block"
                       : "none",
+                  marginBottom: "1rem",
                 }}
                 onClick={deleteAd}
               >
@@ -208,6 +224,7 @@ function AdFullForProps(props) {
                 className="button-4"
                 style={{
                   display:
+                    auth?.roles === "5150" ||
                     props.adBlock.user[0].mail === auth?.user
                       ? "block"
                       : "none",
@@ -221,11 +238,10 @@ function AdFullForProps(props) {
                 style={{
                   display:
                     auth?.roles === "5150" ||
-                    props.adBlock.user[0].mail === auth?.user ||
-                    auth?.rule === "5150"
+                    props.adBlock.user[0].mail === auth?.user
                       ? "block"
                       : "none",
-                  margin: "1rem",
+                  marginTop: "1rem",
                 }}
                 onClick={changeExpDateByTheTimeInTheSettings}
               >

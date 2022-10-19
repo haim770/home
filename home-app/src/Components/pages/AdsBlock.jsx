@@ -263,7 +263,7 @@ const AdsBlock = (props) => {
             </button>
           </div>
         </div>
-        <div style={{ display: "flex" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
           <button
             className="button-4"
             style={{
@@ -272,8 +272,7 @@ const AdsBlock = (props) => {
                 props.adBlock.user[0].mail === auth?.user
                   ? "block"
                   : "none",
-              maxWidth: "30%",
-              margin: "1rem",
+              marginTop: "1rem",
             }}
             onClick={editAd}
           >
@@ -288,8 +287,8 @@ const AdsBlock = (props) => {
                 auth?.rule === "5150"
                   ? "block"
                   : "none",
-              maxWidth: "30%",
-              margin: "1rem",
+              marginTop: "1rem",
+              justifySelf: "self-end",
             }}
             onClick={deleteAd}
           >
@@ -304,8 +303,7 @@ const AdsBlock = (props) => {
                 auth?.rule === "5150"
                   ? "block"
                   : "none",
-              maxWidth: "30%",
-              margin: "1rem",
+              marginTop: "1rem",
             }}
             onClick={changeExpDateByTheTimeInTheSettings}
           >

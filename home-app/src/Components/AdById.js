@@ -218,12 +218,7 @@ function AdById(props) {
               <button
                 className="button-4"
                 style={{
-                  display:
-                    Array.isArray(data?.user) &&
-                    data?.user?.phone &&
-                    auth?.accessToken != ""
-                      ? "block"
-                      : "none",
+                  display: !auth?.user ? "none" : "flex",
                 }}
                 onClick={(e) => {
                   e.preventDefault();
@@ -244,15 +239,19 @@ function AdById(props) {
               </button>
             </div>
           </div>
-          <div>
+          <div
+            style={{
+              marginTop: "1rem",
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
+            }}
+          >
             <button
               className="button-4"
               style={{
                 display:
-                  auth?.roles === "5150" ||
-                  (Array.isArray(data?.user) &&
-                    data?.user[0].mail === auth?.user) ||
-                  auth?.rule === "5150"
+                  data?.user?.mail === auth?.user || auth?.roles === "5150"
                     ? "block"
                     : "none",
               }}
@@ -264,10 +263,7 @@ function AdById(props) {
               className="button-4"
               style={{
                 display:
-                  auth?.roles === "5150" ||
-                  (Array.isArray(data?.user) &&
-                    data?.user[0].mail === auth?.user) ||
-                  auth?.rule === "5150"
+                  data?.user?.mail === auth?.user || auth?.roles === "5150"
                     ? "block"
                     : "none",
               }}
@@ -280,13 +276,9 @@ function AdById(props) {
               className="button-4"
               style={{
                 display:
-                  auth?.roles === "5150" ||
-                  (Array.isArray(data?.user) &&
-                    data?.user[0].mail === auth?.user) ||
-                  auth?.rule === "5150"
+                  data?.user?.mail === auth?.user || auth?.roles === "5150"
                     ? "block"
                     : "none",
-                margin: "1rem",
               }}
               onClick={changeExpDateByTheTimeInTheSettings}
             >

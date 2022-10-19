@@ -659,7 +659,15 @@ function SearchAds(props) {
   };
   return (
     <form className={props.className}>
-      <p style={{ border: "2px dashed blue" }}>
+      <p
+        style={{
+          borderBottom: "2px solid black",
+          paddingBottom: "1rem",
+          maxWidth: "100%",
+          display: "flex",
+          flexDirection: "column",
+        }}
+      >
         <label key="LableAdId">
           <span> מס מודעה</span>
           <input
@@ -670,7 +678,11 @@ function SearchAds(props) {
             onChange={(e) => setIdForSearch(e.target.value)}
           />
         </label>
-        <button onClick={searchById} className="button-4">
+        <button
+          onClick={searchById}
+          style={{ alignSelf: "center" }}
+          className="button-4"
+        >
           חפש מספר מודעה
         </button>
       </p>
