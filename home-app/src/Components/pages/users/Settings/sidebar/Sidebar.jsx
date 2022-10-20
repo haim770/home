@@ -169,7 +169,7 @@ const Sidebar = () => {
           >
             <Link to="/Settings/Ads" style={{ textDecoration: "none" }}>
               <GoHome className="icon" />
-              <span>מודעות</span>
+              <span>מודעות שלי</span>
             </Link>
           </li>
           <li

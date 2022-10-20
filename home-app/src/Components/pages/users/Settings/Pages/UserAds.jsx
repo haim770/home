@@ -26,6 +26,7 @@ const UserAds = (props) => {
     { label: "כל המודעות שלי", value: "getAllOfMyAds" },
     { label: "המודעות הפעילות שלי", value: "getAllOfMyActiveAds" },
     { label: " המודעות הלא פעילות שלי", value: "getAllOfMyNotActiveAds" },
+    { label: " המודעות שעומדות להיסגר השבוע", value: "getAdsAboutToExpireInAWeek" },
   ];
 
   // check when we scroll down to button
