@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 28, 2022 at 08:13 PM
+-- Generation Time: Oct 20, 2022 at 09:34 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.2
 
@@ -318,62 +318,63 @@ CREATE TABLE `ads` (
 --
 
 INSERT INTO `ads` (`adID`, `adType`, `price`, `property_type`, `city`, `street`, `area`, `user_id`, `create_time`, `active`, `contact_counter`, `watch`, `close_reason`, `expire_date`, `approval_status`, `building_number`, `entry`, `apartment`, `zip_code`, `map_X`, `map_Y`, `rooms`, `floor`, `maxFloor`, `enteringDate`, `propertyTaxes`, `houseCommittee`, `entry_date`, `ad_link`, `userIdWatchSet`, `userIdContactSet`) VALUES
-('12', 'קנייה', 1, 'דירה', 'עפולה', 'street', 0, '62c7eb0759d47', '2022-05-21 18:53:41', 1, 5, 215, 'W', '2022-05-25 21:52:10', 'reject', 1, '1', '1', '1', '1', '1', 1, '', '', '', 0, 0, '2022-08-02 20:30:40', '12', '62f9480a0c7da', ''),
-('2', 'קנייה', 0, 'דירה', '', '', 0, '2', '2022-08-28 05:08:33', 1, 1, 226, NULL, '2115-03-16 22:08:33', 'aproved', 1, '1', '', '', '', '', 0, '', '', '', 0, 0, 'מיידי', '2', '', ''),
-('303902', 'השכרה', 149039, 'דירה', 'חיפה', 'התיכון', 0, '62c7eb0759d47', '2022-06-29 19:55:20', 1, 12, 86, NULL, '2025-05-29 00:00:00', 'aproved', 12, '1', '1', '1', '', '', 1, '1', '3', 'עכשיו', 11, 12, '2022-08-02 20:30:40', 'mk', '62f9486da2ecf', ''),
-('55', 'קנייה', 2002, 'דירה', 'חיפה', 'hagalil', 0, '62c7eb0759d47', '2022-05-05 13:19:11', 1, 0, 300, NULL, '0000-00-00 00:00:00', 'aproved', 1, '1', '1', '3', '', '', 5, '', '', '', 0, 0, '2022-08-02 20:30:40', 'ad dfflink 3', '62f9486da46ae', ''),
-('552', 'קנייה', 2002, 'בית פרטי', 'חיפה', 'hagalil', 111111, '62c7eb0759d47', '2022-05-05 13:19:11', 1, 0, 307, NULL, '2025-02-02 21:17:08', 'aproved', 1, '1', '1', '3', '', '', 5, '', '', '', 0, 0, 'גמיש', 'ad dfflink 3', '62f948405c139', ''),
-('62e81dfb9fbb0', 'קנייה', 8, 'דירה', 'צביה ', 'האלה', 88, '62c7eb0759d47', '2022-08-01 18:39:55', 1, 1, 34, NULL, '2025-02-01 20:39:55', 'aproved', 1, '8', '', '', '', '', 0, '8', '88', '', 8, 0, '2022-08-02 20:30:40', '', '', ''),
-('62e81ef0e6610', 'קנייה', 8, 'דירה', 'צביה ', 'האלה', 88, '62c7eb0759d47', '2022-08-01 18:44:00', 1, 1, 30, NULL, '2025-02-01 20:44:00', 'aproved', 1, '8', '', '', '', '', 3, '8', '88', '', 2, 2, '2022-08-02 20:30:40', '', '62f9486db55fa', ''),
-('62e81f00a67b5', 'קנייה', 8, 'דירה', 'צביה ', 'האלה', 88, '62c7eb0759d47', '2022-08-01 18:44:16', 1, 0, 27, NULL, '2025-02-01 20:44:16', 'aproved', 1, '8', '', '', '', '', 3, '8', '88', '', 2, 2, '2022-08-02 20:30:40', '', '62f9486db7543', ''),
-('62e81f07d3b39', 'קנייה', 8, 'דירה', 'צביה ', 'האלה', 88, '62c7eb0759d47', '2022-08-01 18:44:23', 1, 0, 33, NULL, '2025-02-01 20:44:23', 'aproved', 1, '8', '', '', '', '', 3, '8', '88', '', 2, 2, '2022-08-02 20:30:40', '', '', ''),
-('62e82a292cb67', 'קנייה', 1, 'דירה', 'כמאנה ', 'כמאנה', 1, '62c7eb0759d47', '2022-08-01 19:31:53', 1, 0, 31, NULL, '2025-02-01 21:31:53', 'aproved', 1, '1', '', '', '', '', 1, '1', '1', '', 1, 1, '2022-08-02 20:30:40', '', '62f9486e5dd13', ''),
-('62e82ad3a51c4', 'קנייה', 1, 'דירה', 'כמאנה ', 'כמאנה', 1, '62c7eb0759d47', '2022-08-01 19:34:43', 1, 0, 26, NULL, '2025-02-01 21:34:43', 'aproved', 1, '1', '', '', '', '', 1, '1', '1', '', 1, 1, '2022-08-02 20:30:40', '', '', ''),
-('62e82ae746c73', 'קנייה', 1, 'דירה', 'כמאנה ', 'כמאנה', 1, '62c7eb0759d47', '2022-08-01 19:35:03', 1, 0, 24, NULL, '2025-02-01 21:35:03', 'aproved', 1, '1', '', '', '', '', 1, '1', '1', '', 1, 1, '2022-08-02 20:30:40', '', '', ''),
-('62e82afcc0b7d', 'קנייה', 1, 'דירה', 'כמאנה ', 'כמאנה', 1, '62c7eb0759d47', '2022-08-01 19:35:24', 1, 0, 22, NULL, '2025-02-01 21:35:24', 'aproved', 1, '1', '', '', '', '', 1, '1', '1', '', 1, 1, '2022-08-02 20:30:40', '', '62f9486df2291', ''),
-('62e82b27ae14f', 'קנייה', 1, 'דירה', 'כמאנה ', 'כמאנה', 1, '62c7eb0759d47', '2022-08-01 19:36:07', 1, 1, 23, NULL, '2025-02-01 21:36:07', 'aproved', 1, '1', '', '', '', '', 1, '1', '1', '', 1, 1, '2022-08-02 20:30:40', '', '', ''),
-('62e82b64d80cb', 'קנייה', 1, 'דירה', 'כמאנה ', 'כמאנה', 1, '62c7eb0759d47', '2022-08-01 19:37:08', 1, 0, 23, NULL, '2025-02-01 21:37:08', 'aproved', 1, '1', '', '', '', '', 1, '1', '1', '', 1, 1, '2022-08-02 20:30:40', '', '62f9483290c74', ''),
-('62e82d9e58320', 'קנייה', 0, 'דירה', '', '', 0, '62c7eb0759d47', '2022-08-01 19:46:38', 1, 0, 24, NULL, '2025-02-01 21:46:38', 'aproved', 0, '', '', '', '', '', 0, '', '', '', 0, 0, '2022-08-02 20:30:40', '', '', ''),
-('62e8309e4d0f2', 'קנייה', 1, 'דירה', 'קצר א-סר ', '', 1, '62c7eb0759d47', '2022-08-01 19:59:26', 1, 0, 24, NULL, '2025-02-01 21:59:26', 'aproved', 1, '1', '', '', '', '', 1, '1', '1', '', 1, 1, '2022-08-02 20:30:40', '', '62f9486f43944', ''),
-('62e831ff47caf', 'קנייה', 1, 'דירה', 'קצר א-סר ', 'קצר א-סר', 1, '62c7eb0759d47', '2022-08-01 20:05:19', 1, 0, 7, NULL, '2025-02-18 22:38:16', 'aproved', 1, '1', '', '', '', '', 1, '1', '1', '', 1, 1, '2022-08-02 20:30:40', '', '62f9486f452a8', ''),
-('62e835b9eb54f', 'קנייה', 1, 'דירה', 'כמאנה ', 'כמאנה', 0, '62c7eb0759d47', '2022-08-01 20:21:13', 1, 0, 28, NULL, '2025-02-01 22:21:13', 'aproved', 1, '1', '1', '1', '', '', 1, '1', '1', 'מיידי', 1, 1, '2022-08-02 20:30:40', '', '', ''),
-('62e8361f73e6d', 'קנייה', 1, 'דירה', 'כמאנה ', 'כמאנה', 0, '62c7eb0759d47', '2022-08-01 20:22:55', 1, 0, 43, NULL, '2027-10-29 00:00:00', 'aproved', 1, '1', '1', '1', '', '', 1, '1', '1', 'מיידי', 1, 1, '2022-08-02 20:30:40', '', '', ''),
-('62e837e90f94f', 'קנייה', 1, 'דירה', 'כמאנה ', 'כמאנה', 1, '62c7eb0759d47', '2022-08-01 20:30:33', 1, 0, 30, NULL, '0000-00-00 00:00:00', 'aproved', 1, '1', '', '', '', '', 1, '1', '1', '', 1, 1, '2022-08-02 20:30:40', '', '', ''),
-('62e83be3959d5', 'קנייה', 1, 'דירה', 'כמאנה ', 'כמאנה', 1, '62c7eb0759d47', '2022-08-01 20:47:31', 1, 0, 49, NULL, '2025-02-01 22:47:31', 'aproved', 1, '1', '', '', '', '', 1, '1', '1', '', 1, 1, '2022-08-02 20:30:40', '', '', ''),
-('62e83c0f82a8e', 'קנייה', 1, 'דירה', 'כמאנה ', 'כמאנה', 1, '62c7eb0759d47', '2022-08-01 20:48:15', 1, 0, 29, NULL, '0000-00-00 00:00:00', 'aproved', 1, '1', '', '', '', '', 1, '1', '1', '', 1, 1, '2022-08-02 20:30:40', '', '62fa6961100fd', ''),
-('62e83e320ed55', 'קנייה', 1, 'דירה', 'כמאנה ', 'כמאנה', 1, '62c7eb0759d47', '2022-08-01 20:57:22', 1, 0, 35, NULL, '0000-00-00 00:00:00', 'aproved', 1, '1', '', '', '', '', 1, '1', '1', '', 1, 1, '2022-08-02 20:30:40', '', '', ''),
-('62e83e3e80d36', 'קנייה', 1, 'דירה', 'כמאנה ', 'כמאנה', 1, '62c7eb0759d47', '2022-08-01 20:57:34', 0, 0, 2, NULL, '2025-02-01 22:57:34', 'declined', 1, '1', '', '', '', '', 1, '1', '1', '', 1, 1, '2022-08-02 20:30:40', '', '', ''),
-('62e83e4d85e53', 'קנייה', 1, 'דירה', 'כמאנה ', 'כמאנה', 1, '62c7eb0759d47', '2022-08-01 20:57:49', 0, 0, 0, NULL, '2025-02-01 22:57:49', 'declined', 1, '1', '', '', '', '', 1, '1', '1', '', 1, 1, '2022-08-02 20:30:40', '', '62f9487021064', ''),
-('62e83ea464047', 'קנייה', 1, 'דירה', 'כמאנה ', 'כמאנה', 1, '62c7eb0759d47', '2022-08-01 20:59:16', 0, 0, 0, NULL, '2025-02-01 22:59:16', 'declined', 1, '1', '', '', '', '', 1, '1', '1', '', 1, 1, '2022-08-02 20:30:40', '', '62f9487047e33', ''),
-('62e83ed769907', 'קנייה', 1, 'דירה', 'כמאנה ', 'כמאנה', 1, '62c7eb0759d47', '2022-08-01 21:00:07', 0, 0, 0, NULL, '2025-02-01 23:00:07', 'declined', 1, '1', '', '', '', '', 1, '1', '1', '', 1, 1, '2022-08-02 20:30:40', '', '62f9487055745', ''),
-('62e83ed8a9379', 'קנייה', 1, 'דירה', 'כמאנה ', 'כמאנה', 1, '62c7eb0759d47', '2022-08-01 21:00:08', 0, 0, 0, NULL, '2025-02-01 23:00:08', 'declined', 1, '1', '', '', '', '', 1, '1', '1', '', 1, 1, '2022-08-02 20:30:40', '', '62f9487088b22', ''),
-('62e83ee979933', 'קנייה', 1, 'דירה', 'כמאנה ', 'כמאנה', 1, '62c7eb0759d47', '2022-08-01 21:00:25', 0, 0, 0, NULL, '2025-02-01 23:00:25', 'declined', 1, '1', '', '', '', '', 1, '1', '1', '', 1, 1, '2022-08-02 20:30:40', '', '62f9487088b23', ''),
-('62e83f0827d3a', 'קנייה', 1, 'דירה', 'כמאנה ', 'כמאנה', 1, '62c7eb0759d47', '2022-08-01 21:00:56', 1, 5, 37, NULL, '0000-00-00 00:00:00', 'aproved', 1, '1', '', '', '', '', 1, '1', '1', '', 1, 1, '2022-08-02 20:30:40', '', '62fa69601aa99', ''),
-('62e83f19278e1', 'קנייה', 1, 'דירה', 'כמאנה ', 'כמאנה', 1, '62c7eb0759d47', '2022-08-01 21:01:13', 0, 1, 43, NULL, '2025-02-01 23:01:13', 'reject', 1, '1', '', '', '', '', 1, '1', '1', '', 1, 1, '2022-08-02 20:30:40', '', '', ''),
-('62e95cce4de81', 'קנייה', 1, 'דירה', 'אבו עבדון (שבט) ', 'אבו עבדון (שבט)', 1, '62c7eb0759d47', '2022-08-02 17:20:14', 0, 0, 98, NULL, '2025-02-02 19:20:14', 'reject', 1, '1', '', '', '', '', 1, '1', '1', '', 2, 2, '2022-08-02 20:30:40', '', '', ''),
-('62e95d3c18f47', 'קנייה', 1, 'דירה', 'סנסנה ', 'סנסנה', 7, '62c7eb0759d47', '2022-08-02 17:22:04', 1, 1, 296, NULL, '2025-02-28 10:44:40', 'aproved', 1, '1', '', '', '', '', 1, '1', '112', '', 1, 1, 'גמיש', '', '', ''),
-('62e9741668320', 'השכרה', 4848, 'דירה', 'אעצם (שבט) ', 'אעצם (שבט)', 1, '62c7eb0759d47', '2022-08-02 18:59:34', 0, 0, 0, NULL, '2025-02-02 20:59:34', 'declined', 1, '1', '', '', '', '', 1, '1', '1', '', 1, 1, '1999-11-11', '', '62f94870ae7ce', ''),
-('62e9749d3a01e', 'השכרה', 4848, 'דירה', 'אעצם (שבט) ', 'אעצם (שבט)', 1, '62c7eb0759d47', '2022-08-02 19:01:49', 0, 0, 23, NULL, '2025-02-02 21:01:49', 'reject', 1, '1', '', '', '', '', 1, '1', '1', '', 1, 1, 'גמיש', '', '', ''),
-('62e9750369bcb', 'קנייה', 4848, 'בית פרטי', 'אעצם (שבט) ', 'אעצם (שבט)', 1, '62c7eb0759d47', '2022-08-02 19:03:31', 0, 0, 11, NULL, '2025-02-02 21:03:31', 'declined', 1, '1', '', '', '', '', 1, '1', '1', '', 1, 1, 'גמיש', '', '', ''),
-('62eab4f0265c8', 'קנייה', 1, 'דירה', 'סנסנה ', 'סנסנה', 1, '62c7eb0759d47', '2022-08-03 17:48:32', 0, 1, 34, NULL, '2025-02-03 19:48:32', 'reject', 1, '1', '', '', '', '', 1, '1', '1', '', 3243, 1, 'גמיש', 'jd', '', ''),
+('12', 'קנייה', 1, 'דירה', 'עפולה', 'street', 0, '62c7eb0759d47', '2022-05-21 18:53:41', 1, 5, 217, 'W', '2022-05-25 21:52:10', 'reject', 1, '1', '1', '1', '1', '1', 1, '', '', '', 0, 0, '2022-08-02 20:30:40', '12', '62f9480a0c7da', ''),
+('2', 'קנייה', 0, 'דירה', '', '', 0, '2', '2022-08-28 05:08:33', 0, 1, 296, NULL, '2115-03-16 22:08:33', 'reject', 1, '1', '', '', '', '', 0, '', '', '', 0, 0, 'מיידי', '2', '', ''),
+('303902', 'השכרה', 149039, 'דירה', 'חיפה', 'התיכון', 0, '62c7eb0759d47', '2022-06-29 19:55:20', 1, 12, 88, NULL, '2025-09-06 00:00:00', 'aproved', 12, '1', '1', '1', '', '', 1, '1', '3', 'עכשיו', 11, 12, '2022-08-02 20:30:40', '303902', '62f9486da2ecf', ''),
+('55', 'קנייה', 2002, 'דירה', 'חיפה', 'hagalil', 0, '62c7eb0759d47', '2022-05-05 13:19:11', 1, 0, 301, NULL, '0002-08-27 00:00:00', 'aproved', 1, '1', '1', '3', '', '', 5, '', '', '', 0, 0, '2022-08-02 20:30:40', '55', '62f9486da46ae', ''),
+('552', 'קנייה', 2002, 'בית פרטי', 'חיפה', 'hagalil', 111111, '62c7eb0759d47', '2022-05-05 13:19:11', 1, 0, 307, NULL, '2025-02-02 21:17:08', 'aproved', 1, '1', '1', '3', '', '', 5, '', '', '', 0, 0, 'גמיש', '552', '62f948405c139', ''),
+('62e81dfb9fbb0', 'קנייה', 8, 'דירה', 'צביה ', 'האלה', 88, '62c7eb0759d47', '2022-08-01 18:39:55', 1, 1, 39, NULL, '2026-06-16 00:00:00', 'aproved', 1, '8', '', '', '', '', 0, '8', '88', '', 8, 0, '2022-08-02 20:30:40', '62e81dfb9fbb0', '', ''),
+('62e81ef0e6610', 'קנייה', 8, 'דירה', 'צביה ', 'האלה', 88, '62c7eb0759d47', '2022-08-01 18:44:00', 1, 1, 31, NULL, '2025-02-01 20:44:00', 'aproved', 1, '8', '', '', '', '', 3, '8', '88', '', 2, 2, '2022-08-02 20:30:40', '62e81ef0e6610', '62f9486db55fa', ''),
+('62e81f00a67b5', 'קנייה', 8, 'דירה', 'צביה ', 'האלה', 88, '62c7eb0759d47', '2022-08-01 18:44:16', 1, 0, 27, NULL, '2025-02-01 20:44:16', 'aproved', 1, '8', '', '', '', '', 3, '8', '88', '', 2, 2, '2022-08-02 20:30:40', '62e81f00a67b5', '62f9486db7543', ''),
+('62e81f07d3b39', 'קנייה', 8, 'דירה', 'צביה ', 'האלה', 88, '62c7eb0759d47', '2022-08-01 18:44:23', 1, 0, 33, NULL, '2025-02-01 20:44:23', 'aproved', 1, '8', '', '', '', '', 3, '8', '88', '', 2, 2, '2022-08-02 20:30:40', '62e81f07d3b39', '', ''),
+('62e82a292cb67', 'קנייה', 1, 'דירה', 'כמאנה ', 'כמאנה', 1, '62c7eb0759d47', '2022-08-01 19:31:53', 1, 0, 31, NULL, '2025-02-01 21:31:53', 'aproved', 1, '1', '', '', '', '', 1, '1', '1', '', 1, 1, '2022-08-02 20:30:40', '62e82a292cb67', '62f9486e5dd13', ''),
+('62e82ad3a51c4', 'קנייה', 1, 'דירה', 'כמאנה ', 'כמאנה', 1, '62c7eb0759d47', '2022-08-01 19:34:43', 1, 0, 26, NULL, '2025-02-01 21:34:43', 'aproved', 1, '1', '', '', '', '', 1, '1', '1', '', 1, 1, '2022-08-02 20:30:40', '62e82ad3a51c4', '', ''),
+('62e82ae746c73', 'קנייה', 1, 'דירה', 'כמאנה ', 'כמאנה', 1, '62c7eb0759d47', '2022-08-01 19:35:03', 1, 0, 24, NULL, '2025-02-01 21:35:03', 'aproved', 1, '1', '', '', '', '', 1, '1', '1', '', 1, 1, '2022-08-02 20:30:40', '62e82ae746c73', '', ''),
+('62e82afcc0b7d', 'קנייה', 1, 'דירה', 'כמאנה ', 'כמאנה', 1, '62c7eb0759d47', '2022-08-01 19:35:24', 1, 0, 23, NULL, '2025-02-01 21:35:24', 'aproved', 1, '1', '', '', '', '', 1, '1', '1', '', 1, 1, '2022-08-02 20:30:40', '62e82afcc0b7d', '62f9486df2291', ''),
+('62e82b27ae14f', 'קנייה', 1, 'דירה', 'כמאנה ', 'כמאנה', 1, '62c7eb0759d47', '2022-08-01 19:36:07', 1, 1, 25, NULL, '2025-02-01 21:36:07', 'aproved', 1, '1', '', '', '', '', 1, '1', '1', '', 1, 1, '2022-08-02 20:30:40', '62e82b27ae14f', '', ''),
+('62e82b64d80cb', 'קנייה', 1, 'דירה', 'כמאנה ', 'כמאנה', 1, '62c7eb0759d47', '2022-08-01 19:37:08', 1, 0, 25, NULL, '2025-02-01 21:37:08', 'aproved', 1, '1', '', '', '', '', 1, '1', '1', '', 1, 1, '2022-08-02 20:30:40', '62e82b64d80cb', '62f9483290c74', ''),
+('62e82d9e58320', 'קנייה', 0, 'דירה', '', '', 0, '62c7eb0759d47', '2022-08-01 19:46:38', 1, 0, 27, NULL, '2025-02-01 21:46:38', 'aproved', 0, '', '', '', '', '', 0, '', '', '', 0, 0, '2022-08-02 20:30:40', '62e82d9e58320', '', ''),
+('62e8309e4d0f2', 'קנייה', 1, 'דירה', 'קצר א-סר ', '', 1, '62c7eb0759d47', '2022-08-01 19:59:26', 1, 0, 27, NULL, '2025-02-01 21:59:26', 'aproved', 1, '1', '', '', '', '', 1, '1', '1', '', 1, 1, '2022-08-02 20:30:40', '62e8309e4d0f2', '62f9486f43944', ''),
+('62e831ff47caf', 'קנייה', 1, 'דירה', 'קצר א-סר ', 'קצר א-סר', 1, '62c7eb0759d47', '2022-08-01 20:05:19', 1, 0, 10, NULL, '2025-02-18 22:38:16', 'aproved', 1, '1', '', '', '', '', 1, '1', '1', '', 1, 1, '2022-08-02 20:30:40', '62e831ff47caf', '62f9486f452a8', ''),
+('62e835b9eb54f', 'קנייה', 1, 'דירה', 'כמאנה ', 'כמאנה', 0, '62c7eb0759d47', '2022-08-01 20:21:13', 1, 0, 31, NULL, '2025-02-01 22:21:13', 'aproved', 1, '1', '1', '1', '', '', 1, '1', '1', 'מיידי', 1, 1, '2022-08-02 20:30:40', '62e835b9eb54f', '', ''),
+('62e8361f73e6d', 'קנייה', 1, 'דירה', 'כמאנה ', 'כמאנה', 0, '62c7eb0759d47', '2022-08-01 20:22:55', 1, 0, 46, NULL, '2027-10-29 00:00:00', 'aproved', 1, '1', '1', '1', '', '', 1, '1', '1', 'מיידי', 1, 1, '2022-08-02 20:30:40', '62e8361f73e6d', '', ''),
+('62e837e90f94f', 'קנייה', 1, 'דירה', 'כמאנה ', 'כמאנה', 1, '62c7eb0759d47', '2022-08-01 20:30:33', 1, 0, 30, NULL, '0000-00-00 00:00:00', 'aproved', 1, '1', '', '', '', '', 1, '1', '1', '', 1, 1, '2022-08-02 20:30:40', '62e837e90f94f', '', ''),
+('62e83be3959d5', 'קנייה', 1, 'דירה', 'כמאנה ', 'כמאנה', 1, '62c7eb0759d47', '2022-08-01 20:47:31', 1, 0, 52, NULL, '2025-02-01 22:47:31', 'aproved', 1, '1', '', '', '', '', 1, '1', '1', '', 1, 1, '2022-08-02 20:30:40', '62e83be3959d5', '', ''),
+('62e83c0f82a8e', 'קנייה', 1, 'דירה', 'כמאנה ', 'כמאנה', 1, '62c7eb0759d47', '2022-08-01 20:48:15', 1, 0, 29, NULL, '0000-00-00 00:00:00', 'aproved', 1, '1', '', '', '', '', 1, '1', '1', '', 1, 1, '2022-08-02 20:30:40', '62e83c0f82a8e', '62fa6961100fd', ''),
+('62e83e320ed55', 'קנייה', 1, 'דירה', 'כמאנה ', 'כמאנה', 1, '62c7eb0759d47', '2022-08-01 20:57:22', 1, 0, 35, NULL, '0000-00-00 00:00:00', 'aproved', 1, '1', '', '', '', '', 1, '1', '1', '', 1, 1, '2022-08-02 20:30:40', '62e83e320ed55', '', ''),
+('62e83e3e80d36', 'קנייה', 1, 'דירה', 'כמאנה ', 'כמאנה', 1, '62c7eb0759d47', '2022-08-01 20:57:34', 0, 0, 2, NULL, '2025-02-01 22:57:34', 'declined', 1, '1', '', '', '', '', 1, '1', '1', '', 1, 1, '2022-08-02 20:30:40', '62e83e3e80d36', '', ''),
+('62e83e4d85e53', 'קנייה', 1, 'דירה', 'כמאנה ', 'כמאנה', 1, '62c7eb0759d47', '2022-08-01 20:57:49', 0, 0, 0, NULL, '2025-02-01 22:57:49', 'declined', 1, '1', '', '', '', '', 1, '1', '1', '', 1, 1, '2022-08-02 20:30:40', '62e83e4d85e53', '62f9487021064', ''),
+('62e83ea464047', 'קנייה', 1, 'דירה', 'כמאנה ', 'כמאנה', 1, '62c7eb0759d47', '2022-08-01 20:59:16', 0, 0, 0, NULL, '2025-02-01 22:59:16', 'declined', 1, '1', '', '', '', '', 1, '1', '1', '', 1, 1, '2022-08-02 20:30:40', '62e83ea464047', '62f9487047e33', ''),
+('62e83ed769907', 'קנייה', 1, 'דירה', 'כמאנה ', 'כמאנה', 1, '62c7eb0759d47', '2022-08-01 21:00:07', 0, 0, 0, NULL, '2025-02-01 23:00:07', 'declined', 1, '1', '', '', '', '', 1, '1', '1', '', 1, 1, '2022-08-02 20:30:40', '62e83ed769907', '62f9487055745', ''),
+('62e83ed8a9379', 'קנייה', 1, 'דירה', 'כמאנה ', 'כמאנה', 1, '62c7eb0759d47', '2022-08-01 21:00:08', 0, 0, 1, NULL, '2025-02-01 23:00:08', 'declined', 1, '1', '', '', '', '', 1, '1', '1', '', 1, 1, '2022-08-02 20:30:40', '62e83ed8a9379', '62f9487088b22', ''),
+('62e83ee979933', 'קנייה', 1, 'דירה', 'כמאנה ', 'כמאנה', 1, '62c7eb0759d47', '2022-08-01 21:00:25', 0, 0, 0, NULL, '2025-02-01 23:00:25', 'declined', 1, '1', '', '', '', '', 1, '1', '1', '', 1, 1, '2022-08-02 20:30:40', '62e83ee979933', '62f9487088b23', ''),
+('62e83f0827d3a', 'קנייה', 1, 'דירה', 'כמאנה ', 'כמאנה', 1, '62c7eb0759d47', '2022-08-01 21:00:56', 1, 6, 37, NULL, '0000-00-00 00:00:00', 'aproved', 1, '1', '', '', '', '', 1, '1', '1', '', 1, 1, '2022-08-02 20:30:40', '62e83f0827d3a', '62fa69601aa99', ''),
+('62e83f19278e1', 'קנייה', 1, 'דירה', 'כמאנה ', 'כמאנה', 1, '62c7eb0759d47', '2022-08-01 21:01:13', 0, 1, 43, NULL, '2025-02-01 23:01:13', 'reject', 1, '1', '', '', '', '', 1, '1', '1', '', 1, 1, '2022-08-02 20:30:40', '62e83f19278e1', '', ''),
+('62e95cce4de81', 'קנייה', 1, 'דירה', 'אבו עבדון (שבט) ', 'אבו עבדון (שבט)', 1, '62c7eb0759d47', '2022-08-02 17:20:14', 0, 0, 98, NULL, '2025-02-02 19:20:14', 'reject', 1, '1', '', '', '', '', 1, '1', '1', '', 2, 2, '2022-08-02 20:30:40', '62e95cce4de81', '', ''),
+('62e95d3c18f47', 'קנייה', 1, 'דירה', 'סנסנה ', 'סנסנה', 7, '62c7eb0759d47', '2022-08-02 17:22:04', 1, 1, 300, NULL, '2022-02-28 10:44:40', 'aproved', 1, '1', '', '', '', '', 1, '1', '112', '', 1, 1, 'גמיש', '62e95d3c18f47', '', ''),
+('62e9741668320', 'השכרה', 4848, 'דירה', 'אעצם (שבט) ', 'אעצם (שבט)', 1, '62c7eb0759d47', '2022-08-02 18:59:34', 0, 0, 0, NULL, '2025-02-02 20:59:34', 'declined', 1, '1', '', '', '', '', 1, '1', '1', '', 1, 1, '1999-11-11', '62e9741668320', '62f94870ae7ce', ''),
+('62e9749d3a01e', 'השכרה', 4848, 'דירה', 'אעצם (שבט) ', 'אעצם (שבט)', 1, '62c7eb0759d47', '2022-08-02 19:01:49', 0, 0, 23, NULL, '2025-02-02 21:01:49', 'reject', 1, '1', '', '', '', '', 1, '1', '1', '', 1, 1, 'גמיש', '62e9749d3a01e', '', ''),
+('62e9750369bcb', 'קנייה', 4848, 'בית פרטי', 'אעצם (שבט) ', 'אעצם (שבט)', 1, '62c7eb0759d47', '2022-08-02 19:03:31', 0, 0, 11, NULL, '2025-02-02 21:03:31', 'declined', 1, '1', '', '', '', '', 1, '1', '1', '', 1, 1, 'גמיש', '62e9750369bcb', '', ''),
+('62eab4f0265c8', 'קנייה', 1, 'דירה', 'סנסנה ', 'סנסנה', 1, '62c7eb0759d47', '2022-08-03 17:48:32', 0, 1, 34, NULL, '2025-02-03 19:48:32', 'reject', 1, '1', '', '', '', '', 1, '1', '1', '', 3243, 1, 'גמיש', '62eab4f0265c8', '', ''),
 ('62ef7d1be4219', 'קנייה', 1, 'בית פרטי', 'עדי ', 'בית הדסה', 1, '62c7eb0759d47', '2022-08-07 08:51:39', 0, 6, 22, NULL, '2025-02-07 10:51:39', 'declined', 3, '39', '', '', '', '', 9393, '929', '3', '', 1, 1, '0001-01-01', '62ef7d1be4219', '', ''),
 ('62ef7d47e399b', 'קנייה', 1, 'בית פרטי', 'עדי ', 'בית הדסה', 1, '62c7eb0759d47', '2022-08-07 08:52:23', 0, 0, 4, NULL, '2025-02-07 10:52:23', 'declined', 3, '39', '', '', '', '', 9393, '929', '3', '', 1, 1, '0001-01-01', '62ef7d47e399b', '62f55f9e44251', ''),
 ('62ef7d4fe5f90', 'קנייה', 1, 'בית פרטי', 'עדי ', 'בית הדסה', 1, '62c7eb0759d47', '2022-08-07 08:52:31', 0, 0, 46, NULL, '2025-02-11 00:48:08', 'reject', 3, '39', '', '', '', '', 9393, '929', '3', '', 1, 1, '0001-01-01', '62ef7d4fe5f90', '', ''),
-('62ef7d5c4cd51', 'קנייה', 24, 'בית פרטי', 'עדי ', 'בית הדסה', 1, '6308e3a2849f3', '2022-08-11 17:52:44', 1, 2, 271, NULL, '2022-03-31 19:11:58', 'approved', 3, '39', '', '', '', '', 9393, '929', '3', '', 1, 1, '0001-01-01', '62ef7d5c4cd51', '', ''),
+('62ef7d5c4cd51', 'קנייה', 24, 'בית פרטי', 'עדי ', 'בית הדסה', 1, '6308e3a2849f3', '2022-08-11 17:52:44', 1, 7, 314, NULL, '2022-03-31 19:11:58', 'approved', 3, '39', '', '', '', '', 9393, '929', '3', '', 1, 1, '0001-01-01', '62ef7d5c4cd51', '', ''),
 ('62ef7d7d30008', 'השכרה', 1, 'בית פרטי', 'עדי ', 'בית הדסה', 1, '62c7eb0759d47', '2022-08-07 08:53:17', 0, 0, 58, NULL, '2025-02-09 21:10:00', 'declined', 3, '39', '', '', '', '', 9393, '929', '3', '', 1, 1, '0001-01-01', '62ef7d7d30008', '62f528ac3527f', ''),
 ('62f16fe877201', 'קנייה', 32, 'בית פרטי', 'קצר א-סר ', 'קצר א-סר', 2, '62c7eb0759d47', '2022-08-08 20:19:52', 0, 0, 0, NULL, '2025-02-08 22:19:52', 'declined', 2, '1', '', '', '', '', 2, '2', '2', '', 1, 1, 'מיידי', '62f16fe877201', '', ''),
 ('62f170398ef46', 'קנייה', 32, 'בית פרטי', 'קצר א-סר ', 'קצר א-סר', 2, '62c7eb0759d47', '2022-08-08 20:21:13', 0, 1, 45, NULL, '2025-02-08 22:21:13', 'reject', 2, '1', '', '', '', '', 2, '2', '2', '', 1, 1, 'מיידי', '62f170398ef46', '62fa694e28f89', ''),
-('62f2627b5972e', 'קנייה', 1, '', 'כמאנה ', 'כמאנה', 1, '62c7eb0759d47', '2022-08-09 13:34:51', 1, 0, 6, NULL, '2025-02-09 15:34:51', 'aproved', 1, '1', '', '', '', '', 1, '1', '1', '', 1, 1, '', '62f2627b5972e', '62f94870eb5f5', ''),
+('62f2627b5972e', 'קנייה', 1, '', 'כמאנה ', 'כמאנה', 1, '2', '2022-08-09 13:34:51', 1, 0, 14, NULL, '2025-02-09 15:34:51', 'aproved', 1, '1', '', '', '', '', 1, '1', '1', '', 1, 1, '', '62f2627b5972e', '62f94870eb5f5', ''),
 ('62f26364846a4', 'קנייה', 1, '', 'כמאנה ', 'כמאנה', 1, '62c7eb0759d47', '2022-08-09 13:38:44', 0, 0, 65, NULL, '2022-08-09 15:38:44', 'declined', 1, '1', '', '', '', '', 1, '1', '1', '', 1, 1, '', '62f26364846a4', '', ''),
-('62f263681627e', 'קנייה', 1, '', 'כמאנה ', 'כמאנה', 1, '62c7eb0759d47', '2022-08-09 13:38:48', 1, 0, 171, NULL, '2022-08-09 15:38:48', 'aproved', 1, '1', '', '', '', '', 1, '1', '1', '', 1, 1, '', '62f263681627e', '', ''),
+('62f263681627e', 'קנייה', 1, '', 'כמאנה ', 'כמאנה', 1, '2', '2022-08-09 13:38:48', 1, 0, 173, NULL, '2022-08-09 15:38:48', 'aproved', 1, '1', '', '', '', '', 1, '1', '1', '', 1, 1, '', '62f263681627e', '', ''),
 ('62f41963f1aeb', 'קנייה', 1, 'דירה', 'קצר א-סר ', 'קצר א-סר', 1, '62c7eb0759d47', '2022-08-10 20:47:32', 0, 0, 7, NULL, '2115-03-10 22:47:32', 'declined', 1, '1', '', '', '', '', 1, '1', '1', '', 1, 1, 'מיידי', '62f41963f1aeb', '', ''),
 ('630b982ca3319', 'קנייה', 1000, 'בית פרטי', 'קצר א-סר ', 'קצר א-סר', 54, '6308e3a2849f3', '2022-08-28 16:30:36', 0, 0, 2, NULL, '2025-03-01 18:58:47', 'declined', 1, '1', '', '', '', '', 2, '2', '5', '', 0, 0, 'גמיש', '630b982ca3319', '', ''),
 ('6310e5950d2e4', 'קנייה', 2, 'דירה', 'כמאנה ', 'כמאנה', 2, '2', '2022-09-01 17:02:13', 0, 0, 0, NULL, '2031-01-01 19:02:13', 'declined', 4, '3', '', '', '', '', 22, '1', '2', '', 0, 0, 'מיידי', '6310e5950d2e4', '', ''),
-('6310e5ab9080b', 'קנייה', 2, 'דירה', 'כמאנה ', 'כמאנה', 2, '2', '2022-09-01 17:02:35', 1, 0, 11, NULL, '2031-01-01 19:02:35', 'aproved', 4, '3', '', '', '', '', 22, '1', '2', '', 0, 0, 'מיידי', '6310e5ab9080b', '', ''),
-('6310e5c9a0f97', 'קנייה', 2, 'דירה', 'כמאנה ', 'כמאנה', 2, '6308e3a2849f3', '2022-09-01 17:03:05', 1, 0, 9, NULL, '2031-01-01 19:03:05', 'aproved', 4, '3', '', '', '', '', 22, '1', '2', '', 0, 0, 'מיידי', '6310e5c9a0f97', '', ''),
+('6310e5ab9080b', 'קנייה', 2, 'דירה', 'כמאנה ', 'כמאנה', 2, '2', '2022-09-01 17:02:35', 0, 0, 83, NULL, '2031-01-01 19:02:35', 'reject', 4, '3', '', '', '', '', 22, '1', '2', '', 0, 0, 'מיידי', '6310e5ab9080b', '', ''),
+('6310e5c9a0f97', 'קנייה', 2, 'דירה', 'כמאנה ', 'כמאנה', 2, '6308e3a2849f3', '2022-09-01 17:03:05', 0, 1, 50, NULL, '2031-01-01 19:03:05', 'reject', 4, '3', '', '', '', '', 22, '1', '2', '', 0, 0, 'מיידי', '6310e5c9a0f97', '', ''),
 ('6310e6633b61e', 'קנייה', 2, 'דירה', 'כמאנה ', 'כמאנה', 2, '6308e3a2849f3', '2022-09-01 17:05:39', 0, 0, 0, NULL, '2031-01-01 19:05:39', 'declined', 4, '3', '', '', '', '', 22, '1', '2', '', 0, 0, 'מיידי', '6310e6633b61e', '', ''),
-('6310e6d4e271f', 'קנייה', 2, 'דירה', 'כמאנה ', 'כמאנה', 2, '6308e3a2849f3', '2022-09-01 17:07:32', 0, 0, 0, NULL, '2031-01-01 19:07:32', 'pending', 4, '3', '', '', '', '', 22, '1', '2', '', 0, 0, 'מיידי', '6310e6d4e271f', '', ''),
-('633025380f00d', 'קנייה', 2222222, 'בית פרטי', 'חיפה ', 'א\"ת מפרץ(צפון-מזרח)', 12, '6314c734aea38', '2022-09-25 09:54:00', 0, 0, 9, NULL, '2031-11-21 00:00:00', 'pending', 12, '12', '', '', '', '', 1, '1', '12', '', 1222, 100, 'גמיש', '633025380f00d', '', '');
+('6310e6d4e271f', 'קנייה', 2, 'דירה', 'כמאנה ', 'כמאנה', 2, '6308e3a2849f3', '2022-09-01 17:07:32', 0, 0, 48, NULL, '2031-01-01 19:07:32', 'reject', 4, '3', '', '', '', '', 22, '1', '2', '', 0, 0, 'מיידי', '6310e6d4e271f', '', ''),
+('633025380f00d', 'קנייה', 2222222, 'בית פרטי', 'חיפה ', 'א\"ת מפרץ(צפון-מזרח)', 12, '6314c734aea38', '2022-09-25 09:54:00', 0, 0, 28, NULL, '2032-02-29 00:00:00', 'reject', 12, '12', '', '', '', '', 1, '1', '12', '', 1222, 100, 'גמיש', '633025380f00d', '', ''),
+('633b31e322971', 'קנייה', 12, 'בית פרטי', 'אבו תלול ', 'אבו תלול', 12, '62c7eb0759d47', '2022-10-03 19:02:59', 0, 0, 3, NULL, '2031-02-03 21:02:59', 'reject', 12, '1', '', '', '', '', 0, '1', '1', '', 1, 1, 'מיידי', '633b31e322971', '', '');
 
 -- --------------------------------------------------------
 
@@ -402,7 +403,7 @@ CREATE TABLE `ad_content` (
 --
 
 INSERT INTO `ad_content` (`element_id`, `adID`, `category`, `master`, `min_value`, `max_value`, `icon`, `free_text`, `required`, `name`, `display_type`, `value`, `prevDisplay`) VALUES
-('34453', '0', 'השכרה', 1, 1, 33, '', 'גינה', 1, 'גינה', 'text', '1', 0),
+('34453', '0', 'השכרה', 1, 1, 33, '', 'גינה', 0, 'גינה', 'text', '1', 0),
 ('44', '0', 'קנייה', 1, NULL, NULL, '', 'מזגן1', 0, 'מזגן1', 'checkBox', '0', 0),
 ('62bedb288d88c', '0', 'השכרה', 1, NULL, NULL, '', 'מזגן', 0, 'מזגן', 'checkBox', '1233', 0),
 ('62bedc11bfbd5', '0', 'השכרה', 1, NULL, NULL, '', 'ניסוי', 0, 'ניסוי', 'text', 'master', 0),
@@ -501,6 +502,8 @@ INSERT INTO `ad_content` (`element_id`, `adID`, `category`, `master`, `min_value
 ('6314cd4216dd5', '0', 'השכרה', 1, NULL, NULL, '', 'kfkf', 0, 'kfkf', 'input', 'master', 0),
 ('63302538168d6', '633025380f00d', 'קנייה', 0, NULL, NULL, '', 'ממבמב', 0, 'ממבמב', 'text', '', 0),
 ('6330253818883', '633025380f00d', 'קנייה', 0, NULL, NULL, '', 'מזגן1', 0, 'מזגן1', 'text', '1', 0),
+('633b31e32a4eb', '633b31e322971', 'קנייה', 0, NULL, NULL, '', 'ממבמב', 0, 'ממבמב', 'text', '', 0),
+('633b31e32bed3', '633b31e322971', 'קנייה', 0, NULL, NULL, '', 'מזגן1', 0, 'מזגן1', 'text', '1', 0),
 ('9', '0', 'השכרה', 1, NULL, NULL, ' ', 'דרוש שיפוץ', 0, 'דרוש שיפוץ', 'checkBox', '0', 0);
 
 -- --------------------------------------------------------
@@ -524,7 +527,7 @@ CREATE TABLE `blogcomments` (
 --
 
 INSERT INTO `blogcomments` (`id`, `blogId`, `userId`, `title`, `content`, `create_time`, `status`) VALUES
-('630292e38c9d2', '4', '', 'ckc', 'kfikf', '2022-08-23 19:12:15', 0),
+('630292e38c9d2', '2', 'guest', 'ckc', 'kfikf', '2022-09-29 19:24:31', 1),
 ('63029309a279c', '4', 'guest', 'ckc', 'kfikf', '2022-08-21 20:18:17', 1),
 ('6302933c1b7a9', '4', 'guest', 'jhhnev,fkfk', 'dkdk', '2022-08-23 20:40:19', 1),
 ('63029363bc459', '4', 'guest', 'jhhnev', 'jhho', '2022-08-21 20:19:47', 1),
@@ -536,7 +539,9 @@ INSERT INTO `blogcomments` (`id`, `blogId`, `userId`, `title`, `content`, `creat
 ('630538a56fb05', '4', '62e0438f6d8ac', 'לגלגd', 'd', '2022-08-23 20:34:47', 1),
 ('63067f27667f3', '2', '62e0438f6d8ac', '13', 'אחד העם 1', '2022-08-24 19:42:31', 1),
 ('63067f36cd399', '2', '62e0438f6d8ac', '12', 'ךגך', '2022-08-24 19:42:46', 1),
-('63067f860efc7', '2', '62e0438f6d8ac', 'תוכן', 'כותרת', '2022-08-24 19:44:21', 0);
+('63067f860efc7', '2', '62e0438f6d8ac', 'תוכן', 'כותרת', '2022-08-24 19:44:21', 0),
+('6334a7254a481', '2', '62c7eb0759d47', 'כותרת', 'תוכן', '2022-09-28 19:57:25', 1),
+('63471d2768fcc', '2', 'guest', 'kkdkdk', 'kdkdkdkd', '2022-10-12 20:01:43', 1);
 
 -- --------------------------------------------------------
 
@@ -563,14 +568,14 @@ CREATE TABLE `blogs` (
 --
 
 INSERT INTO `blogs` (`blog_id`, `create_time`, `status`, `title`, `userId`, `content`, `update_time`, `views`, `cover_image`, `category`, `subCategory`) VALUES
-('1', '2022-08-04 23:10:33', 'links', 'לינקים שימושיים', '2', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.', '2022-08-04 23:10:33', 1, 'designer-1.jpg', 'links', ',לינקים'),
-('2', '2022-08-04 23:12:56', 'Draft', 'Milan Places That Highlight The City', '2', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.', '2022-08-04 23:12:56', 1, 'f67396fc3cfce63a28e07ebb35d974ac.jpg', 'travel', 'vacation,holidays,sightseeing'),
-('3', '2022-08-04 23:13:12', 'Draft', 'Online Shopping – An Alternative to Shopping in the Mall', '2', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.', '2022-08-04 23:13:12', 1, 'fQwuyKJ9qxjSbr6REcgtmW-1200-80.jpg', 'shopping', 'e-commerce store,clothing,shopping store'),
-('4', '2022-08-04 23:13:22', 'Draft', 'ADVENTURE IN YOU', '2', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.', '2022-08-04 23:13:22', 1, 'graphic-design-trends.png', 'adventure', 'adrenaline,stay-fit,lifestyle'),
-('5', '2022-08-05 00:24:17', 'close', '7 CSS tools you should be using', '2', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.', '2022-08-05 00:24:17', 1, 'designer-1.jpg', 'development', '[\"frontend\", \"ui/ux\", \"design\"]'),
-('6', '2022-08-05 00:24:26', 'Draft', '7 CSS tools you should be using', '2', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.', '2022-08-05 00:24:26', 1, 'designer-1.jpg', 'development', '[\"frontend\", \"ui/ux\", \"design\"]'),
-('62f540ca6c818', '2022-08-11 20:47:54', 'Draft', 'חיים', '62e0438f6d8ac', 'אני כאן', '2022-08-11 20:47:54', 0, '3d5a58e10209e789FinelProject-Use case Diagram.drawio (1).png', 'כל הקטגוריות', 'מים,סבון'),
-('7', '2022-08-05 00:24:36', 'Draft', '7 CSS tools you should be using', '2', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.', '2022-08-05 00:24:36', 1, 'designer-1.jpg', 'development', '[\"frontend\", \"ui/ux\", \"design\"]');
+('1', '2022-08-04 23:10:33', 'links', 'לינקים שימושיים', '2', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.', '2022-08-04 23:10:33', 10, 'designer-1.jpg', 'links', ',לינקים'),
+('2', '2022-08-04 23:12:56', 'Draft', 'Milan Places That Highlight The City', '2', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.', '2022-08-04 23:12:56', 25, 'f67396fc3cfce63a28e07ebb35d974ac.jpg', 'travel', 'vacation,holidays,sightseeing'),
+('3', '2022-08-04 23:13:12', 'Draft', 'Online Shopping – An Alternative to Shopping in the Mall', '2', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.', '2022-08-04 23:13:12', 3, 'fQwuyKJ9qxjSbr6REcgtmW-1200-80.jpg', 'shopping', 'e-commerce store,clothing,shopping store'),
+('4', '2022-08-04 23:13:22', 'Draft', 'ADVENTURE IN YOU', '2', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.', '2022-08-04 23:13:22', 2, 'graphic-design-trends.png', 'adventure', 'adrenaline,stay-fit,lifestyle'),
+('5', '2022-08-05 00:24:17', 'close', '7 CSS tools you should be using', '2', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.', '2022-08-05 00:24:17', 3, 'designer-1.jpg', 'development', '[\"frontend\", \"ui/ux\", \"design\"]'),
+('6', '2022-08-05 00:24:26', 'Draft', '7 CSS tools you should be using', '2', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.', '2022-08-05 00:24:26', 2, 'designer-1.jpg', 'development', '[\"frontend\", \"ui/ux\", \"design\"]'),
+('62f540ca6c818', '2022-08-11 20:47:54', 'Draft', 'חיים', '62e0438f6d8ac', 'אני כאן', '2022-08-11 20:47:54', 3, '3d5a58e10209e789FinelProject-Use case Diagram.drawio (1).png', 'כל הקטגוריות', 'מים,סבון'),
+('7', '2022-08-05 00:24:36', 'Draft', '7 CSS tools you should be using', '2', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.', '2022-08-05 00:24:36', 3, 'designer-1.jpg', 'development', '[\"frontend\", \"ui/ux\", \"design\"]');
 
 -- --------------------------------------------------------
 
@@ -634,7 +639,9 @@ INSERT INTO `favorites` (`favorite_id`, `userId`, `AdId`, `create_time`) VALUES
 ('630b9cf2c5eb1', '6308e3a2849f3', '62e83f0827d3a', '2022-08-28 19:50:58'),
 ('630b9cf2ee1ec', '6308e3a2849f3', '62e83f0827d3a', '2022-08-28 19:50:58'),
 ('630b9cf32033f', '6308e3a2849f3', '62e83f0827d3a', '2022-08-28 19:50:59'),
-('6310e8adf158e', '6308e3a2849f3', '2', '2022-09-01 20:15:26');
+('6310e8adf158e', '6308e3a2849f3', '2', '2022-09-01 20:15:26'),
+('633b3649687ac', '62c7eb0759d47', '6310e5ab9080b', '2022-10-03 22:21:45'),
+('635175067f393', '62c7eb0759d47', '6310e6d4e271f', '2022-10-20 19:19:18');
 
 -- --------------------------------------------------------
 
@@ -657,7 +664,21 @@ INSERT INTO `history` (`history_id`, `userId`, `adId`, `create_time`) VALUES
 ('631a271b0d2f5', '6314c734aea38', '2', '0000-00-00 00:00:00'),
 ('631a27c0e9892', '6314c734aea38', '62e95d3c18f47', '2022-09-08 20:34:56'),
 ('631b23b2aaf81', '6314c734aea38', '6310e5ab9080b', '2022-09-09 14:29:54'),
-('633021761a813', '6314c734aea38', '62e82ad3a51c4', '2022-09-25 12:37:58');
+('633021761a813', '6314c734aea38', '62e82ad3a51c4', '2022-09-25 12:37:58'),
+('63349608ed380', '62c7eb0759d47', '6310e5c9a0f97', '0000-00-00 00:00:00'),
+('63360ba68be12', '62c7eb0759d47', '303902', '2022-09-30 00:18:30'),
+('633a06fe028f2', '62c7eb0759d47', '62e81dfb9fbb0', '0000-00-00 00:00:00'),
+('633f3f68cecbf', '62c7eb0759d47', '633b31e322971', '0000-00-00 00:00:00'),
+('633f40177614c', '62c7eb0759d47', '2', '0000-00-00 00:00:00'),
+('633f40efc067c', '62c7eb0759d47', '6310e5ab9080b', '0000-00-00 00:00:00'),
+('6345b2f85d38c', '62c7eb0759d47', '62f2627b5972e', '0000-00-00 00:00:00'),
+('6350581fc3a3f', '62c7eb0759d47', '633025380f00d', '2022-10-19 23:03:43'),
+('6350585d4b0f5', '62c7eb0759d47', '6310e6d4e271f', '0000-00-00 00:00:00'),
+('635175aa635fe', '62c7eb0759d47', '62e81ef0e6610', '2022-10-20 19:22:02'),
+('6351967abd921', '62c7eb0759d47', '12', '0000-00-00 00:00:00'),
+('63519904dceb5', '62c7eb0759d47', '55', '2022-10-20 21:52:52'),
+('6351996f08d37', '62c7eb0759d47', '62e83ed8a9379', '2022-10-20 21:54:39'),
+('63519cb3c09f7', '62c7eb0759d47', '62e95d3c18f47', '2022-10-20 22:08:35');
 
 -- --------------------------------------------------------
 
@@ -717,12 +738,32 @@ CREATE TABLE `messages` (
 INSERT INTO `messages` (`msgid`, `adId`, `sender`, `receiver`, `message`, `files`, `dateMsg`, `seen`, `received`, `delete_sender`, `delete_receiver`, `newUpdate`) VALUES
 ('1', '1', '2', '6308e3a2849f3', 'hi', '1', '0000-00-00 00:00:00', 1, 1, 0, 0, 0),
 ('2\r\n', '1', '6308e3a2849f3', '2', 'hello', '', '2022-08-28 19:46:12', 0, 0, 0, 0, 0),
-('630bfe6960ce0', '', '6308e3a2849f3', '62c7eb0759d47', 'ldl', '', '2022-08-29 02:46:49', 0, 0, 0, 0, 0),
-('630bfe6b15577', '', '6308e3a2849f3', '62c7eb0759d47', 'd', '', '2022-08-29 02:46:51', 0, 0, 0, 0, 0),
-('630bfe6ded996', '', '6308e3a2849f3', '62c7eb0759d47', 'ldl', '', '2022-08-29 02:46:53', 0, 0, 0, 0, 0),
-('630cf7fa55d4d', '', '6308e3a2849f3', '62c7eb0759d47', 'dkkdkd', '', '2022-08-29 20:31:38', 0, 0, 0, 0, 0),
-('630cf7fbbeffc', '', '6308e3a2849f3', '62c7eb0759d47', 'ldld', '', '2022-08-29 20:31:39', 0, 0, 0, 0, 0),
-('633025e7dbe37', '', '6314c734aea38', '62c7eb0759d47', 'חחדח', '', '2022-09-25 12:56:55', 0, 0, 0, 0, 0);
+('630bfe6960ce0', '', '62c7ebda1e8f3', '62c7eb0759d47', 'ldl', '', '2022-08-29 02:46:49', 1, 1, 0, 0, 1),
+('630bfe6b15577', '', '6308e3a2849f3', '6308e3a2849f3', 'd', '', '2022-08-29 02:46:51', 1, 1, 0, 0, 1),
+('630bfe6ded996', '', '6308e3a2849f3', '62c7eb0759d47', 'ldl', '', '2022-08-29 02:46:53', 1, 1, 0, 0, 1),
+('630cf7fa55d4d', '', '62c7ed85ef2d8', '62c7eb0759d47', 'חיים', '', '2022-08-29 20:31:38', 1, 1, 0, 0, 1),
+('630cf7fbbeffc', '', '6308e3a2849f3', '62c7eb0759d47', 'ldld', '', '2022-08-29 20:31:39', 1, 1, 0, 0, 1),
+('6314c6022a480', '', '62c7eb0759d47', '2', 'kfkf', '', '2022-10-03 00:15:13', 0, 0, 0, 0, 0),
+('6314c6022a48d', '', '62c7eb0759d47', '62c7ebda1e8f3', 'kdkd', '', '2022-10-03 00:15:22', 0, 0, 0, 0, 0),
+('633025e7dbe37', '', '6314c734aea38', '6314c40b67d94', 'חחדח', '', '2022-09-25 12:56:55', 1, 1, 0, 0, 1),
+('6339f7e280171', '', '62c7ed85ef2d8', '6314c734aea38', 'kfkf', '', '2022-10-02 23:43:14', 0, 0, 0, 0, 0),
+('6339f7e3d1989', '', '62c7eb0759d47', '6308e3a2849f3', 'f', '', '2022-10-02 23:43:15', 0, 0, 0, 0, 0),
+('6339f7e43a731', '', 'haimke', '6314c734aea38', 'f', '', '2022-10-02 23:43:16', 0, 0, 0, 0, 0),
+('6339f7e46990a', '', '62c7eb0759d47', 'haimke', 'f', '', '2022-10-02 23:43:16', 0, 0, 0, 0, 0),
+('6339f7e48ff46', '', '2', '6314c734aea38', 'f', '', '2022-10-02 23:43:16', 0, 0, 0, 0, 0),
+('6339ff6073f6f', '', '62c7eb0759d47', '6314c734aea38', 'klfkfkf', '', '2022-10-03 00:15:12', 0, 0, 0, 0, 0),
+('6339ff6204ad1', '', '62c7eb0759d47', '62c73834b2320', ',fkflk', '', '2022-10-03 00:15:14', 0, 0, 0, 0, 0),
+('6339ff6b042b1', '', '62c7eb0759d47', '62bcc7b1b59ef', 'kdkd', '', '2022-10-03 00:15:23', 0, 0, 0, 0, 0),
+('6339ff6baf35a', '', '6314c6022a480', '6314c734aea38', 'kdkd', '', '2022-10-03 00:15:23', 0, 0, 0, 0, 0),
+('6339ffadbd8cd', '', '2', '6314c734aea38', 'fkdfk', '', '2022-10-03 00:16:29', 0, 0, 0, 0, 0),
+('6339ffaf586f4', '', '62c7eb0759d47', '6308dec066530', 'ldd', '', '2022-10-03 00:16:31', 0, 0, 0, 0, 0),
+('6339ffbe9f49e', '', '62c7eb0759d47', '6314c6022a480', 'dld', '', '2022-10-03 00:16:46', 0, 0, 0, 0, 0),
+('633b0ef6e8edb', '', '6308e3a2849f3', '62c7eb0759d47', '62c7eb0759d47', '', '2022-10-03 19:33:58', 1, 1, 0, 0, 1),
+('6345b1bbb53ab', '', '62c7eb0759d47', '6308e3a2849f3', 'fkfk', '', '2022-10-11 21:11:07', 0, 0, 0, 0, 0),
+('6346ce7738134', '', '62c7eb0759d47', '6308e3a2849f3', 'dkkkdfkfdkfd', '', '2022-10-12 17:25:59', 0, 0, 0, 0, 0),
+('6346ce78156d4', '', '62c7eb0759d47', '6308e3a2849f3', 'kfksdkfs', '', '2022-10-12 17:26:00', 0, 0, 0, 0, 0),
+('6346ce78ea588', '', '62c7eb0759d47', '6308e3a2849f3', 'kfskfkfs', '', '2022-10-12 17:26:00', 0, 0, 0, 0, 0),
+('6346ce7990a8e', '', '62c7eb0759d47', '6308e3a2849f3', 'kfskfs', '', '2022-10-12 17:26:01', 0, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -746,14 +787,14 @@ CREATE TABLE `package` (
 --
 
 INSERT INTO `package` (`packageId`, `price`, `is_active`, `title`, `content`, `create_time`, `ad_value`, `update_time`) VALUES
-('1', 99, 1, 'tiny package', 'worst pack', '2022-05-22 17:39:42', 0, '2022-08-11 22:58:25'),
+('1', 99, 0, 'tiny package', 'worst pack', '2022-05-22 17:39:42', 0, '2022-10-14 16:05:53'),
 ('2', 23, 0, 'mid pack', 's2nd peck', '2022-05-22 17:40:25', 230, '2022-08-06 21:25:55'),
 ('23', 2, 0, 'ckskc', 'ckk', '2022-05-22 17:41:39', 3, '0000-00-00 00:00:00'),
 ('3', 0.5, 1, '33', '3dwd', '2022-05-22 17:40:47', 332, '2022-08-07 10:36:23'),
 ('628a91127da05', 1, 1, '23', '13', '2022-05-22 22:37:54', 13, '2022-05-22 22:37:54'),
 ('628a913467f66', 929292, 1, '1', 'dswdsmm', '2022-05-22 22:38:28', 212, '2022-05-22 22:38:28'),
 ('628a99d860576', 1, 1, 'DCDC', 'EE', '2022-05-22 23:15:20', 2332, '2022-05-22 23:15:20'),
-('62a0c081cfcbb', 1, 1, '', '', '2022-06-08 18:30:09', 0, '2022-06-08 18:30:09'),
+('62a0c081cfcbb', 1, 1, 'חבילה בשקל בלי לקבל כלום', 'חבילה בלי כלום', '2022-06-08 18:30:09', 0, '2022-10-14 16:05:28'),
 ('62a0c5cf49966', 0.2, 1, 'iiddi', 'dkj', '2022-06-08 18:52:47', 929292, '2022-06-08 18:52:47'),
 ('62a0c67806d1a', 1, 1, '3993', '299', '2022-06-08 18:55:36', 9392, '2022-06-08 18:55:36'),
 ('62a0c9ef58c9b', 0.3, 1, '83', 'jf', '2022-06-08 19:10:23', 830, '2022-06-08 19:10:23'),
@@ -770,7 +811,9 @@ INSERT INTO `package` (`packageId`, `price`, `is_active`, `title`, `content`, `c
 ('62ed196f4bd46', 9393, 1, '99399', '992', '2022-08-05 16:21:51', 3, '2022-08-05 16:21:51'),
 ('62ed1998944ad', 3, 1, 'cc', 'kck', '2022-08-05 16:22:32', 2, '2022-08-05 16:22:32'),
 ('62ef79e43aac5', 3993, 1, 'kkkxkxkxkxk', 'sxmcx,c', '2022-08-07 11:37:56', 200202, '2022-08-07 11:37:56'),
-('630d238151989', 1, 1, 'mcc', 'kdk', '2022-08-29 23:37:21', 2, '2022-08-29 23:37:21');
+('630d238151989', 1, 1, 'mcc', 'kdk', '2022-08-29 23:37:21', 2, '2022-08-29 23:37:21'),
+('63496cdf0f721', 123, 1, 'חבילה בשישי בדיקה', 'בדיקה', '2022-10-14 17:06:23', 12, '2022-10-14 17:06:23'),
+('63496dca5ebfa', 1.111111111111111e15, 0, 'dkk', 'xx', '2022-10-14 17:10:18', 12, '2022-10-14 16:11:06');
 
 -- --------------------------------------------------------
 
@@ -790,7 +833,7 @@ CREATE TABLE `password_recovery` (
 --
 
 INSERT INTO `password_recovery` (`id`, `userMail`, `token`, `exp_date`) VALUES
-(8, 'haim17701@gmail.com', '0141028d197fe76c6f158b5a34b283d4', '2022-09-29 20:13:11');
+(8, 'haim17701@gmail.com', '7cf3a7d265d537257fc673f0dcd8ec86', '2022-10-19 21:46:35');
 
 -- --------------------------------------------------------
 
@@ -982,7 +1025,10 @@ INSERT INTO `pictures` (`pictureID`, `element_id`, `serial_number`, `picture_url
 ('6310a159a5cc7', '630b982ca3319', 1, 'f717394f041c800fFinelProject-ERD (7).jpg', '2022-09-01 14:11:05', 'FinelProject-ERD (7).jpg'),
 ('6310a159a7cba', '630b982ca3319', 2, 'bb1b33ef6b1943d7context-Page-2.jpg', '2022-09-01 14:11:05', 'context-Page-2.jpg'),
 ('633025380f457', '633025380f00d', 1, '4523c06d5e28e725FinelProject-ERD (4).jpg', '2022-09-25 11:54:00', 'FinelProject-ERD (4).jpg'),
-('6330253814272', '633025380f00d', 2, 'ef5aa914c3bdb8e4FinelProject-ERD (6).jpg', '2022-09-25 11:54:00', 'FinelProject-ERD (6).jpg');
+('6330253814272', '633025380f00d', 2, 'ef5aa914c3bdb8e4FinelProject-ERD (6).jpg', '2022-09-25 11:54:00', 'FinelProject-ERD (6).jpg'),
+('633b31e322d04', '633b31e322971', 1, 'dba534ac208e40dfFinelProject-Use case Diagram.drawio (1).png', '2022-10-03 21:02:59', 'FinelProject-Use case Diagram.drawio (1).png'),
+('633b31e324869', '633b31e322971', 2, '55998bf2339d8ddfFinelProject-ERD (4).jpg', '2022-10-03 21:02:59', 'FinelProject-ERD (4).jpg'),
+('633b31e325c19', '633b31e322971', 3, '347964ed612d7731FinelProject-ERD (5).jpg', '2022-10-03 21:02:59', 'FinelProject-ERD (5).jpg');
 
 -- --------------------------------------------------------
 
@@ -1041,7 +1087,8 @@ INSERT INTO `report_reason` (`reason_id`, `element_type`, `reason_name`, `create
 ('630272e7eed5f', 'ad', 'dkdkdk', '2022-08-21 21:01:11', 1),
 ('6308b4eb944bc', 'blog', 'שינוי מייל', '2022-08-26 14:56:27', 0),
 ('6308b51eb8b8d', 'משתמש', 'שינוי מייל', '2022-08-26 14:57:18', 0),
-('6308b5618d39b', 'user', 'שינוי מייל', '2022-08-26 14:58:25', 1);
+('6308b5618d39b', 'user', 'שינוי מייל', '2022-08-26 14:58:25', 1),
+('63495efa33aab', 'ad', 'שחזר מודעה', '2022-10-14 16:07:06', 1);
 
 -- --------------------------------------------------------
 
@@ -1061,7 +1108,7 @@ CREATE TABLE `settings` (
 --
 
 INSERT INTO `settings` (`id`, `adsGift`, `expireDateAds`, `expectedProfit`) VALUES
-('1', 21474, 100, 44);
+('1', 214, 1001, 4412);
 
 -- --------------------------------------------------------
 
@@ -1150,10 +1197,10 @@ INSERT INTO `system_messages` (`msgId`, `userId`, `message_content`, `create_tim
 ('630b24f7a9fa5', '2', '2 ', '2022-08-28 11:19:03', 0, 'report', 'Notice'),
 ('630b256d3371d', '2', '2 ', '2022-08-28 11:21:01', 0, 'report', 'Notice'),
 ('630b25a803c81', '2', '2 ', '2022-08-28 11:22:00', 0, 'report', 'Notice'),
-('630b2b26b1a3a', '62c7eb0759d47', ' מודעה מספר62e95cce4de81 נמחקה ', '2022-08-28 11:45:26', 0, 'adClosed', 'Notice'),
-('630b2b3e57b45', '62c7eb0759d47', ' מודעה מספר62e83f19278e1 נמחקה ', '2022-08-28 11:45:50', 0, 'adClosed', 'Notice'),
+('630b2b26b1a3a', '62c7eb0759d47', ' מודעה מספר62e95cce4de81 נמחקה ', '2022-08-28 11:45:26', 1, 'adClosed', 'Notice'),
+('630b2b3e57b45', '62c7eb0759d47', ' מודעה מספר62e83f19278e1 נמחקה ', '2022-08-28 11:45:50', 1, 'adClosed', 'Notice'),
 ('630b982cb5b97', '6308e3a2849f3', 'מודעה חדשה נוצרה והועברה לאישור מנהל', '2022-08-28 19:30:36', 1, 'newAd', 'Notice'),
-('630f86d81f7c2', '62c7eb0759d47', ' מודעה מספר 62e95d3c18f47 אושרה ', '2022-08-31 19:05:44', 0, 'aproveAd', 'Success'),
+('630f86d81f7c2', '62c7eb0759d47', ' מודעה מספר 62e95d3c18f47 אושרה ', '2022-08-31 19:05:44', 1, 'aproveAd', 'Success'),
 ('630f8f67c9ff4', '2', '2 ', '2022-08-31 19:42:15', 0, 'report', 'Notice'),
 ('630f8f97a1920', '6308e3a2849f3', ' מודעה מספר 630b982ca3319 אושרה ', '2022-08-31 19:43:03', 1, 'aproveAd', 'Success'),
 ('6310b10c1bafd', '6308e3a2849f3', ' מודעה מספר 630b982ca3319 לא אושרה ', '2022-09-01 16:18:04', 1, 'declineAd', 'Error'),
@@ -1165,9 +1212,9 @@ INSERT INTO `system_messages` (`msgId`, `userId`, `message_content`, `create_tim
 ('6310b8fd390c2', '6308e3a2849f3', ' מודעה מספר 630b982ca3319 אושרה ', '2022-09-01 16:51:57', 1, 'aproveAd', 'Success'),
 ('6310b8fe99582', '6308e3a2849f3', ' מודעה מספר 630b982ca3319 לא אושרה ', '2022-09-01 16:51:58', 1, 'declineAd', 'Error'),
 ('6310b92f920ea', '6308e3a2849f3', ' מודעה מספר 630b982ca3319 אושרה ', '2022-09-01 16:52:47', 1, 'aproveAd', 'Success'),
-('6310b961bc6a0', '62c7eb0759d47', ' מודעה מספר 62f2627b5972e אושרה ', '2022-09-01 16:53:37', 0, 'aproveAd', 'Success'),
-('6310bb2c0fe05', '62c7eb0759d47', ' מודעה מספר 62f26364846a4 לא אושרה ', '2022-09-01 17:01:16', 0, 'declineAd', 'Error'),
-('6310bb2d927a9', '62c7eb0759d47', ' מודעה מספר 62f263681627e אושרה ', '2022-09-01 17:01:17', 0, 'aproveAd', 'Success'),
+('6310b961bc6a0', '62c7eb0759d47', ' מודעה מספר 62f2627b5972e אושרה ', '2022-09-01 16:53:37', 1, 'aproveAd', 'Success'),
+('6310bb2c0fe05', '62c7eb0759d47', ' מודעה מספר 62f26364846a4 לא אושרה ', '2022-09-01 17:01:16', 1, 'declineAd', 'Error'),
+('6310bb2d927a9', '62c7eb0759d47', ' מודעה מספר 62f263681627e אושרה ', '2022-09-01 17:01:17', 1, 'aproveAd', 'Success'),
 ('6310e59511718', '6308e3a2849f3', 'מודעה חדשה נוצרה והועברה לאישור מנהל', '2022-09-01 20:02:13', 1, 'newAd', 'Notice'),
 ('6310e5ab979ef', '6308e3a2849f3', 'מודעה חדשה נוצרה והועברה לאישור מנהל', '2022-09-01 20:02:35', 1, 'newAd', 'Notice'),
 ('6310e5c9a76ff', '6308e3a2849f3', 'מודעה חדשה נוצרה והועברה לאישור מנהל', '2022-09-01 20:03:05', 1, 'newAd', 'Notice'),
@@ -1182,17 +1229,57 @@ INSERT INTO `system_messages` (`msgId`, `userId`, `message_content`, `create_tim
 ('63112e8f4fddf', '2', '63111e8045553 2', '2022-09-02 01:13:35', 0, 'report', 'Notice'),
 ('63112ede4f7bf', '2', '63111e8045553 2', '2022-09-02 01:14:54', 0, 'report', 'Notice'),
 ('63112f13c2747', '2', '63111e8045553 2', '2022-09-02 01:15:47', 0, 'report', 'Notice'),
-('63112f75d2dc7', '62c7eb0759d47', '630b94f315197 62e83f0827d3a', '2022-09-02 01:17:25', 0, 'report', 'Notice'),
+('63112f75d2dc7', '62c7eb0759d47', '630b94f315197 62e83f0827d3a', '2022-09-02 01:17:25', 1, 'report', 'Notice'),
 ('63112fb39d49e', '62c7eb0759d47', '630b94f315197 62e83f0827d3a', '2022-09-02 01:18:27', 0, 'report', 'Notice'),
-('63112ff6c36b3', '62c7eb0759d47', '630b94f315197 62e83f0827d3a', '2022-09-02 01:19:34', 0, 'report', 'Notice'),
-('6311304d0c78b', '62c7eb0759d47', '630b94f315197 62e83f0827d3a', '2022-09-02 01:21:01', 0, 'report', 'Notice'),
-('631b1cc25d8db', '62c7eb0759d47', ' מודעה מספר 62f41963f1aeb לא אושרה ', '2022-09-09 14:00:18', 0, 'declineAd', 'Error'),
+('63112ff6c36b3', '62c7eb0759d47', '630b94f315197 62e83f0827d3a', '2022-09-02 01:19:34', 1, 'report', 'Notice'),
+('6311304d0c78b', '62c7eb0759d47', '630b94f315197 62e83f0827d3a', '2022-09-02 01:21:01', 1, 'report', 'Notice'),
+('631b1cc25d8db', '62c7eb0759d47', ' מודעה מספר 62f41963f1aeb לא אושרה ', '2022-09-09 14:00:18', 1, 'declineAd', 'Error'),
 ('631b1cc6209b9', '2', ' מודעה מספר 6310e5950d2e4 לא אושרה ', '2022-09-09 14:00:22', 0, 'declineAd', 'Error'),
 ('631b1cc83a3ec', '2', ' מודעה מספר 6310e5ab9080b אושרה ', '2022-09-09 14:00:24', 0, 'aproveAd', 'Success'),
 ('631b1cf552a6f', '6308e3a2849f3', ' מודעה מספר 630b982ca3319 לא אושרה ', '2022-09-09 14:01:09', 0, 'declineAd', 'Error'),
 ('631e1bd22f40c', '6308e3a2849f3', ' מודעה מספר 6310e5c9a0f97 אושרה ', '2022-09-11 20:33:06', 0, 'aproveAd', 'Success'),
 ('631e2f004785e', '6308e3a2849f3', ' מודעה מספר 6310e6633b61e לא אושרה ', '2022-09-11 21:54:56', 0, 'declineAd', 'Error'),
-('633025381a05d', '6314c734aea38', 'מודעה חדשה נוצרה והועברה לאישור מנהל', '2022-09-25 12:54:00', 1, 'newAd', 'Notice');
+('633025381a05d', '6314c734aea38', 'מודעה חדשה נוצרה והועברה לאישור מנהל', '2022-09-25 12:54:00', 1, 'newAd', 'Notice'),
+('633b31e32d82b', '62c7eb0759d47', 'מודעה חדשה נוצרה והועברה לאישור מנהל', '2022-10-03 22:02:59', 1, 'newAd', 'Notice'),
+('633b360a45c64', '6308e3a2849f3', ' מודעה מספר6310e5c9a0f97 נמחקה ', '2022-10-03 22:20:42', 0, 'adClosed', 'Notice'),
+('633b360e76187', '6308e3a2849f3', ' מודעה מספר6310e5c9a0f97 נמחקה ', '2022-10-03 22:20:46', 0, 'adClosed', 'Notice'),
+('633b3613a4bd3', '6308e3a2849f3', ' מודעה מספר6310e5c9a0f97 נמחקה ', '2022-10-03 22:20:51', 0, 'adClosed', 'Notice'),
+('633b3617324ec', '6308e3a2849f3', ' מודעה מספר6310e5c9a0f97 נמחקה ', '2022-10-03 22:20:55', 0, 'adClosed', 'Notice'),
+('633b36182fb05', '6308e3a2849f3', ' מודעה מספר6310e5c9a0f97 נמחקה ', '2022-10-03 22:20:56', 0, 'adClosed', 'Notice'),
+('633b361bc2bb2', '6308e3a2849f3', ' מודעה מספר6310e5c9a0f97 נמחקה ', '2022-10-03 22:20:59', 0, 'adClosed', 'Notice'),
+('633b362259ac9', '6308e3a2849f3', ' מודעה מספר6310e5c9a0f97 נמחקה ', '2022-10-03 22:21:06', 0, 'adClosed', 'Notice'),
+('633f3f8fcab4c', '62c7eb0759d47', ' מודעה מספר633b31e322971 נמחקה ', '2022-10-06 23:50:23', 1, 'adClosed', 'Notice'),
+('633f3f9310bff', '62c7eb0759d47', ' מודעה מספר633b31e322971 נמחקה ', '2022-10-06 23:50:27', 1, 'adClosed', 'Notice'),
+('633f3f93eff60', '62c7eb0759d47', ' מודעה מספר633b31e322971 נמחקה ', '2022-10-06 23:50:28', 1, 'adClosed', 'Notice'),
+('633f416f3d48d', '62c7eb0759d47', ' מודעה מספר633b31e322971 נמחקה ', '2022-10-06 23:58:23', 1, 'adClosed', 'Notice'),
+('633f41720af2f', '62c7eb0759d47', ' מודעה מספר633b31e322971 נמחקה ', '2022-10-06 23:58:26', 1, 'adClosed', 'Notice'),
+('633f417311008', '62c7eb0759d47', ' מודעה מספר633b31e322971 נמחקה ', '2022-10-06 23:58:27', 1, 'adClosed', 'Notice'),
+('633f41734dfd9', '62c7eb0759d47', ' מודעה מספר633b31e322971 נמחקה ', '2022-10-06 23:58:27', 1, 'adClosed', 'Notice'),
+('633f41738ab82', '62c7eb0759d47', ' מודעה מספר633b31e322971 נמחקה ', '2022-10-06 23:58:27', 1, 'adClosed', 'Notice'),
+('6349585014371', '2', ' מודעה מספר6310e5ab9080b נמחקה ', '2022-10-14 15:38:40', 0, 'adClosed', 'Notice'),
+('63495ccb34799', '2', ' מודעה מספר6310e5ab9080b שוחזרה ', '2022-10-14 15:57:47', 0, 'aproveAd', 'Notice'),
+('63495ccfda19a', '2', ' מודעה מספר6310e5ab9080b שוחזרה ', '2022-10-14 15:57:51', 0, 'aproveAd', 'Notice'),
+('63495ce1a785e', '2', ' מודעה מספר6310e5ab9080b שוחזרה ', '2022-10-14 15:58:09', 0, 'aproveAd', 'Notice'),
+('63495ce4be34e', '2', ' מודעה מספר6310e5ab9080b שוחזרה ', '2022-10-14 15:58:12', 0, 'aproveAd', 'Notice'),
+('63495cf5dfd02', '2', ' מודעה מספר2 נמחקה ', '2022-10-14 15:58:29', 0, 'adClosed', 'Notice'),
+('63495d0ed3bb8', '2', ' מודעה מספר6310e5ab9080b נמחקה ', '2022-10-14 15:58:54', 0, 'adClosed', 'Notice'),
+('63495d43db263', '2', ' מודעה מספר6310e5ab9080b שוחזרה ', '2022-10-14 15:59:47', 0, 'aproveAd', 'Notice'),
+('63495d7a7a50b', '2', ' מודעה מספר6310e5ab9080b נמחקה ', '2022-10-14 16:00:42', 0, 'adClosed', 'Notice'),
+('63495d82e8828', '2', ' מודעה מספר6310e5ab9080b נמחקה ', '2022-10-14 16:00:50', 0, 'adClosed', 'Notice'),
+('63495d9f728d5', '2', ' מודעה מספר6310e5ab9080b שוחזרה ', '2022-10-14 16:01:19', 0, 'aproveAd', 'Notice'),
+('63495dd6e9d46', '2', ' מודעה מספר6310e5ab9080b נמחקה ', '2022-10-14 16:02:14', 0, 'adClosed', 'Notice'),
+('6349601249d68', '6308e3a2849f3', ' מודעה מספר 6310e6d4e271f אושרה ', '2022-10-14 16:11:46', 0, 'aproveAd', 'Success'),
+('63496027227bd', '6314c734aea38', ' מודעה מספר 633025380f00d לא אושרה ', '2022-10-14 16:12:07', 0, 'declineAd', 'Error'),
+('6349602911827', '6314c734aea38', ' מודעה מספר 633025380f00d לא אושרה ', '2022-10-14 16:12:09', 0, 'declineAd', 'Error'),
+('63496029e8c18', '6314c734aea38', ' מודעה מספר 633025380f00d לא אושרה ', '2022-10-14 16:12:09', 0, 'declineAd', 'Error'),
+('6349602aeb185', '6314c734aea38', ' מודעה מספר 633025380f00d אושרה ', '2022-10-14 16:12:10', 0, 'aproveAd', 'Success'),
+('6349602be4999', '6314c734aea38', ' מודעה מספר 633025380f00d אושרה ', '2022-10-14 16:12:11', 0, 'aproveAd', 'Success'),
+('6349602f5f8a4', '6314c734aea38', ' מודעה מספר 633025380f00d לא אושרה ', '2022-10-14 16:12:15', 0, 'declineAd', 'Error'),
+('6349602faa39d', '6314c734aea38', ' מודעה מספר 633025380f00d לא אושרה ', '2022-10-14 16:12:15', 0, 'declineAd', 'Error'),
+('6349602fd9382', '6314c734aea38', ' מודעה מספר 633025380f00d לא אושרה ', '2022-10-14 16:12:15', 0, 'declineAd', 'Error'),
+('63496030cb8a0', '6314c734aea38', ' מודעה מספר 633025380f00d אושרה ', '2022-10-14 16:12:16', 0, 'aproveAd', 'Success'),
+('63505855a718b', '6314c734aea38', ' מודעה מספר633025380f00d נמחקה ', '2022-10-19 23:04:37', 0, 'adClosed', 'Notice'),
+('635175594a6b0', '6308e3a2849f3', ' מודעה מספר6310e6d4e271f נמחקה ', '2022-10-20 19:20:41', 0, 'adClosed', 'Notice');
 
 -- --------------------------------------------------------
 
@@ -1222,13 +1309,14 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`uuid`, `first_name`, `last_name`, `phone`, `mail`, `create_time`, `password`, `last_seen`, `prompt`, `rule`, `refreshToken`, `remaining_ads`, `privateSharedKey`, `active`) VALUES
+('1888', 'lidor', 'ben shimol', '05421565045', 'lidor', '2022-10-20 22:34:08', '$2y$10$vtwitsoqvMynNo7p2idBwuHrMIHPyArBxsva80.ZWVAamOqttqcuC\r\n', '2022-10-20 22:34:08', '', '5150', '', 0, '', 1),
 ('2', 'lidor', 'ben shimol', '0542155045', 'ha@ww.com', '2022-04-06 17:52:19', '123', '2022-08-11 15:18:43', '', '5150', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NTg3NzMyOTYsImp0aSI6IlkvRU5ELzVYVUhMMlZKVTc2NzFSRmc9PSIsImlzcyI6ImxvY2FsaG9zdCIsIm5iZiI6MTY1ODc3MzI5NiwiZXhwIjoxNjU4ODU5Njk2LCJkYXRhIjp7InVzZXIiOiJBQUFAYS5jb20ifX0.Wv5Z8XZD3GWdJuL5eMYYGUzJU8tDcHJi1uuwqgTJ2Hs', 0, '', 1),
 ('62bcc7b1b59ef', 'ck', 'kdk', 'kdk', 'ha@g.com', '2022-06-30 00:44:17', '$2y$10$.h9krhZmmhHVGiUiGIvmjueOhG4Dj01/W4RGzRIPqZ8pn3BsHkHBK', '2022-06-30 00:44:17', 'ckk', '5150', 'ds', 1000, '', 1),
 ('62c5f48d0980d', 'xkkx', 'ckskc', '4499439', 'haimm@g.com', '2022-07-06 23:46:05', '$2y$10$qqkNJ8pxpwK1YfebDHJagOEU5mx0QLFAJOI79hI7tJDNw5YL5GfVi', '2022-07-06 23:46:05', 'cck', '5150', 'ds', 500, '', 1),
 ('62c73563df771', 'kcck', 'ckmk', '', 'jj@jj.com', '2022-07-07 22:34:59', '$2y$10$hkQbtWPYiuU0u9sqBn6Qp.a8hk9zDNamH7OOMNl02wCekqy1WjllG', '2022-07-07 22:34:59', '', '2001', 'ds', 5, '', 1),
 ('62c735c0ae12d', 'kdk', 'ckk', '1', 'jfkjfkj@kd.com', '2022-07-07 22:36:32', '$2y$10$Kt8m0so9HYc3UD1RlkRcFeZSx0cTWF7ZjshtsbgVcTC4t5Gh1GeZq', '2022-07-07 22:36:32', 'xk', '2001', 'ds', 5, '', 1),
 ('62c73834b2320', 'ckc', 'kck', '', 'klvkldf@fkdf.com', '2022-07-07 22:47:00', '$2y$10$BBSSTosdisz2ZV27NNn.x.HaxIGSVLH77XJjHYV8.1ausaK3HwT9i', '2022-07-07 22:47:00', '', '2001', 'ds', 5, '', 1),
-('62c7eb0759d47', 'haim', 'skcx', '050555555', 'haim17701@gmail.com', '2022-07-08 11:29:59', '$2y$10$qGb8E8AGzuhoa.FE/Pf1XuledW02zBuzcC.N1R2pXZTPwl0/ruiFa', '2022-07-08 11:29:59', 'xk', '2001', 'ds', 0, '', 1),
+('62c7eb0759d47', 'haim', 'skcx', '050555555', 'haim17701@gmail.com', '2022-07-08 11:29:59', '$2y$10$6l.ELDYr7QcQeFpAz/vaCe46NP46xECe7gh.6FlfIAluCbC1o46ye', '2022-10-20 22:34:47', 'xk', '5150', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NjYyMDg4MDIsImp0aSI6IkJXcUhONVNjR3JOMVBMUDZTaFdidVE9PSIsImlzcyI6ImxvY2FsaG9zdCIsIm5iZiI6MTY2NjIwODgwMiwiZXhwIjoxNjY2Mjk1MjAyLCJkYXRhIjp7InVzZXIiOiJoYWltMTc3MDFAZ21haWwuY29tIn19.fmdcums4IT6eFTI7T3SpbR5mPqPPpRy8TbEwU0OcZbY', 0, '39296223', 1),
 ('62c7eb20d6dbf', 'ck', 'cks', '3323432432', 'kdfkl@kf.com', '2022-07-08 11:30:24', '$2y$10$N46g16Wdy0McyZ3RqH54VO4lWe4QRUNj/W9gZdlZ2z50MqLhWzyj.', '2022-07-08 11:30:24', 'c', '2001', 'ds', 5, '', 1),
 ('62c7eb4d0aa06', 'k', '', '', 'ksl@kfk.com', '2022-07-08 11:31:09', '$2y$10$qcmJmG/bEqr3lDhkitxvR..4qnD0742hQ.kz8zKQr9PTgL0vrR0PO', '2022-07-08 11:31:09', '', '2001', 'ds', 5, '', 1),
 ('62c7ebda1e8f3', 'kd', 'kxk', '', 'jdsj@cjkc.com', '2022-07-08 11:33:30', '$2y$10$L4qThBb9HH9Ba9JgSepoVu9ng99R8flUK7XATmPtKzWrW7M/cXbl6', '2022-07-08 11:33:30', 'k', '2001', 'ds', 5, '', 1),
@@ -1236,13 +1324,18 @@ INSERT INTO `users` (`uuid`, `first_name`, `last_name`, `phone`, `mail`, `create
 ('62c7edcc54605', 'kckck', 'kdk', '', 'kk@fkfk.com', '2022-07-08 11:41:48', '$2y$10$Uy4vRLlJBoCJV0hVDlJ/teYl3lODIpjo83R1ok/Wz2OlAWBhHPpZ6', '2022-07-08 11:41:48', '', '2001', 'ds', 5, '', 1),
 ('62c7ee0d56804', 'חיים', 'kck', '', 'kfdkdk@kdkdk.com', '2022-07-08 11:42:53', '$2y$10$bBICNbyK8Q0ebsyEowcjVOhUC6h30egqu2DMzGgaPK4FyzYRpg7Sa', '2022-07-08 11:42:53', '', '2001', 'ds', 5, '', 1),
 ('62c7ee48b2d9a', '', '', '', 'jc!vc2@kck.com', '2022-07-08 11:43:52', '$2y$10$23UiSvTPzpSjhDIFFNSNg.9883Kq/kaMAorHsKoUx14wNQra3EZzG', '2022-07-08 11:43:52', '', '2001', 'ds', 5, '', 1),
+('62e0438f6d8ac', 'kcksck', 'kckskck', '33', 'kfkfk@kkf.com', '2022-09-04 18:40:54', '$2y$10$Qcm67bzD/yNLxkX3vWqtO.w0HIjt2SzCjQcCQOIKRu2MFXZTYQMhG', '2022-09-04 18:40:54', 'kckw', '2001', 'ds', 21474, '', 1),
 ('6308dec066530', 'haim', 'ha', '93939393', 'mon@g.com', '2022-08-26 17:54:56', '$2y$10$DdkbJO..Yk2wQ96r1MU1T.AXiQgJSmmArCuc1C7/b06dQoiVO81X.', '2022-08-26 17:54:56', '39', '2001', 'ds', 21474, '', 1),
 ('6308e3a2849f3', 'xxk', 'kckck', '32324242', 'haim@gg.com', '2022-08-26 18:15:46', '$2y$10$BTfUNc8l5VYpXIT3tmfZFuEtlY2kJkgpym2uyJ0bfObJH/KC1tj7m', '2022-09-04 17:40:51', 'cd', '5150', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NjE3MDM5MzcsImp0aSI6InFvVjFVZHp3YlRBRlJEdlVpZndZTFE9PSIsImlzcyI6ImxvY2FsaG9zdCIsIm5iZiI6MTY2MTcwMzkzNywiZXhwIjoxNjYxNzkwMzM3LCJkYXRhIjp7InVzZXIiOiJoYWltQGdnLmNvbSJ9fQ.bpd_WxKBGXYprVS7a20mnIWJ5Ke9o2dJ5WpHhG80qrw', 43, '7121349', 1),
 ('6314c40b67d94', 'kckckc', 'kckckkk', '0303939393', 'ddkl@ddk.com', '2022-09-04 18:28:11', '$2y$10$/7e7obY7H3ganX.mK1RqI.LXT/Z40fA70NvMCJ0PjUwnxukGJSHle', '2022-09-04 18:28:11', 'ckksk', '2001', 'ds', 21474, '', 1),
 ('6314c6022a480', 'cckc2', 'ckskck', '3993939993', 'haim@kwwk.com', '2022-09-04 18:36:34', '$2y$10$23ECguQ/W3KJTMtqp/fKNu15ker/scpDUTMdnyfahJtXW4KIsTpAm', '2022-09-04 18:36:34', 'kcdkckskc', '2001', 'ds', 21474, '', 1),
 ('6314c6865c74f', 'cjcjj3', 'cjecjjcj', '3383838383', 'fkjfjf@fkfk.com', '2022-09-04 18:38:46', '$2y$10$PIKu.7jA5obF0eiY0YMdle/9o7r6sikSlCvMD5yhjAFIz0hbRkvJm', '2022-09-04 18:38:46', 'jcjc', '2001', 'ds', 21474, '', 1),
-('6314c7065a147', 'kcksck', 'kckskck', '33', 'kfkfk@kkf.com', '2022-09-04 18:40:54', '$2y$10$Qcm67bzD/yNLxkX3vWqtO.w0HIjt2SzCjQcCQOIKRu2MFXZTYQMhG', '2022-09-04 18:40:54', 'kckw', '2001', 'ds', 21474, '', 1),
 ('6314c734aea38', 'ckkckc', 'ckcm', '299292', 'hg@g.com', '2022-09-04 18:41:40', '$2y$10$s7LuiSMwi2rQKYaFvUQDPOEOGL8sm6/LdiBKsgmva2OcWHmx9pMf2', '2022-09-28 20:59:02', 'd', '5150', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NjIzMDc3MzQsImp0aSI6Im05UVdhaXF4MHV5TWhlZHpkaU1keVE9PSIsImlzcyI6ImxvY2FsaG9zdCIsIm5iZiI6MTY2MjMwNzczNCwiZXhwIjoxNjYyMzk0MTM0LCJkYXRhIjp7InVzZXIiOiJoZ0BnLmNvbSJ9fQ.5WbZ5Iq_bDsBYbrxwyQ9Ab6yqcdhxfVf0g6ZASlKa2U', 21474, '87260048', 1),
+('6346d4eb15e8b', 'kkd', 'kckc', '2232323232', 'haim@ekek.com', '2022-10-12 17:53:31', '$2y$10$U6m7tKJLwsb3SY1H4.EtlO5N5r/H1bA3.LpPrSD7B503hvEbit6HC', '2022-10-12 17:53:31', '', '2001', 'ds', 21474, '', 1),
+('6346d50bcc049', 'djd', 'jdjd', '2223232323', 'dj@d.com', '2022-10-12 17:54:03', '$2y$10$EBqZq.9MVLfzQAsRhcLstOOlYSmYwTs7TLTBtD3glLn1i85.KfB9.', '2022-10-12 17:54:03', '', '2001', 'ds', 21474, '', 1),
+('6346d5359b596', 'd', 'd', '133', 'j@j.com', '2022-10-12 17:54:45', '$2y$10$cP5khQwppcYwbXScKLY/geDNdsEYXqYQ7cDK8kvvEbqcgr6Cicgrm', '2022-10-12 17:55:53', '', '2001', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NjU1ODY1NDUsImp0aSI6IitkSklyYnN6TjRuYUUyS1A3V2ZxUEE9PSIsImlzcyI6ImxvY2FsaG9zdCIsIm5iZiI6MTY2NTU4NjU0NSwiZXhwIjoxNjY1NjcyOTQ1LCJkYXRhIjp7InVzZXIiOiJqQGouY29tIn19.ufM_JWJjGbX43ln0BQs5h_7wgEvmSgWCmg84-sKlQU4', 21474, '12382540', 1),
+('6346d588d604a', '1', '1', '33', 'j@j1.com', '2022-10-12 17:56:08', '$2y$10$Mc.iqYb4iwCB0Mo535iHMuecRq2QhDq6LEryHnM6R4W6BknuJrgdC', '2022-10-12 22:51:21', '', '2001', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NjU1ODY1NzUsImp0aSI6ImppSUxhYTR5dnV5d3V1RG11elpHS0E9PSIsImlzcyI6ImxvY2FsaG9zdCIsIm5iZiI6MTY2NTU4NjU3NSwiZXhwIjoxNjY1NjcyOTc1LCJkYXRhIjp7InVzZXIiOiJqQGoxLmNvbSJ9fQ.PDCe_jAFdFYa33gxLdyNiqWBuIGPELwUuLMLUPW9qc8', 21474, '90539050', 1),
+('63471ac956015', 'kkd', 'dkdk', '39', 'jh@s.com', '2022-10-12 22:51:37', '$2y$10$Car7kq6xPf0Riermf.iOp.ipIHv1ZWdaBW8MnWVtSYWY.RsrOylb6', '2022-10-12 22:51:37', '', '2001', 'ds', 21474, '', 1),
 ('haimke', 'll', 'll', 'll', 'll', '2022-05-08 23:14:16', '627824989503e', '2022-05-08 23:14:16', 'k', '5150', '', 0, '', 0);
 
 -- --------------------------------------------------------
@@ -1276,7 +1369,23 @@ INSERT INTO `user_reports` (`id`, `element_id`, `userId`, `create_time`, `active
 ('630f85bedd141', '62e83be3959d5', '6308e3a2849f3', '2022-08-31 19:01:02', 0, 'DKWSDK', 'KCKFKD', 'fk', 'שפה לא נאותה', 'ad', 1),
 ('63111e8045553', '2', '6308e3a2849f3', '2022-09-02 00:05:04', 1, 'kskdkdk', 'dkdkdkkdkd', '', 'שפה לא נאותה', 'ad', 1),
 ('63111e9429a32', '62f2627b5972e', '6308e3a2849f3', '2022-09-02 00:05:24', 0, 'kdkdk', 'ddkdk', 'kfkf', 'שפה לא נאותה', 'ad', 1),
-('631e30ffd4e10', '6310e5c9a0f97', '6314c734aea38', '2022-09-11 22:03:27', 1, 'ךגך', 'לג', '', 'שפה לא נאותה', 'ad', 1);
+('631e30ffd4e10', '6310e5c9a0f97', '6314c734aea38', '2022-09-11 22:03:27', 1, 'ךגך', 'לג', '', 'שפה לא נאותה', 'ad', 1),
+('6347205f4ae87', '6310e5ab9080b', 'guest', '2022-10-12 23:15:27', 0, 'kdkd', 'kdkd', 'חיים שיששי', 'שפה לא נאותה', 'ad', 0),
+('6347218fe7092', '2', 'guest', '2022-10-12 23:20:31', 1, 'kd', 'fk', '', 'אחר', 'ad', 0),
+('6347219a0701d', '2', 'guest', '2022-10-12 23:20:42', 1, ',', 'lkf', '', 'dkdkdk', 'ad', 0),
+('634721fc42a27', '6310e5ab9080b', 'guest', '2022-10-12 23:22:20', 1, 'kdkd', 'kkd', '', 'שפה לא נאותה', 'ad', 0),
+('634729d7a2042', '6310e5ab9080b', 'guest', '2022-10-12 23:55:51', 1, 'dk', 'fk', '', 'שפה לא נאותה', 'ad', 0),
+('63472a4fc704a', '6310e5ab9080b', 'guest', '2022-10-12 23:57:51', 1, 'd', 'df', '', 'שפה לא נאותה', 'ad', 0),
+('63472b25434b0', '6310e5ab9080b', 'guest', '2022-10-13 00:01:25', 1, 'f', 'f', '', 'שפה לא נאותה', 'ad', 0),
+('63472c8b4778b', '2', 'guest', '2022-10-13 00:07:23', 1, 'w', 'd', '', 'אחר', 'blog', 0),
+('63486cc5aa56e', '62e8309e4d0f2', 'guest', '2022-10-13 22:53:41', 1, 'ekk', 'kdk', '', 'שפה לא נאותה', 'ad', 0),
+('63486d06e1850', '303902', 'guest', '2022-10-13 22:54:46', 1, 'dkd', 'kdkdf', '', 'שפה לא נאותה', 'ad', 0),
+('63486d0e952aa', '62e8309e4d0f2', 'guest', '2022-10-13 22:54:54', 1, 'k', 'kf', '', 'שפה לא נאותה', 'ad', 0),
+('63486d3bb6cdc', '62e8309e4d0f2', 'guest', '2022-10-13 22:55:39', 1, 'kdk', 'kfkf', '', 'שפה לא נאותה', 'ad', 0),
+('63486d8f603f1', '6310e5ab9080b', 'guest', '2022-10-13 22:57:03', 1, 'lk', 'ldf', '', 'שפה לא נאותה', 'ad', 0),
+('63486dd8bcef0', '6310e5ab9080b', 'guest', '2022-10-13 22:58:16', 1, 'd', 'f', '', 'שפה לא נאותה', 'ad', 0),
+('63486e0863a41', '6310e5ab9080b', 'guest', '2022-10-13 22:59:04', 1, 'kd', 'fkk', '', 'אחר', 'ad', 0),
+('63486e228f8a0', '6310e5ab9080b', 'guest', '2022-10-13 22:59:30', 1, 'd', 'd', '', 'שפה לא נאותה', 'ad', 0);
 
 --
 -- Indexes for dumped tables
@@ -1397,7 +1506,7 @@ ALTER TABLE `user_reports`
 -- AUTO_INCREMENT for table `password_recovery`
 --
 ALTER TABLE `password_recovery`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
