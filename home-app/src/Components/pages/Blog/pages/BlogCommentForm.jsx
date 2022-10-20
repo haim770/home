@@ -38,7 +38,7 @@ function BlogCommentForm(props) {
           Authorization: `Bearer ${auth.accessToken}`,
         },
       });
-      
+
       if (result.data == "not authorized") {
         toast.dismiss(); // remove loading toast
         toast.error("משהו השתבש");
@@ -63,7 +63,7 @@ function BlogCommentForm(props) {
           Authorization: `Bearer ${auth.accessToken}`,
         },
       });
-  
+
       if (result.data == "not authorized") {
         toast.dismiss(); // remove loading toast
         toast.error("משהו השתבש");
@@ -85,7 +85,10 @@ function BlogCommentForm(props) {
     <section className={props.className}>
       <button onClick={closeParam}>x</button>
       <form className="formAddParameter">
-        <label className="labelParamAdd">
+        <label
+          className="labelParamAdd"
+          style={{ width: "100%", gridTemplateColumns: "1fr 3fr" }}
+        >
           <span>כותרת </span>
           <input
             type="text"
@@ -96,9 +99,14 @@ function BlogCommentForm(props) {
             onChange={(e) => onChangeState(setTitle, e)}
           />
         </label>
-        <label className="labelParamAdd">
+        <label
+          className="labelParamAdd"
+          style={{ gridTemplateColumns: "1fr 3fr" }}
+        >
           <span>תוכן </span>
-          <input
+          <textarea
+            rows="7"
+            cols="50"
             type="text"
             name="content"
             id="content"

@@ -4,10 +4,16 @@
   flex-grow: 1;
   margin: 2rem;
 }
-.labelParamAdd{display: grid;grid-template-columns: 1fr 1fr;}
-.notNumeric{
-display: none;
+
+.labelParamAdd {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 }
-.numeric{
-  display:block;
+
+.notNumeric {
+  display: none;
+}
+
+.numeric {
+  display: block;
 }

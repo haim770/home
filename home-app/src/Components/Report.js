@@ -197,7 +197,10 @@ function Report(props) {
             {reportOptionsElement}
           </select>
         </label>
-        <label className="reportLabel" style={{ display: "flex" }}>
+        <label
+          className="reportLabel"
+          style={{ display: "flex", width: "100%" }}
+        >
           <span>{props.elementType == "user" ? "הכנס מייל" : "כותרת"}</span>
           <input
             type="text"
@@ -207,11 +210,14 @@ function Report(props) {
             onChange={(e) => onChangeState(setTitle, e)}
           />
         </label>
-        <label className="reportLabel" style={{ display: "flex" }}>
+        <label
+          className="reportLabel"
+          style={{ display: "flex", width: "80%" }}
+        >
           <span>הכנס סיבת פנייה</span>
           <textarea
+            style={{ width: "100%" }}
             rows="7"
-            cols="50"
             type="text"
             name="freeText"
             id="freeText"
