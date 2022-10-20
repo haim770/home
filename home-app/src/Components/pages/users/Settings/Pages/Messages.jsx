@@ -6,11 +6,13 @@ import "./Styles/messagesStyles.css";
 import MessageBlock from "../../../Chat/Messages/MessageBlock";
 import "../../../Chat/styles.css";
 import useView from "../../../Chat/ChatUseContext";
-
+import { v4 as uuidv4 } from "uuid";
+import useDH from "../../../../../Auth/DH/DHUseContext";
 
 const Messages = () => {
   //messages display
   const { auth } = useAuth();
+  const { encryptAES } = useDH();
 
   const [hovered, setHovered] = useState(false);
   const [contacts, setContacts] = useState({});
@@ -18,7 +20,7 @@ const Messages = () => {
   const [chatContact, setChatContact] = useState([]);
   const [showNewMessages, setShowNewMessages] = useState("getChat");
   const [loading, setLoading] = useState(false);
-
+  const [lastSeen, setLastSeen] = useState("");
   const [chatWithUUID, setChatWithUUID] = useState("");
   const [chatWithName, setChatWithName] = useState("");
   const divRef = useRef();
@@ -46,7 +48,6 @@ const Messages = () => {
    * Get Chat from server
    */
   const getChat = async () => {
-
     if (chatWithUUID !== "") {
       const result = await instance.request({
         data: {
@@ -70,16 +71,12 @@ const Messages = () => {
             Object.values(result.data.chatMessages).map(
               (anObjectMapped, index) => {
                 return {
-                  key: anObjectMapped["msgid"],
+                  key: uuidv4(),
                   msgData: anObjectMapped,
                 };
               }
             ),
           ]);
-        }
-
-        if (result?.data?.newMessageUpdate > 0) {
-          //console.log(result.data);
         }
       }
       // after finish load all data stop loading
@@ -87,48 +84,78 @@ const Messages = () => {
     }
   };
 
-    const getChatFirstTime = async (uuid) => {
+  const getChatFirstTime = async (uuid) => {
+    const result = await instance.request({
+      data: {
+        data_type: "getChat",
+        params: { chatWith: uuid },
+      },
+      headers: {
+        Authorization: `Bearer ${auth.accessToken}`,
+      },
+    });
+    /**
+     * After we load all user message we want to show only new messages.
+     */
+    setShowNewMessages("refreshData");
+
+    // check if we got new data from server or any response
+    if (result?.data) {
+      if (result?.data?.chatMessages) {
+        setChatContact([
+          Object.values(result.data.chatMessages).map(
+            (anObjectMapped, index) => {
+              return {
+                key: uuidv4(),
+                msgData: anObjectMapped,
+              };
+            }
+          ),
+        ]);
+      }
+    }
+
+    // after finish load all data stop loading
+    setLoading(false);
+  };
+
+  /**
+   * Get lest seen from server
+   */
+  const getLastSeenChat = async () => {
+    if (chatWithUUID !== "") {
       const result = await instance.request({
         data: {
-          data_type: "getChat",
-          params: { chatWith: uuid },
+          data_type: "getLastSeenChat",
+          params: { chatWith: chatWithUUID },
         },
         headers: {
           Authorization: `Bearer ${auth.accessToken}`,
         },
       });
-      /**
-       * After we load all user message we want to show only new messages.
-       */
-      setShowNewMessages("refreshData");
 
-      // check if we got new data from server or any response
       if (result?.data) {
-        if (result?.data?.chatMessages) {
-          setChatContact([
-            ...chatContact,
-            Object.values(result.data.chatMessages).map(
-              (anObjectMapped, index) => {
-                return {
-                  key: anObjectMapped["msgid"],
-                  msgData: anObjectMapped,
-                };
-              }
-            ),
-          ]);
-        }
-
-        if (result?.data?.newMessageUpdate > 0) {
-          //console.log(result.data);
+        if (result?.data?.last_seen) {
+          setLastSeen(result?.data?.last_seen);
         }
       }
-      // after finish load all data stop loading
-      setLoading(false);
-    };
+    }
+  };
+
   function handleClick(firstname, lastname, uuid) {
-    setChatWithUUID(uuid);
-    setChatWithName(`${firstname} ${lastname}`);
-    getChatFirstTime(uuid);
+    if (chatWithUUID !== uuid) {
+      setChatWithUUID(uuid);
+      setChatWithName(`${firstname} ${lastname}`);
+      getChatFirstTime(uuid);
+      const chatWith = {
+        adBlock: [],
+        username: `${firstname} ${lastname}`,
+        uuid: uuid,
+        adID: "",
+      };
+      setChatInfo(chatWith);
+      getLastSeenChat();
+    }
   }
 
   /**
@@ -140,6 +167,7 @@ const Messages = () => {
     const Interval = setInterval(() => {
       getContacts();
       getChat();
+      getLastSeenChat();
     }, 1000);
     return () => clearInterval(Interval);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -170,22 +198,22 @@ const Messages = () => {
     }
   };
 
+
   const handleSubmit = async () => {
     if (input.trim().length !== 0) {
+      let encryptMessage = encryptAES(input);
       const result = await instance.request({
         data: {
           data_type: "submitMessage",
           params: {
             chatWith: chatWithUUID,
-            message: input,
+            message: encryptMessage,
           },
         },
         headers: {
           Authorization: `Bearer ${auth.accessToken}`,
         },
       });
-      // console.log(result.data);
-      // check if we got new data from server or any response
       if (result?.data) {
         if (result?.data?.chatMessages) {
           setChatContact([
@@ -193,7 +221,7 @@ const Messages = () => {
             Object.values(result.data.chatMessages).map(
               (anObjectMapped, index) => {
                 return {
-                  key: anObjectMapped["msgid"],
+                  key: uuidv4(),
                   msgData: anObjectMapped,
                 };
               }
@@ -205,6 +233,7 @@ const Messages = () => {
     // reset our input to empty string
     setInput("");
   };
+
 
   // this function will scroll down to button when we load our messages
   useEffect(() => {
@@ -276,7 +305,7 @@ const Messages = () => {
               <div className="chatWindowHeader">
                 <div className="userInfo">
                   <div>{`${chatWithName}`}</div>
-                  <div>{`${chatWithUUID}`}</div>
+                  <div>{`${lastSeen}`}</div>
                 </div>
               </div>
               {/* Body, ref will use to scroll down to the last message */}
