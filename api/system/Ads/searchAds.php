@@ -298,12 +298,13 @@ function getAllOfMyActiveAds(){
     global $user;
     global $db;
     global $DATA_OBJ;
-    $time=time();
+    $time= $time=date('y-m-d',time());
     global $arr;
     if($userType!="registered"||($user->getRule()!="5150"&&$user->getRule()!="2001")){
     echo "not authorized";
     die;
     }
+    // echo $time;
     $userId=$user->getUuid();
     $query="select adID from ads where user_id ='$userId' and active ='1' and expire_date>='$time'";
     $adIdForTheSearch = $db->readDBNoStoredProcedure($query,[]);
@@ -331,7 +332,7 @@ function getAllOfMyNotActiveAds(){
     echo "not authorized";
     die;
     }
-    $time=time();
+    $time= $time=date('y-m-d',time());
     $userId=$user->getUuid();
     $query="select adID from ads where user_id ='$userId' and active ='0' or expire_date<'$time'";
     $adIdForTheSearch = $db->readDBNoStoredProcedure($query,[]);
@@ -402,7 +403,7 @@ function addMoreTimeToAd(){
 }
     $timeToAddInDays=$result[0]->expireDateAds;
     $newTime= date('Y-m-d', strtotime($DATA_OBJ->params->expireDate. ' +'.(int)$timeToAddInDays.' days'));
-    $query="update ads set expire_date='$newTime' where adID='{$DATA_OBJ->params->adID}'";
+    $query="update ads set expire_date='$newTime', active='1' where adID='{$DATA_OBJ->params->adID}'";
     $result=$db->readDBNoStoredProcedure($query);
     if($user->getRule()=="5150"){
         echo json_encode("expire changed");

@@ -4,6 +4,8 @@ import Address from "./Address";
 import { Link, useNavigate, useLocation, Navigate } from "react-router-dom";
 import Parameter from "./Parameter";
 import "../styles/Register.module.css";
+import "../styles/Report.css";
+
 import useAuth from "../Auth/useAuth";
 import Api from "../api/Api";
 import { v4 as uuidv4 } from "uuid";
@@ -195,7 +197,7 @@ function Report(props) {
             {reportOptionsElement}
           </select>
         </label>
-        <label className="reportLabel">
+        <label className="reportLabel" style={{ display: "flex" }}>
           <span>{props.elementType == "user" ? "הכנס מייל" : "כותרת"}</span>
           <input
             type="text"
@@ -205,10 +207,11 @@ function Report(props) {
             onChange={(e) => onChangeState(setTitle, e)}
           />
         </label>
-        <label className="reportLabel">
+        <label className="reportLabel" style={{ display: "flex" }}>
           <span>הכנס סיבת פנייה</span>
           <textarea
-            rows="4"
+            rows="7"
+            cols="50"
             type="text"
             name="freeText"
             id="freeText"

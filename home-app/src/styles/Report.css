@@ -7,7 +7,8 @@
   display: flex;
   position: sticky;
   top: 20vh;
-    align-self: center;
+  width: 100%;
+  align-self: center;
   border: 3px solid #f1f1f1;
   z-index: 1;
 }
