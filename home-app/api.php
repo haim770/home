@@ -513,6 +513,9 @@ if (isset($DATA_OBJ->data_type)) {
         case "getAdsByUserId":
             include_once('../api/system/Ads/searchAds.php');
                 break;
+        case "getAdsAboutToExpireInAWeek":
+            include_once('../api/system/Ads/searchAds.php');
+         break;
         case "changeMessageToSeen":
             //change message status to seen
             include_once('../api/system/systemMessages/handleSystemMassages.php');

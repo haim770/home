@@ -321,8 +321,37 @@ function getAllOfMyActiveAds(){
     $arr=[];
     die;
 }
+function getAdsAboutToExpireInAWeek(){
+     //get all  ads about to expire in a week of userid
+    global $userType;
+    global $user;
+    global $db;
+    global $DATA_OBJ;
+    global $arr;
+    if($userType!="registered"||($user->getRule()!="5150"&&$user->getRule()!="2001")){
+    echo "not authorized";
+    die;
+    }
+    $timeNextWeek= $time=date('y-m-d',time()+7*24*60*60);
+    $timeNow= $time=date('y-m-d',time());
+    $userId=$user->getUuid();
+    $query="select adID from ads where user_id ='$userId' and active ='1' and expire_date<'$timeNextWeek' and expire_date>'$timeNow'";
+    $adIdForTheSearch = $db->readDBNoStoredProcedure($query,[]);
+    $i=0;
+    if(gettype($adIdForTheSearch)!="array"&&gettype($adIdForTheSearch)!="Array"&&gettype($adIdForTheSearch)!="Object"){
+        $arr=[];
+        return;
+    }
+    else
+    foreach ($adIdForTheSearch as $key => $value) {
+        $result[$i++]=getAdWithAdContentForAdId1($value->adID,$userId);
+    }
+    echo json_encode($result);
+    $arr=[];
+    die;
+}
 function getAllOfMyNotActiveAds(){
-    //get all active ads of userid
+    //get all not active ads of userid
     global $userType;
     global $user;
     global $db;
@@ -586,6 +615,10 @@ else{
                         else
                         if($DATA_OBJ->data_type=="getAdsByUserId"){
                             getAdsByUserId();
+                        }
+                        else
+                        if($DATA_OBJ->data_type=="getAdsAboutToExpireInAWeek"){
+                            getAdsAboutToExpireInAWeek();
                         }
                         else
                             getAllAdContentAndAdAndUsersForArrOfAds();
