@@ -192,7 +192,7 @@ function getOpenAds(){
     }
     global $db;
     global $DATA_OBJ;
-    $time=time();
+    $time= $time=date('y-m-d',time());
     $query = "select adID,user_id from ads where active='1' and expire_date
     >='$time' order by create_time DESC limit ".$DATA_OBJ->params->end." OFFSET ".$DATA_OBJ->params->start;
     $adIdsForTheSearch = $db->readDBNoStoredProcedure($query);
@@ -216,7 +216,7 @@ function getClosedAds(){
     }
     global $db;
     global $DATA_OBJ;
-    $time=time();
+    $time= $time=date('y-m-d',time());
     $query = "select adID,user_id from ads where active='0' or expire_date<'$time' order by create_time DESC limit ".$DATA_OBJ->params->end." OFFSET ".$DATA_OBJ->params->start;
     $adIdsForTheSearch = $db->readDBNoStoredProcedure($query);
     $i=0;
