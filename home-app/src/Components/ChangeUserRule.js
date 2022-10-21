@@ -12,6 +12,7 @@ import useAuth from "../Auth/useAuth";
 import Select from "react-select";
 function ChangeUserRule(props) {
   //comp for handling users by manager
+  const [id, setId] = useState("");
   const [first_name, setfirst_name] = useState(""); //hook for parameter name
   const [last_name, setLast_name] = useState(""); //hook for parameter max value
   const [mail, setMail] = useState(""); //hook for parameter min value
@@ -63,6 +64,24 @@ function ChangeUserRule(props) {
     }
     console.log(result.data);
   };
+  const getUserById = async () => {
+    //get users by id
+    console.log("d");
+    const result = await instance.request({
+      data: {
+        data_type: "getUserById",
+        params: { userId: id },
+      },
+      headers: {
+        Authorization: `Bearer ${auth.accessToken}`,
+      },
+    });
+    console.log(result.data);
+    if (result?.data) {
+      setUserSelected(result.data[0]);
+      setMailSelected(result.data[0].mail);
+    }
+  };
   const filterRes = (filterVal) => {
     setMailOptions([{}]);
     console.log(filterVal);
@@ -99,37 +118,72 @@ function ChangeUserRule(props) {
     setMailSelected(event);
   };
   return (
-    <section className="section_form ">
+    <section className="section_form " style={{ maxWidth: "100%" }}>
       <h1>שנה הרשאות למשתמש</h1>
-      <label>
-        <span>בחר תפקיד משתמש</span>
-        <select
-          id="rule"
-          name="rule"
-          value={filter}
-          onChange={(e) => {
-            setFilter(e.target.value);
-            filterRes(e.target.value);
-            setUserSelected(false);
-            setMailSelected({});
-          }}
+      <article
+        style={{
+          display: "flex",
+          flexDirection: "row-reverse",
+          justifyContent: "space-evenly",
+        }}
+      >
+        <p
+          style={{ display: "flex", flexDirection: "column", maxWidth: "40%" }}
         >
-          <option>כולם</option>
-          <option>מנהל</option>
-          <option>משתמש</option>
-        </select>
-      </label>
-      <label key="mails" className={styles.lableForSelect}>
-        <span>פרטי המשתמש</span>
-        <Select
-          className=""
-          name="mails"
-          value={mailSelected || ""}
-          options={mailOptions}
-          onChange={handleChangeMail}
-          aria-label="users"
-        />
-      </label>
+          <label
+            style={{
+              display: "grid",
+              width: "100%",
+              gridTemplateColumns: "1.5fr 2fr",
+              marginBottom: "1rem",
+            }}
+          >
+            <span style={{}}> חיפוש מספר משתמש</span>
+            <input
+              type="text"
+              name="searchId"
+              id="searchId"
+              placeholder="הכנס מס משתמש"
+              value={id}
+              onChange={(e) => onChangeState(setId, e)}
+            />
+          </label>
+          <button style={{ padding: "1em" }} onClick={getUserById}>
+            חפש מספר משתמש
+          </button>
+        </p>
+        <p style={{ maxWidth: "40%" }}>
+          <label>
+            <span>בחר תפקיד משתמש</span>
+            <select
+              id="rule"
+              name="rule"
+              value={filter}
+              onChange={(e) => {
+                setFilter(e.target.value);
+                filterRes(e.target.value);
+                setUserSelected(false);
+                setMailSelected({});
+              }}
+            >
+              <option>כולם</option>
+              <option>מנהל</option>
+              <option>משתמש</option>
+            </select>
+          </label>
+          <label key="mails" className={styles.lableForSelect}>
+            <span>פרטי המשתמש</span>
+            <Select
+              className=""
+              name="mails"
+              value={mailSelected || ""}
+              options={mailOptions}
+              onChange={handleChangeMail}
+              aria-label="users"
+            />
+          </label>
+        </p>
+      </article>
       {UserSelected ? (
         <UserShow
           user={UserSelected}

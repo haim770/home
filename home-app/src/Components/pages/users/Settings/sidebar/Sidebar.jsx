@@ -436,28 +436,6 @@ const Sidebar = () => {
               onClick={(e) => {
                 e.preventDefault();
                 getAllNumbersOfNewItems();
-                setcurUrl("SitePurchase");
-              }}
-              style={{
-                backgroundColor: curUrl == "SitePurchase" ? "blue" : "white",
-              }}
-            >
-              <Link
-                to="/Settings/SitePurchase"
-                style={{ textDecoration: "none" }}
-              >
-                <BsClockHistory className="icon" />
-                <span>היסטורית רכישות</span>
-              </Link>
-            </li>
-          ) : (
-            <></>
-          )}
-          {auth?.roles === "5150" ? (
-            <li
-              onClick={(e) => {
-                e.preventDefault();
-                getAllNumbersOfNewItems();
                 setcurUrl("AdsInformation");
               }}
               style={{
