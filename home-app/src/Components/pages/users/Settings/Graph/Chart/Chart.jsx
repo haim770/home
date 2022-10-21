@@ -29,7 +29,6 @@ const Chart = ({ aspect, title }) => {
     { name: "11", total: 11 },
     { name: "12", Total: 1 },
   ]);
-  console.log(data);
   const getAllAdsByMonths = async () => {
     //get ads by month last 6
     const result = await instance.request({
@@ -42,7 +41,6 @@ const Chart = ({ aspect, title }) => {
         Authorization: `Bearer ${auth.accessToken}`,
       },
     });
-    console.log(result.data);
     if (result?.data) setData(result.data);
   };
   const getAllAdsByMonthsForUser = async () => {
@@ -57,7 +55,6 @@ const Chart = ({ aspect, title }) => {
         Authorization: `Bearer ${auth.accessToken}`,
       },
     });
-    console.log(result.data);
     if (result?.data) setData(result.data);
   };
   useEffect(() => {

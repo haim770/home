@@ -16,7 +16,6 @@ const UserForTheReport = (props) => {
   return (
     <section className={styles.cardBlock}>
       <p>
-        {console.log(props)}
         <Parameter paramName="מייל" paramValue={props.user[0].mail} />
         <Parameter paramName="שם פרטי" paramValue={props.user[0].first_name} />
         <Parameter paramName="שם משפחה" paramValue={props.user[0].last_name} />

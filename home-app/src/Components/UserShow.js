@@ -41,7 +41,6 @@ function UserShow(props) {
         Authorization: `Bearer ${auth.accessToken}`,
       },
     });
-    console.log(result.data);
     if (result) {
       if (result.data === "changed active status") {
         toast.dismiss();
@@ -74,7 +73,6 @@ function UserShow(props) {
         Authorization: `Bearer ${auth.accessToken}`,
       },
     });
-    console.log(result.data);
     if (result) {
       if (result.data === "changed active status") {
         props.getAllUsers();
@@ -103,7 +101,6 @@ function UserShow(props) {
         Authorization: `Bearer ${auth.accessToken}`,
       },
     });
-    console.log(result.data);
     if (result) {
       if (result.data === "changed remaining ads") {
         toast.dismiss();
@@ -134,7 +131,6 @@ function UserShow(props) {
         Authorization: `Bearer ${auth.accessToken}`,
       },
     });
-    console.log(result.data);
     if (result) {
       if (result.data === "success") {
         toast.dismiss();
@@ -152,9 +148,7 @@ function UserShow(props) {
     setShowChangeMail("notShowInput");
   };
   const deleteOrRestore = (e) => {
-    console.log(activeStatus);
     e.preventDefault();
-    console.log(props.user);
     if (props.user === []) {
       return;
     } else {
@@ -221,7 +215,6 @@ function UserShow(props) {
   const handleChangeRemainingAds = (e) => {
     e.preventDefault();
     if (isNaN(e.target.value) === true) {
-      console.log(e.target.value);
       return;
     }
     setValueRemainingInput(e.target.value);

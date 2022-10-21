@@ -28,7 +28,6 @@ const Featured = (props) => {
         Authorization: `Bearer ${auth.accessToken}`,
       },
     });
-    console.log(result.data);
     if (result?.data) {
       setMonthSales(result.data.monthSales[0].sum);
       setTodaySales(result.data.todaySales[0].sum);
@@ -48,8 +47,6 @@ const Featured = (props) => {
         Authorization: `Bearer ${auth.accessToken}`,
       },
     });
-    console.log(result.data);
-    console.log(result.data);
     if (result?.data) {
       setMonthSales(result.data.UserMonthPurchase[0].sum);
       setTodaySales(result.data.UserTodayPurchase[0].sum);

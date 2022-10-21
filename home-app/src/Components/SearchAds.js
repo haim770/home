@@ -92,7 +92,6 @@ function SearchAds(props) {
         },
       },
     });
-    console.log(result.data.searchOption);
     if (searchMethod === "city") setOptions(result.data.searchOption);
     else setStreetOptions(result.data.searchOption);
   };
@@ -195,7 +194,7 @@ function SearchAds(props) {
     //func gets rent/buy and the event and check if smaller then min
     if (e.target.min) {
       if (parseInt(e.target.value) < e.target.min) {
-        console.log(
+        alert(
           "ערך מינימום לשדה " + e.target.name + " הוא " + e.target.min
         );
         if (typeOfParam === "rent")
@@ -228,7 +227,7 @@ function SearchAds(props) {
               [name]: e.target.max,
             });
             document.getElementById(e.target.name).value = e.target.max; //we put max value inside if user inserted bigger
-            console.log(
+            alert(
               "מקסימום לשדה " + e.target.name + " הוא " + e.target.max
             );
             return;
@@ -387,7 +386,6 @@ function SearchAds(props) {
     makeFieldsOfAdColumnsWeKnow(code);
 
     for (let index = 0; index < masters.length; index++) {
-      console.log(masters[index].name);
       mastersName.push(masters[index].name);
 
       if (

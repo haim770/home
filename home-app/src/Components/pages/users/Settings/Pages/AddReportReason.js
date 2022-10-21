@@ -48,8 +48,6 @@ function AddParameterToAds(props) {
         Authorization: `Bearer ${auth.accessToken}`,
       },
     });
-    console.log(result);
-    console.log(result.data);
     if (result.data == "not authorized" || result.data == false) {
       toast.dismiss(); // remove loading toast
       toast.error("משהו השתבש");

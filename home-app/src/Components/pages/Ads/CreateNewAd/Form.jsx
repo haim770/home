@@ -91,11 +91,9 @@ const Form = () => {
      * Build the post data
      */
     let data = new FormData();
-    console.log(formDataImageUpload);
     for (let i = 0; i < formDataImageUpload.length; i++) {
       for (let x = 0; x < formDataImageUpload[i].length; x++) {
         data.append("files[]", formDataImageUpload[i][x]);
-        console.log(formDataImageUpload[i][x]);
       }
     }
 
@@ -116,7 +114,6 @@ const Form = () => {
         Authorization: `Bearer ${auth.accessToken}`,
       },
     });
-    console.log(result.data);
     if (result?.data === "publish") {
       toast.dismiss(); // remove loading toast
       toast.success("המודעה פורסמה בהצלחה!");

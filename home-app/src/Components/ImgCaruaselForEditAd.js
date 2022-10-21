@@ -9,9 +9,6 @@ function ImgCaruaselForEditAd(props) {
   const [startPointOfCarusell, setStartPointOfCarusell] = useState(0);
   const [picToDisplay, setPicToDisplay] = useState([]);
   const [refresh, setRefresh] = useState(false);
-  console.log(props);
-  console.log(props.images[0]);
-  console.log(typeof props.images);
   const deletePic = (e) => {
     e.preventDefault();
     if (props.images.length == 1) {
@@ -44,7 +41,7 @@ function ImgCaruaselForEditAd(props) {
           onClick={(e) => {
             e.preventDefault();
             currImg > startPointOfCarusell && setCurrImg(currImg - 1);
-            console.log(currImg);
+           
           }}
         >
           <ArrowCircleRightIcon fontSize="large" />
@@ -54,7 +51,7 @@ function ImgCaruaselForEditAd(props) {
           onClick={(e) => {
             e.preventDefault();
             currImg < props.images.length - 1 && setCurrImg(currImg + 1);
-            console.log(currImg);
+           
           }}
         >
           <ArrowCircleLeftIcon fontSize="large" />

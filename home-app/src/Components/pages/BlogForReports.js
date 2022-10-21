@@ -16,14 +16,12 @@ import useAuth from "../../Auth/useAuth";
 
 const BlogForReports = (props) => {
   //blog display with report
-  console.log(props);
   /**
    * Add function of start new chat with user ad publisher
    */
   const { auth } = useAuth();
   const deleteBlog = async (e) => {
     //delete blog
-    console.log(props.selectedBlog.Blogs[0].id);
     const result = await instance.request({
       data: {
         data_type: "deleteBlogById",
@@ -36,7 +34,6 @@ const BlogForReports = (props) => {
         Authorization: `Bearer ${auth.accessToken}`,
       },
     });
-    console.log(result.data);
     if (result.data != "didnt succeed" && result.data != "not authorized") {
       alert("blog deleted");
       await props.getAllReports();
@@ -44,7 +41,6 @@ const BlogForReports = (props) => {
   };
   return (
     <section className={styles.cardBlock}>
-      {console.log(props.selectedBlog.Blogs[0].subCategory)}
       <div className="blog-wrap">
         <header>
           <p className="blog-date">

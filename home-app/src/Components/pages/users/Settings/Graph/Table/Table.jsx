@@ -38,7 +38,6 @@ const List = () => {
         Authorization: `Bearer ${auth.accessToken}`,
       },
     });
-    console.log(result.data);
     setRows(result.data.result);
   };
   const getAllPurchasesForUser = async () => {
@@ -53,7 +52,6 @@ const List = () => {
         Authorization: `Bearer ${auth.accessToken}`,
       },
     });
-    console.log(result.data);
     setRows(result.data.result);
   };
   useEffect(() => {

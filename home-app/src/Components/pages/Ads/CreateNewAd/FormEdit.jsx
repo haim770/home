@@ -10,7 +10,6 @@ import toast, { Toaster } from "react-hot-toast"; // https://react-hot-toast.com
 
 const Form = (props) => {
   const [page, setPage] = useState(0);
-  console.log(props.adBlock);
   const [formData, setFormData] = useState({
     assetOption: props.adBlock.ad[0].adType == "קנייה" ? "buy" : "rent",
     houseTax: props.adBlock.ad[0].houseCommittee || "",
@@ -119,7 +118,6 @@ const Form = (props) => {
     for (let i = 0; i < formDataImageUpload.length; i++) {
       for (let x = 0; x < formDataImageUpload[i].length; x++) {
         data.append("files[]", formDataImageUpload[i][x]);
-        console.log(formDataImageUpload[i][x]);
       }
     }
     data.append("data_type", "editAd");
@@ -132,7 +130,6 @@ const Form = (props) => {
     );
     data.append("adId", props.adBlock.ad[0].adID);
     data.append("picsDelete", JSON.stringify(picsForDelete));
-    console.log(picsForDelete);
     /**
      * END Build the post data
      */
@@ -142,7 +139,6 @@ const Form = (props) => {
         Authorization: `Bearer ${auth.accessToken}`,
       },
     });
-    console.log(result);
     if (result?.data === "publish") {
       toast.dismiss(); // remove loading toast
       toast.success("המודעה נערכה בהצלחה!");

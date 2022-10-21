@@ -110,7 +110,6 @@ const CreateBlog = () => {
               Authorization: `Bearer ${auth.accessToken}`,
             },
           });
-          console.log(result)
       if (result?.data === "closed") {
         toast.dismiss(); // remove loading toast
         toast.success("בלוג הוסר בהצלחה!");

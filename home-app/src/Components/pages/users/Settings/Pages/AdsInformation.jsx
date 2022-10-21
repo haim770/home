@@ -46,7 +46,6 @@ const AdsInformation = (props) => {
     }
   };
   const getAdScroll = async () => {
-    console.log(start);
     setLoading(false);
     const result = await instance.request({
       data: {
@@ -97,7 +96,6 @@ const AdsInformation = (props) => {
         Authorization: `Bearer ${auth.accessToken}`,
       },
     });
-    console.log(result.data);
     setRows(result.data);
   };
   const getAds = async (param) => {
@@ -117,7 +115,6 @@ const AdsInformation = (props) => {
         Authorization: `Bearer ${auth.accessToken}`,
       },
     });
-    console.log(result.data);
     if (result.data === false || result.data === "" || result.data == []) {
       setNoMoreAdsForSearch(true);
       return;

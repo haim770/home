@@ -14,7 +14,6 @@ function UserShowById(props) {
   //user show comp for manager
   const { auth } = useAuth();
   const [user, setUser] = useState("");
-  console.log(auth);
   const getUser = async () => {
     const urlSplit = window.location.href.split("/");
     const result = await instance.request({
@@ -27,7 +26,6 @@ function UserShowById(props) {
         Authorization: `Bearer ${auth.accessToken}`,
       },
     });
-    console.log(result.data);
     if (result?.data) {
       setUser(result.data);
     }

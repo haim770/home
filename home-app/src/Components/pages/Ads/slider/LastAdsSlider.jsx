@@ -31,7 +31,6 @@ const LastAdsSlider = () => {
           params: { myCookie },
         },
       });
-      console.log(response);
       /*
         setAds(
           response.data.map((ad) => (
@@ -40,7 +39,6 @@ const LastAdsSlider = () => {
         );*/
     } catch (err) {
       if (!err?.response) {
-        console.log("No Server Response");
       } else {
         console.log("Login Failed");
       }

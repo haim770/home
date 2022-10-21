@@ -32,7 +32,7 @@ const StepThree = ({
     //func gets rent/buy and the event and check if smaller then min
     if (e.target.min) {
       if (parseInt(e.target.value) < e.target.min) {
-        console.log(
+        alert(
           "ערך מינימום לשדה " + e.target.name + " הוא " + e.target.min
         );
         document.getElementById(e.target.name).value = e.target.min;
@@ -132,7 +132,7 @@ const StepThree = ({
               [name]: e.target.max,
             });
             document.getElementById(e.target.name).value = e.target.max; //we put max value inside if user inserted bigger
-            console.log(
+            alert(
               "מקסימום לשדה " + e.target.name + " הוא " + e.target.max
             );
             return;
@@ -164,7 +164,6 @@ const StepThree = ({
         data_type: "getAllMasters",
       },
     });
-    console.log(result.data);
     setMasters(result.data);
     if (result.data !== "") {
       for (let index = 0; index < result.data.length; index++) {
@@ -469,8 +468,6 @@ const StepThree = ({
   }, []);
   return (
     <div className="inputStyleStepTwo">
-      {console.log(formDataStepThreeBuy)}
-      {console.log(formDataStepThreeRent)}
       {masters ? makeFormOfAdContent() : ""}
     </div>
   );

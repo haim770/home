@@ -59,7 +59,6 @@ function Report(props) {
   const confirmChangeStatus = async (e) => {
     //confirm changes on active field on report
     e.preventDefault();
-    console.log(props);
     const result = await instance.request({
       data: {
         data_type: "changeReportStatus",
@@ -79,7 +78,6 @@ function Report(props) {
     props.getAllReports();
     props.setTableClassName("showTable");
     props.setClassName("notShowSelected");
-    console.log(result.data);
     setShowInputStatus(false);
   };
   const confirmChangeManagerFeedback = async (e) => {
@@ -97,17 +95,14 @@ function Report(props) {
         Authorization: `Bearer ${auth.accessToken}`,
       },
     });
-    console.log(result.data);
     setShowInputManagerResponse(false);
   };
   const cancelChangeStatus = async (e) => {
     //cancel all actions done at this open of the report on the status
     e.preventDefault();
-    console.log("Ddd");
     setReportStatus(props.report.active);
     setShowInputStatus(false);
     setManagerResponse(props.report.manage_feedback);
-    console.log(props.report);
     const result = await instance.request({
       data: {
         data_type: "changeReportStatus",
@@ -122,7 +117,6 @@ function Report(props) {
         Authorization: `Bearer ${auth.accessToken}`,
       },
     });
-    console.log(result.data);
     props.setClassName("notShowSelected");
     props.setTableClassName("showTable");
   };
@@ -160,11 +154,9 @@ function Report(props) {
 
     alert("report sent to user");
     props.getAllReports();
-    console.log(result.data);
   };
   return (
     <section className={props.className}>
-      {console.log(props)}
       <div className="parameterShowReport">
         <h2>סוג דוח</h2>
         <p>{props.report.report_reason}</p>
@@ -191,7 +183,6 @@ function Report(props) {
           <input
             value={managerResponse}
             onChange={(e) => {
-              console.log(e.target.value);
               setManagerResponse(e.target.value);
             }}
           />

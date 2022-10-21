@@ -39,7 +39,6 @@ const AdsBlockForReports = (props) => {
         Authorization: `Bearer ${auth.accessToken}`,
       },
     });
-    console.log(result.data);
     if (result.data == "didnt succeed" && result.data == "not authorized") {
       alert("תקלה");
       await props.getAllReports();
@@ -87,7 +86,6 @@ const AdsBlockForReports = (props) => {
               className="button-4"
               onClick={(e) => {
                 e.preventDefault();
-                console.log(e.target.tagName);
                 setTogglePhone(
                   togglePhone === "הצג טלפון" ? "הסתר טלפון" : "הצג טלפון"
                 );

@@ -30,7 +30,6 @@ const AdsBlock = (props) => {
   const [phone, setPhone] = useState(
     props.adBlock.user[0] ? props.adBlock.user[0].phone : 0
   );
-  console.log(props.adBlock);
   const location = useLocation();
   const [goToEditPage, setGoToEditPage] = useState(false);
   const [togglePhone, setTogglePhone] = useState("הסתר טלפון");
@@ -54,7 +53,6 @@ const AdsBlock = (props) => {
         params: { adID: props.adBlock.ad[0].adID }, //window.location.href gets the urlline
       },
     });
-    console.log(res.data);
     startNewChat(chatWith);
   };
   const addItemToHistory = async (e) => {
@@ -69,7 +67,6 @@ const AdsBlock = (props) => {
         Authorization: `Bearer ${auth.accessToken}`,
       },
     });
-    console.log(res.data);
   };
   const updateWatch = async () => {
     //update watch count
@@ -79,12 +76,10 @@ const AdsBlock = (props) => {
         params: { adID: props.adBlock.ad[0].adID }, //window.location.href gets the urlline
       },
     });
-    console.log(res.data);
   };
   const changeExpDateByTheTimeInTheSettings = async (e) => {
     //change exp date
     e.preventDefault();
-    console.log(props.adBlock.ad[0].expire_date);
     const res = await instance.request({
       data: {
         data_type: "addMoreTimeToAd",
@@ -99,7 +94,6 @@ const AdsBlock = (props) => {
         Authorization: `Bearer ${auth.accessToken}`,
       },
     });
-    console.log("res");
     if (res.data == "expire changed") {
       alert("ביצעת שינוי תאריך פג תוקף");
     } else {
@@ -110,7 +104,6 @@ const AdsBlock = (props) => {
       }
     }
 
-    console.log(res.data);
     await props.getAds();
   };
   const deleteAd = async (e) => {
@@ -124,7 +117,6 @@ const AdsBlock = (props) => {
         Authorization: `Bearer ${auth.accessToken}`,
       },
     });
-    console.log(res.data);
     await props.getAds();
   };
   const editAd = (e) => {
@@ -246,7 +238,6 @@ const AdsBlock = (props) => {
               }}
               onClick={(e) => {
                 e.preventDefault();
-                console.log(e.target.tagName);
                 setTogglePhone(
                   togglePhone === "הצג טלפון" ? "הסתר טלפון" : "הצג טלפון"
                 );
