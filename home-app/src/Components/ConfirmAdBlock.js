@@ -20,6 +20,8 @@ const ConfirmAdBlock = (props) => {
   const confirmAd = async (e) => {
     //confirm ad
     e.preventDefault();
+    props.getAds();
+
     const result = await instance.request({
       data: {
         data_type: "aproveAd",
@@ -40,6 +42,7 @@ const ConfirmAdBlock = (props) => {
   };
   const declineAd = async (e) => {
     //decline ad
+    props.getAds();
     e.preventDefault();
     const result = await instance.request({
       data: {

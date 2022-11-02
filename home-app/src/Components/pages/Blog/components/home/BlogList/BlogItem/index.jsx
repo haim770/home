@@ -18,13 +18,14 @@ const BlogItem = ({
 }) => {
   const authorAvatar = "author.jpg";
   return (
-    <div className="blogItem-wrap">
+    <div className="blogItem-wrap" style={{ overflowWrap: "anywhere" }}>
       <Link className="blogItem-link" to={`/blog/${id}`}>
         <img
           className="blogItem-cover"
           src={
-            process.env.PUBLIC_URL +
-            require("../../../../../../../../../api/Images/" + cover)
+            process.env.PUBLIC_URL + cover
+              ? require("../../../../../../../../../api/Images/" + cover)
+              : "../../../../../../../../../api/Images/defaultBlog.jpg"
           }
           alt="cover"
         />

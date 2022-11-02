@@ -84,7 +84,7 @@ const CreateBlog = () => {
         Authorization: `Bearer ${auth.accessToken}`,
       },
     });
-    //console.log(result);
+    console.log(result);
     if (result?.data === "publish") {
       toast.dismiss(); // remove loading toast
       toast.success("בלוג פורסם בהצלחה!");
@@ -101,15 +101,15 @@ const CreateBlog = () => {
     let isExecuted = window.confirm("האם אתה בטוח שברצונך למחוק את הבלוג?");
     if (isExecuted) {
       toast.loading("מוחק...");
-          const result = await instanceA.request({
-            data: {
-              data_type: "delBlogById",
-              params: { blogId: editBlogId },
-            },
-            headers: {
-              Authorization: `Bearer ${auth.accessToken}`,
-            },
-          });
+      const result = await instanceA.request({
+        data: {
+          data_type: "delBlogById",
+          params: { blogId: editBlogId },
+        },
+        headers: {
+          Authorization: `Bearer ${auth.accessToken}`,
+        },
+      });
       if (result?.data === "closed") {
         toast.dismiss(); // remove loading toast
         toast.success("בלוג הוסר בהצלחה!");
@@ -167,6 +167,8 @@ const CreateBlog = () => {
                   require("../../../../../../../../../api/Images/" + imagePath)
                 }
                 alt="image_"
+                width="200px"
+                height="200px"
               />
             ) : (
               <>

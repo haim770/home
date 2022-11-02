@@ -81,7 +81,7 @@ const Blog = () => {
               <Viewers label={blog.views} />
             </div>
 
-            <h1>{blog.title}</h1>
+            <h1 style={{ overflowWrap: "break-word" }}>{blog.title}</h1>
             <div className="blog-subCategory">
               {blog.subCategory.split(",").map((category, i) => (
                 <div key={i}>
@@ -97,7 +97,9 @@ const Blog = () => {
             }
             alt="cover"
           />
-          <p className="blog-desc">{blog.description}</p>
+          <p className="blog-desc" style={{ overflowWrap: "break-word" }}>
+            {blog.description}
+          </p>
           <button className="button-4" onClick={reportOnBlog}>
             {" "}
             דווח על בלוג
