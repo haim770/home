@@ -57,7 +57,11 @@ const ConfirmAdManager = (props) => {
           return new Set([
             ...prevAds,
             result.data.map((ad) => (
-              <ConfirmAdBlock key={ad.adID + uuidv4()} adBlock={ad} />
+              <ConfirmAdBlock
+                key={ad.adID + uuidv4()}
+                adBlock={ad}
+                getAds={getAds}
+              />
             )),
           ]);
         });
@@ -66,6 +70,7 @@ const ConfirmAdManager = (props) => {
   };
   const getAds = async () => {
     //get ads wait for approval
+    setAds([]);
     setLoading(false);
     setNoMoreAdsForSearch(false);
     const result = await instance.request({
