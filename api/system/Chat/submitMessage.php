@@ -5,7 +5,6 @@ include_once(dirname(__FILE__) . DIRECTORY_SEPARATOR . $authPath);
 
 $CJSAESPath = "../../Authentication/DiffiHelman/CryptoAes.php";
 require_once(dirname(__FILE__) . DIRECTORY_SEPARATOR . $CJSAESPath);
-
 $secretKey = $user->getPrivateSharedKey();
 $arr = []; //for global scope var
 // our uuid
@@ -20,10 +19,10 @@ $arr['chatWith'] = $DATA_OBJ->params->chatWith ?? "null";
 // Decrypt the incoming message
 $arr['message'] = CryptoAes::cryptoJsAesDecrypt($secretKey, $DATA_OBJ->params->message); // message we got from the user.
 $arr['msgid'] = uniqid(); // generate rnd msgid
-
+$arr['adId']=$DATA_OBJ->params->adId;
 // write our message to database
-$query = "insert into messages (msgid,sender,receiver,message,dateMsg) values (:msgid,:alice,:chatWith,:message,NOW())";
-$db->writeDBNotStoredProcedure($query, $arr);
+$query = "insert into messages (msgid,sender,receiver,message,dateMsg,adId) values (:msgid,:alice,:chatWith,:message,NOW(),adId)";
+$result=$db->writeDBNotStoredProcedure($query, $arr);
 
 // send back the message after we write the message in database
 $query = "select * from messages where msgid = :msgid limit 1";

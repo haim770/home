@@ -19,7 +19,9 @@ const ChatWith = () => {
   const [lastSeen, setLastSeen] = useState("");
   const divRef = useRef();
   const inputRef = useRef();
-  const [input, setInput] = useState("");
+  const [input, setInput] = useState(
+    chatInfo?.adID ? "מספר המודעה הוא" + chatInfo.adID : "רשום את ההודעה שלך"
+  );
   const { auth } = useAuth();
 
   /**
@@ -160,7 +162,6 @@ const ChatWith = () => {
     if (event.code === "Enter" || event.code === "NumpadEnter") {
       //console.log("Enter key was pressed. Run your function.");
       event.preventDefault();
-      //console.log(input);
       handleSubmit();
     }
   };
@@ -174,12 +175,15 @@ const ChatWith = () => {
           params: {
             chatWith: chatInfo.uuid,
             message: encryptMessage,
+            adId: chatInfo?.adID ? chatInfo.adID : "",
           },
         },
         headers: {
           Authorization: `Bearer ${auth.accessToken}`,
         },
       });
+      console.log("result");
+
       if (result?.data) {
         console.log(result);
         if (result?.data?.chatMessages) {
@@ -247,6 +251,7 @@ const ChatWith = () => {
       }}
     >
       <div className="chatWrapper">
+        {/* {console.log(chatInfo)} */}
         {/* Header */}
         <div className="chatWindowHeader">
           <div className="backButton" onClick={handleClickBack}>
@@ -288,7 +293,11 @@ const ChatWith = () => {
               onChange={(e) => setInput(e.target.value)}
               value={input}
               aria-describedby="uidnote"
-              placeholder="רשום את ההודעה שלך"
+              placeholder={
+                chatInfo?.adID
+                  ? "מספר המודעה הוא " + chatInfo.adID
+                  : "רשום את ההודעה שלך"
+              }
               onKeyPress={handleBtnlistener}
             />
             <button className="button-4" id="send_btn" onClick={handleSubmit}>
