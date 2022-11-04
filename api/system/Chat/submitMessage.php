@@ -21,9 +21,8 @@ $arr['message'] = CryptoAes::cryptoJsAesDecrypt($secretKey, $DATA_OBJ->params->m
 $arr['msgid'] = uniqid(); // generate rnd msgid
 $arr['adId']=$DATA_OBJ->params->adId;
 // write our message to database
-$query = "insert into messages (msgid,sender,receiver,message,dateMsg,adId) values (:msgid,:alice,:chatWith,:message,NOW(),adId)";
+$query = "insert into messages (msgid,sender,receiver,message,dateMsg,adId) values (:msgid,:alice,:chatWith,:message,NOW(),:adId)";
 $result=$db->writeDBNotStoredProcedure($query, $arr);
-
 // send back the message after we write the message in database
 $query = "select * from messages where msgid = :msgid limit 1";
 $a['msgid'] = $arr['msgid'];

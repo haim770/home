@@ -20,7 +20,7 @@ const ChatWith = () => {
   const divRef = useRef();
   const inputRef = useRef();
   const [input, setInput] = useState(
-    chatInfo?.adID ? "מספר המודעה הוא" + chatInfo.adID : "רשום את ההודעה שלך"
+    chatInfo?.adID ? " מספר המודעה הוא " + chatInfo.adID : "רשום את ההודעה שלך"
   );
   const { auth } = useAuth();
 
@@ -175,7 +175,11 @@ const ChatWith = () => {
           params: {
             chatWith: chatInfo.uuid,
             message: encryptMessage,
-            adId: chatInfo?.adID ? chatInfo.adID : "",
+            adId: input.includes("מספר המודעה הוא")
+              ? chatInfo?.adID
+                ? chatInfo.adID
+                : ""
+              : "",
           },
         },
         headers: {
@@ -183,7 +187,7 @@ const ChatWith = () => {
         },
       });
       console.log("result");
-
+      console.log(result);
       if (result?.data) {
         console.log(result);
         if (result?.data?.chatMessages) {
@@ -293,11 +297,7 @@ const ChatWith = () => {
               onChange={(e) => setInput(e.target.value)}
               value={input}
               aria-describedby="uidnote"
-              placeholder={
-                chatInfo?.adID
-                  ? "מספר המודעה הוא " + chatInfo.adID
-                  : "רשום את ההודעה שלך"
-              }
+              placeholder="רשום את ההודעה שלך"
               onKeyPress={handleBtnlistener}
             />
             <button className="button-4" id="send_btn" onClick={handleSubmit}>
