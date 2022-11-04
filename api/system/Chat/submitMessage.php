@@ -5,6 +5,17 @@ include_once(dirname(__FILE__) . DIRECTORY_SEPARATOR . $authPath);
 
 $CJSAESPath = "../../Authentication/DiffiHelman/CryptoAes.php";
 require_once(dirname(__FILE__) . DIRECTORY_SEPARATOR . $CJSAESPath);
+function updateContact($adId){
+  //update contacted for the ad
+    global $db;
+    global $DATA_OBJ;
+    global $arr;
+    $arr = [];
+    $count=0;
+    $query = "update ads set contact_counter=contact_counter+1 where adID ='{$adId}'";
+    $result = $db->writeDBNotStoredProcedure($query);
+    echo json_encode($result);
+}
 $secretKey = $user->getPrivateSharedKey();
 $arr = []; //for global scope var
 // our uuid
@@ -23,6 +34,9 @@ $arr['adId']=$DATA_OBJ->params->adId;
 // write our message to database
 $query = "insert into messages (msgid,sender,receiver,message,dateMsg,adId) values (:msgid,:alice,:chatWith,:message,NOW(),:adId)";
 $result=$db->writeDBNotStoredProcedure($query, $arr);
+if($arr['adId']!=""){
+  updateContact($arr['adId']);
+}
 // send back the message after we write the message in database
 $query = "select * from messages where msgid = :msgid limit 1";
 $a['msgid'] = $arr['msgid'];

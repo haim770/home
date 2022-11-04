@@ -20,7 +20,7 @@ const ChatWith = () => {
   const divRef = useRef();
   const inputRef = useRef();
   const [input, setInput] = useState(
-    chatInfo?.adID ? " מספר המודעה הוא " + chatInfo.adID : "רשום את ההודעה שלך"
+    chatInfo?.adID ? " מספר המודעה הוא " + chatInfo.adID : ""
   );
   const { auth } = useAuth();
 
