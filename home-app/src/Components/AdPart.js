@@ -40,7 +40,13 @@ const AdPart = (props) => {
             <Parameter
               key={props.ad[0].adID + key}
               paramName={hebrewKey}
-              paramValue={value.substring(0, value.indexOf(" "))}
+              paramValue={
+                value.substring(0, value.indexOf(" ")).split("-")[2] +
+                "/" +
+                value.substring(0, value.indexOf(" ")).split("-")[1] +
+                "/" +
+                value.substring(0, value.indexOf(" ")).split("-")[0]
+              }
             />
           );
           continue;

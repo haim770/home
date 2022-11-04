@@ -40,12 +40,12 @@ function AdById(props) {
       adID: data.ad[0].adID,
       key: data.ad[0].adID + data.user[0].uuid,
     };
-    const res = await instance.request({
-      data: {
-        data_type: "updateContacted",
-        params: { adID: props.adID }, //window.location.href gets the urlline
-      },
-    });
+    // const res = await instance.request({
+    //   data: {
+    //     data_type: "updateContacted",
+    //     params: { adID: props.adID }, //window.location.href gets the urlline
+    //   },
+    // });
     props.startNewChat(chatWith);
   };
   const editAd = (e) => {

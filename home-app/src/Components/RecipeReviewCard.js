@@ -25,7 +25,7 @@ import "../styles/RecipeReviewCard.css";
 const ExpandMore = styled((props) => {
   //the part for the ad content
   const { expand, ...other } = props;
-  const date=new Date();
+  const date = new Date();
   console.log(date.getDate());
   return <IconButton {...other} />;
 })(({ theme, expand }) => ({
@@ -99,7 +99,13 @@ export default function RecipeReviewCard(props) {
         subheader={
           <Parameter
             paramName="תאריך פג תוקף "
-            paramValue={props.adBlock.ad[0].expire_date}
+            paramValue={
+              props.adBlock.ad[0].expire_date.split(" ")[0].split("-")[2] +
+              "/" +
+              props.adBlock.ad[0].expire_date.split(" ")[0].split("-")[1] +
+              "/" +
+              props.adBlock.ad[0].expire_date.split(" ")[0].split("-")[0]
+            }
           />
         }
       />
