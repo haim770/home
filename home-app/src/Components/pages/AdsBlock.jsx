@@ -47,12 +47,12 @@ const AdsBlock = (props) => {
       uuid: props.adBlock.user[0].uuid,
       adID: props.adBlock.ad[0].adID,
     };
-    const res = await instance.request({
-      data: {
-        data_type: "updateContacted",
-        params: { adID: props.adBlock.ad[0].adID }, //window.location.href gets the urlline
-      },
-    });
+    // const res = await instance.request({
+    //   data: {
+    //     data_type: "updateContacted",
+    //     params: { adID: props.adBlock.ad[0].adID }, //window.location.href gets the urlline
+    //   },
+    // });
     startNewChat(chatWith);
   };
   const addItemToHistory = async (e) => {
